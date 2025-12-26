@@ -1,0 +1,25 @@
+# Nix
+result
+result-*
+.direnv/
+
+# Node.js / pnpm
+node_modules/
+.pnpm-store/
+
+# Rust
+target/
+Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated (keep chrome-api.json tracked for vendoring)
+# chrome-api.json
