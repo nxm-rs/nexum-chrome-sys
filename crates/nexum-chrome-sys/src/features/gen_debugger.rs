@@ -1,0 +1,280 @@
+#![allow(unused_imports)]
+#![allow(clippy::all)]
+use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Debuggee")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Debuggee identifier. Either tabId, extensionId or targetId must be specified
+    pub type Debuggee;
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &Debuggee) -> Option<i32>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &Debuggee, val: i32);
+    ///Get the `extensionId` field of this object.
+    #[wasm_bindgen(method, getter = "extensionId")]
+    pub fn get_extension_id(this: &Debuggee) -> Option<String>;
+    ///Change the `extensionId` field of this object.
+    #[wasm_bindgen(method, setter = "extensionId")]
+    pub fn set_extension_id(this: &Debuggee, val: String);
+    ///Get the `targetId` field of this object.
+    #[wasm_bindgen(method, getter = "targetId")]
+    pub fn get_target_id(this: &Debuggee) -> Option<String>;
+    ///Change the `targetId` field of this object.
+    #[wasm_bindgen(method, setter = "targetId")]
+    pub fn set_target_id(this: &Debuggee, val: String);
+}
+impl Debuggee {
+    ///Construct a new `Debuggee`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_extension_id()` instead."]
+    pub fn extension_id(&mut self, val: String) -> &mut Self {
+        self.set_extension_id(val);
+        self
+    }
+    #[deprecated = "Use `set_target_id()` instead."]
+    pub fn target_id(&mut self, val: String) -> &mut Self {
+        self.set_target_id(val);
+        self
+    }
+}
+impl Default for Debuggee {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DebuggerSession")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Debugger session identifier. One of tabId, extensionId or targetId must be specified. Additionally, an optional sessionId can be provided. If sessionId is specified for arguments sent from $(ref:onEvent), it means the event is coming from a child protocol session within the root debuggee session. If sessionId is specified when passed to $(ref:sendCommand), it targets a child protocol session within the root debuggee session.
+    pub type DebuggerSession;
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &DebuggerSession) -> Option<i32>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &DebuggerSession, val: i32);
+    ///Get the `sessionId` field of this object.
+    #[wasm_bindgen(method, getter = "sessionId")]
+    pub fn get_session_id(this: &DebuggerSession) -> Option<String>;
+    ///Change the `sessionId` field of this object.
+    #[wasm_bindgen(method, setter = "sessionId")]
+    pub fn set_session_id(this: &DebuggerSession, val: String);
+    ///Get the `targetId` field of this object.
+    #[wasm_bindgen(method, getter = "targetId")]
+    pub fn get_target_id(this: &DebuggerSession) -> Option<String>;
+    ///Change the `targetId` field of this object.
+    #[wasm_bindgen(method, setter = "targetId")]
+    pub fn set_target_id(this: &DebuggerSession, val: String);
+    ///Get the `extensionId` field of this object.
+    #[wasm_bindgen(method, getter = "extensionId")]
+    pub fn get_extension_id(this: &DebuggerSession) -> Option<String>;
+    ///Change the `extensionId` field of this object.
+    #[wasm_bindgen(method, setter = "extensionId")]
+    pub fn set_extension_id(this: &DebuggerSession, val: String);
+}
+impl DebuggerSession {
+    ///Construct a new `DebuggerSession`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_session_id()` instead."]
+    pub fn session_id(&mut self, val: String) -> &mut Self {
+        self.set_session_id(val);
+        self
+    }
+    #[deprecated = "Use `set_target_id()` instead."]
+    pub fn target_id(&mut self, val: String) -> &mut Self {
+        self.set_target_id(val);
+        self
+    }
+    #[deprecated = "Use `set_extension_id()` instead."]
+    pub fn extension_id(&mut self, val: String) -> &mut Self {
+        self.set_extension_id(val);
+        self
+    }
+}
+impl Default for DebuggerSession {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+///Target type.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TargetInfoType {
+    Page = "page",
+    BackgroundPage = "background_page",
+    Worker = "worker",
+    Other = "other",
+}
+#[wasm_bindgen]
+///Connection termination reason.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DetachReason {
+    TargetClosed = "target_closed",
+    CanceledByUser = "canceled_by_user",
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "TargetInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Debug target information
+    pub type TargetInfo;
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &TargetInfo) -> Option<i32>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &TargetInfo, val: i32);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &TargetInfo) -> TargetInfoType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &TargetInfo, val: TargetInfoType);
+    ///Get the `faviconUrl` field of this object.
+    #[wasm_bindgen(method, getter = "faviconUrl")]
+    pub fn get_favicon_url(this: &TargetInfo) -> Option<String>;
+    ///Change the `faviconUrl` field of this object.
+    #[wasm_bindgen(method, setter = "faviconUrl")]
+    pub fn set_favicon_url(this: &TargetInfo, val: String);
+    ///Get the `extensionId` field of this object.
+    #[wasm_bindgen(method, getter = "extensionId")]
+    pub fn get_extension_id(this: &TargetInfo) -> Option<String>;
+    ///Change the `extensionId` field of this object.
+    #[wasm_bindgen(method, setter = "extensionId")]
+    pub fn set_extension_id(this: &TargetInfo, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &TargetInfo) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &TargetInfo, val: String);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &TargetInfo) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &TargetInfo, val: String);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &TargetInfo) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &TargetInfo, val: String);
+    ///Get the `attached` field of this object.
+    #[wasm_bindgen(method, getter = "attached")]
+    pub fn get_attached(this: &TargetInfo) -> bool;
+    ///Change the `attached` field of this object.
+    #[wasm_bindgen(method, setter = "attached")]
+    pub fn set_attached(this: &TargetInfo, val: bool);
+}
+impl TargetInfo {
+    ///Construct a new `TargetInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: TargetInfoType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_favicon_url()` instead."]
+    pub fn favicon_url(&mut self, val: String) -> &mut Self {
+        self.set_favicon_url(val);
+        self
+    }
+    #[deprecated = "Use `set_extension_id()` instead."]
+    pub fn extension_id(&mut self, val: String) -> &mut Self {
+        self.set_extension_id(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_attached()` instead."]
+    pub fn attached(&mut self, val: bool) -> &mut Self {
+        self.set_attached(val);
+        self
+    }
+}
+impl Default for TargetInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    ///Attaches debugger to the given target.
+    #[wasm_bindgen(js_namespace = ["chrome", "debugger"], js_name = "attach")]
+    pub fn attach(target: Debuggee, required_version: String) -> Promise;
+    ///Detaches debugger from the given target.
+    #[wasm_bindgen(js_namespace = ["chrome", "debugger"], js_name = "detach")]
+    pub fn detach(target: Debuggee) -> Promise;
+    ///Sends given command to the debugging target.
+    #[wasm_bindgen(js_namespace = ["chrome", "debugger"], js_name = "sendCommand")]
+    pub fn send_command(
+        target: DebuggerSession,
+        method: String,
+        command_params: Option<Object>,
+    ) -> Promise;
+    ///Returns the list of available debug targets.
+    #[wasm_bindgen(js_namespace = ["chrome", "debugger"], js_name = "getTargets")]
+    pub fn get_targets() -> Promise;
+    ///Fired whenever debugging target issues instrumentation event.
+    #[wasm_bindgen(
+        js_namespace = ["chrome",
+        "debugger",
+        "onEvent"],
+        js_name = "addListener"
+    )]
+    pub fn on_event_add_listener(callback: &Function);
+    ///Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab.
+    #[wasm_bindgen(
+        js_namespace = ["chrome",
+        "debugger",
+        "onDetach"],
+        js_name = "addListener"
+    )]
+    pub fn on_detach_add_listener(callback: &Function);
+}

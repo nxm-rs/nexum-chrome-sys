@@ -1,5 +1,5 @@
 {
-  description = "chrome-sys - Rust bindings for Chrome Extension APIs";
+  description = "nexum-chrome-sys - Rust bindings for Chrome Extension APIs";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -43,7 +43,7 @@
           ];
 
           shellHook = ''
-            echo "chrome-sys development environment"
+            echo "nexum-chrome-sys development environment"
             echo "  Rust: $(rustc --version)"
             echo "  Node: $(node --version)"
             echo "  pnpm: $(pnpm --version)"
