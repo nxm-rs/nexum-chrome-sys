@@ -1,6 +1,0 @@
-[submodule "wasm-bindgen"]
-	path = wasm-bindgen
-	url = https://github.com/rustwasm/wasm-bindgen
-[submodule "chrome-types"]
-	path = chrome-types
-	url = https://github.com/GoogleChrome/chrome-types
