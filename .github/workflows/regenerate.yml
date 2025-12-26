@@ -1,0 +1,60 @@
+name: Regenerate Chrome API Bindings
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight UTC
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Clone chrome-types
+        run: git clone --depth 1 https://github.com/GoogleChrome/chrome-types.git chrome-types
+
+      - name: Install chrome-types dependencies
+        run: nix develop --command sh -c "cd chrome-types && pnpm install"
+
+      - name: Generate chrome-api.json
+        run: nix develop --command sh -c "cd chrome-types && node tools/prepare.js > ../chrome-api.json"
+
+      - name: Generate Rust bindings
+        run: nix develop --command cargo run -p nexum-chrome-sys-gen -- -i chrome-api.json -o crates/nexum-chrome-sys
+
+      - name: Run clippy
+        run: nix develop --command cargo clippy --package nexum-chrome-sys --all-features -- -D warnings
+
+      - name: Cleanup chrome-types
+        run: rm -rf chrome-types
+
+      - name: Check for changes
+        id: check
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "chore: regenerate Chrome API bindings"
+          body: |
+            Automated regeneration of Chrome API bindings from latest chrome-types.
+
+            This PR was automatically created by the regenerate workflow.
+          branch: regenerate-bindings
+          commit-message: "chore: regenerate Chrome API bindings"
+          delete-branch: true

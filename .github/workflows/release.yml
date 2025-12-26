@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 0.1.0)'
+        required: true
+        type: string
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Check formatting
+        run: nix develop --command cargo fmt --all -- --check
+
+      - name: Clippy
+        run: nix develop --command cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Build
+        run: nix develop --command cargo build --package nexum-chrome-sys --all-features
+
+      - name: Test
+        run: nix develop --command cargo test --all
+
+      - name: Publish nexum-chrome-sys-gen to crates.io
+        run: nix develop --command cargo publish --package nexum-chrome-sys-gen --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        continue-on-error: true  # May already be published
+
+      - name: Publish nexum-chrome-sys to crates.io
+        run: nix develop --command cargo publish --package nexum-chrome-sys --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          generate_release_notes: true
+          body: |
+            ## nexum-chrome-sys ${{ github.ref_name }}
+
+            Rust bindings for Chrome Extension APIs.
+
+            ### Installation
+
+            ```toml
+            [dependencies]
+            nexum-chrome-sys = { version = "${{ github.ref_name }}", features = ["tabs", "runtime", "storage"] }
+            ```
+
+            See the [documentation](https://docs.rs/nexum-chrome-sys) for usage examples.
