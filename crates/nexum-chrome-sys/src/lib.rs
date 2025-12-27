@@ -11,4 +11,5 @@
 //! ```
 
 mod features;
+#[allow(unused_imports)]
 pub use features::*;
