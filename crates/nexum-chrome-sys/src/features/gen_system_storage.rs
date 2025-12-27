@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -48,9 +48,7 @@ impl StorageUnitInfo {
     ///Construct a new `StorageUnitInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_capacity()` instead."]
@@ -102,9 +100,7 @@ impl StorageAvailableCapacityInfo {
     ///Construct a new `StorageAvailableCapacityInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_available_capacity()` instead."]

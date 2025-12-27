@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The style type.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -47,9 +47,7 @@ impl MatchClassification {
     ///Construct a new `MatchClassification`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_length()` instead."]
@@ -108,9 +106,7 @@ impl Action {
     ///Construct a new `Action`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_icon()` instead."]
@@ -186,9 +182,7 @@ impl SuggestResult {
     ///Construct a new `SuggestResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_actions()` instead."]
@@ -250,9 +244,7 @@ impl DefaultSuggestResult {
     ///Construct a new `DefaultSuggestResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -294,9 +286,7 @@ impl ActionExecution {
     ///Construct a new `ActionExecution`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_action_name()` instead."]

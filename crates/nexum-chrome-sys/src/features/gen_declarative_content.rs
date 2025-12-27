@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -69,9 +69,7 @@ impl PageStateMatcher {
     ///Construct a new `PageStateMatcher`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_css()` instead."]
@@ -118,9 +116,7 @@ impl ShowPageAction {
     ///Construct a new `ShowPageAction`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -151,9 +147,7 @@ impl ShowAction {
     ///Construct a new `ShowAction`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -190,9 +184,7 @@ impl SetIcon {
     ///Construct a new `SetIcon`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_image_data()` instead."]
@@ -231,15 +223,10 @@ extern "C" {
     pub fn set_css(this: &RequestContentScript, val: &Array);
     ///Get the `instanceType` field of this object.
     #[wasm_bindgen(method, getter = "instanceType")]
-    pub fn get_instance_type(
-        this: &RequestContentScript,
-    ) -> RequestContentScriptInstanceType;
+    pub fn get_instance_type(this: &RequestContentScript) -> RequestContentScriptInstanceType;
     ///Change the `instanceType` field of this object.
     #[wasm_bindgen(method, setter = "instanceType")]
-    pub fn set_instance_type(
-        this: &RequestContentScript,
-        val: RequestContentScriptInstanceType,
-    );
+    pub fn set_instance_type(this: &RequestContentScript, val: RequestContentScriptInstanceType);
     ///Get the `js` field of this object.
     #[wasm_bindgen(method, getter = "js")]
     pub fn get_js(this: &RequestContentScript) -> Option<Array>;
@@ -257,9 +244,7 @@ impl RequestContentScript {
     ///Construct a new `RequestContentScript`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]

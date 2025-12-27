@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -24,7 +24,8 @@ pub enum RedirectRequestInstanceType {
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum RedirectToTransparentImageInstanceType {
-    DeclarativeWebRequestRedirectToTransparentImage = "declarativeWebRequest.RedirectToTransparentImage",
+    DeclarativeWebRequestRedirectToTransparentImage =
+        "declarativeWebRequest.RedirectToTransparentImage",
 }
 #[wasm_bindgen]
 ///
@@ -178,9 +179,7 @@ impl HeaderFilter {
     ///Construct a new `HeaderFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_name_contains()` instead."]
@@ -268,10 +267,7 @@ extern "C" {
     #[cfg(feature = "events")]
     ///Change the `firstPartyForCookiesUrl` field of this object.
     #[wasm_bindgen(method, setter = "firstPartyForCookiesUrl")]
-    pub fn set_first_party_for_cookies_url(
-        this: &RequestMatcher,
-        val: super::events::UrlFilter,
-    );
+    pub fn set_first_party_for_cookies_url(this: &RequestMatcher, val: super::events::UrlFilter);
     ///Get the `instanceType` field of this object.
     #[wasm_bindgen(method, getter = "instanceType")]
     pub fn get_instance_type(this: &RequestMatcher) -> RequestMatcherInstanceType;
@@ -321,9 +317,7 @@ impl RequestMatcher {
     ///Construct a new `RequestMatcher`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_content_type()` instead."]
@@ -348,10 +342,7 @@ impl RequestMatcher {
     }
     #[cfg(feature = "events")]
     #[deprecated = "Use `set_first_party_for_cookies_url()` instead."]
-    pub fn first_party_for_cookies_url(
-        &mut self,
-        val: super::events::UrlFilter,
-    ) -> &mut Self {
+    pub fn first_party_for_cookies_url(&mut self, val: super::events::UrlFilter) -> &mut Self {
         self.set_first_party_for_cookies_url(val);
         self
     }
@@ -414,9 +405,7 @@ impl CancelRequest {
     ///Construct a new `CancelRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -453,9 +442,7 @@ impl RedirectRequest {
     ///Construct a new `RedirectRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -499,16 +486,11 @@ impl DeclarativeWebRequestRedirectToTransparentImage {
     ///Construct a new `DeclarativeWebRequestRedirectToTransparentImage`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
-    pub fn instance_type(
-        &mut self,
-        val: RedirectToTransparentImageInstanceType,
-    ) -> &mut Self {
+    pub fn instance_type(&mut self, val: RedirectToTransparentImageInstanceType) -> &mut Self {
         self.set_instance_type(val);
         self
     }
@@ -543,16 +525,11 @@ impl DeclarativeWebRequestRedirectToEmptyDocument {
     ///Construct a new `DeclarativeWebRequestRedirectToEmptyDocument`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
-    pub fn instance_type(
-        &mut self,
-        val: RedirectToEmptyDocumentInstanceType,
-    ) -> &mut Self {
+    pub fn instance_type(&mut self, val: RedirectToEmptyDocumentInstanceType) -> &mut Self {
         self.set_instance_type(val);
         self
     }
@@ -599,9 +576,7 @@ impl DeclarativeWebRequestRedirectByRegEx {
     ///Construct a new `DeclarativeWebRequestRedirectByRegEx`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_from()` instead."]
@@ -662,9 +637,7 @@ impl DeclarativeWebRequestSetRequestHeader {
     ///Construct a new `DeclarativeWebRequestSetRequestHeader`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -719,9 +692,7 @@ impl DeclarativeWebRequestRemoveRequestHeader {
     ///Construct a new `DeclarativeWebRequestRemoveRequestHeader`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -777,9 +748,7 @@ impl DeclarativeWebRequestAddResponseHeader {
     ///Construct a new `DeclarativeWebRequestAddResponseHeader`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -840,9 +809,7 @@ impl DeclarativeWebRequestRemoveResponseHeader {
     ///Construct a new `DeclarativeWebRequestRemoveResponseHeader`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
@@ -883,20 +850,13 @@ extern "C" {
     pub fn set_has_tag(this: &DeclarativeWebRequestIgnoreRules, val: String);
     ///Get the `instanceType` field of this object.
     #[wasm_bindgen(method, getter = "instanceType")]
-    pub fn get_instance_type(
-        this: &DeclarativeWebRequestIgnoreRules,
-    ) -> IgnoreRulesInstanceType;
+    pub fn get_instance_type(this: &DeclarativeWebRequestIgnoreRules) -> IgnoreRulesInstanceType;
     ///Change the `instanceType` field of this object.
     #[wasm_bindgen(method, setter = "instanceType")]
-    pub fn set_instance_type(
-        this: &DeclarativeWebRequestIgnoreRules,
-        val: IgnoreRulesInstanceType,
-    );
+    pub fn set_instance_type(this: &DeclarativeWebRequestIgnoreRules, val: IgnoreRulesInstanceType);
     ///Get the `lowerPriorityThan` field of this object.
     #[wasm_bindgen(method, getter = "lowerPriorityThan")]
-    pub fn get_lower_priority_than(
-        this: &DeclarativeWebRequestIgnoreRules,
-    ) -> Option<i32>;
+    pub fn get_lower_priority_than(this: &DeclarativeWebRequestIgnoreRules) -> Option<i32>;
     ///Change the `lowerPriorityThan` field of this object.
     #[wasm_bindgen(method, setter = "lowerPriorityThan")]
     pub fn set_lower_priority_than(this: &DeclarativeWebRequestIgnoreRules, val: i32);
@@ -905,9 +865,7 @@ impl DeclarativeWebRequestIgnoreRules {
     ///Construct a new `DeclarativeWebRequestIgnoreRules`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_has_tag()` instead."]
@@ -962,16 +920,11 @@ impl DeclarativeWebRequestSendMessageToExtension {
     ///Construct a new `DeclarativeWebRequestSendMessageToExtension`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_type()` instead."]
-    pub fn instance_type(
-        &mut self,
-        val: SendMessageToExtensionInstanceType,
-    ) -> &mut Self {
+    pub fn instance_type(&mut self, val: SendMessageToExtensionInstanceType) -> &mut Self {
         self.set_instance_type(val);
         self
     }
@@ -1012,9 +965,7 @@ impl DeclarativeWebRequestRequestCookie {
     ///Construct a new `DeclarativeWebRequestRequestCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -1095,9 +1046,7 @@ impl DeclarativeWebRequestResponseCookie {
     ///Construct a new `DeclarativeWebRequestResponseCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_domain()` instead."]
@@ -1157,47 +1106,31 @@ extern "C" {
     pub type DeclarativeWebRequestFilterResponseCookie;
     ///Get the `ageLowerBound` field of this object.
     #[wasm_bindgen(method, getter = "ageLowerBound")]
-    pub fn get_age_lower_bound(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<i32>;
+    pub fn get_age_lower_bound(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<i32>;
     ///Change the `ageLowerBound` field of this object.
     #[wasm_bindgen(method, setter = "ageLowerBound")]
-    pub fn set_age_lower_bound(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-        val: i32,
-    );
+    pub fn set_age_lower_bound(this: &DeclarativeWebRequestFilterResponseCookie, val: i32);
     ///Get the `ageUpperBound` field of this object.
     #[wasm_bindgen(method, getter = "ageUpperBound")]
-    pub fn get_age_upper_bound(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<i32>;
+    pub fn get_age_upper_bound(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<i32>;
     ///Change the `ageUpperBound` field of this object.
     #[wasm_bindgen(method, setter = "ageUpperBound")]
-    pub fn set_age_upper_bound(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-        val: i32,
-    );
+    pub fn set_age_upper_bound(this: &DeclarativeWebRequestFilterResponseCookie, val: i32);
     ///Get the `domain` field of this object.
     #[wasm_bindgen(method, getter = "domain")]
-    pub fn get_domain(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<String>;
+    pub fn get_domain(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<String>;
     ///Change the `domain` field of this object.
     #[wasm_bindgen(method, setter = "domain")]
     pub fn set_domain(this: &DeclarativeWebRequestFilterResponseCookie, val: String);
     ///Get the `expires` field of this object.
     #[wasm_bindgen(method, getter = "expires")]
-    pub fn get_expires(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<String>;
+    pub fn get_expires(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<String>;
     ///Change the `expires` field of this object.
     #[wasm_bindgen(method, setter = "expires")]
     pub fn set_expires(this: &DeclarativeWebRequestFilterResponseCookie, val: String);
     ///Get the `httpOnly` field of this object.
     #[wasm_bindgen(method, getter = "httpOnly")]
-    pub fn get_http_only(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<String>;
+    pub fn get_http_only(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<String>;
     ///Change the `httpOnly` field of this object.
     #[wasm_bindgen(method, setter = "httpOnly")]
     pub fn set_http_only(this: &DeclarativeWebRequestFilterResponseCookie, val: String);
@@ -1221,23 +1154,16 @@ extern "C" {
     pub fn set_path(this: &DeclarativeWebRequestFilterResponseCookie, val: String);
     ///Get the `secure` field of this object.
     #[wasm_bindgen(method, getter = "secure")]
-    pub fn get_secure(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<String>;
+    pub fn get_secure(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<String>;
     ///Change the `secure` field of this object.
     #[wasm_bindgen(method, setter = "secure")]
     pub fn set_secure(this: &DeclarativeWebRequestFilterResponseCookie, val: String);
     ///Get the `sessionCookie` field of this object.
     #[wasm_bindgen(method, getter = "sessionCookie")]
-    pub fn get_session_cookie(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> Option<bool>;
+    pub fn get_session_cookie(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<bool>;
     ///Change the `sessionCookie` field of this object.
     #[wasm_bindgen(method, setter = "sessionCookie")]
-    pub fn set_session_cookie(
-        this: &DeclarativeWebRequestFilterResponseCookie,
-        val: bool,
-    );
+    pub fn set_session_cookie(this: &DeclarativeWebRequestFilterResponseCookie, val: bool);
     ///Get the `value` field of this object.
     #[wasm_bindgen(method, getter = "value")]
     pub fn get_value(this: &DeclarativeWebRequestFilterResponseCookie) -> Option<String>;
@@ -1249,9 +1175,7 @@ impl DeclarativeWebRequestFilterResponseCookie {
     ///Construct a new `DeclarativeWebRequestFilterResponseCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_age_lower_bound()` instead."]
@@ -1351,9 +1275,7 @@ impl DeclarativeWebRequestAddRequestCookie {
     ///Construct a new `DeclarativeWebRequestAddRequestCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cookie()` instead."]
@@ -1408,9 +1330,7 @@ impl DeclarativeWebRequestAddResponseCookie {
     ///Construct a new `DeclarativeWebRequestAddResponseCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cookie()` instead."]
@@ -1476,9 +1396,7 @@ impl DeclarativeWebRequestEditRequestCookie {
     ///Construct a new `DeclarativeWebRequestEditRequestCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filter()` instead."]
@@ -1492,10 +1410,7 @@ impl DeclarativeWebRequestEditRequestCookie {
         self
     }
     #[deprecated = "Use `set_modification()` instead."]
-    pub fn modification(
-        &mut self,
-        val: &DeclarativeWebRequestRequestCookie,
-    ) -> &mut Self {
+    pub fn modification(&mut self, val: &DeclarativeWebRequestRequestCookie) -> &mut Self {
         self.set_modification(val);
         self
     }
@@ -1552,16 +1467,11 @@ impl DeclarativeWebRequestEditResponseCookie {
     ///Construct a new `DeclarativeWebRequestEditResponseCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filter()` instead."]
-    pub fn filter(
-        &mut self,
-        val: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> &mut Self {
+    pub fn filter(&mut self, val: &DeclarativeWebRequestFilterResponseCookie) -> &mut Self {
         self.set_filter(val);
         self
     }
@@ -1571,10 +1481,7 @@ impl DeclarativeWebRequestEditResponseCookie {
         self
     }
     #[deprecated = "Use `set_modification()` instead."]
-    pub fn modification(
-        &mut self,
-        val: &DeclarativeWebRequestResponseCookie,
-    ) -> &mut Self {
+    pub fn modification(&mut self, val: &DeclarativeWebRequestResponseCookie) -> &mut Self {
         self.set_modification(val);
         self
     }
@@ -1620,9 +1527,7 @@ impl DeclarativeWebRequestRemoveRequestCookie {
     ///Construct a new `DeclarativeWebRequestRemoveRequestCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filter()` instead."]
@@ -1677,16 +1582,11 @@ impl DeclarativeWebRequestRemoveResponseCookie {
     ///Construct a new `DeclarativeWebRequestRemoveResponseCookie`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filter()` instead."]
-    pub fn filter(
-        &mut self,
-        val: &DeclarativeWebRequestFilterResponseCookie,
-    ) -> &mut Self {
+    pub fn filter(&mut self, val: &DeclarativeWebRequestFilterResponseCookie) -> &mut Self {
         self.set_filter(val);
         self
     }

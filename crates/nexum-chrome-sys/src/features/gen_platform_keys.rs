@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Match")]
@@ -25,9 +25,7 @@ impl Match {
     ///Construct a new `Match`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_certificate()` instead."]
@@ -76,9 +74,7 @@ impl ClientCertificateRequest {
     ///Construct a new `ClientCertificateRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_certificate_authorities()` instead."]
@@ -126,9 +122,7 @@ impl SelectDetails {
     ///Construct a new `SelectDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_client_certs()` instead."]
@@ -175,9 +169,7 @@ impl VerificationDetails {
     ///Construct a new `VerificationDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_hostname()` instead."]
@@ -219,9 +211,7 @@ impl VerificationResult {
     ///Construct a new `VerificationResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_debug_errors()` instead."]
@@ -251,10 +241,7 @@ extern "C" {
     pub fn select_client_certificates(details: SelectDetails) -> Promise;
     ///Passes the key pair of certificate for usage with $(ref:platformKeys.subtleCrypto) to callback.
     #[wasm_bindgen(js_namespace = ["chrome", "platformKeys"], js_name = "getKeyPair")]
-    pub fn get_key_pair(
-        certificate: ::js_sys::ArrayBuffer,
-        parameters: Object,
-    ) -> Promise;
+    pub fn get_key_pair(certificate: ::js_sys::ArrayBuffer, parameters: Object) -> Promise;
     ///Passes the key pair identified by publicKeySpkiDer for usage with $(ref:platformKeys.subtleCrypto) to callback.
     #[wasm_bindgen(
         js_namespace = ["chrome",

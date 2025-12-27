@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SamlUserSessionProperties")]
@@ -37,9 +37,7 @@ impl SamlUserSessionProperties {
     ///Construct a new `SamlUserSessionProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_email()` instead."]
@@ -136,9 +134,7 @@ extern "C" {
         "login"],
         js_name = "setDataForNextLoginAttempt"
     )]
-    pub fn set_data_for_next_login_attempt(
-        data_for_next_login_attempt: String,
-    ) -> Promise;
+    pub fn set_data_for_next_login_attempt(data_for_next_login_attempt: String) -> Promise;
     ///Dispatches a $(ref:onRequestExternalLogout) event. Called from the login screen extension on the lock screen.
     #[wasm_bindgen(
         js_namespace = ["chrome",

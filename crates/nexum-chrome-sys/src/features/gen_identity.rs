@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AccountInfo")]
@@ -19,9 +19,7 @@ impl AccountInfo {
     ///Construct a new `AccountInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_id()` instead."]
@@ -61,9 +59,7 @@ impl ProfileDetails {
     ///Construct a new `ProfileDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_account_status()` instead."]
@@ -100,9 +96,7 @@ impl ProfileUserInfo {
     ///Construct a new `ProfileUserInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_email()` instead."]
@@ -156,9 +150,7 @@ impl TokenDetails {
     ///Construct a new `TokenDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_account()` instead."]
@@ -204,9 +196,7 @@ impl InvalidTokenDetails {
     ///Construct a new `InvalidTokenDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_token()` instead."]
@@ -228,9 +218,7 @@ extern "C" {
     pub type WebAuthFlowDetails;
     ///Get the `abortOnLoadForNonInteractive` field of this object.
     #[wasm_bindgen(method, getter = "abortOnLoadForNonInteractive")]
-    pub fn get_abort_on_load_for_non_interactive(
-        this: &WebAuthFlowDetails,
-    ) -> Option<bool>;
+    pub fn get_abort_on_load_for_non_interactive(this: &WebAuthFlowDetails) -> Option<bool>;
     ///Change the `abortOnLoadForNonInteractive` field of this object.
     #[wasm_bindgen(method, setter = "abortOnLoadForNonInteractive")]
     pub fn set_abort_on_load_for_non_interactive(this: &WebAuthFlowDetails, val: bool);
@@ -257,9 +245,7 @@ impl WebAuthFlowDetails {
     ///Construct a new `WebAuthFlowDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_abort_on_load_for_non_interactive()` instead."]
@@ -311,9 +297,7 @@ impl GetAuthTokenResult {
     ///Construct a new `GetAuthTokenResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_granted_scopes()` instead."]

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HeaderNameValuePair")]
@@ -25,9 +25,7 @@ impl HeaderNameValuePair {
     ///Construct a new `HeaderNameValuePair`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -62,9 +60,7 @@ extern "C" {
     pub type FilenameSuggestion;
     ///Get the `conflictAction` field of this object.
     #[wasm_bindgen(method, getter = "conflictAction")]
-    pub fn get_conflict_action(
-        this: &FilenameSuggestion,
-    ) -> Option<FilenameConflictAction>;
+    pub fn get_conflict_action(this: &FilenameSuggestion) -> Option<FilenameConflictAction>;
     ///Change the `conflictAction` field of this object.
     #[wasm_bindgen(method, setter = "conflictAction")]
     pub fn set_conflict_action(this: &FilenameSuggestion, val: FilenameConflictAction);
@@ -79,9 +75,7 @@ impl FilenameSuggestion {
     ///Construct a new `FilenameSuggestion`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_conflict_action()` instead."]
@@ -194,9 +188,7 @@ impl DownloadOptions {
     ///Construct a new `DownloadOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_body()` instead."]
@@ -423,9 +415,7 @@ impl DownloadItem {
     ///Construct a new `DownloadItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_by_extension_id()` instead."]
@@ -712,9 +702,7 @@ impl DownloadQuery {
     ///Construct a new `DownloadQuery`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_bytes_received()` instead."]
@@ -881,9 +869,7 @@ impl StringDelta {
     ///Construct a new `StringDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_current()` instead."]
@@ -925,9 +911,7 @@ impl DoubleDelta {
     ///Construct a new `DoubleDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_current()` instead."]
@@ -969,9 +953,7 @@ impl BooleanDelta {
     ///Construct a new `BooleanDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_current()` instead."]
@@ -1091,9 +1073,7 @@ impl DownloadDelta {
     ///Construct a new `DownloadDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_can_resume()` instead."]
@@ -1194,9 +1174,7 @@ impl GetFileIconOptions {
     ///Construct a new `GetFileIconOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_size()` instead."]
@@ -1227,9 +1205,7 @@ impl UiOptions {
     ///Construct a new `UiOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_enabled()` instead."]
@@ -1262,10 +1238,7 @@ extern "C" {
     pub fn cancel(download_id: i32) -> Promise;
     ///Retrieve an icon for the specified download. For new downloads, file icons are available after the $(ref:onCreated) event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, $(ref:runtime.lastError) will contain an error message.
     #[wasm_bindgen(js_namespace = ["chrome", "downloads"], js_name = "getFileIcon")]
-    pub fn get_file_icon(
-        download_id: i32,
-        options: Option<GetFileIconOptions>,
-    ) -> Promise;
+    pub fn get_file_icon(download_id: i32, options: Option<GetFileIconOptions>) -> Promise;
     ///Opens the downloaded file now if the $(ref:DownloadItem) is complete; otherwise returns an error through $(ref:runtime.lastError). This method requires the "downloads.open" permission in addition to the "downloads" permission. An $(ref:onChanged) event fires when the item is opened for the first time. This method can only be called in response to a user gesture.
     #[wasm_bindgen(js_namespace = ["chrome", "downloads"], js_name = "open")]
     pub fn open(download_id: i32) -> Promise;

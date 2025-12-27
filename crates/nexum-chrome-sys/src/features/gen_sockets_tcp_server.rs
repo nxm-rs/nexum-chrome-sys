@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SocketProperties")]
@@ -25,9 +25,7 @@ impl SocketProperties {
     ///Construct a new `SocketProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -63,9 +61,7 @@ impl CreateInfo {
     ///Construct a new `CreateInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_socket_id()` instead."]
@@ -126,9 +122,7 @@ impl SocketInfo {
     ///Construct a new `SocketInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_local_address()` instead."]
@@ -190,9 +184,7 @@ impl AcceptInfo {
     ///Construct a new `AcceptInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_client_socket_id()` instead."]
@@ -234,9 +226,7 @@ impl AcceptErrorInfo {
     ///Construct a new `AcceptErrorInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_result_code()` instead."]
@@ -288,12 +278,7 @@ extern "C" {
         "tcpServer"],
         js_name = "listen"
     )]
-    pub fn listen(
-        socket_id: i32,
-        address: String,
-        port: i32,
-        backlog: Option<i32>,
-    ) -> Promise;
+    pub fn listen(socket_id: i32, address: String, port: i32, backlog: Option<i32>) -> Promise;
     ///Disconnects the listening socket, i.e. stops accepting new connections and releases the address/port the socket is bound to. The socket identifier remains valid, e.g. it can be used with listen to accept connections on a new port and address.
     #[wasm_bindgen(
         js_namespace = ["chrome",

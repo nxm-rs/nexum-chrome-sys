@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ContentScript")]
@@ -73,9 +73,7 @@ extern "C" {
     #[cfg(feature = "extension_types")]
     ///Get the `world` field of this object.
     #[wasm_bindgen(method, getter = "world")]
-    pub fn get_world(
-        this: &ContentScript,
-    ) -> Option<super::extension_types::ExecutionWorld>;
+    pub fn get_world(this: &ContentScript) -> Option<super::extension_types::ExecutionWorld>;
     #[cfg(feature = "extension_types")]
     ///Change the `world` field of this object.
     #[wasm_bindgen(method, setter = "world")]
@@ -85,9 +83,7 @@ impl ContentScript {
     ///Construct a new `ContentScript`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]

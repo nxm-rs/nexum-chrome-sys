@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The tab's loading status.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -50,9 +50,7 @@ impl MutedInfo {
     ///Construct a new `MutedInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_extension_id()` instead."]
@@ -237,9 +235,7 @@ impl Tab {
     ///Construct a new `Tab`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -422,9 +418,7 @@ impl ZoomSettings {
     ///Construct a new `ZoomSettings`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_default_zoom_factor()` instead."]
@@ -475,11 +469,7 @@ extern "C" {
     pub fn send_request(tab_id: i32, request: JsValue) -> Promise;
     ///Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The $(ref:runtime.onMessage) event is fired in each content script running in the specified tab for the current extension.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "sendMessage")]
-    pub fn send_message(
-        tab_id: i32,
-        message: JsValue,
-        options: Option<Object>,
-    ) -> Promise;
+    pub fn send_message(tab_id: i32, message: JsValue, options: Option<Object>) -> Promise;
     ///Gets the tab that is selected in the specified window.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "getSelected")]
     pub fn get_selected(window_id: Option<i32>) -> Promise;
@@ -555,10 +545,7 @@ extern "C" {
     pub fn get_zoom(tab_id: Option<i32>) -> Promise;
     ///Sets the zoom settings for a specified tab, which define how zoom changes are handled. These settings are reset to defaults upon navigating the tab.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "setZoomSettings")]
-    pub fn set_zoom_settings(
-        tab_id: Option<i32>,
-        zoom_settings: ZoomSettings,
-    ) -> Promise;
+    pub fn set_zoom_settings(tab_id: Option<i32>, zoom_settings: ZoomSettings) -> Promise;
     ///Gets the current zoom settings of a specified tab.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "getZoomSettings")]
     pub fn get_zoom_settings(tab_id: Option<i32>) -> Promise;

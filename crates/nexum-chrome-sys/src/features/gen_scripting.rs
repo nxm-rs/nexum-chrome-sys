@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The origin for a style change. See style origins for more info.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -53,9 +53,7 @@ impl InjectionTarget {
     ///Construct a new `InjectionTarget`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]
@@ -137,9 +135,7 @@ impl ScriptInjection {
     ///Construct a new `ScriptInjection`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_args()` instead."]
@@ -218,9 +214,7 @@ impl CssInjection {
     ///Construct a new `CssInjection`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_css()` instead."]
@@ -278,9 +272,7 @@ impl InjectionResult {
     ///Construct a new `InjectionResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_document_id()` instead."]
@@ -361,16 +353,11 @@ extern "C" {
     #[cfg(feature = "extension_types")]
     ///Get the `runAt` field of this object.
     #[wasm_bindgen(method, getter = "runAt")]
-    pub fn get_run_at(
-        this: &RegisteredContentScript,
-    ) -> Option<super::extension_types::RunAt>;
+    pub fn get_run_at(this: &RegisteredContentScript) -> Option<super::extension_types::RunAt>;
     #[cfg(feature = "extension_types")]
     ///Change the `runAt` field of this object.
     #[wasm_bindgen(method, setter = "runAt")]
-    pub fn set_run_at(
-        this: &RegisteredContentScript,
-        val: super::extension_types::RunAt,
-    );
+    pub fn set_run_at(this: &RegisteredContentScript, val: super::extension_types::RunAt);
     ///Get the `world` field of this object.
     #[wasm_bindgen(method, getter = "world")]
     pub fn get_world(this: &RegisteredContentScript) -> Option<ExecutionWorld>;
@@ -382,9 +369,7 @@ impl RegisteredContentScript {
     ///Construct a new `RegisteredContentScript`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]
@@ -461,9 +446,7 @@ impl ContentScriptFilter {
     ///Construct a new `ContentScriptFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_ids()` instead."]
@@ -501,9 +484,7 @@ extern "C" {
         "scripting"],
         js_name = "getRegisteredContentScripts"
     )]
-    pub fn get_registered_content_scripts(
-        filter: Option<ContentScriptFilter>,
-    ) -> Promise;
+    pub fn get_registered_content_scripts(filter: Option<ContentScriptFilter>) -> Promise;
     ///Unregisters content scripts for this extension.
     #[wasm_bindgen(
         js_namespace = ["chrome",

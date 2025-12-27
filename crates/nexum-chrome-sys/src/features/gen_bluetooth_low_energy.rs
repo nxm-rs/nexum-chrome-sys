@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Values representing the possible properties of a characteristic. Characteristic permissions are inferred from these properties. Please see the Bluetooth 4.x spec to see the meaning of each individual property.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -68,9 +68,7 @@ impl Device {
     ///Construct a new `Device`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_address()` instead."]
@@ -129,9 +127,7 @@ impl Service {
     ///Construct a new `Service`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_device_address()` instead."]
@@ -201,9 +197,7 @@ impl Characteristic {
     ///Construct a new `Characteristic`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_instance_id()` instead."]
@@ -278,9 +272,7 @@ impl Descriptor {
     ///Construct a new `Descriptor`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_characteristic()` instead."]
@@ -331,9 +323,7 @@ impl ConnectProperties {
     ///Construct a new `ConnectProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_persistent()` instead."]
@@ -364,9 +354,7 @@ impl NotificationProperties {
     ///Construct a new `NotificationProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_persistent()` instead."]
@@ -403,9 +391,7 @@ impl ManufacturerData {
     ///Construct a new `ManufacturerData`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -447,9 +433,7 @@ impl ServiceData {
     ///Construct a new `ServiceData`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -509,9 +493,7 @@ impl Advertisement {
     ///Construct a new `Advertisement`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_manufacturer_data()` instead."]
@@ -574,9 +556,7 @@ impl Request {
     ///Construct a new `Request`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_device()` instead."]
@@ -629,9 +609,7 @@ impl Response {
     ///Construct a new `Response`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_is_error()` instead."]
@@ -678,9 +656,7 @@ impl Notification {
     ///Construct a new `Notification`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_should_indicate()` instead."]
@@ -703,10 +679,7 @@ impl Default for Notification {
 extern "C" {
     ///Establishes a connection between the application and the device with the given address. A device may be already connected and its GATT services available without calling connect, however, an app that wants to access GATT services of a device should call this function to make sure that a connection to the device is maintained. If the device is not connected, all GATT services of the device will be discovered after a successful call to connect.
     #[wasm_bindgen(js_namespace = ["chrome", "bluetoothLowEnergy"], js_name = "connect")]
-    pub fn connect(
-        device_address: String,
-        properties: Option<ConnectProperties>,
-    ) -> Promise;
+    pub fn connect(device_address: String, properties: Option<ConnectProperties>) -> Promise;
     ///Closes the app's connection to the device with the given address. Note that this will not always destroy the physical link itself, since there may be other apps with open connections.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -748,10 +721,7 @@ extern "C" {
         "bluetoothLowEnergy"],
         js_name = "createCharacteristic"
     )]
-    pub fn create_characteristic(
-        characteristic: Characteristic,
-        service_id: String,
-    ) -> Promise;
+    pub fn create_characteristic(characteristic: Characteristic, service_id: String) -> Promise;
     ///Get a list of all discovered GATT characteristics that belong to the given service.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -779,10 +749,7 @@ extern "C" {
         "bluetoothLowEnergy"],
         js_name = "createDescriptor"
     )]
-    pub fn create_descriptor(
-        descriptor: Descriptor,
-        characteristic_id: String,
-    ) -> Promise;
+    pub fn create_descriptor(descriptor: Descriptor, characteristic_id: String) -> Promise;
     ///Get a list of GATT characteristic descriptors that belong to the given characteristic.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -847,10 +814,7 @@ extern "C" {
         "bluetoothLowEnergy"],
         js_name = "writeDescriptorValue"
     )]
-    pub fn write_descriptor_value(
-        descriptor_id: String,
-        value: ::js_sys::ArrayBuffer,
-    ) -> Promise;
+    pub fn write_descriptor_value(descriptor_id: String, value: ::js_sys::ArrayBuffer) -> Promise;
     ///Register the given service with the local GATT server. If the service ID is invalid, the lastError will be set. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
     #[wasm_bindgen(
         js_namespace = ["chrome",

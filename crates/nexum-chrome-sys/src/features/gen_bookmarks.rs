@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Indicates the type of folder.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -89,9 +89,7 @@ extern "C" {
     pub fn set_title(this: &BookmarkTreeNode, val: String);
     ///Get the `unmodifiable` field of this object.
     #[wasm_bindgen(method, getter = "unmodifiable")]
-    pub fn get_unmodifiable(
-        this: &BookmarkTreeNode,
-    ) -> Option<BookmarkTreeNodeUnmodifiable>;
+    pub fn get_unmodifiable(this: &BookmarkTreeNode) -> Option<BookmarkTreeNodeUnmodifiable>;
     ///Change the `unmodifiable` field of this object.
     #[wasm_bindgen(method, setter = "unmodifiable")]
     pub fn set_unmodifiable(this: &BookmarkTreeNode, val: BookmarkTreeNodeUnmodifiable);
@@ -106,9 +104,7 @@ impl BookmarkTreeNode {
     ///Construct a new `BookmarkTreeNode`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_children()` instead."]
@@ -212,9 +208,7 @@ impl CreateDetails {
     ///Construct a new `CreateDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_index()` instead."]

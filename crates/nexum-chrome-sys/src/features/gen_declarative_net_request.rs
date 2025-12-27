@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///This describes the resource type of the network request.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -136,9 +136,7 @@ impl Ruleset {
     ///Construct a new `Ruleset`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_enabled()` instead."]
@@ -191,9 +189,7 @@ impl QueryKeyValue {
     ///Construct a new `QueryKeyValue`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_key()` instead."]
@@ -240,9 +236,7 @@ impl QueryTransform {
     ///Construct a new `QueryTransform`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_add_or_replace_params()` instead."]
@@ -326,9 +320,7 @@ impl UrlTransform {
     ///Construct a new `UrlTransform`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_fragment()` instead."]
@@ -417,9 +409,7 @@ impl Redirect {
     ///Construct a new `Redirect`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_extension_path()` instead."]
@@ -477,9 +467,7 @@ impl HeaderInfo {
     ///Construct a new `HeaderInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_excluded_values()` instead."]
@@ -634,9 +622,7 @@ impl RuleCondition {
     ///Construct a new `RuleCondition`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_domain_type()` instead."]
@@ -762,9 +748,7 @@ impl HeaderRegexOptions {
     ///Construct a new `HeaderRegexOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_match_all()` instead."]
@@ -825,9 +809,7 @@ impl ModifyHeaderInfo {
     ///Construct a new `ModifyHeaderInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_header()` instead."]
@@ -901,9 +883,7 @@ impl RuleAction {
     ///Construct a new `RuleAction`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_redirect()` instead."]
@@ -967,9 +947,7 @@ impl Rule {
     ///Construct a new `Rule`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_action()` instead."]
@@ -1021,9 +999,7 @@ impl MatchedRule {
     ///Construct a new `MatchedRule`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_rule_id()` instead."]
@@ -1059,9 +1035,7 @@ impl GetRulesFilter {
     ///Construct a new `GetRulesFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_rule_ids()` instead."]
@@ -1104,9 +1078,7 @@ impl MatchedRuleInfo {
     ///Construct a new `MatchedRuleInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_rule()` instead."]
@@ -1153,9 +1125,7 @@ impl MatchedRulesFilter {
     ///Construct a new `MatchedRulesFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_min_time_stamp()` instead."]
@@ -1191,9 +1161,7 @@ impl RulesMatchedDetails {
     ///Construct a new `RulesMatchedDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_rules_matched_info()` instead."]
@@ -1241,9 +1209,7 @@ extern "C" {
     #[cfg(feature = "extension_types")]
     ///Get the `frameType` field of this object.
     #[wasm_bindgen(method, getter = "frameType")]
-    pub fn get_frame_type(
-        this: &RequestDetails,
-    ) -> Option<super::extension_types::FrameType>;
+    pub fn get_frame_type(this: &RequestDetails) -> Option<super::extension_types::FrameType>;
     #[cfg(feature = "extension_types")]
     ///Change the `frameType` field of this object.
     #[wasm_bindgen(method, setter = "frameType")]
@@ -1301,9 +1267,7 @@ impl RequestDetails {
     ///Construct a new `RequestDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_document_id()` instead."]
@@ -1430,9 +1394,7 @@ impl TestMatchRequestDetails {
     ///Construct a new `TestMatchRequestDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_initiator()` instead."]
@@ -1499,9 +1461,7 @@ impl MatchedRuleInfoDebug {
     ///Construct a new `MatchedRuleInfoDebug`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_request()` instead."]
@@ -1537,9 +1497,7 @@ impl DnrInfo {
     ///Construct a new `DnrInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_rule_resources()` instead."]
@@ -1582,9 +1540,7 @@ impl RegexOptions {
     ///Construct a new `RegexOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_is_case_sensitive()` instead."]
@@ -1631,9 +1587,7 @@ impl IsRegexSupportedResult {
     ///Construct a new `IsRegexSupportedResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_is_supported()` instead."]
@@ -1669,9 +1623,7 @@ impl TestMatchOutcomeResult {
     ///Construct a new `TestMatchOutcomeResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_matched_rules()` instead."]
@@ -1708,9 +1660,7 @@ impl UpdateRuleOptions {
     ///Construct a new `UpdateRuleOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_add_rules()` instead."]
@@ -1752,9 +1702,7 @@ impl UpdateRulesetOptions {
     ///Construct a new `UpdateRulesetOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_disable_ruleset_ids()` instead."]
@@ -1802,9 +1750,7 @@ impl UpdateStaticRulesOptions {
     ///Construct a new `UpdateStaticRulesOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_disable_rule_ids()` instead."]
@@ -1845,9 +1791,7 @@ impl GetDisabledRuleIdsOptions {
     ///Construct a new `GetDisabledRuleIdsOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_ruleset_id()` instead."]
@@ -1884,9 +1828,7 @@ impl TabActionCountUpdate {
     ///Construct a new `TabActionCountUpdate`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_increment()` instead."]
@@ -1913,15 +1855,10 @@ extern "C" {
     pub type ExtensionActionOptions;
     ///Get the `displayActionCountAsBadgeText` field of this object.
     #[wasm_bindgen(method, getter = "displayActionCountAsBadgeText")]
-    pub fn get_display_action_count_as_badge_text(
-        this: &ExtensionActionOptions,
-    ) -> Option<bool>;
+    pub fn get_display_action_count_as_badge_text(this: &ExtensionActionOptions) -> Option<bool>;
     ///Change the `displayActionCountAsBadgeText` field of this object.
     #[wasm_bindgen(method, setter = "displayActionCountAsBadgeText")]
-    pub fn set_display_action_count_as_badge_text(
-        this: &ExtensionActionOptions,
-        val: bool,
-    );
+    pub fn set_display_action_count_as_badge_text(this: &ExtensionActionOptions, val: bool);
     ///Get the `tabUpdate` field of this object.
     #[wasm_bindgen(method, getter = "tabUpdate")]
     pub fn get_tab_update(this: &ExtensionActionOptions) -> Option<TabActionCountUpdate>;
@@ -1933,9 +1870,7 @@ impl ExtensionActionOptions {
     ///Construct a new `ExtensionActionOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_display_action_count_as_badge_text()` instead."]

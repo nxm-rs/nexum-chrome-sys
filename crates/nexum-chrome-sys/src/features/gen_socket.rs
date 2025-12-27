@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -20,9 +20,7 @@ impl CreateOptions {
     ///Construct a new `CreateOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -48,9 +46,7 @@ impl CreateInfo {
     ///Construct a new `CreateInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_socket_id()` instead."]
@@ -87,9 +83,7 @@ impl AcceptInfo {
     ///Construct a new `AcceptInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_result_code()` instead."]
@@ -131,9 +125,7 @@ impl ReadInfo {
     ///Construct a new `ReadInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -169,9 +161,7 @@ impl WriteInfo {
     ///Construct a new `WriteInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_bytes_written()` instead."]
@@ -220,9 +210,7 @@ impl RecvFromInfo {
     ///Construct a new `RecvFromInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_address()` instead."]
@@ -298,9 +286,7 @@ impl SocketInfo {
     ///Construct a new `SocketInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_connected()` instead."]
@@ -368,9 +354,7 @@ impl NetworkInterface {
     ///Construct a new `NetworkInterface`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_address()` instead."]
@@ -417,9 +401,7 @@ impl TlsVersionConstraints {
     ///Construct a new `TlsVersionConstraints`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_max()` instead."]
@@ -455,9 +437,7 @@ impl SecureOptions {
     ///Construct a new `SecureOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_tls_version()` instead."]
@@ -507,12 +487,7 @@ extern "C" {
     ) -> Promise;
     ///This method applies to TCP sockets only. Listens for connections on the specified port and address. This effectively makes this a server socket, and client socket functions (connect, read, write) can no longer be used on this socket.
     #[wasm_bindgen(js_namespace = ["chrome", "socket"], js_name = "listen")]
-    pub fn listen(
-        socket_id: i32,
-        address: String,
-        port: i32,
-        backlog: Option<i32>,
-    ) -> Promise;
+    pub fn listen(socket_id: i32, address: String, port: i32, backlog: Option<i32>) -> Promise;
     ///This method applies to TCP sockets only. Registers a callback function to be called when a connection is accepted on this listening server socket. Listen must be called first. If there is already an active accept callback, this callback will be invoked immediately with an error as the resultCode.
     #[wasm_bindgen(js_namespace = ["chrome", "socket"], js_name = "accept")]
     pub fn accept(socket_id: i32) -> Promise;

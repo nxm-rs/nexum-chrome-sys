@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ElementsPanel")]
@@ -13,9 +13,7 @@ impl ElementsPanel {
     ///Construct a new `ElementsPanel`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -35,9 +33,7 @@ impl SourcesPanel {
     ///Construct a new `SourcesPanel`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -57,9 +53,7 @@ impl ExtensionPanel {
     ///Construct a new `ExtensionPanel`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -79,9 +73,7 @@ impl ExtensionSidebarPane {
     ///Construct a new `ExtensionSidebarPane`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -101,9 +93,7 @@ impl Button {
     ///Construct a new `Button`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -125,12 +115,7 @@ pub enum Theme {
 extern "C" {
     ///Creates an extension panel.
     #[wasm_bindgen(js_namespace = ["chrome", "devtools", "panels"], js_name = "create")]
-    pub fn create(
-        title: String,
-        icon_path: String,
-        page_path: String,
-        callback: Option<Function>,
-    );
+    pub fn create(title: String, icon_path: String, page_path: String, callback: Option<Function>);
     ///Specifies the function to be called when the user clicks a resource link in the Developer Tools window. To unset the handler, either call the method with no parameters or pass null as the parameter.
     #[wasm_bindgen(
         js_namespace = ["chrome",

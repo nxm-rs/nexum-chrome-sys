@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Token")]
@@ -31,9 +31,7 @@ impl Token {
     ///Construct a new `Token`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_id()` instead."]
@@ -88,9 +86,7 @@ impl RegisterKeyOptions {
     ///Construct a new `RegisterKeyOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_algorithm()` instead."]
@@ -133,9 +129,7 @@ impl ChallengeKeyOptions {
     ///Construct a new `ChallengeKeyOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_challenge()` instead."]
@@ -184,10 +178,7 @@ extern "C" {
         "platformKeys"],
         js_name = "importCertificate"
     )]
-    pub fn import_certificate(
-        token_id: String,
-        certificate: ::js_sys::ArrayBuffer,
-    ) -> Promise;
+    pub fn import_certificate(token_id: String, certificate: ::js_sys::ArrayBuffer) -> Promise;
     ///Removes certificate from the given token if present. Should be used to remove obsolete certificates so that they are not considered during authentication and do not clutter the certificate choice. Should be used to free storage in the certificate store.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -195,10 +186,7 @@ extern "C" {
         "platformKeys"],
         js_name = "removeCertificate"
     )]
-    pub fn remove_certificate(
-        token_id: String,
-        certificate: ::js_sys::ArrayBuffer,
-    ) -> Promise;
+    pub fn remove_certificate(token_id: String, certificate: ::js_sys::ArrayBuffer) -> Promise;
     ///Similar to challengeMachineKey and challengeUserKey, but allows specifying the algorithm of a registered key. Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on ChromeOS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses.A successful verification by the Verified Access Web API is a strong signal that the current device is a legitimate ChromeOS device, the current device is managed by the domain specified during verification, the current signed-in user is managed by the domain specified during verification, and the current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode. Any device identity emitted by the verification is tightly bound to the hardware of the current device. If "user" Scope is specified, the identity is also tightly bound to the current signed-in user.This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The challenged key does not reside in the "system" or "user" token and is not accessible by any other API.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -225,8 +213,5 @@ extern "C" {
         "platformKeys"],
         js_name = "challengeUserKey"
     )]
-    pub fn challenge_user_key(
-        challenge: ::js_sys::ArrayBuffer,
-        register_key: bool,
-    ) -> Promise;
+    pub fn challenge_user_key(challenge: ::js_sys::ArrayBuffer, register_key: bool) -> Promise;
 }

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HidCollectionInfo")]
@@ -31,9 +31,7 @@ impl HidCollectionInfo {
     ///Construct a new `HidCollectionInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_report_ids()` instead."]
@@ -128,9 +126,7 @@ impl HidDeviceInfo {
     ///Construct a new `HidDeviceInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_collections()` instead."]
@@ -206,9 +202,7 @@ impl HidConnectInfo {
     ///Construct a new `HidConnectInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_connection_id()` instead."]
@@ -257,9 +251,7 @@ impl DeviceFilter {
     ///Construct a new `DeviceFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_product_id()` instead."]
@@ -317,9 +309,7 @@ impl GetDevicesOptions {
     ///Construct a new `GetDevicesOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filters()` instead."]
@@ -359,11 +349,7 @@ extern "C" {
     pub fn receive(connection_id: i32) -> Promise;
     ///Send an output report to the device.Note: Do not include a report ID prefix in data. It will be added if necessary.
     #[wasm_bindgen(js_namespace = ["chrome", "hid"], js_name = "send")]
-    pub fn send(
-        connection_id: i32,
-        report_id: i32,
-        data: ::js_sys::ArrayBuffer,
-    ) -> Promise;
+    pub fn send(connection_id: i32, report_id: i32, data: ::js_sys::ArrayBuffer) -> Promise;
     ///Request a feature report from the device.
     #[wasm_bindgen(js_namespace = ["chrome", "hid"], js_name = "receiveFeatureReport")]
     pub fn receive_feature_report(connection_id: i32, report_id: i32) -> Promise;

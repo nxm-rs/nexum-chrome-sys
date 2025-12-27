@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -47,9 +47,7 @@ impl NotificationItem {
     ///Construct a new `NotificationItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_message()` instead."]
@@ -97,9 +95,7 @@ impl NotificationBitmap {
     ///Construct a new `NotificationBitmap`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -152,9 +148,7 @@ impl NotificationButton {
     ///Construct a new `NotificationButton`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_icon_bitmap()` instead."]
@@ -186,15 +180,10 @@ extern "C" {
     pub type NotificationOptions;
     ///Get the `appIconMaskBitmap` field of this object.
     #[wasm_bindgen(method, getter = "appIconMaskBitmap")]
-    pub fn get_app_icon_mask_bitmap(
-        this: &NotificationOptions,
-    ) -> Option<NotificationBitmap>;
+    pub fn get_app_icon_mask_bitmap(this: &NotificationOptions) -> Option<NotificationBitmap>;
     ///Change the `appIconMaskBitmap` field of this object.
     #[wasm_bindgen(method, setter = "appIconMaskBitmap")]
-    pub fn set_app_icon_mask_bitmap(
-        this: &NotificationOptions,
-        val: &NotificationBitmap,
-    );
+    pub fn set_app_icon_mask_bitmap(this: &NotificationOptions, val: &NotificationBitmap);
     ///Get the `appIconMaskUrl` field of this object.
     #[wasm_bindgen(method, getter = "appIconMaskUrl")]
     pub fn get_app_icon_mask_url(this: &NotificationOptions) -> Option<String>;
@@ -308,9 +297,7 @@ impl NotificationOptions {
     ///Construct a new `NotificationOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_app_icon_mask_bitmap()` instead."]
@@ -418,10 +405,7 @@ impl Default for NotificationOptions {
 extern "C" {
     ///Creates and displays a notification.
     #[wasm_bindgen(js_namespace = ["chrome", "notifications"], js_name = "create")]
-    pub fn create(
-        notification_id: Option<String>,
-        options: NotificationOptions,
-    ) -> Promise;
+    pub fn create(notification_id: Option<String>, options: NotificationOptions) -> Promise;
     ///Updates an existing notification.
     #[wasm_bindgen(js_namespace = ["chrome", "notifications"], js_name = "update")]
     pub fn update(notification_id: String, options: NotificationOptions) -> Promise;

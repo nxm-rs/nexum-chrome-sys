@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeviceInfo")]
@@ -37,9 +37,7 @@ impl DeviceInfo {
     ///Construct a new `DeviceInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_display_name()` instead."]
@@ -161,9 +159,7 @@ impl ConnectionOptions {
     ///Construct a new `ConnectionOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_bitrate()` instead."]
@@ -305,9 +301,7 @@ impl ConnectionInfo {
     ///Construct a new `ConnectionInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_bitrate()` instead."]
@@ -412,9 +406,7 @@ impl SendInfo {
     ///Construct a new `SendInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_bytes_sent()` instead."]
@@ -456,9 +448,7 @@ impl HostControlSignals {
     ///Construct a new `HostControlSignals`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_dtr()` instead."]
@@ -512,9 +502,7 @@ impl DeviceControlSignals {
     ///Construct a new `DeviceControlSignals`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cts()` instead."]
@@ -566,9 +554,7 @@ impl ReceiveInfo {
     ///Construct a new `ReceiveInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_connection_id()` instead."]
@@ -633,9 +619,7 @@ impl ReceiveErrorInfo {
     ///Construct a new `ReceiveErrorInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_connection_id()` instead."]
@@ -688,10 +672,7 @@ extern "C" {
     pub fn get_control_signals(connection_id: i32) -> Promise;
     ///Sets the state of control signals on a given connection.
     #[wasm_bindgen(js_namespace = ["chrome", "serial"], js_name = "setControlSignals")]
-    pub fn set_control_signals(
-        connection_id: i32,
-        signals: HostControlSignals,
-    ) -> Promise;
+    pub fn set_control_signals(connection_id: i32, signals: HostControlSignals) -> Promise;
     ///Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
     #[wasm_bindgen(js_namespace = ["chrome", "serial"], js_name = "setBreak")]
     pub fn set_break(connection_id: i32) -> Promise;

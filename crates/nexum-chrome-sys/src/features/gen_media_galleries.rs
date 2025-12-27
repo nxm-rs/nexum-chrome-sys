@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -56,9 +56,7 @@ impl GalleryChangeDetails {
     ///Construct a new `GalleryChangeDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_gallery_id()` instead."]
@@ -90,18 +88,13 @@ extern "C" {
     ) -> Option<GetMediaFileSystemsInteractivity>;
     ///Change the `interactive` field of this object.
     #[wasm_bindgen(method, setter = "interactive")]
-    pub fn set_interactive(
-        this: &MediaFileSystemsDetails,
-        val: GetMediaFileSystemsInteractivity,
-    );
+    pub fn set_interactive(this: &MediaFileSystemsDetails, val: GetMediaFileSystemsInteractivity);
 }
 impl MediaFileSystemsDetails {
     ///Construct a new `MediaFileSystemsDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_interactive()` instead."]
@@ -132,9 +125,7 @@ impl MediaMetadataOptions {
     ///Construct a new `MediaMetadataOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_metadata_type()` instead."]
@@ -195,9 +186,7 @@ impl MediaFileSystemMetadata {
     ///Construct a new `MediaFileSystemMetadata`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_device_id()` instead."]
@@ -259,9 +248,7 @@ impl StreamInfo {
     ///Construct a new `StreamInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_tags()` instead."]
@@ -387,9 +374,7 @@ impl MediaMetadata {
     ///Construct a new `MediaMetadata`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_album()` instead."]
@@ -501,9 +486,7 @@ impl AddGalleryWatchResult {
     ///Construct a new `AddGalleryWatchResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_gallery_id()` instead."]
@@ -544,15 +527,10 @@ extern "C" {
         "mediaGalleries"],
         js_name = "getMediaFileSystemMetadata"
     )]
-    pub fn get_media_file_system_metadata(
-        media_file_system: Object,
-    ) -> MediaFileSystemMetadata;
+    pub fn get_media_file_system_metadata(media_file_system: Object) -> MediaFileSystemMetadata;
     ///Gets the media-specific metadata for a media file. This should work for files in media galleries as well as other DOM filesystems.
     #[wasm_bindgen(js_namespace = ["chrome", "mediaGalleries"], js_name = "getMetadata")]
-    pub fn get_metadata(
-        media_file: Object,
-        options: Option<MediaMetadataOptions>,
-    ) -> Promise;
+    pub fn get_metadata(media_file: Object, options: Option<MediaMetadataOptions>) -> Promise;
     ///Adds a gallery watch for the gallery with the specified gallery ID. The given callback is then fired with a success or failure result.
     #[wasm_bindgen(
         js_namespace = ["chrome",

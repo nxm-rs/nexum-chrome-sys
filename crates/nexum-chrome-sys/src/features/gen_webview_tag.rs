@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ClearDataOptions")]
@@ -19,9 +19,7 @@ impl ClearDataOptions {
     ///Construct a new `ClearDataOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_since()` instead."]
@@ -100,9 +98,7 @@ impl ClearDataTypeSet {
     ///Construct a new `ClearDataTypeSet`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_appcache()` instead."]
@@ -193,9 +189,7 @@ impl InjectDetails {
     ///Construct a new `InjectDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_code()` instead."]
@@ -237,9 +231,7 @@ impl InjectionItems {
     ///Construct a new `InjectionItems`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_code()` instead."]
@@ -321,9 +313,7 @@ extern "C" {
     #[cfg(feature = "extension_types")]
     ///Get the `run_at` field of this object.
     #[wasm_bindgen(method, getter = "run_at")]
-    pub fn get_run_at(
-        this: &ContentScriptDetails,
-    ) -> Option<super::extension_types::RunAt>;
+    pub fn get_run_at(this: &ContentScriptDetails) -> Option<super::extension_types::RunAt>;
     #[cfg(feature = "extension_types")]
     ///Change the `run_at` field of this object.
     #[wasm_bindgen(method, setter = "run_at")]
@@ -333,9 +323,7 @@ impl ContentScriptDetails {
     ///Construct a new `ContentScriptDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]
@@ -415,9 +403,7 @@ extern "C" {
     pub fn set_contexts(this: &ContextMenuCreateProperties, val: &Array);
     ///Get the `documentUrlPatterns` field of this object.
     #[wasm_bindgen(method, getter = "documentUrlPatterns")]
-    pub fn get_document_url_patterns(
-        this: &ContextMenuCreateProperties,
-    ) -> Option<Array>;
+    pub fn get_document_url_patterns(this: &ContextMenuCreateProperties) -> Option<Array>;
     ///Change the `documentUrlPatterns` field of this object.
     #[wasm_bindgen(method, setter = "documentUrlPatterns")]
     pub fn set_document_url_patterns(this: &ContextMenuCreateProperties, val: &Array);
@@ -460,24 +446,17 @@ extern "C" {
     #[cfg(feature = "context_menus")]
     ///Get the `type` field of this object.
     #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(
-        this: &ContextMenuCreateProperties,
-    ) -> Option<super::context_menus::ItemType>;
+    pub fn get_type(this: &ContextMenuCreateProperties) -> Option<super::context_menus::ItemType>;
     #[cfg(feature = "context_menus")]
     ///Change the `type` field of this object.
     #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(
-        this: &ContextMenuCreateProperties,
-        val: super::context_menus::ItemType,
-    );
+    pub fn set_type(this: &ContextMenuCreateProperties, val: super::context_menus::ItemType);
 }
 impl ContextMenuCreateProperties {
     ///Construct a new `ContextMenuCreateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_checked()` instead."]
@@ -557,9 +536,7 @@ extern "C" {
     pub fn set_contexts(this: &ContextMenuUpdateProperties, val: &Array);
     ///Get the `documentUrlPatterns` field of this object.
     #[wasm_bindgen(method, getter = "documentUrlPatterns")]
-    pub fn get_document_url_patterns(
-        this: &ContextMenuUpdateProperties,
-    ) -> Option<Array>;
+    pub fn get_document_url_patterns(this: &ContextMenuUpdateProperties) -> Option<Array>;
     ///Change the `documentUrlPatterns` field of this object.
     #[wasm_bindgen(method, setter = "documentUrlPatterns")]
     pub fn set_document_url_patterns(this: &ContextMenuUpdateProperties, val: &Array);
@@ -596,24 +573,17 @@ extern "C" {
     #[cfg(feature = "context_menus")]
     ///Get the `type` field of this object.
     #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(
-        this: &ContextMenuUpdateProperties,
-    ) -> Option<super::context_menus::ItemType>;
+    pub fn get_type(this: &ContextMenuUpdateProperties) -> Option<super::context_menus::ItemType>;
     #[cfg(feature = "context_menus")]
     ///Change the `type` field of this object.
     #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(
-        this: &ContextMenuUpdateProperties,
-        val: super::context_menus::ItemType,
-    );
+    pub fn set_type(this: &ContextMenuUpdateProperties, val: super::context_menus::ItemType);
 }
 impl ContextMenuUpdateProperties {
     ///Construct a new `ContextMenuUpdateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_checked()` instead."]
@@ -679,9 +649,7 @@ impl ContextMenus {
     ///Construct a new `ContextMenus`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -701,9 +669,7 @@ impl ContentWindow {
     ///Construct a new `ContentWindow`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -723,9 +689,7 @@ impl DialogController {
     ///Construct a new `DialogController`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -769,9 +733,7 @@ impl FindCallbackResults {
     ///Construct a new `FindCallbackResults`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active_match_ordinal()` instead."]
@@ -823,9 +785,7 @@ impl FindOptions {
     ///Construct a new `FindOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_backward()` instead."]
@@ -855,9 +815,7 @@ impl NewWindow {
     ///Construct a new `NewWindow`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -883,9 +841,7 @@ impl MediaPermissionRequest {
     ///Construct a new `MediaPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_url()` instead."]
@@ -916,9 +872,7 @@ impl GeolocationPermissionRequest {
     ///Construct a new `GeolocationPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_url()` instead."]
@@ -961,9 +915,7 @@ impl PointerLockPermissionRequest {
     ///Construct a new `PointerLockPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_last_unlocked_by_self()` instead."]
@@ -1010,9 +962,7 @@ impl DownloadPermissionRequest {
     ///Construct a new `DownloadPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_request_method()` instead."]
@@ -1048,9 +998,7 @@ impl FileSystemPermissionRequest {
     ///Construct a new `FileSystemPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_url()` instead."]
@@ -1081,9 +1029,7 @@ impl FullscreenPermissionRequest {
     ///Construct a new `FullscreenPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_origin()` instead."]
@@ -1120,9 +1066,7 @@ impl LoadPluginPermissionRequest {
     ///Construct a new `LoadPluginPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_identifier()` instead."]
@@ -1158,9 +1102,7 @@ impl HidPermissionRequest {
     ///Construct a new `HidPermissionRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_url()` instead."]
@@ -1209,9 +1151,7 @@ impl SelectionRect {
     ///Construct a new `SelectionRect`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_height()` instead."]
@@ -1251,9 +1191,7 @@ impl WebRequestEventInterface {
     ///Construct a new `WebRequestEventInterface`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }
@@ -1390,11 +1328,7 @@ extern "C" {
     pub fn execute_script(details: InjectDetails, callback: Option<Function>);
     ///Initiates a find-in-page request.
     #[wasm_bindgen(js_namespace = ["chrome", "webviewTag"], js_name = "find")]
-    pub fn find(
-        search_text: String,
-        options: Option<FindOptions>,
-        callback: Option<Function>,
-    );
+    pub fn find(search_text: String, options: Option<FindOptions>, callback: Option<Function>);
     ///Navigates forward one history entry if possible. Equivalent to go(1).
     #[wasm_bindgen(js_namespace = ["chrome", "webviewTag"], js_name = "forward")]
     pub fn forward(callback: Option<Function>);
@@ -1461,11 +1395,7 @@ extern "C" {
         "webviewTag"],
         js_name = "loadDataWithBaseUrl"
     )]
-    pub fn load_data_with_base_url(
-        data_url: String,
-        base_url: String,
-        virtual_url: Option<String>,
-    );
+    pub fn load_data_with_base_url(data_url: String, base_url: String, virtual_url: Option<String>);
     ///Sets spatial navigation state of the webview.
     #[wasm_bindgen(
         js_namespace = ["chrome",

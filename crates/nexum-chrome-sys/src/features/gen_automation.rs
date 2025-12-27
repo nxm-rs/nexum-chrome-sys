@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Possible events fired on an $(ref:automation.AutomationNode).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -691,9 +691,7 @@ impl Rect {
     ///Construct a new `Rect`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_height()` instead."]
@@ -751,9 +749,7 @@ impl FindParams {
     ///Construct a new `FindParams`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_attributes()` instead."]
@@ -812,9 +808,7 @@ impl SetDocumentSelectionParams {
     ///Construct a new `SetDocumentSelectionParams`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_anchor_object()` instead."]
@@ -857,9 +851,7 @@ extern "C" {
     pub fn set_command(this: &AutomationIntent, val: IntentCommandType);
     ///Get the `moveDirection` field of this object.
     #[wasm_bindgen(method, getter = "moveDirection")]
-    pub fn get_move_direction(
-        this: &AutomationIntent,
-    ) -> Option<IntentMoveDirectionType>;
+    pub fn get_move_direction(this: &AutomationIntent) -> Option<IntentMoveDirectionType>;
     ///Change the `moveDirection` field of this object.
     #[wasm_bindgen(method, setter = "moveDirection")]
     pub fn set_move_direction(this: &AutomationIntent, val: IntentMoveDirectionType);
@@ -874,9 +866,7 @@ impl AutomationIntent {
     ///Construct a new `AutomationIntent`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_command()` instead."]
@@ -953,9 +943,7 @@ impl AutomationEvent {
     ///Construct a new `AutomationEvent`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_event_from()` instead."]
@@ -1022,9 +1010,7 @@ impl TreeChange {
     ///Construct a new `TreeChange`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_target()` instead."]
@@ -1075,9 +1061,7 @@ impl CustomAction {
     ///Construct a new `CustomAction`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -1125,9 +1109,7 @@ impl Marker {
     ///Construct a new `Marker`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_end_offset()` instead."]
@@ -1342,46 +1324,31 @@ extern "C" {
     pub fn get_move_to_next_character_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextCharacterPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextCharacterPosition")]
-    pub fn set_move_to_next_character_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_character_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextFormatEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextFormatEndPosition")]
     pub fn get_move_to_next_format_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextFormatEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextFormatEndPosition")]
-    pub fn set_move_to_next_format_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_format_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextFormatStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextFormatStartPosition")]
     pub fn get_move_to_next_format_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextFormatStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextFormatStartPosition")]
-    pub fn set_move_to_next_format_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_format_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextLeafTextPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextLeafTextPosition")]
     pub fn get_move_to_next_leaf_text_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextLeafTextPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextLeafTextPosition")]
-    pub fn set_move_to_next_leaf_text_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_leaf_text_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextLeafTreePosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextLeafTreePosition")]
     pub fn get_move_to_next_leaf_tree_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextLeafTreePosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextLeafTreePosition")]
-    pub fn set_move_to_next_leaf_tree_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_leaf_tree_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextLineEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextLineEndPosition")]
     pub fn get_move_to_next_line_end_position(this: &AutomationPosition) -> Function;
@@ -1393,10 +1360,7 @@ extern "C" {
     pub fn get_move_to_next_line_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextLineStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextLineStartPosition")]
-    pub fn set_move_to_next_line_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_line_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextPageEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextPageEndPosition")]
     pub fn get_move_to_next_page_end_position(this: &AutomationPosition) -> Function;
@@ -1408,32 +1372,19 @@ extern "C" {
     pub fn get_move_to_next_page_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextPageStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextPageStartPosition")]
-    pub fn set_move_to_next_page_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_page_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextParagraphEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextParagraphEndPosition")]
-    pub fn get_move_to_next_paragraph_end_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_next_paragraph_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextParagraphEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextParagraphEndPosition")]
-    pub fn set_move_to_next_paragraph_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_paragraph_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextParagraphStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextParagraphStartPosition")]
-    pub fn get_move_to_next_paragraph_start_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_next_paragraph_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextParagraphStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextParagraphStartPosition")]
-    pub fn set_move_to_next_paragraph_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_paragraph_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToNextWordEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToNextWordEndPosition")]
     pub fn get_move_to_next_word_end_position(this: &AutomationPosition) -> Function;
@@ -1445,10 +1396,7 @@ extern "C" {
     pub fn get_move_to_next_word_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToNextWordStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToNextWordStartPosition")]
-    pub fn set_move_to_next_word_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_next_word_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToParentPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToParentPosition")]
     pub fn get_move_to_parent_position(this: &AutomationPosition) -> Function;
@@ -1460,189 +1408,109 @@ extern "C" {
     pub fn get_move_to_position_at_end_of_anchor(this: &AutomationPosition) -> Function;
     ///Change the `moveToPositionAtEndOfAnchor` field of this object.
     #[wasm_bindgen(method, setter = "moveToPositionAtEndOfAnchor")]
-    pub fn set_move_to_position_at_end_of_anchor(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_position_at_end_of_anchor(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPositionAtEndOfDocument` field of this object.
     #[wasm_bindgen(method, getter = "moveToPositionAtEndOfDocument")]
-    pub fn get_move_to_position_at_end_of_document(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_position_at_end_of_document(this: &AutomationPosition) -> Function;
     ///Change the `moveToPositionAtEndOfDocument` field of this object.
     #[wasm_bindgen(method, setter = "moveToPositionAtEndOfDocument")]
-    pub fn set_move_to_position_at_end_of_document(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_position_at_end_of_document(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPositionAtStartOfAnchor` field of this object.
     #[wasm_bindgen(method, getter = "moveToPositionAtStartOfAnchor")]
-    pub fn get_move_to_position_at_start_of_anchor(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_position_at_start_of_anchor(this: &AutomationPosition) -> Function;
     ///Change the `moveToPositionAtStartOfAnchor` field of this object.
     #[wasm_bindgen(method, setter = "moveToPositionAtStartOfAnchor")]
-    pub fn set_move_to_position_at_start_of_anchor(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_position_at_start_of_anchor(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPositionAtStartOfDocument` field of this object.
     #[wasm_bindgen(method, getter = "moveToPositionAtStartOfDocument")]
-    pub fn get_move_to_position_at_start_of_document(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_position_at_start_of_document(this: &AutomationPosition) -> Function;
     ///Change the `moveToPositionAtStartOfDocument` field of this object.
     #[wasm_bindgen(method, setter = "moveToPositionAtStartOfDocument")]
-    pub fn set_move_to_position_at_start_of_document(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_position_at_start_of_document(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousAnchorPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousAnchorPosition")]
     pub fn get_move_to_previous_anchor_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousAnchorPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousAnchorPosition")]
-    pub fn set_move_to_previous_anchor_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_anchor_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousCharacterPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousCharacterPosition")]
-    pub fn get_move_to_previous_character_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_character_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousCharacterPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousCharacterPosition")]
-    pub fn set_move_to_previous_character_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_character_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousFormatEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousFormatEndPosition")]
-    pub fn get_move_to_previous_format_end_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_format_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousFormatEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousFormatEndPosition")]
-    pub fn set_move_to_previous_format_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_format_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousFormatStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousFormatStartPosition")]
-    pub fn get_move_to_previous_format_start_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_format_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousFormatStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousFormatStartPosition")]
-    pub fn set_move_to_previous_format_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_format_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousLeafTextPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousLeafTextPosition")]
-    pub fn get_move_to_previous_leaf_text_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_leaf_text_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousLeafTextPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousLeafTextPosition")]
-    pub fn set_move_to_previous_leaf_text_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_leaf_text_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousLeafTreePosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousLeafTreePosition")]
-    pub fn get_move_to_previous_leaf_tree_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_leaf_tree_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousLeafTreePosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousLeafTreePosition")]
-    pub fn set_move_to_previous_leaf_tree_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_leaf_tree_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousLineEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousLineEndPosition")]
     pub fn get_move_to_previous_line_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousLineEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousLineEndPosition")]
-    pub fn set_move_to_previous_line_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_line_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousLineStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousLineStartPosition")]
-    pub fn get_move_to_previous_line_start_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_line_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousLineStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousLineStartPosition")]
-    pub fn set_move_to_previous_line_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_line_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousPageEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousPageEndPosition")]
     pub fn get_move_to_previous_page_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousPageEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousPageEndPosition")]
-    pub fn set_move_to_previous_page_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_page_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousPageStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousPageStartPosition")]
-    pub fn get_move_to_previous_page_start_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_page_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousPageStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousPageStartPosition")]
-    pub fn set_move_to_previous_page_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_page_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousParagraphEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousParagraphEndPosition")]
-    pub fn get_move_to_previous_paragraph_end_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_paragraph_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousParagraphEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousParagraphEndPosition")]
-    pub fn set_move_to_previous_paragraph_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_paragraph_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousParagraphStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousParagraphStartPosition")]
-    pub fn get_move_to_previous_paragraph_start_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_paragraph_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousParagraphStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousParagraphStartPosition")]
-    pub fn set_move_to_previous_paragraph_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_paragraph_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousWordEndPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousWordEndPosition")]
     pub fn get_move_to_previous_word_end_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousWordEndPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousWordEndPosition")]
-    pub fn set_move_to_previous_word_end_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_word_end_position(this: &AutomationPosition, val: &Function);
     ///Get the `moveToPreviousWordStartPosition` field of this object.
     #[wasm_bindgen(method, getter = "moveToPreviousWordStartPosition")]
-    pub fn get_move_to_previous_word_start_position(
-        this: &AutomationPosition,
-    ) -> Function;
+    pub fn get_move_to_previous_word_start_position(this: &AutomationPosition) -> Function;
     ///Change the `moveToPreviousWordStartPosition` field of this object.
     #[wasm_bindgen(method, setter = "moveToPreviousWordStartPosition")]
-    pub fn set_move_to_previous_word_start_position(
-        this: &AutomationPosition,
-        val: &Function,
-    );
+    pub fn set_move_to_previous_word_start_position(this: &AutomationPosition, val: &Function);
     ///Get the `node` field of this object.
     #[wasm_bindgen(method, getter = "node")]
     pub fn get_node(this: &AutomationPosition) -> Option<AutomationNode>;
@@ -1660,9 +1528,7 @@ impl AutomationPosition {
     ///Construct a new `AutomationPosition`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_affinity()` instead."]
@@ -1866,10 +1732,7 @@ impl AutomationPosition {
         self
     }
     #[deprecated = "Use `set_move_to_next_paragraph_start_position()` instead."]
-    pub fn move_to_next_paragraph_start_position(
-        &mut self,
-        val: &Function,
-    ) -> &mut Self {
+    pub fn move_to_next_paragraph_start_position(&mut self, val: &Function) -> &mut Self {
         self.set_move_to_next_paragraph_start_position(val);
         self
     }
@@ -1904,10 +1767,7 @@ impl AutomationPosition {
         self
     }
     #[deprecated = "Use `set_move_to_position_at_start_of_document()` instead."]
-    pub fn move_to_position_at_start_of_document(
-        &mut self,
-        val: &Function,
-    ) -> &mut Self {
+    pub fn move_to_position_at_start_of_document(&mut self, val: &Function) -> &mut Self {
         self.set_move_to_position_at_start_of_document(val);
         self
     }
@@ -1927,10 +1787,7 @@ impl AutomationPosition {
         self
     }
     #[deprecated = "Use `set_move_to_previous_format_start_position()` instead."]
-    pub fn move_to_previous_format_start_position(
-        &mut self,
-        val: &Function,
-    ) -> &mut Self {
+    pub fn move_to_previous_format_start_position(&mut self, val: &Function) -> &mut Self {
         self.set_move_to_previous_format_start_position(val);
         self
     }
@@ -1965,18 +1822,12 @@ impl AutomationPosition {
         self
     }
     #[deprecated = "Use `set_move_to_previous_paragraph_end_position()` instead."]
-    pub fn move_to_previous_paragraph_end_position(
-        &mut self,
-        val: &Function,
-    ) -> &mut Self {
+    pub fn move_to_previous_paragraph_end_position(&mut self, val: &Function) -> &mut Self {
         self.set_move_to_previous_paragraph_end_position(val);
         self
     }
     #[deprecated = "Use `set_move_to_previous_paragraph_start_position()` instead."]
-    pub fn move_to_previous_paragraph_start_position(
-        &mut self,
-        val: &Function,
-    ) -> &mut Self {
+    pub fn move_to_previous_paragraph_start_position(&mut self, val: &Function) -> &mut Self {
         self.set_move_to_previous_paragraph_start_position(val);
         self
     }
@@ -2926,9 +2777,7 @@ extern "C" {
     pub fn set_set_selection(this: &AutomationNode, val: &Function);
     ///Get the `setSequentialFocusNavigationStartingPoint` field of this object.
     #[wasm_bindgen(method, getter = "setSequentialFocusNavigationStartingPoint")]
-    pub fn get_set_sequential_focus_navigation_starting_point(
-        this: &AutomationNode,
-    ) -> Function;
+    pub fn get_set_sequential_focus_navigation_starting_point(this: &AutomationNode) -> Function;
     ///Change the `setSequentialFocusNavigationStartingPoint` field of this object.
     #[wasm_bindgen(method, setter = "setSequentialFocusNavigationStartingPoint")]
     pub fn set_set_sequential_focus_navigation_starting_point(
@@ -3156,9 +3005,7 @@ impl AutomationNode {
     ///Construct a new `AutomationNode`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_access_key()` instead."]
@@ -3922,10 +3769,7 @@ impl AutomationNode {
         self
     }
     #[deprecated = "Use `set_set_sequential_focus_navigation_starting_point()` instead."]
-    pub fn set_sequential_focus_navigation_starting_point(
-        &mut self,
-        val: &Function,
-    ) -> &mut Self {
+    pub fn set_sequential_focus_navigation_starting_point(&mut self, val: &Function) -> &mut Self {
         self.set_set_sequential_focus_navigation_starting_point(val);
         self
     }
@@ -4131,10 +3975,7 @@ extern "C" {
         "automation"],
         js_name = "addTreeChangeObserver"
     )]
-    pub fn add_tree_change_observer(
-        filter: TreeChangeObserverFilter,
-        observer: Function,
-    );
+    pub fn add_tree_change_observer(filter: TreeChangeObserverFilter, observer: Function);
     ///Remove a tree change observer.
     #[wasm_bindgen(
         js_namespace = ["chrome",

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -138,9 +138,7 @@ impl ManagedBoolean {
     ///Construct a new `ManagedBoolean`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -248,9 +246,7 @@ impl ManagedLong {
     ///Construct a new `ManagedLong`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -358,9 +354,7 @@ impl ManagedDomString {
     ///Construct a new `ManagedDomString`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -468,9 +462,7 @@ impl ManagedDomStringList {
     ///Construct a new `ManagedDomStringList`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -578,9 +570,7 @@ impl ManagedIpConfigType {
     ///Construct a new `ManagedIpConfigType`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -649,9 +639,7 @@ extern "C" {
     pub fn set_device_editable(this: &ManagedProxySettingsType, val: bool);
     ///Get the `DevicePolicy` field of this object.
     #[wasm_bindgen(method, getter = "DevicePolicy")]
-    pub fn get_device_policy(
-        this: &ManagedProxySettingsType,
-    ) -> Option<ProxySettingsType>;
+    pub fn get_device_policy(this: &ManagedProxySettingsType) -> Option<ProxySettingsType>;
     ///Change the `DevicePolicy` field of this object.
     #[wasm_bindgen(method, setter = "DevicePolicy")]
     pub fn set_device_policy(this: &ManagedProxySettingsType, val: ProxySettingsType);
@@ -663,9 +651,7 @@ extern "C" {
     pub fn set_effective(this: &ManagedProxySettingsType, val: String);
     ///Get the `SharedSetting` field of this object.
     #[wasm_bindgen(method, getter = "SharedSetting")]
-    pub fn get_shared_setting(
-        this: &ManagedProxySettingsType,
-    ) -> Option<ProxySettingsType>;
+    pub fn get_shared_setting(this: &ManagedProxySettingsType) -> Option<ProxySettingsType>;
     ///Change the `SharedSetting` field of this object.
     #[wasm_bindgen(method, setter = "SharedSetting")]
     pub fn set_shared_setting(this: &ManagedProxySettingsType, val: ProxySettingsType);
@@ -683,9 +669,7 @@ extern "C" {
     pub fn set_user_policy(this: &ManagedProxySettingsType, val: ProxySettingsType);
     ///Get the `UserSetting` field of this object.
     #[wasm_bindgen(method, getter = "UserSetting")]
-    pub fn get_user_setting(
-        this: &ManagedProxySettingsType,
-    ) -> Option<ProxySettingsType>;
+    pub fn get_user_setting(this: &ManagedProxySettingsType) -> Option<ProxySettingsType>;
     ///Change the `UserSetting` field of this object.
     #[wasm_bindgen(method, setter = "UserSetting")]
     pub fn set_user_setting(this: &ManagedProxySettingsType, val: ProxySettingsType);
@@ -694,9 +678,7 @@ impl ManagedProxySettingsType {
     ///Construct a new `ManagedProxySettingsType`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -774,9 +756,7 @@ impl CellularProviderProperties {
     ///Construct a new `CellularProviderProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_code()` instead."]
@@ -835,9 +815,7 @@ impl IssuerSubjectPattern {
     ///Construct a new `IssuerSubjectPattern`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_common_name()` instead."]
@@ -901,9 +879,7 @@ impl CertificatePattern {
     ///Construct a new `CertificatePattern`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_enrollment_uri()` instead."]
@@ -958,9 +934,7 @@ extern "C" {
     pub fn set_client_cert_pattern(this: &EapProperties, val: &CertificatePattern);
     ///Get the `ClientCertProvisioningProfileId` field of this object.
     #[wasm_bindgen(method, getter = "ClientCertProvisioningProfileId")]
-    pub fn get_client_cert_provisioning_profile_id(
-        this: &EapProperties,
-    ) -> Option<String>;
+    pub fn get_client_cert_provisioning_profile_id(this: &EapProperties) -> Option<String>;
     ///Change the `ClientCertProvisioningProfileId` field of this object.
     #[wasm_bindgen(method, setter = "ClientCertProvisioningProfileId")]
     pub fn set_client_cert_provisioning_profile_id(this: &EapProperties, val: String);
@@ -1041,9 +1015,7 @@ impl EapProperties {
     ///Construct a new `EapProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_anonymous_identity()` instead."]
@@ -1173,9 +1145,7 @@ impl FoundNetworkProperties {
     ///Construct a new `FoundNetworkProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_long_name()` instead."]
@@ -1274,9 +1244,7 @@ impl IpConfigProperties {
     ///Construct a new `IpConfigProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_excluded_routes()` instead."]
@@ -1350,15 +1318,10 @@ extern "C" {
     pub fn set_ip_address(this: &ManagedIpConfigProperties, val: &ManagedDomString);
     ///Get the `NameServers` field of this object.
     #[wasm_bindgen(method, getter = "NameServers")]
-    pub fn get_name_servers(
-        this: &ManagedIpConfigProperties,
-    ) -> Option<ManagedDomStringList>;
+    pub fn get_name_servers(this: &ManagedIpConfigProperties) -> Option<ManagedDomStringList>;
     ///Change the `NameServers` field of this object.
     #[wasm_bindgen(method, setter = "NameServers")]
-    pub fn set_name_servers(
-        this: &ManagedIpConfigProperties,
-        val: &ManagedDomStringList,
-    );
+    pub fn set_name_servers(this: &ManagedIpConfigProperties, val: &ManagedDomStringList);
     ///Get the `RoutingPrefix` field of this object.
     #[wasm_bindgen(method, getter = "RoutingPrefix")]
     pub fn get_routing_prefix(this: &ManagedIpConfigProperties) -> Option<ManagedLong>;
@@ -1387,9 +1350,7 @@ impl ManagedIpConfigProperties {
     ///Construct a new `ManagedIpConfigProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_gateway()` instead."]
@@ -1457,9 +1418,7 @@ impl PaymentPortal {
     ///Construct a new `PaymentPortal`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_method()` instead."]
@@ -1506,9 +1465,7 @@ impl ProxyLocation {
     ///Construct a new `ProxyLocation`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_host()` instead."]
@@ -1550,9 +1507,7 @@ impl ManagedProxyLocation {
     ///Construct a new `ManagedProxyLocation`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_host()` instead."]
@@ -1606,9 +1561,7 @@ impl ManualProxySettings {
     ///Construct a new `ManualProxySettings`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_ftp_proxy()` instead."]
@@ -1645,17 +1598,13 @@ extern "C" {
     pub type ManagedManualProxySettings;
     ///Get the `FTPProxy` field of this object.
     #[wasm_bindgen(method, getter = "FTPProxy")]
-    pub fn get_ftp_proxy(
-        this: &ManagedManualProxySettings,
-    ) -> Option<ManagedProxyLocation>;
+    pub fn get_ftp_proxy(this: &ManagedManualProxySettings) -> Option<ManagedProxyLocation>;
     ///Change the `FTPProxy` field of this object.
     #[wasm_bindgen(method, setter = "FTPProxy")]
     pub fn set_ftp_proxy(this: &ManagedManualProxySettings, val: &ManagedProxyLocation);
     ///Get the `HTTPProxy` field of this object.
     #[wasm_bindgen(method, getter = "HTTPProxy")]
-    pub fn get_http_proxy(
-        this: &ManagedManualProxySettings,
-    ) -> Option<ManagedProxyLocation>;
+    pub fn get_http_proxy(this: &ManagedManualProxySettings) -> Option<ManagedProxyLocation>;
     ///Change the `HTTPProxy` field of this object.
     #[wasm_bindgen(method, setter = "HTTPProxy")]
     pub fn set_http_proxy(this: &ManagedManualProxySettings, val: &ManagedProxyLocation);
@@ -1667,23 +1616,17 @@ extern "C" {
     pub fn set_socks(this: &ManagedManualProxySettings, val: &ManagedProxyLocation);
     ///Get the `SecureHTTPProxy` field of this object.
     #[wasm_bindgen(method, getter = "SecureHTTPProxy")]
-    pub fn get_secure_http_proxy(
-        this: &ManagedManualProxySettings,
-    ) -> Option<ManagedProxyLocation>;
+    pub fn get_secure_http_proxy(this: &ManagedManualProxySettings)
+    -> Option<ManagedProxyLocation>;
     ///Change the `SecureHTTPProxy` field of this object.
     #[wasm_bindgen(method, setter = "SecureHTTPProxy")]
-    pub fn set_secure_http_proxy(
-        this: &ManagedManualProxySettings,
-        val: &ManagedProxyLocation,
-    );
+    pub fn set_secure_http_proxy(this: &ManagedManualProxySettings, val: &ManagedProxyLocation);
 }
 impl ManagedManualProxySettings {
     ///Construct a new `ManagedManualProxySettings`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_ftp_proxy()` instead."]
@@ -1747,9 +1690,7 @@ impl ProxySettings {
     ///Construct a new `ProxySettings`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_exclude_domains()` instead."]
@@ -1786,9 +1727,7 @@ extern "C" {
     pub type ManagedProxySettings;
     ///Get the `ExcludeDomains` field of this object.
     #[wasm_bindgen(method, getter = "ExcludeDomains")]
-    pub fn get_exclude_domains(
-        this: &ManagedProxySettings,
-    ) -> Option<ManagedDomStringList>;
+    pub fn get_exclude_domains(this: &ManagedProxySettings) -> Option<ManagedDomStringList>;
     ///Change the `ExcludeDomains` field of this object.
     #[wasm_bindgen(method, setter = "ExcludeDomains")]
     pub fn set_exclude_domains(this: &ManagedProxySettings, val: &ManagedDomStringList);
@@ -1815,9 +1754,7 @@ impl ManagedProxySettings {
     ///Construct a new `ManagedProxySettings`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_exclude_domains()` instead."]
@@ -1875,9 +1812,7 @@ impl SimLockStatus {
     ///Construct a new `SimLockStatus`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_lock_enabled()` instead."]
@@ -1924,9 +1859,7 @@ impl ThirdPartyVpnProperties {
     ///Construct a new `ThirdPartyVpnProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_extension_id()` instead."]
@@ -1959,10 +1892,7 @@ extern "C" {
     pub fn get_extension_id(this: &ManagedThirdPartyVpnProperties) -> ManagedDomString;
     ///Change the `ExtensionID` field of this object.
     #[wasm_bindgen(method, setter = "ExtensionID")]
-    pub fn set_extension_id(
-        this: &ManagedThirdPartyVpnProperties,
-        val: &ManagedDomString,
-    );
+    pub fn set_extension_id(this: &ManagedThirdPartyVpnProperties, val: &ManagedDomString);
     ///Get the `ProviderName` field of this object.
     #[wasm_bindgen(method, getter = "ProviderName")]
     pub fn get_provider_name(this: &ManagedThirdPartyVpnProperties) -> Option<String>;
@@ -1974,9 +1904,7 @@ impl ManagedThirdPartyVpnProperties {
     ///Construct a new `ManagedThirdPartyVpnProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_extension_id()` instead."]
@@ -2003,9 +1931,7 @@ extern "C" {
     pub type CellularProperties;
     ///Get the `ActivationState` field of this object.
     #[wasm_bindgen(method, getter = "ActivationState")]
-    pub fn get_activation_state(
-        this: &CellularProperties,
-    ) -> Option<ActivationStateType>;
+    pub fn get_activation_state(this: &CellularProperties) -> Option<ActivationStateType>;
     ///Change the `ActivationState` field of this object.
     #[wasm_bindgen(method, setter = "ActivationState")]
     pub fn set_activation_state(this: &CellularProperties, val: ActivationStateType);
@@ -2053,15 +1979,10 @@ extern "C" {
     pub fn set_hardware_revision(this: &CellularProperties, val: String);
     ///Get the `HomeProvider` field of this object.
     #[wasm_bindgen(method, getter = "HomeProvider")]
-    pub fn get_home_provider(
-        this: &CellularProperties,
-    ) -> Option<CellularProviderProperties>;
+    pub fn get_home_provider(this: &CellularProperties) -> Option<CellularProviderProperties>;
     ///Change the `HomeProvider` field of this object.
     #[wasm_bindgen(method, setter = "HomeProvider")]
-    pub fn set_home_provider(
-        this: &CellularProperties,
-        val: &CellularProviderProperties,
-    );
+    pub fn set_home_provider(this: &CellularProperties, val: &CellularProviderProperties);
     ///Get the `Manufacturer` field of this object.
     #[wasm_bindgen(method, getter = "Manufacturer")]
     pub fn get_manufacturer(this: &CellularProperties) -> Option<String>;
@@ -2112,15 +2033,10 @@ extern "C" {
     pub fn set_scanning(this: &CellularProperties, val: bool);
     ///Get the `ServingOperator` field of this object.
     #[wasm_bindgen(method, getter = "ServingOperator")]
-    pub fn get_serving_operator(
-        this: &CellularProperties,
-    ) -> Option<CellularProviderProperties>;
+    pub fn get_serving_operator(this: &CellularProperties) -> Option<CellularProviderProperties>;
     ///Change the `ServingOperator` field of this object.
     #[wasm_bindgen(method, setter = "ServingOperator")]
-    pub fn set_serving_operator(
-        this: &CellularProperties,
-        val: &CellularProviderProperties,
-    );
+    pub fn set_serving_operator(this: &CellularProperties, val: &CellularProviderProperties);
     ///Get the `SignalStrength` field of this object.
     #[wasm_bindgen(method, getter = "SignalStrength")]
     pub fn get_signal_strength(this: &CellularProperties) -> Option<i32>;
@@ -2138,9 +2054,7 @@ impl CellularProperties {
     ///Construct a new `CellularProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_activation_state()` instead."]
@@ -2257,15 +2171,10 @@ extern "C" {
     pub type ManagedCellularProperties;
     ///Get the `ActivationState` field of this object.
     #[wasm_bindgen(method, getter = "ActivationState")]
-    pub fn get_activation_state(
-        this: &ManagedCellularProperties,
-    ) -> Option<ActivationStateType>;
+    pub fn get_activation_state(this: &ManagedCellularProperties) -> Option<ActivationStateType>;
     ///Change the `ActivationState` field of this object.
     #[wasm_bindgen(method, setter = "ActivationState")]
-    pub fn set_activation_state(
-        this: &ManagedCellularProperties,
-        val: ActivationStateType,
-    );
+    pub fn set_activation_state(this: &ManagedCellularProperties, val: ActivationStateType);
     ///Get the `ActivationType` field of this object.
     #[wasm_bindgen(method, getter = "ActivationType")]
     pub fn get_activation_type(this: &ManagedCellularProperties) -> Option<String>;
@@ -2346,9 +2255,7 @@ extern "C" {
     pub fn set_roaming_state(this: &ManagedCellularProperties, val: String);
     ///Get the `SIMLockStatus` field of this object.
     #[wasm_bindgen(method, getter = "SIMLockStatus")]
-    pub fn get_sim_lock_status(
-        this: &ManagedCellularProperties,
-    ) -> Option<SimLockStatus>;
+    pub fn get_sim_lock_status(this: &ManagedCellularProperties) -> Option<SimLockStatus>;
     ///Change the `SIMLockStatus` field of this object.
     #[wasm_bindgen(method, setter = "SIMLockStatus")]
     pub fn set_sim_lock_status(this: &ManagedCellularProperties, val: &SimLockStatus);
@@ -2371,10 +2278,7 @@ extern "C" {
     ) -> Option<CellularProviderProperties>;
     ///Change the `ServingOperator` field of this object.
     #[wasm_bindgen(method, setter = "ServingOperator")]
-    pub fn set_serving_operator(
-        this: &ManagedCellularProperties,
-        val: &CellularProviderProperties,
-    );
+    pub fn set_serving_operator(this: &ManagedCellularProperties, val: &CellularProviderProperties);
     ///Get the `SignalStrength` field of this object.
     #[wasm_bindgen(method, getter = "SignalStrength")]
     pub fn get_signal_strength(this: &ManagedCellularProperties) -> Option<i32>;
@@ -2392,9 +2296,7 @@ impl ManagedCellularProperties {
     ///Construct a new `ManagedCellularProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_activation_state()` instead."]
@@ -2511,15 +2413,10 @@ extern "C" {
     pub type CellularStateProperties;
     ///Get the `ActivationState` field of this object.
     #[wasm_bindgen(method, getter = "ActivationState")]
-    pub fn get_activation_state(
-        this: &CellularStateProperties,
-    ) -> Option<ActivationStateType>;
+    pub fn get_activation_state(this: &CellularStateProperties) -> Option<ActivationStateType>;
     ///Change the `ActivationState` field of this object.
     #[wasm_bindgen(method, setter = "ActivationState")]
-    pub fn set_activation_state(
-        this: &CellularStateProperties,
-        val: ActivationStateType,
-    );
+    pub fn set_activation_state(this: &CellularStateProperties, val: ActivationStateType);
     ///Get the `NetworkTechnology` field of this object.
     #[wasm_bindgen(method, getter = "NetworkTechnology")]
     pub fn get_network_technology(this: &CellularStateProperties) -> Option<String>;
@@ -2549,9 +2446,7 @@ impl CellularStateProperties {
     ///Construct a new `CellularStateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_activation_state()` instead."]
@@ -2614,9 +2509,7 @@ impl EthernetProperties {
     ///Construct a new `EthernetProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_authentication()` instead."]
@@ -2648,9 +2541,7 @@ extern "C" {
     pub type ManagedEthernetProperties;
     ///Get the `Authentication` field of this object.
     #[wasm_bindgen(method, getter = "Authentication")]
-    pub fn get_authentication(
-        this: &ManagedEthernetProperties,
-    ) -> Option<ManagedDomString>;
+    pub fn get_authentication(this: &ManagedEthernetProperties) -> Option<ManagedDomString>;
     ///Change the `Authentication` field of this object.
     #[wasm_bindgen(method, setter = "Authentication")]
     pub fn set_authentication(this: &ManagedEthernetProperties, val: &ManagedDomString);
@@ -2665,9 +2556,7 @@ impl ManagedEthernetProperties {
     ///Construct a new `ManagedEthernetProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_authentication()` instead."]
@@ -2703,9 +2592,7 @@ impl EthernetStateProperties {
     ///Construct a new `EthernetStateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_authentication()` instead."]
@@ -2748,9 +2635,7 @@ impl VpnProperties {
     ///Construct a new `VpnProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_auto_connect()` instead."]
@@ -2803,9 +2688,7 @@ impl ManagedVpnProperties {
     ///Construct a new `ManagedVpnProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_auto_connect()` instead."]
@@ -2846,9 +2729,7 @@ impl VpnStateProperties {
     ///Construct a new `VpnStateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_type()` instead."]
@@ -2951,9 +2832,7 @@ impl WiFiProperties {
     ///Construct a new `WiFiProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_allow_gateway_arp_polling()` instead."]
@@ -3035,15 +2914,10 @@ extern "C" {
     pub type ManagedWiFiProperties;
     ///Get the `AllowGatewayARPPolling` field of this object.
     #[wasm_bindgen(method, getter = "AllowGatewayARPPolling")]
-    pub fn get_allow_gateway_arp_polling(
-        this: &ManagedWiFiProperties,
-    ) -> Option<ManagedBoolean>;
+    pub fn get_allow_gateway_arp_polling(this: &ManagedWiFiProperties) -> Option<ManagedBoolean>;
     ///Change the `AllowGatewayARPPolling` field of this object.
     #[wasm_bindgen(method, setter = "AllowGatewayARPPolling")]
-    pub fn set_allow_gateway_arp_polling(
-        this: &ManagedWiFiProperties,
-        val: &ManagedBoolean,
-    );
+    pub fn set_allow_gateway_arp_polling(this: &ManagedWiFiProperties, val: &ManagedBoolean);
     ///Get the `AutoConnect` field of this object.
     #[wasm_bindgen(method, getter = "AutoConnect")]
     pub fn get_auto_connect(this: &ManagedWiFiProperties) -> Option<ManagedBoolean>;
@@ -3109,9 +2983,7 @@ impl ManagedWiFiProperties {
     ///Construct a new `ManagedWiFiProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_allow_gateway_arp_polling()` instead."]
@@ -3222,9 +3094,7 @@ impl WiFiStateProperties {
     ///Construct a new `WiFiStateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_bssid()` instead."]
@@ -3286,9 +3156,7 @@ impl WiMaxProperties {
     ///Construct a new `WiMaxProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_auto_connect()` instead."]
@@ -3333,9 +3201,7 @@ extern "C" {
     pub fn set_guid(this: &NetworkConfigProperties, val: String);
     ///Get the `IPAddressConfigType` field of this object.
     #[wasm_bindgen(method, getter = "IPAddressConfigType")]
-    pub fn get_ip_address_config_type(
-        this: &NetworkConfigProperties,
-    ) -> Option<IpConfigType>;
+    pub fn get_ip_address_config_type(this: &NetworkConfigProperties) -> Option<IpConfigType>;
     ///Change the `IPAddressConfigType` field of this object.
     #[wasm_bindgen(method, setter = "IPAddressConfigType")]
     pub fn set_ip_address_config_type(this: &NetworkConfigProperties, val: IpConfigType);
@@ -3347,15 +3213,10 @@ extern "C" {
     pub fn set_name(this: &NetworkConfigProperties, val: String);
     ///Get the `NameServersConfigType` field of this object.
     #[wasm_bindgen(method, getter = "NameServersConfigType")]
-    pub fn get_name_servers_config_type(
-        this: &NetworkConfigProperties,
-    ) -> Option<IpConfigType>;
+    pub fn get_name_servers_config_type(this: &NetworkConfigProperties) -> Option<IpConfigType>;
     ///Change the `NameServersConfigType` field of this object.
     #[wasm_bindgen(method, setter = "NameServersConfigType")]
-    pub fn set_name_servers_config_type(
-        this: &NetworkConfigProperties,
-        val: IpConfigType,
-    );
+    pub fn set_name_servers_config_type(this: &NetworkConfigProperties, val: IpConfigType);
     ///Get the `Priority` field of this object.
     #[wasm_bindgen(method, getter = "Priority")]
     pub fn get_priority(this: &NetworkConfigProperties) -> Option<i32>;
@@ -3391,9 +3252,7 @@ impl NetworkConfigProperties {
     ///Construct a new `NetworkConfigProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cellular()` instead."]
@@ -3531,9 +3390,7 @@ extern "C" {
     pub fn set_name(this: &NetworkProperties, val: String);
     ///Get the `NameServersConfigType` field of this object.
     #[wasm_bindgen(method, getter = "NameServersConfigType")]
-    pub fn get_name_servers_config_type(
-        this: &NetworkProperties,
-    ) -> Option<IpConfigType>;
+    pub fn get_name_servers_config_type(this: &NetworkProperties) -> Option<IpConfigType>;
     ///Change the `NameServersConfigType` field of this object.
     #[wasm_bindgen(method, setter = "NameServersConfigType")]
     pub fn set_name_servers_config_type(this: &NetworkProperties, val: IpConfigType);
@@ -3602,9 +3459,7 @@ impl NetworkProperties {
     ///Construct a new `NetworkProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cellular()` instead."]
@@ -3767,15 +3622,10 @@ extern "C" {
     pub fn set_guid(this: &ManagedProperties, val: String);
     ///Get the `IPAddressConfigType` field of this object.
     #[wasm_bindgen(method, getter = "IPAddressConfigType")]
-    pub fn get_ip_address_config_type(
-        this: &ManagedProperties,
-    ) -> Option<ManagedIpConfigType>;
+    pub fn get_ip_address_config_type(this: &ManagedProperties) -> Option<ManagedIpConfigType>;
     ///Change the `IPAddressConfigType` field of this object.
     #[wasm_bindgen(method, setter = "IPAddressConfigType")]
-    pub fn set_ip_address_config_type(
-        this: &ManagedProperties,
-        val: &ManagedIpConfigType,
-    );
+    pub fn set_ip_address_config_type(this: &ManagedProperties, val: &ManagedIpConfigType);
     ///Get the `IPConfigs` field of this object.
     #[wasm_bindgen(method, getter = "IPConfigs")]
     pub fn get_ip_configs(this: &ManagedProperties) -> Option<Array>;
@@ -3802,15 +3652,10 @@ extern "C" {
     pub fn set_name(this: &ManagedProperties, val: &ManagedDomString);
     ///Get the `NameServersConfigType` field of this object.
     #[wasm_bindgen(method, getter = "NameServersConfigType")]
-    pub fn get_name_servers_config_type(
-        this: &ManagedProperties,
-    ) -> Option<ManagedIpConfigType>;
+    pub fn get_name_servers_config_type(this: &ManagedProperties) -> Option<ManagedIpConfigType>;
     ///Change the `NameServersConfigType` field of this object.
     #[wasm_bindgen(method, setter = "NameServersConfigType")]
-    pub fn set_name_servers_config_type(
-        this: &ManagedProperties,
-        val: &ManagedIpConfigType,
-    );
+    pub fn set_name_servers_config_type(this: &ManagedProperties, val: &ManagedIpConfigType);
     ///Get the `Priority` field of this object.
     #[wasm_bindgen(method, getter = "Priority")]
     pub fn get_priority(this: &ManagedProperties) -> Option<ManagedLong>;
@@ -3843,15 +3688,10 @@ extern "C" {
     pub fn set_source(this: &ManagedProperties, val: String);
     ///Get the `StaticIPConfig` field of this object.
     #[wasm_bindgen(method, getter = "StaticIPConfig")]
-    pub fn get_static_ip_config(
-        this: &ManagedProperties,
-    ) -> Option<ManagedIpConfigProperties>;
+    pub fn get_static_ip_config(this: &ManagedProperties) -> Option<ManagedIpConfigProperties>;
     ///Change the `StaticIPConfig` field of this object.
     #[wasm_bindgen(method, setter = "StaticIPConfig")]
-    pub fn set_static_ip_config(
-        this: &ManagedProperties,
-        val: &ManagedIpConfigProperties,
-    );
+    pub fn set_static_ip_config(this: &ManagedProperties, val: &ManagedIpConfigProperties);
     ///Get the `TrafficCounterResetTime` field of this object.
     #[wasm_bindgen(method, getter = "TrafficCounterResetTime")]
     pub fn get_traffic_counter_reset_time(this: &ManagedProperties) -> Option<f64>;
@@ -3881,9 +3721,7 @@ impl ManagedProperties {
     ///Construct a new `ManagedProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cellular()` instead."]
@@ -4010,9 +3848,7 @@ extern "C" {
     pub type NetworkStateProperties;
     ///Get the `Cellular` field of this object.
     #[wasm_bindgen(method, getter = "Cellular")]
-    pub fn get_cellular(
-        this: &NetworkStateProperties,
-    ) -> Option<CellularStateProperties>;
+    pub fn get_cellular(this: &NetworkStateProperties) -> Option<CellularStateProperties>;
     ///Change the `Cellular` field of this object.
     #[wasm_bindgen(method, setter = "Cellular")]
     pub fn set_cellular(this: &NetworkStateProperties, val: &CellularStateProperties);
@@ -4024,9 +3860,7 @@ extern "C" {
     pub fn set_connectable(this: &NetworkStateProperties, val: bool);
     ///Get the `ConnectionState` field of this object.
     #[wasm_bindgen(method, getter = "ConnectionState")]
-    pub fn get_connection_state(
-        this: &NetworkStateProperties,
-    ) -> Option<ConnectionStateType>;
+    pub fn get_connection_state(this: &NetworkStateProperties) -> Option<ConnectionStateType>;
     ///Change the `ConnectionState` field of this object.
     #[wasm_bindgen(method, setter = "ConnectionState")]
     pub fn set_connection_state(this: &NetworkStateProperties, val: ConnectionStateType);
@@ -4038,9 +3872,7 @@ extern "C" {
     pub fn set_error_state(this: &NetworkStateProperties, val: String);
     ///Get the `Ethernet` field of this object.
     #[wasm_bindgen(method, getter = "Ethernet")]
-    pub fn get_ethernet(
-        this: &NetworkStateProperties,
-    ) -> Option<EthernetStateProperties>;
+    pub fn get_ethernet(this: &NetworkStateProperties) -> Option<EthernetStateProperties>;
     ///Change the `Ethernet` field of this object.
     #[wasm_bindgen(method, setter = "Ethernet")]
     pub fn set_ethernet(this: &NetworkStateProperties, val: &EthernetStateProperties);
@@ -4091,9 +3923,7 @@ impl NetworkStateProperties {
     ///Construct a new `NetworkStateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_cellular()` instead."]
@@ -4203,9 +4033,7 @@ impl DeviceStateProperties {
     ///Construct a new `DeviceStateProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_sim_lock_status()` instead."]
@@ -4274,9 +4102,7 @@ impl NetworkFilter {
     ///Construct a new `NetworkFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_configured()` instead."]
@@ -4313,17 +4139,13 @@ extern "C" {
     pub type GlobalPolicy;
     ///Get the `AllowOnlyPolicyNetworksToAutoconnect` field of this object.
     #[wasm_bindgen(method, getter = "AllowOnlyPolicyNetworksToAutoconnect")]
-    pub fn get_allow_only_policy_networks_to_autoconnect(
-        this: &GlobalPolicy,
-    ) -> Option<bool>;
+    pub fn get_allow_only_policy_networks_to_autoconnect(this: &GlobalPolicy) -> Option<bool>;
     ///Change the `AllowOnlyPolicyNetworksToAutoconnect` field of this object.
     #[wasm_bindgen(method, setter = "AllowOnlyPolicyNetworksToAutoconnect")]
     pub fn set_allow_only_policy_networks_to_autoconnect(this: &GlobalPolicy, val: bool);
     ///Get the `AllowOnlyPolicyNetworksToConnect` field of this object.
     #[wasm_bindgen(method, getter = "AllowOnlyPolicyNetworksToConnect")]
-    pub fn get_allow_only_policy_networks_to_connect(
-        this: &GlobalPolicy,
-    ) -> Option<bool>;
+    pub fn get_allow_only_policy_networks_to_connect(this: &GlobalPolicy) -> Option<bool>;
     ///Change the `AllowOnlyPolicyNetworksToConnect` field of this object.
     #[wasm_bindgen(method, setter = "AllowOnlyPolicyNetworksToConnect")]
     pub fn set_allow_only_policy_networks_to_connect(this: &GlobalPolicy, val: bool);
@@ -4334,10 +4156,7 @@ extern "C" {
     ) -> Option<bool>;
     ///Change the `AllowOnlyPolicyNetworksToConnectIfAvailable` field of this object.
     #[wasm_bindgen(method, setter = "AllowOnlyPolicyNetworksToConnectIfAvailable")]
-    pub fn set_allow_only_policy_networks_to_connect_if_available(
-        this: &GlobalPolicy,
-        val: bool,
-    );
+    pub fn set_allow_only_policy_networks_to_connect_if_available(this: &GlobalPolicy, val: bool);
     ///Get the `BlockedHexSSIDs` field of this object.
     #[wasm_bindgen(method, getter = "BlockedHexSSIDs")]
     pub fn get_blocked_hex_ssi_ds(this: &GlobalPolicy) -> Option<Array>;
@@ -4349,9 +4168,7 @@ impl GlobalPolicy {
     ///Construct a new `GlobalPolicy`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_allow_only_policy_networks_to_autoconnect()` instead."]
@@ -4365,10 +4182,7 @@ impl GlobalPolicy {
         self
     }
     #[deprecated = "Use `set_allow_only_policy_networks_to_connect_if_available()` instead."]
-    pub fn allow_only_policy_networks_to_connect_if_available(
-        &mut self,
-        val: bool,
-    ) -> &mut Self {
+    pub fn allow_only_policy_networks_to_connect_if_available(&mut self, val: bool) -> &mut Self {
         self.set_allow_only_policy_networks_to_connect_if_available(val);
         self
     }
@@ -4411,10 +4225,7 @@ extern "C" {
         "onc"],
         js_name = "setProperties"
     )]
-    pub fn set_properties(
-        network_guid: String,
-        properties: NetworkConfigProperties,
-    ) -> Promise;
+    pub fn set_properties(network_guid: String, properties: NetworkConfigProperties) -> Promise;
     ///Creates a new network configuration from properties. If a matching configured network already exists, this will fail. Otherwise returns the GUID of the new network.
     #[wasm_bindgen(
         js_namespace = ["chrome",

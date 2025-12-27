@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The JavaScript world for a user script to execute within.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -34,9 +34,7 @@ impl ScriptSource {
     ///Construct a new `ScriptSource`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_code()` instead."]
@@ -106,9 +104,7 @@ extern "C" {
     #[cfg(feature = "extension_types")]
     ///Get the `runAt` field of this object.
     #[wasm_bindgen(method, getter = "runAt")]
-    pub fn get_run_at(
-        this: &RegisteredUserScript,
-    ) -> Option<super::extension_types::RunAt>;
+    pub fn get_run_at(this: &RegisteredUserScript) -> Option<super::extension_types::RunAt>;
     #[cfg(feature = "extension_types")]
     ///Change the `runAt` field of this object.
     #[wasm_bindgen(method, setter = "runAt")]
@@ -130,9 +126,7 @@ impl RegisteredUserScript {
     ///Construct a new `RegisteredUserScript`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]
@@ -209,9 +203,7 @@ impl UserScriptFilter {
     ///Construct a new `UserScriptFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_ids()` instead."]
@@ -260,9 +252,7 @@ impl InjectionTarget {
     ///Construct a new `InjectionTarget`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_all_frames()` instead."]
@@ -326,9 +316,7 @@ impl InjectionResult {
     ///Construct a new `InjectionResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_document_id()` instead."]
@@ -398,9 +386,7 @@ impl UserScriptInjection {
     ///Construct a new `UserScriptInjection`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_inject_immediately()` instead."]
@@ -463,9 +449,7 @@ impl WorldProperties {
     ///Construct a new `WorldProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_csp()` instead."]

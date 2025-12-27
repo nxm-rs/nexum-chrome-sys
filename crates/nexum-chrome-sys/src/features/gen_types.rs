@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The scope of the ChromeSetting. One ofregular: setting for the regular profile (which is inherited by the incognito profile if not overridden elsewhere),regular_only: setting for the regular profile only (not inherited by the incognito profile),incognito_persistent: setting for the incognito profile that survives browser restarts (overrides regular preferences),incognito_session_only: setting for the incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular and incognito_persistent preferences).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -31,9 +31,7 @@ impl ChromeSetting {
     ///Construct a new `ChromeSetting`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
 }

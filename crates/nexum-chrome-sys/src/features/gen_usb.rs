@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use wasm_bindgen::prelude::*;
 use js_sys::{Array, Function, Object, Promise};
+use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -107,9 +107,7 @@ impl Device {
     ///Construct a new `Device`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_device()` instead."]
@@ -182,9 +180,7 @@ impl ConnectionHandle {
     ///Construct a new `ConnectionHandle`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_handle()` instead."]
@@ -267,9 +263,7 @@ impl EndpointDescriptor {
     ///Construct a new `EndpointDescriptor`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_address()` instead."]
@@ -377,9 +371,7 @@ impl InterfaceDescriptor {
     ///Construct a new `InterfaceDescriptor`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_alternate_setting()` instead."]
@@ -487,9 +479,7 @@ impl ConfigDescriptor {
     ///Construct a new `ConfigDescriptor`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_active()` instead."]
@@ -603,9 +593,7 @@ impl ControlTransferInfo {
     ///Construct a new `ControlTransferInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -700,9 +688,7 @@ impl GenericTransferInfo {
     ///Construct a new `GenericTransferInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -765,9 +751,7 @@ impl IsochronousTransferInfo {
     ///Construct a new `IsochronousTransferInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_packet_length()` instead."]
@@ -814,9 +798,7 @@ impl TransferResultInfo {
     ///Construct a new `TransferResultInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -876,9 +858,7 @@ impl DeviceFilter {
     ///Construct a new `DeviceFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_interface_class()` instead."]
@@ -941,9 +921,7 @@ impl EnumerateDevicesOptions {
     ///Construct a new `EnumerateDevicesOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filters()` instead."]
@@ -978,9 +956,7 @@ extern "C" {
     pub type EnumerateDevicesAndRequestAccessOptions;
     ///Get the `interfaceId` field of this object.
     #[wasm_bindgen(method, getter = "interfaceId")]
-    pub fn get_interface_id(
-        this: &EnumerateDevicesAndRequestAccessOptions,
-    ) -> Option<i32>;
+    pub fn get_interface_id(this: &EnumerateDevicesAndRequestAccessOptions) -> Option<i32>;
     ///Change the `interfaceId` field of this object.
     #[wasm_bindgen(method, setter = "interfaceId")]
     pub fn set_interface_id(this: &EnumerateDevicesAndRequestAccessOptions, val: i32);
@@ -1001,9 +977,7 @@ impl EnumerateDevicesAndRequestAccessOptions {
     ///Construct a new `EnumerateDevicesAndRequestAccessOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_interface_id()` instead."]
@@ -1050,9 +1024,7 @@ impl DevicePromptOptions {
     ///Construct a new `DevicePromptOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
-            ::js_sys::Object::new(),
-        );
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
         ret
     }
     #[deprecated = "Use `set_filters()` instead."]
@@ -1096,10 +1068,7 @@ extern "C" {
     pub fn close_device(handle: ConnectionHandle) -> Promise;
     ///Select a device configuration.This function effectively resets the device by selecting one of the device's available configurations. Only configuration values greater than 0 are valid however some buggy devices have a working configuration 0 and so this value is allowed.
     #[wasm_bindgen(js_namespace = ["chrome", "usb"], js_name = "setConfiguration")]
-    pub fn set_configuration(
-        handle: ConnectionHandle,
-        configuration_value: i32,
-    ) -> Promise;
+    pub fn set_configuration(handle: ConnectionHandle, configuration_value: i32) -> Promise;
     ///Gets the configuration descriptor for the currently selected configuration.
     #[wasm_bindgen(js_namespace = ["chrome", "usb"], js_name = "getConfiguration")]
     pub fn get_configuration(handle: ConnectionHandle) -> Promise;
@@ -1131,10 +1100,7 @@ extern "C" {
     ) -> Promise;
     ///Performs a bulk transfer on the specified device.
     #[wasm_bindgen(js_namespace = ["chrome", "usb"], js_name = "bulkTransfer")]
-    pub fn bulk_transfer(
-        handle: ConnectionHandle,
-        transfer_info: GenericTransferInfo,
-    ) -> Promise;
+    pub fn bulk_transfer(handle: ConnectionHandle, transfer_info: GenericTransferInfo) -> Promise;
     ///Performs an interrupt transfer on the specified device.
     #[wasm_bindgen(js_namespace = ["chrome", "usb"], js_name = "interruptTransfer")]
     pub fn interrupt_transfer(
