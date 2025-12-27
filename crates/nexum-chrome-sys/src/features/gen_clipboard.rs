@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Supported image types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ImageType {
     Png = "png",
     Jpeg = "jpeg",
@@ -12,6 +13,7 @@ pub enum ImageType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DataItemType {
     TextPlain = "textPlain",
     TextHtml = "textHtml",
@@ -56,6 +58,25 @@ impl AdditionalDataItem {
 impl Default for AdditionalDataItem {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AdditionalDataItem`.
+pub struct AdditionalDataItemData {
+    ///Content of the additional data item. Either the plain text string if |type| is "textPlain" or markup string if |type| is "textHtml". The data can not exceed 2MB.
+    pub data: String,
+    ///Type of the additional data item.
+    pub r#type: DataItemType,
+}
+#[cfg(feature = "serde")]
+impl From<&AdditionalDataItem> for AdditionalDataItemData {
+    fn from(val: &AdditionalDataItem) -> Self {
+        Self {
+            data: val.get_data(),
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]

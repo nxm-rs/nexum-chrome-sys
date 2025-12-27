@@ -77,6 +77,39 @@ impl Default for FeatureRestrictions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FeatureRestrictions`.
+pub struct FeatureRestrictionsData {
+    ///Whether virtual keyboards can provide auto-complete.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_complete_enabled: Option<bool>,
+    ///Whether virtual keyboards can provide auto-correct.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_correct_enabled: Option<bool>,
+    ///Whether virtual keyboards can provide input via handwriting recognition.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub handwriting_enabled: Option<bool>,
+    ///Whether virtual keyboards can provide spell-check.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub spell_check_enabled: Option<bool>,
+    ///Whether virtual keyboards can provide voice input.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub voice_input_enabled: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&FeatureRestrictions> for FeatureRestrictionsData {
+    fn from(val: &FeatureRestrictions) -> Self {
+        Self {
+            auto_complete_enabled: val.get_auto_complete_enabled(),
+            auto_correct_enabled: val.get_auto_correct_enabled(),
+            handwriting_enabled: val.get_handwriting_enabled(),
+            spell_check_enabled: val.get_spell_check_enabled(),
+            voice_input_enabled: val.get_voice_input_enabled(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Sets restrictions on features provided by the virtual keyboard.

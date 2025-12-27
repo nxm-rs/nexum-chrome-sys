@@ -27,6 +27,18 @@ pub struct Config {
 const REQUIRED_DEPS: &[(&str, &str)] = &[
     ("js-sys", "js-sys.workspace = true"),
     ("wasm-bindgen", "wasm-bindgen.workspace = true"),
+    (
+        "serde",
+        "serde = { workspace = true, features = [\"derive\"], optional = true }",
+    ),
+    (
+        "serde_json",
+        "serde_json = { workspace = true, optional = true }",
+    ),
+    (
+        "serde-wasm-bindgen",
+        "serde-wasm-bindgen = { workspace = true, optional = true }",
+    ),
 ];
 
 impl Config {
@@ -250,6 +262,8 @@ fn generate_features_section(features: &BTreeSet<String>) -> String {
     let mut content = String::new();
     content.push_str("[features]\n");
     content.push_str("default = []\n");
+    // Add serde feature that enables serialization support
+    content.push_str("serde = [\"dep:serde\", \"dep:serde_json\", \"dep:serde-wasm-bindgen\"]\n");
 
     for feature in features {
         content.push_str(&format!("{} = []\n", feature));

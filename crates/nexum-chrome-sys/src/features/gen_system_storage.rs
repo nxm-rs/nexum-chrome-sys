@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum StorageUnitType {
     ///The storage has fixed media, e.g. hard disk or SSD.
     Fixed = "fixed",
@@ -77,6 +78,31 @@ impl Default for StorageUnitInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StorageUnitInfo`.
+pub struct StorageUnitInfoData {
+    ///The total amount of the storage space, in bytes.
+    pub capacity: f64,
+    ///The transient ID that uniquely identifies the storage device. This ID will be persistent within the same run of a single application. It will not be a persistent identifier between different runs of an application, or between different applications.
+    pub id: String,
+    ///The name of the storage unit.
+    pub name: String,
+    ///The media type of the storage unit.
+    pub r#type: StorageUnitType,
+}
+#[cfg(feature = "serde")]
+impl From<&StorageUnitInfo> for StorageUnitInfoData {
+    fn from(val: &StorageUnitInfo) -> Self {
+        Self {
+            capacity: val.get_capacity(),
+            id: val.get_id(),
+            name: val.get_name(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "StorageAvailableCapacityInfo")]
@@ -119,9 +145,29 @@ impl Default for StorageAvailableCapacityInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StorageAvailableCapacityInfo`.
+pub struct StorageAvailableCapacityInfoData {
+    ///The available capacity of the storage device, in bytes.
+    pub available_capacity: f64,
+    ///A copied |id| of getAvailableCapacity function parameter |id|.
+    pub id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&StorageAvailableCapacityInfo> for StorageAvailableCapacityInfoData {
+    fn from(val: &StorageAvailableCapacityInfo) -> Self {
+        Self {
+            available_capacity: val.get_available_capacity(),
+            id: val.get_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum EjectDeviceResultCode {
     ///The ejection command is successful -- the application can prompt the user to remove the device.
     Success = "success",

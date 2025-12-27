@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The style type.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DescriptionStyleType {
     Url = "url",
     Match = "match",
@@ -13,6 +14,7 @@ pub enum DescriptionStyleType {
 #[wasm_bindgen]
 ///The window disposition for the omnibox query. This is the recommended context to display results. For example, if the omnibox command is to navigate to a certain URL, a disposition of 'newForegroundTab' means the navigation should take place in a new selected tab.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnInputEnteredDisposition {
     CurrentTab = "currentTab",
     NewForegroundTab = "newForegroundTab",
@@ -69,6 +71,29 @@ impl MatchClassification {
 impl Default for MatchClassification {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MatchClassification`. The style ranges for the description, as provided by the extension.
+pub struct MatchClassificationData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub length: Option<i32>,
+    ///
+    pub offset: i32,
+    ///The style type
+    pub r#type: DescriptionStyleType,
+}
+#[cfg(feature = "serde")]
+impl From<&MatchClassification> for MatchClassificationData {
+    fn from(val: &MatchClassification) -> Self {
+        Self {
+            length: val.get_length(),
+            offset: val.get_offset(),
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -133,6 +158,34 @@ impl Action {
 impl Default for Action {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Action`. An action button attached to a suggest result.
+pub struct ActionData {
+    ///The icon shown in the action button on the leading side of the action label. The icon must be specified as an imageData object. The size should not be more than 160 px wide and tall.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon: Option<serde_json::Value>,
+    ///The action button label.
+    pub label: String,
+    ///The string sent to the extension in the event corresponding to the user clicking on the action.
+    pub name: String,
+    ///The action button hover tooltip text.
+    pub tooltip_text: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Action> for ActionData {
+    fn from(val: &Action) -> Self {
+        Self {
+            icon: val
+                .get_icon()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            label: val.get_label(),
+            name: val.get_name(),
+            tooltip_text: val.get_tooltip_text(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -221,6 +274,45 @@ impl Default for SuggestResult {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SuggestResult`. A suggest result.
+pub struct SuggestResultData {
+    ///An array of actions attached to the suggestion. Only supported for suggestions added in unscoped mode.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub actions: Option<Vec<ActionData>>,
+    ///The text that is put into the URL bar, and that is sent to the extension when the user chooses this entry.
+    pub content: String,
+    ///Whether the suggest result can be deleted by the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub deletable: Option<bool>,
+    ///The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match. You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484
+    pub description: String,
+    ///An array of style ranges for the description, as provided by the extension.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description_styles: Option<Vec<MatchClassificationData>>,
+    ///An icon shown on the leading edge of the suggestion in the omnibox dropdown. Only supported for suggestions added in unscoped mode.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&SuggestResult> for SuggestResultData {
+    fn from(val: &SuggestResult) -> Self {
+        Self {
+            actions: val
+                .get_actions()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            content: val.get_content(),
+            deletable: val.get_deletable(),
+            description: val.get_description(),
+            description_styles: val
+                .get_description_styles()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            icon_url: val.get_icon_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DefaultSuggestResult")]
@@ -263,6 +355,28 @@ impl Default for DefaultSuggestResult {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DefaultSuggestResult`. A suggest result.
+pub struct DefaultSuggestResultData {
+    ///The text that is displayed in the URL dropdown. Can contain XML-style markup for styling. The supported tags are 'url' (for a literal URL), 'match' (for highlighting text that matched what the user's query), and 'dim' (for dim helper text). The styles can be nested, eg. dimmed match.
+    pub description: String,
+    ///An array of style ranges for the description, as provided by the extension.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description_styles: Option<Vec<MatchClassificationData>>,
+}
+#[cfg(feature = "serde")]
+impl From<&DefaultSuggestResult> for DefaultSuggestResultData {
+    fn from(val: &DefaultSuggestResult) -> Self {
+        Self {
+            description: val.get_description(),
+            description_styles: val
+                .get_description_styles()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ActionExecution")]
@@ -303,6 +417,25 @@ impl ActionExecution {
 impl Default for ActionExecution {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ActionExecution`. Details about an action executed by the user sent in the listener of `onActionExecuted`.
+pub struct ActionExecutionData {
+    ///The name of the action the user selected, as defined by the `action` field in `Action`.
+    pub action_name: String,
+    ///The text of the suggestion corresponding to the action, as shown in the Omnibox. The same as the `SuggestResult.content`.
+    pub content: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ActionExecution> for ActionExecutionData {
+    fn from(val: &ActionExecution) -> Self {
+        Self {
+            action_name: val.get_action_name(),
+            content: val.get_content(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -77,6 +77,40 @@ impl Default for Rule {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Rule`. Description of a declarative rule for handling events.
+pub struct RuleData {
+    ///List of actions that are triggered if one of the conditions is fulfilled.
+    pub actions: Vec<serde_json::Value>,
+    ///List of conditions that can trigger the actions.
+    pub conditions: Vec<serde_json::Value>,
+    ///Optional identifier that allows referencing this rule.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    ///Optional priority of this rule. Defaults to 100.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub priority: Option<i32>,
+    ///Tags can be used to annotate rules and perform operations on sets of rules.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&Rule> for RuleData {
+    fn from(val: &Rule) -> Self {
+        Self {
+            actions: serde_wasm_bindgen::from_value(val.get_actions().into()).unwrap_or_default(),
+            conditions: serde_wasm_bindgen::from_value(val.get_conditions().into())
+                .unwrap_or_default(),
+            id: val.get_id(),
+            priority: val.get_priority(),
+            tags: val
+                .get_tags()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Event")]
@@ -346,5 +380,108 @@ impl UrlFilter {
 impl Default for UrlFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UrlFilter`. Filters URLs for various criteria. See event filtering. All criteria are case sensitive.
+pub struct UrlFilterData {
+    ///Matches if the host part of the URL is an IP address and is contained in any of the CIDR blocks specified in the array.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cidr_blocks: Option<Vec<String>>,
+    ///Matches if the host name of the URL contains a specified string. To test whether a host name component has a prefix 'foo', use hostContains: '.foo'. This matches 'www.foobar.com' and 'foo.com', because an implicit dot is added at the beginning of the host name. Similarly, hostContains can be used to match against component suffix ('foo.') and to exactly match against components ('.foo.'). Suffix- and exact-matching for the last components need to be done separately using hostSuffix, because no implicit dot is added at the end of the host name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host_contains: Option<String>,
+    ///Matches if the host name of the URL is equal to a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host_equals: Option<String>,
+    ///Matches if the host name of the URL starts with a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host_prefix: Option<String>,
+    ///Matches if the host name of the URL ends with a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host_suffix: Option<String>,
+    ///Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub origin_and_path_matches: Option<String>,
+    ///Matches if the path segment of the URL contains a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path_contains: Option<String>,
+    ///Matches if the path segment of the URL is equal to a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path_equals: Option<String>,
+    ///Matches if the path segment of the URL starts with a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path_prefix: Option<String>,
+    ///Matches if the path segment of the URL ends with a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path_suffix: Option<String>,
+    ///Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ports: Option<Vec<serde_json::Value>>,
+    ///Matches if the query segment of the URL contains a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub query_contains: Option<String>,
+    ///Matches if the query segment of the URL is equal to a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub query_equals: Option<String>,
+    ///Matches if the query segment of the URL starts with a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub query_prefix: Option<String>,
+    ///Matches if the query segment of the URL ends with a specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub query_suffix: Option<String>,
+    ///Matches if the scheme of the URL is equal to any of the schemes specified in the array.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub schemes: Option<Vec<String>>,
+    ///Matches if the URL (without fragment identifier) contains a specified string. Port numbers are stripped from the URL if they match the default port number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url_contains: Option<String>,
+    ///Matches if the URL (without fragment identifier) is equal to a specified string. Port numbers are stripped from the URL if they match the default port number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url_equals: Option<String>,
+    ///Matches if the URL (without fragment identifier) matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url_matches: Option<String>,
+    ///Matches if the URL (without fragment identifier) starts with a specified string. Port numbers are stripped from the URL if they match the default port number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url_prefix: Option<String>,
+    ///Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url_suffix: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UrlFilter> for UrlFilterData {
+    fn from(val: &UrlFilter) -> Self {
+        Self {
+            cidr_blocks: val
+                .get_cidr_blocks()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            host_contains: val.get_host_contains(),
+            host_equals: val.get_host_equals(),
+            host_prefix: val.get_host_prefix(),
+            host_suffix: val.get_host_suffix(),
+            origin_and_path_matches: val.get_origin_and_path_matches(),
+            path_contains: val.get_path_contains(),
+            path_equals: val.get_path_equals(),
+            path_prefix: val.get_path_prefix(),
+            path_suffix: val.get_path_suffix(),
+            ports: val
+                .get_ports()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            query_contains: val.get_query_contains(),
+            query_equals: val.get_query_equals(),
+            query_prefix: val.get_query_prefix(),
+            query_suffix: val.get_query_suffix(),
+            schemes: val
+                .get_schemes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            url_contains: val.get_url_contains(),
+            url_equals: val.get_url_equals(),
+            url_matches: val.get_url_matches(),
+            url_prefix: val.get_url_prefix(),
+            url_suffix: val.get_url_suffix(),
+        }
     }
 }

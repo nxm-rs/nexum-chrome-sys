@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Scheme {
     Http = "http",
     Https = "https",
@@ -15,6 +16,7 @@ pub enum Scheme {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Mode {
     Direct = "direct",
     AutoDetect = "auto_detect",
@@ -73,6 +75,30 @@ impl ProxyServer {
 impl Default for ProxyServer {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProxyServer`. An object encapsulating a single proxy server's specification.
+pub struct ProxyServerData {
+    ///The hostname or IP address of the proxy server. Hostnames must be in ASCII (in Punycode format). IDNA is not supported, yet.
+    pub host: String,
+    ///The port of the proxy server. Defaults to a port that depends on the scheme.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub port: Option<i32>,
+    ///The scheme (protocol) of the proxy server itself. Defaults to 'http'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scheme: Option<Scheme>,
+}
+#[cfg(feature = "serde")]
+impl From<&ProxyServer> for ProxyServerData {
+    fn from(val: &ProxyServer) -> Self {
+        Self {
+            host: val.get_host(),
+            port: val.get_port(),
+            scheme: val.get_scheme(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -161,6 +187,45 @@ impl Default for ProxyRules {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProxyRules`. An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'.
+pub struct ProxyRulesData {
+    ///List of servers to connect to without a proxy server.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bypass_list: Option<Vec<String>>,
+    ///The proxy server to be used for everthing else or if any of the specific proxyFor... is not specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fallback_proxy: Option<ProxyServerData>,
+    ///The proxy server to be used for FTP requests.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proxy_for_ftp: Option<ProxyServerData>,
+    ///The proxy server to be used for HTTP requests.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proxy_for_http: Option<ProxyServerData>,
+    ///The proxy server to be used for HTTPS requests.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proxy_for_https: Option<ProxyServerData>,
+    ///The proxy server to be used for all per-URL requests (that is http, https, and ftp).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub single_proxy: Option<ProxyServerData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ProxyRules> for ProxyRulesData {
+    fn from(val: &ProxyRules) -> Self {
+        Self {
+            bypass_list: val
+                .get_bypass_list()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            fallback_proxy: val.get_fallback_proxy().as_ref().map(|v| v.into()),
+            proxy_for_ftp: val.get_proxy_for_ftp().as_ref().map(|v| v.into()),
+            proxy_for_http: val.get_proxy_for_http().as_ref().map(|v| v.into()),
+            proxy_for_https: val.get_proxy_for_https().as_ref().map(|v| v.into()),
+            single_proxy: val.get_single_proxy().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "PacScript")]
@@ -214,6 +279,31 @@ impl Default for PacScript {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PacScript`. An object holding proxy auto-config information. Exactly one of the fields should be non-empty.
+pub struct PacScriptData {
+    ///A PAC script.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data: Option<String>,
+    ///If true, an invalid PAC script will prevent the network stack from falling back to direct connections. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mandatory: Option<bool>,
+    ///URL of the PAC file to be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&PacScript> for PacScriptData {
+    fn from(val: &PacScript) -> Self {
+        Self {
+            data: val.get_data(),
+            mandatory: val.get_mandatory(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ProxyConfig")]
@@ -265,6 +355,30 @@ impl ProxyConfig {
 impl Default for ProxyConfig {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProxyConfig`. An object encapsulating a complete proxy configuration.
+pub struct ProxyConfigData {
+    ///'direct' = Never use a proxy'auto_detect' = Auto detect proxy settings'pac_script' = Use specified PAC script'fixed_servers' = Manually specify proxy servers'system' = Use system proxy settings
+    pub mode: Mode,
+    ///The proxy auto-config (PAC) script for this configuration. Use this for 'pac_script' mode.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pac_script: Option<PacScriptData>,
+    ///The proxy rules describing this configuration. Use this for 'fixed_servers' mode.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rules: Option<ProxyRulesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ProxyConfig> for ProxyConfigData {
+    fn from(val: &ProxyConfig) -> Self {
+        Self {
+            mode: val.get_mode(),
+            pac_script: val.get_pac_script().as_ref().map(|v| v.into()),
+            rules: val.get_rules().as_ref().map(|v| v.into()),
+        }
     }
 }
 #[wasm_bindgen]

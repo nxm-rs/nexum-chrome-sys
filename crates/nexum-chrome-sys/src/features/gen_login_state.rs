@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ProfileType {
     ///Specifies that the extension is in the signin profile.
     SigninProfile = "SIGNIN_PROFILE",
@@ -16,6 +17,7 @@ pub enum ProfileType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SessionState {
     ///Specifies that the session state is unknown.
     Unknown = "UNKNOWN",

@@ -55,6 +55,31 @@ impl Default for SocketProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SocketProperties`.
+pub struct SocketPropertiesData {
+    ///The size of the buffer used to receive data. The default value is 4096.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub buffer_size: Option<i32>,
+    ///An application-defined string associated with the socket.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Flag indicating whether the socket is left open when the event page of the application is unloaded (see Manage App Lifecycle). The default value is false. When the application is loaded, any sockets previously opened with persistent=true can be fetched with $ref:getSockets.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persistent: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&SocketProperties> for SocketPropertiesData {
+    fn from(val: &SocketProperties) -> Self {
+        Self {
+            buffer_size: val.get_buffer_size(),
+            name: val.get_name(),
+            persistent: val.get_persistent(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateInfo")]
@@ -84,6 +109,22 @@ impl CreateInfo {
 impl Default for CreateInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateInfo`.
+pub struct CreateInfoData {
+    ///The ID of the newly created socket. Note that socket IDs created from this API are not compatible with socket IDs created from other APIs, such as the $(ref:sockets.tcp) API.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateInfo> for CreateInfoData {
+    fn from(val: &CreateInfo) -> Self {
+        Self {
+            socket_id: val.get_socket_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -137,6 +178,31 @@ impl ListenOptions {
 impl Default for ListenOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ListenOptions`.
+pub struct ListenOptionsData {
+    ///Length of the socket's listen queue. The default value depends on the operating system's host subsystem.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub backlog: Option<i32>,
+    ///The RFCOMM Channel used by listenUsingRfcomm. If specified, this channel must not be previously in use or the method call will fail. When not specified, an unused channel will be automatically allocated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub channel: Option<i32>,
+    ///The L2CAP PSM used by listenUsingL2cap. If specified, this PSM must not be previously in use or the method call with fail. When not specified, an unused PSM will be automatically allocated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub psm: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&ListenOptions> for ListenOptionsData {
+    fn from(val: &ListenOptions) -> Self {
+        Self {
+            backlog: val.get_backlog(),
+            channel: val.get_channel(),
+            psm: val.get_psm(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -247,6 +313,47 @@ impl Default for SocketInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SocketInfo`.
+pub struct SocketInfoData {
+    ///If the underlying socket is connected, contains the Bluetooth address of the device it is connected to.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub address: Option<String>,
+    ///The size of the buffer used to receive data. If no buffer size has been specified explictly, the value is not provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub buffer_size: Option<i32>,
+    ///Flag indicating whether the socket is connected to a remote peer.
+    pub connected: bool,
+    ///Application-defined string associated with the socket.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Flag indicating whether a connected socket blocks its peer from sending more data, or whether connection requests on a listening socket are dispatched through the onAccept event or queued up in the listen queue backlog. See setPaused. The default value is "false".
+    pub paused: bool,
+    ///Flag indicating if the socket remains open when the event page of the application is unloaded (see SocketProperties.persistent). The default value is "false".
+    pub persistent: bool,
+    ///The socket identifier.
+    pub socket_id: i32,
+    ///If the underlying socket is connected, contains information about the service UUID it is connected to, otherwise if the underlying socket is listening, contains information about the service UUID it is listening on.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuid: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&SocketInfo> for SocketInfoData {
+    fn from(val: &SocketInfo) -> Self {
+        Self {
+            address: val.get_address(),
+            buffer_size: val.get_buffer_size(),
+            connected: val.get_connected(),
+            name: val.get_name(),
+            paused: val.get_paused(),
+            persistent: val.get_persistent(),
+            socket_id: val.get_socket_id(),
+            uuid: val.get_uuid(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AcceptInfo")]
@@ -289,9 +396,29 @@ impl Default for AcceptInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AcceptInfo`.
+pub struct AcceptInfoData {
+    ///The client socket identifier, i.e. the socket identifier of the newly established connection. This socket identifier should be used only with functions from the chrome.bluetoothSocket namespace. Note the client socket is initially paused and must be explictly un-paused by the application to start receiving data.
+    pub client_socket_id: i32,
+    ///The server socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AcceptInfo> for AcceptInfoData {
+    fn from(val: &AcceptInfo) -> Self {
+        Self {
+            client_socket_id: val.get_client_socket_id(),
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AcceptError {
     ///A system error occurred and the connection may be unrecoverable.
     SystemError = "system_error",
@@ -351,6 +478,28 @@ impl Default for AcceptErrorInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AcceptErrorInfo`.
+pub struct AcceptErrorInfoData {
+    ///An error code indicating what went wrong.
+    pub error: AcceptError,
+    ///The error message.
+    pub error_message: String,
+    ///The server socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AcceptErrorInfo> for AcceptErrorInfoData {
+    fn from(val: &AcceptErrorInfo) -> Self {
+        Self {
+            error: val.get_error(),
+            error_message: val.get_error_message(),
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReceiveInfo")]
@@ -393,9 +542,26 @@ impl Default for ReceiveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReceiveInfo`.
+pub struct ReceiveInfoData {
+    ///The socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReceiveInfo> for ReceiveInfoData {
+    fn from(val: &ReceiveInfo) -> Self {
+        Self {
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ReceiveError {
     ///The connection was disconnected.
     Disconnected = "disconnected",
@@ -455,6 +621,28 @@ impl ReceiveErrorInfo {
 impl Default for ReceiveErrorInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReceiveErrorInfo`.
+pub struct ReceiveErrorInfoData {
+    ///An error code indicating what went wrong.
+    pub error: ReceiveError,
+    ///The error message.
+    pub error_message: String,
+    ///The socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReceiveErrorInfo> for ReceiveErrorInfoData {
+    fn from(val: &ReceiveErrorInfo) -> Self {
+        Self {
+            error: val.get_error(),
+            error_message: val.get_error_message(),
+            socket_id: val.get_socket_id(),
+        }
     }
 }
 #[wasm_bindgen]

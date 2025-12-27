@@ -44,6 +44,25 @@ impl Default for MostVisitedUrl {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MostVisitedUrl`. An object encapsulating a most visited URL, such as the default shortcuts on the new tab page.
+pub struct MostVisitedUrlData {
+    ///The title of the page
+    pub title: String,
+    ///The most visited URL.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&MostVisitedUrl> for MostVisitedUrlData {
+    fn from(val: &MostVisitedUrl) -> Self {
+        Self {
+            title: val.get_title(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Gets a list of top sites.

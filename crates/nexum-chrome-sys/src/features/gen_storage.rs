@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The storage area's access level.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AccessLevel {
     ///Specifies contexts originating from the extension itself.
     TrustedContexts = "TRUSTED_CONTEXTS",
@@ -51,6 +52,31 @@ impl StorageChange {
 impl Default for StorageChange {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StorageChange`.
+pub struct StorageChangeData {
+    ///The new value of the item, if there is a new value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub new_value: Option<serde_json::Value>,
+    ///The old value of the item, if there was an old value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub old_value: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&StorageChange> for StorageChangeData {
+    fn from(val: &StorageChange) -> Self {
+        Self {
+            new_value: val
+                .get_new_value()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            old_value: val
+                .get_old_value()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+        }
     }
 }
 #[wasm_bindgen]

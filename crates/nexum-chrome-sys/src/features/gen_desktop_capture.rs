@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Enum used to define set of desktop media sources used in chooseDesktopMedia().
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DesktopCaptureSourceType {
     Screen = "screen",
     Window = "window",
@@ -14,6 +15,7 @@ pub enum DesktopCaptureSourceType {
 #[wasm_bindgen]
 ///Mirrors SystemAudioPreferenceEnum.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SystemAudioPreferenceEnum {
     Include = "include",
     Exclude = "exclude",
@@ -21,6 +23,7 @@ pub enum SystemAudioPreferenceEnum {
 #[wasm_bindgen]
 ///Mirrors WindowAudioPreferenceEnum.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum WindowAudioPreferenceEnum {
     System = "system",
     Window = "window",
@@ -29,6 +32,7 @@ pub enum WindowAudioPreferenceEnum {
 #[wasm_bindgen]
 ///Mirrors SelfCapturePreferenceEnum.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SelfCapturePreferenceEnum {
     Include = "include",
     Exclude = "exclude",

@@ -16,10 +16,13 @@ documentation.workspace = true
 [dependencies]
 js-sys.workspace = true
 wasm-bindgen.workspace = true
-serde = { workspace = true, features = ["derive"] }
+serde = { workspace = true, features = ["derive"], optional = true }
+serde_json = { workspace = true, optional = true }
+serde-wasm-bindgen = { workspace = true, optional = true }
 
 [features]
 default = []
+serde = ["dep:serde", "dep:serde_json", "dep:serde-wasm-bindgen"]
 action = []
 alarms = []
 app = []

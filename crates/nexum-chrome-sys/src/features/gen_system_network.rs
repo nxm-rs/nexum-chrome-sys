@@ -55,6 +55,28 @@ impl Default for NetworkInterface {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NetworkInterface`.
+pub struct NetworkInterfaceData {
+    ///The available IPv4/6 address.
+    pub address: String,
+    ///The underlying name of the adapter. On *nix, this will typically be "eth0", "wlan0", etc.
+    pub name: String,
+    ///The prefix length
+    pub prefix_length: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&NetworkInterface> for NetworkInterfaceData {
+    fn from(val: &NetworkInterface) -> Self {
+        Self {
+            address: val.get_address(),
+            name: val.get_name(),
+            prefix_length: val.get_prefix_length(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Retrieves information about local adapters on this system.

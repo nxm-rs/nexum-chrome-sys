@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ColorScheme {
     Dark = "dark",
     Light = "light",
@@ -49,5 +50,28 @@ impl IconVariant {
 impl Default for IconVariant {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IconVariant`.
+pub struct IconVariantData {
+    ///Optional DOMString path to an icon that should be used with any possible size.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub any: Option<String>,
+    ///Optional ColorScheme.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color_schemes: Option<Vec<ColorScheme>>,
+}
+#[cfg(feature = "serde")]
+impl From<&IconVariant> for IconVariantData {
+    fn from(val: &IconVariant) -> Self {
+        Self {
+            any: val.get_any(),
+            color_schemes: val
+                .get_color_schemes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }

@@ -55,6 +55,31 @@ impl Default for Command {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Command`.
+pub struct CommandData {
+    ///The Extension Command description
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///The name of the Extension Command
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///The shortcut active for this command, or blank if not active.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shortcut: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Command> for CommandData {
+    fn from(val: &Command) -> Self {
+        Self {
+            description: val.get_description(),
+            name: val.get_name(),
+            shortcut: val.get_shortcut(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Returns all the registered extension commands for this extension and their shortcut (if active). Before Chrome 110, this command did not return _execute_action.

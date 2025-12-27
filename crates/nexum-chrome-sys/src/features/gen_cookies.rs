@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SameSiteStatus {
     NoRestriction = "no_restriction",
     Lax = "lax",
@@ -51,6 +52,27 @@ impl CookiePartitionKey {
 impl Default for CookiePartitionKey {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CookiePartitionKey`. Represents a partitioned cookie's partition key.
+pub struct CookiePartitionKeyData {
+    ///Indicates if the cookie was set in a cross-cross site context. This prevents a top-level site embedded in a cross-site context from accessing cookies set by the top-level site in a same-site context.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_cross_site_ancestor: Option<bool>,
+    ///The top-level site the partitioned cookie is available in.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top_level_site: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&CookiePartitionKey> for CookiePartitionKeyData {
+    fn from(val: &CookiePartitionKey) -> Self {
+        Self {
+            has_cross_site_ancestor: val.get_has_cross_site_ancestor(),
+            top_level_site: val.get_top_level_site(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -205,6 +227,57 @@ impl Default for Cookie {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Cookie`. Represents information about an HTTP cookie.
+pub struct CookieData {
+    ///The domain of the cookie (e.g. "www.google.com", "example.com").
+    pub domain: String,
+    ///The expiration date of the cookie as the number of seconds since the UNIX epoch. Not provided for session cookies.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiration_date: Option<f64>,
+    ///True if the cookie is a host-only cookie (i.e. a request's host must exactly match the domain of the cookie).
+    pub host_only: bool,
+    ///True if the cookie is marked as HttpOnly (i.e. the cookie is inaccessible to client-side scripts).
+    pub http_only: bool,
+    ///The name of the cookie.
+    pub name: String,
+    ///The partition key for reading or modifying cookies with the Partitioned attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub partition_key: Option<CookiePartitionKeyData>,
+    ///The path of the cookie.
+    pub path: String,
+    ///The cookie's same-site status (i.e. whether the cookie is sent with cross-site requests).
+    pub same_site: SameSiteStatus,
+    ///True if the cookie is marked as Secure (i.e. its scope is limited to secure channels, typically HTTPS).
+    pub secure: bool,
+    ///True if the cookie is a session cookie, as opposed to a persistent cookie with an expiration date.
+    pub session: bool,
+    ///The ID of the cookie store containing this cookie, as provided in getAllCookieStores().
+    pub store_id: String,
+    ///The value of the cookie.
+    pub value: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Cookie> for CookieData {
+    fn from(val: &Cookie) -> Self {
+        Self {
+            domain: val.get_domain(),
+            expiration_date: val.get_expiration_date(),
+            host_only: val.get_host_only(),
+            http_only: val.get_http_only(),
+            name: val.get_name(),
+            partition_key: val.get_partition_key().as_ref().map(|v| v.into()),
+            path: val.get_path(),
+            same_site: val.get_same_site(),
+            secure: val.get_secure(),
+            session: val.get_session(),
+            store_id: val.get_store_id(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CookieStore")]
@@ -247,9 +320,29 @@ impl Default for CookieStore {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CookieStore`. Represents a cookie store in the browser. An incognito mode window, for instance, uses a separate cookie store from a non-incognito window.
+pub struct CookieStoreData {
+    ///The unique identifier for the cookie store.
+    pub id: String,
+    ///Identifiers of all the browser tabs that share this cookie store.
+    pub tab_ids: Vec<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&CookieStore> for CookieStoreData {
+    fn from(val: &CookieStore) -> Self {
+        Self {
+            id: val.get_id(),
+            tab_ids: serde_wasm_bindgen::from_value(val.get_tab_ids().into()).unwrap_or_default(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The underlying reason behind the cookie's change. If a cookie was inserted, or removed via an explicit call to "chrome.cookies.remove", "cause" will be "explicit". If a cookie was automatically removed due to expiry, "cause" will be "expired". If a cookie was removed due to being overwritten with an already-expired expiration date, "cause" will be set to "expired_overwrite". If a cookie was automatically removed due to garbage collection, "cause" will be "evicted". If a cookie was automatically removed due to a "set" call that overwrote it, "cause" will be "overwrite". Plan your response accordingly.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnChangedCause {
     Evicted = "evicted",
     Expired = "expired",
@@ -321,6 +414,33 @@ impl Default for CookieDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CookieDetails`. Details to identify the cookie.
+pub struct CookieDetailsData {
+    ///The name of the cookie to access.
+    pub name: String,
+    ///The partition key for reading or modifying cookies with the Partitioned attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub partition_key: Option<CookiePartitionKeyData>,
+    ///The ID of the cookie store in which to look for the cookie. By default, the current execution context's cookie store will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub store_id: Option<String>,
+    ///The URL with which the cookie to access is associated. This argument may be a full URL, in which case any data following the URL path (e.g. the query string) is simply ignored. If host permissions for this URL are not specified in the manifest file, the API call will fail.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CookieDetails> for CookieDetailsData {
+    fn from(val: &CookieDetails) -> Self {
+        Self {
+            name: val.get_name(),
+            partition_key: val.get_partition_key().as_ref().map(|v| v.into()),
+            store_id: val.get_store_id(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "FrameDetails")]
@@ -372,6 +492,31 @@ impl FrameDetails {
 impl Default for FrameDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FrameDetails`. Details to identify the frame.
+pub struct FrameDetailsData {
+    ///The unique identifier for the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The unique identifier for the frame within the tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///The unique identifier for the tab containing the frame.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&FrameDetails> for FrameDetailsData {
+    fn from(val: &FrameDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]

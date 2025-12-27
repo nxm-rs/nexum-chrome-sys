@@ -129,6 +129,7 @@ impl Default for Button {
 #[wasm_bindgen]
 ///Theme used by DevTools.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Theme {
     ///Default DevTools theme. This is always the light theme.
     Default = "default",

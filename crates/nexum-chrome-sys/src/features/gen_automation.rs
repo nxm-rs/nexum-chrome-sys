@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Possible events fired on an $(ref:automation.AutomationNode).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum EventType {
     AccessKeyChanged = "accessKeyChanged",
     ActiveDescendantChanged = "activeDescendantChanged",
@@ -132,6 +133,7 @@ pub enum EventType {
 #[wasm_bindgen]
 ///Describes the purpose of an $(ref:automation.AutomationNode).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RoleType {
     Abbr = "abbr",
     Alert = "alert",
@@ -355,6 +357,7 @@ pub enum RoleType {
 #[wasm_bindgen]
 ///Describes characteristics of an $(ref:automation.AutomationNode).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum StateType {
     AutofillAvailable = "autofillAvailable",
     Collapsed = "collapsed",
@@ -382,6 +385,7 @@ pub enum StateType {
 #[wasm_bindgen]
 ///All possible actions that can be performed on automation nodes.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ActionType {
     AnnotatePageImages = "annotatePageImages",
     Blur = "blur",
@@ -428,6 +432,7 @@ pub enum ActionType {
 #[wasm_bindgen]
 ///Possible changes to the automation tree. For any given atomic change to the tree, each node that's added, removed, or changed, will appear in exactly one TreeChange, with one of these types.nodeCreated means that this node was added to the tree and its parent is new as well, so it's just one node in a new subtree that was added.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TreeChangeType {
     ///* This node was added to the tree and its parent is new as well, so it's just one node in a new subtree that was added.
     NodeCreated = "nodeCreated",
@@ -445,6 +450,7 @@ pub enum TreeChangeType {
 #[wasm_bindgen]
 ///Where the node's name is from.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum NameFromType {
     Attribute = "attribute",
     AttributeExplicitlyEmpty = "attributeExplicitlyEmpty",
@@ -463,6 +469,7 @@ pub enum NameFromType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DescriptionFromType {
     AriaDescription = "ariaDescription",
     AttributeExplicitlyEmpty = "attributeExplicitlyEmpty",
@@ -480,6 +487,7 @@ pub enum DescriptionFromType {
 #[wasm_bindgen]
 ///The input restriction for a object -- even non-controls can be disabled.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Restriction {
     Disabled = "disabled",
     ReadOnly = "readOnly",
@@ -487,6 +495,7 @@ pub enum Restriction {
 #[wasm_bindgen]
 ///Availability and types for an interactive popup element.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum HasPopup {
     False = "false",
     True = "true",
@@ -499,6 +508,7 @@ pub enum HasPopup {
 #[wasm_bindgen]
 ///Indicates the ARIA-current state.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AriaCurrentState {
     False = "false",
     True = "true",
@@ -511,6 +521,7 @@ pub enum AriaCurrentState {
 #[wasm_bindgen]
 ///Lists the values that `invalidState` can take on.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum InvalidState {
     False = "false",
     True = "true",
@@ -518,6 +529,7 @@ pub enum InvalidState {
 #[wasm_bindgen]
 ///Describes possible actions when performing a do default action.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DefaultActionVerb {
     Activate = "activate",
     Check = "check",
@@ -534,6 +546,7 @@ pub enum DefaultActionVerb {
 #[wasm_bindgen]
 ///Types of markers on text. See AutomationNode.markerTypes.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MarkerType {
     Spelling = "spelling",
     Grammar = "grammar",
@@ -545,6 +558,7 @@ pub enum MarkerType {
 #[wasm_bindgen]
 ///A command associated with an $(ref:automation.AutomationIntent).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IntentCommandType {
     ClearSelection = "clearSelection",
     Delete = "delete",
@@ -560,6 +574,7 @@ pub enum IntentCommandType {
 #[wasm_bindgen]
 ///The type of an input event associated with an $(ref:automation.AutomationIntent). It describes an edit command, e.g. IntentCommandType.insert, in more detail.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IntentInputEventType {
     ///Insertion.
     InsertText = "insertText",
@@ -608,6 +623,7 @@ pub enum IntentInputEventType {
 #[wasm_bindgen]
 ///A text boundary associated with an $(ref:automation.AutomationIntent).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IntentTextBoundaryType {
     Character = "character",
     FormatEnd = "formatEnd",
@@ -635,6 +651,7 @@ pub enum IntentTextBoundaryType {
 #[wasm_bindgen]
 ///A move direction associated with an $(ref:automation.AutomationIntent).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IntentMoveDirectionType {
     Backward = "backward",
     Forward = "forward",
@@ -642,6 +659,7 @@ pub enum IntentMoveDirectionType {
 #[wasm_bindgen]
 ///A sort applied to a table row or column header.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SortDirectionType {
     Unsorted = "unsorted",
     Ascending = "ascending",
@@ -651,6 +669,7 @@ pub enum SortDirectionType {
 #[wasm_bindgen]
 ///A type of AutomationPosition.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PositionType {
     Null = "null",
     Text = "text",
@@ -720,6 +739,31 @@ impl Default for Rect {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Rect`.
+pub struct RectData {
+    ///
+    pub height: i32,
+    ///
+    pub left: i32,
+    ///
+    pub top: i32,
+    ///
+    pub width: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Rect> for RectData {
+    fn from(val: &Rect) -> Self {
+        Self {
+            height: val.get_height(),
+            left: val.get_left(),
+            top: val.get_top(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "FindParams")]
@@ -771,6 +815,35 @@ impl FindParams {
 impl Default for FindParams {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FindParams`.
+pub struct FindParamsData {
+    ///A map of attribute name to expected value, for example { name: 'Root directory', checkbox_mixed: true }. String attribute values may be specified as a regex, for example { name: /stralia$/ }. Unless specifying a regex, the expected value must be an exact match in type and value for the actual value. Thus, the type of expected value must be one of: string integer float boolean
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub attributes: Option<serde_json::Value>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role: Option<RoleType>,
+    ///A map of $(ref:automation.StateType) to boolean, indicating for each state whether it should be set or not. For example: { StateType.disabled: false } would only match if StateType.disabled was not present in the node's state object.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&FindParams> for FindParamsData {
+    fn from(val: &FindParams) -> Self {
+        Self {
+            attributes: val
+                .get_attributes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            role: val.get_role(),
+            state: val
+                .get_state()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -837,6 +910,33 @@ impl Default for SetDocumentSelectionParams {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetDocumentSelectionParams`.
+pub struct SetDocumentSelectionParamsData {
+    ///The node where the selection begins.
+    pub anchor_object: serde_json::Value,
+    ///The offset in the anchor node where the selection begins.
+    pub anchor_offset: i32,
+    ///The node where the selection ends.
+    pub focus_object: serde_json::Value,
+    ///The offset within the focus node where the selection ends.
+    pub focus_offset: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetDocumentSelectionParams> for SetDocumentSelectionParamsData {
+    fn from(val: &SetDocumentSelectionParams) -> Self {
+        Self {
+            anchor_object: serde_wasm_bindgen::from_value(val.get_anchor_object().into())
+                .unwrap_or_default(),
+            anchor_offset: val.get_anchor_offset(),
+            focus_object: serde_wasm_bindgen::from_value(val.get_focus_object().into())
+                .unwrap_or_default(),
+            focus_offset: val.get_focus_offset(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AutomationIntent")]
@@ -888,6 +988,29 @@ impl AutomationIntent {
 impl Default for AutomationIntent {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AutomationIntent`.
+pub struct AutomationIntentData {
+    ///A command associated with this AutomationIntent.
+    pub command: IntentCommandType,
+    ///A move direction associated with this AutomationIntent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub move_direction: Option<IntentMoveDirectionType>,
+    ///A text boundary associated with this AutomationIntent.
+    pub text_boundary: IntentTextBoundaryType,
+}
+#[cfg(feature = "serde")]
+impl From<&AutomationIntent> for AutomationIntentData {
+    fn from(val: &AutomationIntent) -> Self {
+        Self {
+            command: val.get_command(),
+            move_direction: val.get_move_direction(),
+            text_boundary: val.get_text_boundary(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -987,6 +1110,37 @@ impl Default for AutomationEvent {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AutomationEvent`.
+pub struct AutomationEventData {
+    ///The source of this event.
+    pub event_from: String,
+    ///A list of $(ref:automation.AutomationIntent)s associated with this event.
+    pub intents: Vec<AutomationIntentData>,
+    ///Any mouse coordinates associated with this event.
+    pub mouse_x: i32,
+    ///
+    pub mouse_y: i32,
+    ///The $(ref:automation.AutomationNode) to which the event was targeted.
+    pub target: AutomationNodeData,
+    ///The type of the event.
+    pub r#type: EventType,
+}
+#[cfg(feature = "serde")]
+impl From<&AutomationEvent> for AutomationEventData {
+    fn from(val: &AutomationEvent) -> Self {
+        Self {
+            event_from: val.get_event_from(),
+            intents: serde_wasm_bindgen::from_value(val.get_intents().into()).unwrap_or_default(),
+            mouse_x: val.get_mouse_x(),
+            mouse_y: val.get_mouse_y(),
+            target: (&val.get_target()).into(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "TreeChange")]
@@ -1029,9 +1183,29 @@ impl Default for TreeChange {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TreeChange`.
+pub struct TreeChangeData {
+    ///The $(ref:automation.AutomationNode) that changed.
+    pub target: AutomationNodeData,
+    ///The type of change.
+    pub r#type: TreeChangeType,
+}
+#[cfg(feature = "serde")]
+impl From<&TreeChange> for TreeChangeData {
+    fn from(val: &TreeChange) -> Self {
+        Self {
+            target: (&val.get_target()).into(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Possible tree changes to listen to using addTreeChangeObserver. Note that listening to all tree changes can be expensive.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TreeChangeObserverFilter {
     NoTreeChanges = "noTreeChanges",
     LiveRegionTreeChanges = "liveRegionTreeChanges",
@@ -1078,6 +1252,25 @@ impl CustomAction {
 impl Default for CustomAction {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CustomAction`.
+pub struct CustomActionData {
+    ///
+    pub description: String,
+    ///
+    pub id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CustomAction> for CustomActionData {
+    fn from(val: &CustomAction) -> Self {
+        Self {
+            description: val.get_description(),
+            id: val.get_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1131,6 +1324,28 @@ impl Marker {
 impl Default for Marker {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Marker`.
+pub struct MarkerData {
+    ///The end offset within the text of the associated node.
+    pub end_offset: i32,
+    ///A mapping of MarkerType to true or undefined indicating the marker types for this marker.
+    pub flags: serde_json::Value,
+    ///The start offset within the text of the associated node.
+    pub start_offset: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Marker> for MarkerData {
+    fn from(val: &Marker) -> Self {
+        Self {
+            end_offset: val.get_end_offset(),
+            flags: serde_wasm_bindgen::from_value(val.get_flags().into()).unwrap_or_default(),
+            start_offset: val.get_start_offset(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1855,6 +2070,32 @@ impl AutomationPosition {
 impl Default for AutomationPosition {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AutomationPosition`.
+pub struct AutomationPositionData {
+    ///
+    pub affinity: String,
+    ///
+    pub child_index: i32,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub node: Option<AutomationNodeData>,
+    ///
+    pub text_offset: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AutomationPosition> for AutomationPositionData {
+    fn from(val: &AutomationPosition) -> Self {
+        Self {
+            affinity: val.get_affinity(),
+            child_index: val.get_child_index(),
+            node: val.get_node().as_ref().map(|v| v.into()),
+            text_offset: val.get_text_offset(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -3952,6 +4193,696 @@ impl AutomationNode {
 impl Default for AutomationNode {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AutomationNode`.
+pub struct AutomationNodeData {
+    ///The key that activates this widget.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub access_key: Option<String>,
+    ///The node referred to by aria-activedescendant, where applicable
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active_descendant: Option<Box<AutomationNodeData>>,
+    ///Reverse relationship for active descendant.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active_descendant_for: Option<Vec<AutomationNodeData>>,
+    ///The affinity of the tree selection anchor, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub anchor_affinity: Option<String>,
+    ///The anchor node of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub anchor_object: Option<Box<AutomationNodeData>>,
+    ///The anchor offset of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub anchor_offset: Option<i32>,
+    ///The application id for a tree rooted at this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub app_id: Option<String>,
+    ///The number of columns in this table as specified by the page author.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aria_column_count: Option<i32>,
+    ///Indicates aria-current state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aria_current_state: Option<AriaCurrentState>,
+    ///The value of the aria-invalid attribute, indicating the error type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aria_invalid_value: Option<String>,
+    ///The number of rows in this table as specified by the page author.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub aria_row_count: Option<i32>,
+    ///Aria auto complete.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_complete: Option<String>,
+    ///The RGBA background color of this subtree, as an integer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub background_color: Option<i32>,
+    ///Indicates node text is bold.
+    pub bold: bool,
+    ///The value of aria-busy for a live region or any other element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub busy: Option<bool>,
+    ///The current caret bounds in screen coordinates.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub caret_bounds: Option<RectData>,
+    ///Tri-state describing checkbox or radio button: 'false' | 'true' | 'mixed'
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checked: Option<String>,
+    ///Description of the state of the checkbox. Used only when the node is checkable.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checked_state_description: Option<String>,
+    ///Walking the tree.
+    pub children: Vec<AutomationNodeData>,
+    ///The name of the programmatic backing object.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub class_name: Option<String>,
+    ///Explicitly set to true when this node is clickable.
+    pub clickable: bool,
+    ///The RGBA foreground color of this subtree, as an integer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color: Option<i32>,
+    ///The RGBA color of an input element whose value is a color.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color_value: Option<i32>,
+    ///The value of aria-atomic if this node is inside a live region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub container_live_atomic: Option<bool>,
+    ///The value of aria-busy if this node is inside a live region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub container_live_busy: Option<bool>,
+    ///The value of aria-relevant if this node is inside a live region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub container_live_relevant: Option<String>,
+    ///The type of live region if this node is inside a live region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub container_live_status: Option<String>,
+    ///Reverse relationship for controls.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub controlled_by: Option<Vec<AutomationNodeData>>,
+    ///The nodes, if any, which this node is specified to control via aria-controls.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub controls: Option<Vec<AutomationNodeData>>,
+    ///An array of custom actions.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_actions: Option<Vec<CustomActionData>>,
+    ///The action taken by calling doDefault.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_action_verb: Option<DefaultActionVerb>,
+    ///The nodes, if any, which form a description for this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub described_by: Option<Vec<AutomationNodeData>>,
+    ///The purpose of the node, other than the role, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///Reverse relationship for describedBy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description_for: Option<Vec<AutomationNodeData>>,
+    ///A node that provides more details about the current node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<Vec<AutomationNodeData>>,
+    ///Reverse relationship for details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details_for: Option<Vec<AutomationNodeData>>,
+    ///The detected language code for this subtree.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub detected_language: Option<String>,
+    ///The CSS display attribute for this node, if applicable.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    ///Explains what will happen when the doDefault action is performed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub do_default_label: Option<String>,
+    ///Whether this document has finished loading.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub doc_loaded: Option<bool>,
+    ///The proportion (out of 1.0) that this doc has completed loading.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub doc_loading_progress: Option<f64>,
+    ///The title of this document.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub doc_title: Option<String>,
+    ///The URL of this document.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub doc_url: Option<String>,
+    ///Reverse relationship for errorMessage.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_message_for: Option<Vec<AutomationNodeData>>,
+    ///The nodes, if any, that provide an error message for the current node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_messages: Option<Vec<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub first_child: Option<Box<AutomationNodeData>>,
+    ///Reverse relationship for flowTo.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub flow_from: Option<Vec<AutomationNodeData>>,
+    ///The nodes, if any, which may optionally be navigated to after this one. See aria-flowto.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub flow_to: Option<Vec<AutomationNodeData>>,
+    ///The affinity of the tree selection focus, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub focus_affinity: Option<String>,
+    ///The focus node of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub focus_object: Option<Box<AutomationNodeData>>,
+    ///The focus offset of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub focus_offset: Option<i32>,
+    ///Indicates the font family.
+    pub font_family: String,
+    ///Indicates the font size of this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub font_size: Option<i32>,
+    ///Whether the node contains hidden nodes.
+    pub has_hidden_offscreen_nodes: bool,
+    ///Indicates the availability and type of an interactive popup element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_popup: Option<HasPopup>,
+    ///The level of a heading or tree item.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hierarchical_level: Option<i32>,
+    ///The HTML id for this element, if this node is an HTML element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub html_id: Option<String>,
+    ///The HTML tag for this element, if this node is an HTML element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub html_tag: Option<String>,
+    ///The image annotation for image nodes, which may be a human-readable string that is the contextualized annotation or a status string related to annotations.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_annotation: Option<String>,
+    ///A data url with the contents of this object's image or thumbnail.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_data_url: Option<String>,
+    ///The target of an in-page link.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub in_page_link_target: Option<Box<AutomationNodeData>>,
+    ///The index of this node in its parent node's list of children. If this is the root node, this will be undefined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub index_in_parent: Option<i32>,
+    ///The inner html of this element. Only populated for math content.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inner_html: Option<String>,
+    ///The input type of a text field, such as "text" or "email".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub input_type: Option<String>,
+    ///Indicates invalid-state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub invalid_state: Option<InvalidState>,
+    ///Whether or not this node is a button.
+    pub is_button: bool,
+    ///Whether or not this node is a checkbox.
+    pub is_check_box: bool,
+    ///Whether or not this node is a combobox.
+    pub is_combo_box: bool,
+    ///Whether or not this node is an image.
+    pub is_image: bool,
+    ///Whether this AutomationNode is a root node.
+    pub is_root_node: bool,
+    ///If a selection is present, whether the anchor of the selection comes after its focus in the accessibility tree.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_selection_backward: Option<bool>,
+    ///Indicates node text is italic.
+    pub italic: bool,
+    ///Reverse relationship for labelledBy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label_for: Option<Vec<AutomationNodeData>>,
+    ///The nodes, if any, which form a label for this element. Generally, the text from these elements will also be exposed as the element's accessible name, via the $(ref:automation.AutomationNode.name) attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub labelled_by: Option<Vec<AutomationNodeData>>,
+    ///The author-provided language code for this subtree.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub language: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_child: Option<Box<AutomationNodeData>>,
+    ///Indicates node text is line through.
+    pub line_through: bool,
+    ///The value of aria-atomic for a live region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub live_atomic: Option<bool>,
+    ///The value of aria-relevant for a live region.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub live_relevant: Option<String>,
+    ///The type of region if this is the root of a live region. Possible values are 'polite' and 'assertive'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub live_status: Option<String>,
+    ///The rendered location (as a bounding box) of this node in global screen coordinates.
+    pub location: RectData,
+    ///Explains what will happen when the long click action is performed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub long_click_label: Option<String>,
+    ///An array of Marker objects for this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub markers: Option<Vec<MarkerData>>,
+    ///The maximum possible value for this range.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_value_for_range: Option<f64>,
+    ///The minimum possible value for this range.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_value_for_range: Option<f64>,
+    ///Marks this subtree as modal.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub modal: Option<bool>,
+    ///The accessible name for this node, via the Accessible Name Calculation process.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///The source of the name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_from: Option<NameFromType>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_focus: Option<Box<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_on_line: Option<Box<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_sibling: Option<Box<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub next_window_focus: Option<Box<AutomationNodeData>>,
+    ///Indicates whether the object functions as a text field which exposes its descendants. Use cases include the root of a content-editable region, an ARIA textbox which isn't currently editable and which has interactive descendants, and a element that has "design-mode" set to "on".
+    pub non_atomic_text_field_root: bool,
+    ///The end index of each word within the node's name. This is different from wordEnds because it is not restricted to inline text boxes and can be used for any type of element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub non_inline_text_word_ends: Option<Vec<i32>>,
+    ///The start index of each word within the node's name. This is different from wordStarts because it is not restricted to inline text boxes and can be used for any type of element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub non_inline_text_word_starts: Option<Vec<i32>>,
+    ///Indicates that the node is marked user-select:none
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub not_user_selectable_style: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent: Option<Box<AutomationNodeData>>,
+    ///The placeholder for this text field, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub placeholder: Option<String>,
+    ///The 1-based index of an item in a set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pos_in_set: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous_focus: Option<Box<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous_on_line: Option<Box<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous_sibling: Option<Box<AutomationNodeData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous_window_focus: Option<Box<AutomationNodeData>>,
+    ///Input restriction, if any, such as readonly or disabled: undefined - enabled control or other object that is not disabled Restriction.DISABLED - disallows input in itself + any descendants Restriction.READONLY - allow focus/selection but not input
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub restriction: Option<String>,
+    ///The role of this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role: Option<RoleType>,
+    ///The role description for this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role_description: Option<String>,
+    ///The root node of the tree containing this AutomationNode.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub root: Option<Box<AutomationNodeData>>,
+    ///Scrollable container attributes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scroll_x: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scroll_x_max: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scroll_x_min: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scroll_y: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scroll_y_max: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scroll_y_min: Option<i32>,
+    ///Indicates whether this node is scrollable.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scrollable: Option<bool>,
+    ///Indicates whether this node is selected, unselected, or neither.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selected: Option<bool>,
+    ///The affinity of the tree selection end, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_end_affinity: Option<String>,
+    ///The selection end node of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_end_object: Option<Box<AutomationNodeData>>,
+    ///The selection end offset of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_end_offset: Option<i32>,
+    ///The affinity of the tree selection start, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_start_affinity: Option<String>,
+    ///The selection start node of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_start_object: Option<Box<AutomationNodeData>>,
+    ///The selection start offset of the tree selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_start_offset: Option<i32>,
+    ///The end indexes of each sentence within the node's name. For most nodes, the size of sentenceStarts array should be equal to the size of sentenceEnds array. Two exceptions are (1) node at the begining of a paragraph but the end of the node's sentences is in its following node. Such a node has one more start index. (2) Node at the end of a paragraph but the start of the node's sentences is in its previous node. Such a node has one more end index. For example, Hello world. has two nodes. The first one has one start index (i.e., 0) but no end index. The second node has one end index (i.e., 7) but no start index.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sentence_ends: Option<Vec<i32>>,
+    ///The start indexes of each sentence within the node's name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sentence_starts: Option<Vec<i32>>,
+    ///The number of items in a set;
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub set_size: Option<i32>,
+    ///The sort direction of this node.
+    pub sort_direction: SortDirectionType,
+    ///An array of standard actions available on this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub standard_actions: Option<Vec<ActionType>>,
+    ///The $(ref:automation.StateType)s describing this node. @type {Object}
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<serde_json::Value>,
+    ///Indicates node text is subscript.
+    pub subscript: bool,
+    ///Indicates node text is superscript.
+    pub superscript: bool,
+    ///The ARIA column index as specified by the page author.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_aria_column_index: Option<i32>,
+    ///The ARIA row index as specified by the page author.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_aria_row_index: Option<i32>,
+    ///The column header nodes for a table cell.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_column_headers: Option<Vec<AutomationNodeData>>,
+    ///The zero-based index of the column that this cell is in as specified in the DOM.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_column_index: Option<i32>,
+    ///The number of columns that this cell spans (default is 1).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_column_span: Option<i32>,
+    ///The row header nodes for a table cell.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_row_headers: Option<Vec<AutomationNodeData>>,
+    ///The zero-based index of the row that this cell is in as specified in the DOM.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_row_index: Option<i32>,
+    ///The number of rows that this cell spans (default is 1).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_cell_row_span: Option<i32>,
+    ///The number of columns in this table as specified in the DOM.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_column_count: Option<i32>,
+    ///The corresponding column header for this cell.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_column_header: Option<Box<AutomationNodeData>>,
+    ///The column index of this column node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_column_index: Option<i32>,
+    ///The number of rows in this table as specified in the DOM.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_row_count: Option<i32>,
+    ///The corresponding row header for this cell.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_row_header: Option<Box<AutomationNodeData>>,
+    ///The row index of this row node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub table_row_index: Option<i32>,
+    ///The character index of the end of the selection within this editable text element; -1 if no selection.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text_sel_end: Option<i32>,
+    ///The character index of the start of the selection within this editable text element; -1 if no selection.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text_sel_start: Option<i32>,
+    ///The tooltip of the node, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tooltip: Option<String>,
+    ///The location (as a bounding box) of this node in global screen coordinates without applying any clipping from ancestors.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub unclipped_location: Option<RectData>,
+    ///Indicates node text is underline.
+    pub underline: bool,
+    ///The URL that this link will navigate to.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    ///The value for this node: for example the value attribute of an &lt;input&gt; element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+    ///The current value for this range.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value_for_range: Option<f64>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub word_ends: Option<Vec<i32>>,
+    ///The start and end index of each word in an inline text box.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub word_starts: Option<Vec<i32>>,
+}
+#[cfg(feature = "serde")]
+impl From<&AutomationNode> for AutomationNodeData {
+    fn from(val: &AutomationNode) -> Self {
+        Self {
+            access_key: val.get_access_key(),
+            active_descendant: val
+                .get_active_descendant()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            active_descendant_for: val
+                .get_active_descendant_for()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            anchor_affinity: val.get_anchor_affinity(),
+            anchor_object: val.get_anchor_object().as_ref().map(|v| Box::new(v.into())),
+            anchor_offset: val.get_anchor_offset(),
+            app_id: val.get_app_id(),
+            aria_column_count: val.get_aria_column_count(),
+            aria_current_state: val.get_aria_current_state(),
+            aria_invalid_value: val.get_aria_invalid_value(),
+            aria_row_count: val.get_aria_row_count(),
+            auto_complete: val.get_auto_complete(),
+            background_color: val.get_background_color(),
+            bold: val.get_bold(),
+            busy: val.get_busy(),
+            caret_bounds: val.get_caret_bounds().as_ref().map(|v| v.into()),
+            checked: val.get_checked(),
+            checked_state_description: val.get_checked_state_description(),
+            children: serde_wasm_bindgen::from_value(val.get_children().into()).unwrap_or_default(),
+            class_name: val.get_class_name(),
+            clickable: val.get_clickable(),
+            color: val.get_color(),
+            color_value: val.get_color_value(),
+            container_live_atomic: val.get_container_live_atomic(),
+            container_live_busy: val.get_container_live_busy(),
+            container_live_relevant: val.get_container_live_relevant(),
+            container_live_status: val.get_container_live_status(),
+            controlled_by: val
+                .get_controlled_by()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            controls: val
+                .get_controls()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            custom_actions: val
+                .get_custom_actions()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            default_action_verb: val.get_default_action_verb(),
+            described_by: val
+                .get_described_by()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            description: val.get_description(),
+            description_for: val
+                .get_description_for()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            details: val
+                .get_details()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            details_for: val
+                .get_details_for()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            detected_language: val.get_detected_language(),
+            display: val.get_display(),
+            do_default_label: val.get_do_default_label(),
+            doc_loaded: val.get_doc_loaded(),
+            doc_loading_progress: val.get_doc_loading_progress(),
+            doc_title: val.get_doc_title(),
+            doc_url: val.get_doc_url(),
+            error_message_for: val
+                .get_error_message_for()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            error_messages: val
+                .get_error_messages()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            first_child: val.get_first_child().as_ref().map(|v| Box::new(v.into())),
+            flow_from: val
+                .get_flow_from()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            flow_to: val
+                .get_flow_to()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            focus_affinity: val.get_focus_affinity(),
+            focus_object: val.get_focus_object().as_ref().map(|v| Box::new(v.into())),
+            focus_offset: val.get_focus_offset(),
+            font_family: val.get_font_family(),
+            font_size: val.get_font_size(),
+            has_hidden_offscreen_nodes: val.get_has_hidden_offscreen_nodes(),
+            has_popup: val.get_has_popup(),
+            hierarchical_level: val.get_hierarchical_level(),
+            html_id: val.get_html_id(),
+            html_tag: val.get_html_tag(),
+            image_annotation: val.get_image_annotation(),
+            image_data_url: val.get_image_data_url(),
+            in_page_link_target: val
+                .get_in_page_link_target()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            index_in_parent: val.get_index_in_parent(),
+            inner_html: val.get_inner_html(),
+            input_type: val.get_input_type(),
+            invalid_state: val.get_invalid_state(),
+            is_button: val.get_is_button(),
+            is_check_box: val.get_is_check_box(),
+            is_combo_box: val.get_is_combo_box(),
+            is_image: val.get_is_image(),
+            is_root_node: val.get_is_root_node(),
+            is_selection_backward: val.get_is_selection_backward(),
+            italic: val.get_italic(),
+            label_for: val
+                .get_label_for()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            labelled_by: val
+                .get_labelled_by()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            language: val.get_language(),
+            last_child: val.get_last_child().as_ref().map(|v| Box::new(v.into())),
+            line_through: val.get_line_through(),
+            live_atomic: val.get_live_atomic(),
+            live_relevant: val.get_live_relevant(),
+            live_status: val.get_live_status(),
+            location: (&val.get_location()).into(),
+            long_click_label: val.get_long_click_label(),
+            markers: val
+                .get_markers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            max_value_for_range: val.get_max_value_for_range(),
+            min_value_for_range: val.get_min_value_for_range(),
+            modal: val.get_modal(),
+            name: val.get_name(),
+            name_from: val.get_name_from(),
+            next_focus: val.get_next_focus().as_ref().map(|v| Box::new(v.into())),
+            next_on_line: val.get_next_on_line().as_ref().map(|v| Box::new(v.into())),
+            next_sibling: val.get_next_sibling().as_ref().map(|v| Box::new(v.into())),
+            next_window_focus: val
+                .get_next_window_focus()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            non_atomic_text_field_root: val.get_non_atomic_text_field_root(),
+            non_inline_text_word_ends: val
+                .get_non_inline_text_word_ends()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            non_inline_text_word_starts: val
+                .get_non_inline_text_word_starts()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            not_user_selectable_style: val.get_not_user_selectable_style(),
+            parent: val.get_parent().as_ref().map(|v| Box::new(v.into())),
+            placeholder: val.get_placeholder(),
+            pos_in_set: val.get_pos_in_set(),
+            previous_focus: val
+                .get_previous_focus()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            previous_on_line: val
+                .get_previous_on_line()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            previous_sibling: val
+                .get_previous_sibling()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            previous_window_focus: val
+                .get_previous_window_focus()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            restriction: val.get_restriction(),
+            role: val.get_role(),
+            role_description: val.get_role_description(),
+            root: val.get_root().as_ref().map(|v| Box::new(v.into())),
+            scroll_x: val.get_scroll_x(),
+            scroll_x_max: val.get_scroll_x_max(),
+            scroll_x_min: val.get_scroll_x_min(),
+            scroll_y: val.get_scroll_y(),
+            scroll_y_max: val.get_scroll_y_max(),
+            scroll_y_min: val.get_scroll_y_min(),
+            scrollable: val.get_scrollable(),
+            selected: val.get_selected(),
+            selection_end_affinity: val.get_selection_end_affinity(),
+            selection_end_object: val
+                .get_selection_end_object()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            selection_end_offset: val.get_selection_end_offset(),
+            selection_start_affinity: val.get_selection_start_affinity(),
+            selection_start_object: val
+                .get_selection_start_object()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            selection_start_offset: val.get_selection_start_offset(),
+            sentence_ends: val
+                .get_sentence_ends()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            sentence_starts: val
+                .get_sentence_starts()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            set_size: val.get_set_size(),
+            sort_direction: val.get_sort_direction(),
+            standard_actions: val
+                .get_standard_actions()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            state: val
+                .get_state()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            subscript: val.get_subscript(),
+            superscript: val.get_superscript(),
+            table_cell_aria_column_index: val.get_table_cell_aria_column_index(),
+            table_cell_aria_row_index: val.get_table_cell_aria_row_index(),
+            table_cell_column_headers: val
+                .get_table_cell_column_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            table_cell_column_index: val.get_table_cell_column_index(),
+            table_cell_column_span: val.get_table_cell_column_span(),
+            table_cell_row_headers: val
+                .get_table_cell_row_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            table_cell_row_index: val.get_table_cell_row_index(),
+            table_cell_row_span: val.get_table_cell_row_span(),
+            table_column_count: val.get_table_column_count(),
+            table_column_header: val
+                .get_table_column_header()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            table_column_index: val.get_table_column_index(),
+            table_row_count: val.get_table_row_count(),
+            table_row_header: val
+                .get_table_row_header()
+                .as_ref()
+                .map(|v| Box::new(v.into())),
+            table_row_index: val.get_table_row_index(),
+            text_sel_end: val.get_text_sel_end(),
+            text_sel_start: val.get_text_sel_start(),
+            tooltip: val.get_tooltip(),
+            unclipped_location: val.get_unclipped_location().as_ref().map(|v| v.into()),
+            underline: val.get_underline(),
+            url: val.get_url(),
+            value: val.get_value(),
+            value_for_range: val.get_value_for_range(),
+            word_ends: val
+                .get_word_ends()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            word_starts: val
+                .get_word_starts()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]

@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TemplateType {
     ///Contains an icon, title, message, expandedMessage, and up to two buttons.
     Basic = "basic",
@@ -18,6 +19,7 @@ pub enum TemplateType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PermissionLevel {
     ///Specifies that the user has elected to show notifications from the app or extension. This is the default at install time.
     Granted = "granted",
@@ -64,6 +66,25 @@ impl NotificationItem {
 impl Default for NotificationItem {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NotificationItem`.
+pub struct NotificationItemData {
+    ///Additional details about this item.
+    pub message: String,
+    ///Title of one item of a list notification.
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&NotificationItem> for NotificationItemData {
+    fn from(val: &NotificationItem) -> Self {
+        Self {
+            message: val.get_message(),
+            title: val.get_title(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -119,6 +140,25 @@ impl Default for NotificationBitmap {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NotificationBitmap`.
+pub struct NotificationBitmapData {
+    ///
+    pub height: i32,
+    ///
+    pub width: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&NotificationBitmap> for NotificationBitmapData {
+    fn from(val: &NotificationBitmap) -> Self {
+        Self {
+            height: val.get_height(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "NotificationButton")]
@@ -170,6 +210,30 @@ impl NotificationButton {
 impl Default for NotificationButton {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NotificationButton`.
+pub struct NotificationButtonData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_bitmap: Option<NotificationBitmapData>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    ///
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&NotificationButton> for NotificationButtonData {
+    fn from(val: &NotificationButton) -> Self {
+        Self {
+            icon_bitmap: val.get_icon_bitmap().as_ref().map(|v| v.into()),
+            icon_url: val.get_icon_url(),
+            title: val.get_title(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -399,6 +463,99 @@ impl NotificationOptions {
 impl Default for NotificationOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NotificationOptions`.
+pub struct NotificationOptionsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub app_icon_mask_bitmap: Option<NotificationBitmapData>,
+    ///A URL to the app icon mask. URLs have the same restrictions as $(ref:notifications.NotificationOptions.iconUrl iconUrl).The app icon mask should be in alpha channel, as only the alpha channel of the image will be considered.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub app_icon_mask_url: Option<String>,
+    ///Text and icons for up to two notification action buttons.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub buttons: Option<Vec<NotificationButtonData>>,
+    ///Alternate notification content with a lower-weight font.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub context_message: Option<String>,
+    ///A timestamp associated with the notification, in milliseconds past the epoch (e.g. Date.now() + n).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub event_time: Option<f64>,
+    ///Secondary notification content.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expanded_message: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_bitmap: Option<NotificationBitmapData>,
+    ///A URL to the sender's avatar, app icon, or a thumbnail for image notifications.URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file Note:This value is required for the $(ref:notifications.create)() method.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_bitmap: Option<NotificationBitmapData>,
+    ///A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as $(ref:notifications.NotificationOptions.iconUrl iconUrl).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_url: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_clickable: Option<bool>,
+    ///Items for multi-item notifications. Users on Mac OS X only see the first item.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub items: Option<Vec<NotificationItemData>>,
+    ///Main notification content. Note:This value is required for the $(ref:notifications.create)() method.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
+    ///Priority ranges from -2 to 2. -2 is lowest priority. 2 is highest. Zero is default. On platforms that don't support a notification center (Windows, Linux & Mac), -2 and -1 result in an error as notifications with those priorities will not be shown at all.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub priority: Option<i32>,
+    ///Current progress ranges from 0 to 100.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub progress: Option<i32>,
+    ///Indicates that the notification should remain visible on screen until the user activates or dismisses the notification. This defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub require_interaction: Option<bool>,
+    ///Indicates that no sounds or vibrations should be made when the notification is being shown. This defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub silent: Option<bool>,
+    ///Title of the notification (e.g. sender name for email). Note:This value is required for the $(ref:notifications.create)() method.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///Which type of notification to display. Required for $(ref:notifications.create) method.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<TemplateType>,
+}
+#[cfg(feature = "serde")]
+impl From<&NotificationOptions> for NotificationOptionsData {
+    fn from(val: &NotificationOptions) -> Self {
+        Self {
+            app_icon_mask_bitmap: val.get_app_icon_mask_bitmap().as_ref().map(|v| v.into()),
+            app_icon_mask_url: val.get_app_icon_mask_url(),
+            buttons: val
+                .get_buttons()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            context_message: val.get_context_message(),
+            event_time: val.get_event_time(),
+            expanded_message: val.get_expanded_message(),
+            icon_bitmap: val.get_icon_bitmap().as_ref().map(|v| v.into()),
+            icon_url: val.get_icon_url(),
+            image_bitmap: val.get_image_bitmap().as_ref().map(|v| v.into()),
+            image_url: val.get_image_url(),
+            is_clickable: val.get_is_clickable(),
+            items: val
+                .get_items()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            message: val.get_message(),
+            priority: val.get_priority(),
+            progress: val.get_progress(),
+            require_interaction: val.get_require_interaction(),
+            silent: val.get_silent(),
+            title: val.get_title(),
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]

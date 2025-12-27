@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Type of requestor.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TtsClientSource {
     Chromefeature = "chromefeature",
     Extension = "extension",
@@ -51,9 +52,29 @@ impl Default for TtsClient {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TtsClient`. Identifier for the client requesting status.
+pub struct TtsClientData {
+    ///Client making a language management request. For an extension, this is the unique extension ID. For Chrome features, this is the human-readable name of the feature.
+    pub id: String,
+    ///Type of requestor.
+    pub source: TtsClientSource,
+}
+#[cfg(feature = "serde")]
+impl From<&TtsClient> for TtsClientData {
+    fn from(val: &TtsClient) -> Self {
+        Self {
+            id: val.get_id(),
+            source: val.get_source(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum VoiceGender {
     Male = "male",
     Female = "female",
@@ -89,9 +110,26 @@ impl Default for LanguageUninstallOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `LanguageUninstallOptions`. Options for uninstalling a given language.
+pub struct LanguageUninstallOptionsData {
+    ///True if the TTS client wants the language to be immediately uninstalled. The engine may choose whether or when to uninstall the language, based on this parameter and the requestor information. If false, it may use other criteria, such as recent usage, to determine when to uninstall.
+    pub uninstall_immediately: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&LanguageUninstallOptions> for LanguageUninstallOptionsData {
+    fn from(val: &LanguageUninstallOptions) -> Self {
+        Self {
+            uninstall_immediately: val.get_uninstall_immediately(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The install status of a voice.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum LanguageInstallStatus {
     NotInstalled = "notInstalled",
     Installing = "installing",
@@ -149,6 +187,29 @@ impl LanguageStatus {
 impl Default for LanguageStatus {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `LanguageStatus`. Install status of a language.
+pub struct LanguageStatusData {
+    ///Detail about installation failures. Optionally populated if the language failed to install.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    ///Installation status.
+    pub install_status: LanguageInstallStatus,
+    ///Language string in the form of language code-region code, where the region may be omitted. Examples are en, en-AU, zh-CH.
+    pub lang: String,
+}
+#[cfg(feature = "serde")]
+impl From<&LanguageStatus> for LanguageStatusData {
+    fn from(val: &LanguageStatus) -> Self {
+        Self {
+            error: val.get_error(),
+            install_status: val.get_install_status(),
+            lang: val.get_lang(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -237,6 +298,43 @@ impl Default for SpeakOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SpeakOptions`. Options specified to the tts.speak() method.
+pub struct SpeakOptionsData {
+    ///Gender of voice for synthesized speech.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gender: Option<VoiceGender>,
+    ///The language to be used for synthesis, in the form language-region. Examples: 'en', 'en-US', 'en-GB', 'zh-CN'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lang: Option<String>,
+    ///Speaking pitch between 0 and 2 inclusive, with 0 being lowest and 2 being highest. 1.0 corresponds to this voice's default pitch.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pitch: Option<f64>,
+    ///Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. This value is guaranteed to be between 0.1 and 10.0, inclusive. When a voice does not support this full range of rates, don't return an error. Instead, clip the rate to the range the voice supports.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rate: Option<f64>,
+    ///The name of the voice to use for synthesis.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub voice_name: Option<String>,
+    ///Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub volume: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&SpeakOptions> for SpeakOptionsData {
+    fn from(val: &SpeakOptions) -> Self {
+        Self {
+            gender: val.get_gender(),
+            lang: val.get_lang(),
+            pitch: val.get_pitch(),
+            rate: val.get_rate(),
+            voice_name: val.get_voice_name(),
+            volume: val.get_volume(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AudioStreamOptions")]
@@ -277,6 +375,25 @@ impl AudioStreamOptions {
 impl Default for AudioStreamOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AudioStreamOptions`. Contains the audio stream format expected to be produced by an engine.
+pub struct AudioStreamOptionsData {
+    ///The number of samples within an audio buffer.
+    pub buffer_size: i32,
+    ///The sample rate expected in an audio buffer.
+    pub sample_rate: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AudioStreamOptions> for AudioStreamOptionsData {
+    fn from(val: &AudioStreamOptions) -> Self {
+        Self {
+            buffer_size: val.get_buffer_size(),
+            sample_rate: val.get_sample_rate(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -330,6 +447,27 @@ impl AudioBuffer {
 impl Default for AudioBuffer {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AudioBuffer`. Parameters containing an audio buffer and associated data.
+pub struct AudioBufferData {
+    ///The character index associated with this audio buffer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub char_index: Option<i32>,
+    ///True if this audio buffer is the last for the text being spoken.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_last_buffer: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&AudioBuffer> for AudioBufferData {
+    fn from(val: &AudioBuffer) -> Self {
+        Self {
+            char_index: val.get_char_index(),
+            is_last_buffer: val.get_is_last_buffer(),
+        }
     }
 }
 #[wasm_bindgen]

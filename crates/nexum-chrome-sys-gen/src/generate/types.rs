@@ -7,35 +7,71 @@ use quote::{format_ident, quote};
 use super::utils::{clean_html, make_ident, make_type_ident, to_enum_variant};
 use crate::schema::{EnumValue, EventSpec, PrimitiveType, TypeSpec};
 
+/// Information about a serde-compatible type for companion struct generation.
+pub struct SerdeTypeInfo {
+    /// The Rust type tokens for the serde struct field
+    pub ty: TokenStream,
+    /// Whether this field should be wrapped in Option (serde skip_serializing_if)
+    pub is_optional: bool,
+    /// Whether this type can be converted from the wasm-bindgen type
+    pub is_convertible: bool,
+    /// Expression to convert from the wasm-bindgen getter
+    pub conversion_expr: Option<TokenStream>,
+}
+
 /// Context for code generation within a namespace.
 pub struct GenContext {
     /// The namespace name
     pub ns_name: String,
     /// Set of enum type IDs in this namespace (used to detect enum refs)
     enum_types: std::collections::HashSet<String>,
+    /// Set of type IDs that will have serde companions generated
+    serde_companion_types: std::collections::HashSet<String>,
 }
 
 impl GenContext {
     pub fn new(ns_name: &str, ns_spec: &crate::schema::NamespaceSpec) -> Self {
         let mut enum_types = std::collections::HashSet::new();
+        let mut serde_companion_types = std::collections::HashSet::new();
+
         if let Some(types) = &ns_spec.types {
             for t in types {
-                if let Some(id) = &t.id
-                    && t.enum_.is_some()
-                {
-                    enum_types.insert(id.clone());
+                if let Some(id) = &t.id {
+                    if t.enum_.is_some() {
+                        enum_types.insert(id.clone());
+                    }
+                    // Track which types will get serde companions
+                    if t.should_generate_serde_companion() {
+                        // Check if the Data suffix would conflict with an existing type
+                        let data_name = format!("{}Data", id.to_upper_camel_case());
+                        let conflicts = types.iter().any(|other| {
+                            other
+                                .id
+                                .as_ref()
+                                .is_some_and(|other_id| other_id.to_upper_camel_case() == data_name)
+                        });
+                        if !conflicts {
+                            serde_companion_types.insert(id.clone());
+                        }
+                    }
                 }
             }
         }
         Self {
             ns_name: ns_name.to_string(),
             enum_types,
+            serde_companion_types,
         }
     }
 
     /// Check if a type ID refers to an enum in this namespace.
     pub fn is_enum(&self, type_id: &str) -> bool {
         self.enum_types.contains(type_id)
+    }
+
+    /// Check if a type will have a serde companion struct generated.
+    pub fn has_serde_companion(&self, type_id: &str) -> bool {
+        self.serde_companion_types.contains(type_id)
     }
 
     /// Build the js_namespace path for wasm_bindgen (e.g., ["chrome", "tabs"]).
@@ -139,6 +175,263 @@ impl TypeSpec {
         TypeInfo::simple(ty)
     }
 
+    /// Map this type specification to a serde-compatible Rust type.
+    ///
+    /// Returns None if the type cannot be represented as a serde type
+    /// (e.g., Function, events, or complex JS-only types).
+    ///
+    /// `self_type_id` is the ID of the type being generated (for detecting self-references).
+    pub fn to_serde_type_info(
+        &self,
+        ctx: &GenContext,
+        getter_name: &syn::Ident,
+        self_type_id: Option<&str>,
+    ) -> Option<SerdeTypeInfo> {
+        let is_optional = self.optional.unwrap_or(false);
+
+        // Check for $ref first
+        if let Some(ref_name) = &self.ref_ {
+            if let Some((namespace, type_name)) = ref_name.split_once('.') {
+                // Cross-namespace reference - skip for now (complex feature gating)
+                if namespace != ctx.ns_name {
+                    return None;
+                }
+                // Same namespace reference (with explicit namespace prefix)
+                let is_enum = ctx.is_enum(type_name);
+
+                if is_enum {
+                    // Enums are Copy and can be used directly
+                    let type_ident = make_type_ident(&type_name.to_upper_camel_case());
+                    return Some(SerdeTypeInfo {
+                        ty: quote! { #type_ident },
+                        is_optional,
+                        is_convertible: true,
+                        conversion_expr: Some(quote! { val.#getter_name() }),
+                    });
+                } else {
+                    // Check if the referenced type has a serde companion
+                    if !ctx.has_serde_companion(type_name) {
+                        return None; // Skip fields referencing types without serde companions
+                    }
+                    // Check for self-reference (recursive type) - needs Box
+                    let is_self_ref = self_type_id.is_some_and(|id| id == type_name);
+                    let data_type = format_ident!("{}Data", type_name.to_upper_camel_case());
+                    let (ty, conversion) = if is_self_ref {
+                        let conversion = if is_optional {
+                            quote! { val.#getter_name().as_ref().map(|v| Box::new(v.into())) }
+                        } else {
+                            quote! { Box::new((&val.#getter_name()).into()) }
+                        };
+                        (quote! { Box<#data_type> }, conversion)
+                    } else {
+                        let conversion = if is_optional {
+                            quote! { val.#getter_name().as_ref().map(|v| v.into()) }
+                        } else {
+                            quote! { (&val.#getter_name()).into() }
+                        };
+                        (quote! { #data_type }, conversion)
+                    };
+                    return Some(SerdeTypeInfo {
+                        ty,
+                        is_optional,
+                        is_convertible: true,
+                        conversion_expr: Some(conversion),
+                    });
+                }
+            } else {
+                // Local reference (no namespace prefix)
+                let is_enum = ctx.is_enum(ref_name);
+                if is_enum {
+                    let type_ident = make_type_ident(&ref_name.to_upper_camel_case());
+                    return Some(SerdeTypeInfo {
+                        ty: quote! { #type_ident },
+                        is_optional,
+                        is_convertible: true,
+                        conversion_expr: Some(quote! { val.#getter_name() }),
+                    });
+                } else {
+                    // Check if the referenced type has a serde companion
+                    if !ctx.has_serde_companion(ref_name) {
+                        return None; // Skip fields referencing types without serde companions
+                    }
+                    // Check for self-reference (recursive type) - needs Box
+                    let is_self_ref = self_type_id.is_some_and(|id| id == ref_name);
+                    let data_type = format_ident!("{}Data", ref_name.to_upper_camel_case());
+                    let (ty, conversion) = if is_self_ref {
+                        let conversion = if is_optional {
+                            quote! { val.#getter_name().as_ref().map(|v| Box::new(v.into())) }
+                        } else {
+                            quote! { Box::new((&val.#getter_name()).into()) }
+                        };
+                        (quote! { Box<#data_type> }, conversion)
+                    } else {
+                        let conversion = if is_optional {
+                            quote! { val.#getter_name().as_ref().map(|v| v.into()) }
+                        } else {
+                            quote! { (&val.#getter_name()).into() }
+                        };
+                        (quote! { #data_type }, conversion)
+                    };
+                    return Some(SerdeTypeInfo {
+                        ty,
+                        is_optional,
+                        is_convertible: true,
+                        conversion_expr: Some(conversion),
+                    });
+                }
+            }
+        }
+
+        // Check for choices (union types) - use JsValue with serde-wasm-bindgen
+        if self.choices.is_some() {
+            let conversion = if is_optional {
+                quote! {
+                    val.#getter_name().and_then(|v| serde_wasm_bindgen::from_value(v).ok())
+                }
+            } else {
+                quote! {
+                    serde_wasm_bindgen::from_value(val.#getter_name()).unwrap_or_default()
+                }
+            };
+            return Some(SerdeTypeInfo {
+                ty: quote! { serde_json::Value },
+                is_optional,
+                is_convertible: true,
+                conversion_expr: Some(conversion),
+            });
+        }
+
+        // Map primitive types
+        match self.type_.as_ref() {
+            Some(PrimitiveType::Boolean) => Some(SerdeTypeInfo {
+                ty: quote! { bool },
+                is_optional,
+                is_convertible: true,
+                conversion_expr: Some(quote! { val.#getter_name() }),
+            }),
+            Some(PrimitiveType::Integer) => Some(SerdeTypeInfo {
+                ty: quote! { i32 },
+                is_optional,
+                is_convertible: true,
+                conversion_expr: Some(quote! { val.#getter_name() }),
+            }),
+            Some(PrimitiveType::Number) | Some(PrimitiveType::Double) => Some(SerdeTypeInfo {
+                ty: quote! { f64 },
+                is_optional,
+                is_convertible: true,
+                conversion_expr: Some(quote! { val.#getter_name() }),
+            }),
+            Some(PrimitiveType::String) => Some(SerdeTypeInfo {
+                ty: quote! { String },
+                is_optional,
+                is_convertible: true,
+                conversion_expr: Some(quote! { val.#getter_name() }),
+            }),
+            Some(PrimitiveType::Array) => {
+                // For arrays, try to get the item type
+                if let Some(items) = &self.items {
+                    let item_getter = format_ident!("item"); // placeholder
+                    if let Some(item_info) = items.to_serde_type_info(ctx, &item_getter, None) {
+                        let item_ty = &item_info.ty;
+                        let conversion = if is_optional {
+                            quote! {
+                                val.#getter_name().map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default())
+                            }
+                        } else {
+                            quote! {
+                                serde_wasm_bindgen::from_value(val.#getter_name().into()).unwrap_or_default()
+                            }
+                        };
+                        return Some(SerdeTypeInfo {
+                            ty: quote! { Vec<#item_ty> },
+                            is_optional,
+                            is_convertible: true,
+                            conversion_expr: Some(conversion),
+                        });
+                    }
+                }
+                // Fallback to generic Vec<serde_json::Value>
+                let conversion = if is_optional {
+                    quote! {
+                        val.#getter_name().map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default())
+                    }
+                } else {
+                    quote! {
+                        serde_wasm_bindgen::from_value(val.#getter_name().into()).unwrap_or_default()
+                    }
+                };
+                Some(SerdeTypeInfo {
+                    ty: quote! { Vec<serde_json::Value> },
+                    is_optional,
+                    is_convertible: true,
+                    conversion_expr: Some(conversion),
+                })
+            }
+            Some(PrimitiveType::Object) => {
+                // Generic object - use serde_json::Value
+                let conversion = if is_optional {
+                    quote! {
+                        val.#getter_name().map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default())
+                    }
+                } else {
+                    quote! {
+                        serde_wasm_bindgen::from_value(val.#getter_name().into()).unwrap_or_default()
+                    }
+                };
+                Some(SerdeTypeInfo {
+                    ty: quote! { serde_json::Value },
+                    is_optional,
+                    is_convertible: true,
+                    conversion_expr: Some(conversion),
+                })
+            }
+            // Function and other non-serializable types
+            Some(PrimitiveType::Function) => None,
+            Some(PrimitiveType::Binary) => None,
+            Some(PrimitiveType::Any) => {
+                let conversion = if is_optional {
+                    quote! {
+                        val.#getter_name().and_then(|v| serde_wasm_bindgen::from_value(v).ok())
+                    }
+                } else {
+                    quote! {
+                        serde_wasm_bindgen::from_value(val.#getter_name()).unwrap_or_default()
+                    }
+                };
+                Some(SerdeTypeInfo {
+                    ty: quote! { serde_json::Value },
+                    is_optional,
+                    is_convertible: true,
+                    conversion_expr: Some(conversion),
+                })
+            }
+            _ => None,
+        }
+    }
+
+    /// Check if this type should have a serde companion struct generated.
+    ///
+    /// Returns false for types that don't make sense as serializable data:
+    /// - Types with events (like Port)
+    /// - Types with only function properties
+    pub fn should_generate_serde_companion(&self) -> bool {
+        // Skip types with events - they're not pure data
+        if self.events.as_ref().is_some_and(|e| !e.is_empty()) {
+            return false;
+        }
+
+        // Must have properties to be useful as data
+        let properties = match &self.properties {
+            Some(p) if !p.is_empty() => p,
+            _ => return false,
+        };
+
+        // Check if at least one property is not a function
+        properties
+            .values()
+            .any(|p| p.type_.as_ref() != Some(&PrimitiveType::Function))
+    }
+
     /// Generate a wasm_bindgen type definition (enum, dictionary, or alias).
     pub fn generate_type(&self, ctx: &GenContext) -> Option<TokenStream> {
         let id = self.id.as_ref()?;
@@ -225,6 +518,7 @@ impl TypeSpec {
             #[wasm_bindgen]
             #[doc = #doc]
             #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+            #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
             pub enum #enum_name {
                 #(#variants),*
             }
@@ -277,6 +571,13 @@ impl TypeSpec {
 
         let new_doc = format!("Construct a new `{}`.", type_name_str);
 
+        // Generate serde companion type if applicable (uses pre-computed set that accounts for conflicts)
+        let serde_companion = if ctx.has_serde_companion(id) {
+            self.generate_serde_companion_type(ctx, id, &type_name, &doc)
+        } else {
+            quote! {}
+        };
+
         quote! {
             #[wasm_bindgen]
             extern "C" {
@@ -304,6 +605,101 @@ impl TypeSpec {
             impl Default for #type_name {
                 fn default() -> Self {
                     Self::new()
+                }
+            }
+
+            #serde_companion
+        }
+    }
+
+    /// Generate a serde-friendly companion struct for a dictionary type.
+    fn generate_serde_companion_type(
+        &self,
+        ctx: &GenContext,
+        type_id: &str,
+        type_name: &syn::Ident,
+        doc: &str,
+    ) -> TokenStream {
+        let data_type_name = format_ident!("{}Data", type_name);
+        let data_doc = if doc.is_empty() {
+            format!("Serializable data for `{}`.", type_name)
+        } else {
+            format!("Serializable data for `{}`. {}", type_name, doc)
+        };
+
+        let properties = match &self.properties {
+            Some(p) => p,
+            None => return quote! {},
+        };
+
+        // Sort properties for deterministic output
+        let mut sorted_props: Vec<_> = properties.iter().collect();
+        sorted_props.sort_by_key(|(k, _)| *k);
+
+        // Collect field definitions and conversion expressions
+        let mut fields = Vec::new();
+        let mut conversions = Vec::new();
+
+        for (name, prop) in &sorted_props {
+            let snake_name = name.to_snake_case();
+            let field_name = make_ident(&snake_name);
+            let getter_name = format_ident!("get_{}", snake_name);
+
+            // Get serde type info (pass type_id for detecting self-references)
+            let serde_info = match prop.to_serde_type_info(ctx, &getter_name, Some(type_id)) {
+                Some(info) => info,
+                None => continue, // Skip non-serializable fields
+            };
+
+            let field_type = &serde_info.ty;
+            let conversion_expr = serde_info.conversion_expr.as_ref();
+
+            // Field documentation
+            let field_doc = prop
+                .description
+                .as_deref()
+                .map(clean_html)
+                .unwrap_or_default();
+
+            if serde_info.is_optional {
+                fields.push(quote! {
+                    #[doc = #field_doc]
+                    #[serde(skip_serializing_if = "Option::is_none")]
+                    pub #field_name: Option<#field_type>
+                });
+            } else {
+                fields.push(quote! {
+                    #[doc = #field_doc]
+                    pub #field_name: #field_type
+                });
+            }
+
+            if let Some(expr) = conversion_expr {
+                conversions.push(quote! {
+                    #field_name: #expr
+                });
+            }
+        }
+
+        if fields.is_empty() {
+            return quote! {};
+        }
+
+        quote! {
+            #[cfg(feature = "serde")]
+            #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+            #[serde(rename_all = "camelCase")]
+            #[doc = #data_doc]
+            pub struct #data_type_name {
+                #(#fields),*
+            }
+
+            #[cfg(feature = "serde")]
+            impl From<&#type_name> for #data_type_name {
+                fn from(val: &#type_name) -> Self {
+                    Self {
+                        #(#conversions),*
+                    }
                 }
             }
         }

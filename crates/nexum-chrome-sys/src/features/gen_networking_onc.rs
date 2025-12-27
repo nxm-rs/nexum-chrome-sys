@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ActivationStateType {
     Activated = "Activated",
     Activating = "Activating",
@@ -14,6 +15,7 @@ pub enum ActivationStateType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CaptivePortalStatus {
     Unknown = "Unknown",
     Offline = "Offline",
@@ -24,6 +26,7 @@ pub enum CaptivePortalStatus {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ClientCertificateType {
     Ref = "Ref",
     Pattern = "Pattern",
@@ -31,6 +34,7 @@ pub enum ClientCertificateType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ConnectionStateType {
     Connected = "Connected",
     Connecting = "Connecting",
@@ -39,6 +43,7 @@ pub enum ConnectionStateType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DeviceStateType {
     ///Device is available but not initialized.
     Uninitialized = "Uninitialized",
@@ -54,6 +59,7 @@ pub enum DeviceStateType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IpConfigType {
     Dhcp = "DHCP",
     Static = "Static",
@@ -61,6 +67,7 @@ pub enum IpConfigType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum NetworkType {
     All = "All",
     Cellular = "Cellular",
@@ -73,6 +80,7 @@ pub enum NetworkType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ProxySettingsType {
     Direct = "Direct",
     Manual = "Manual",
@@ -187,6 +195,51 @@ impl Default for ManagedBoolean {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedBoolean`.
+pub struct ManagedBooleanData {
+    ///The active value currently used by the network configuration manager (e.g. Shill).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<bool>,
+    ///Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_editable: Option<bool>,
+    ///The property value provided by the device policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_policy: Option<bool>,
+    ///The source from which the effective property value was determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective: Option<String>,
+    ///The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared_setting: Option<bool>,
+    ///Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_editable: Option<bool>,
+    ///The property value provided by the user policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_policy: Option<bool>,
+    ///The property value set by the logged in user. Only provided if |UserEditable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_setting: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedBoolean> for ManagedBooleanData {
+    fn from(val: &ManagedBoolean) -> Self {
+        Self {
+            active: val.get_active(),
+            device_editable: val.get_device_editable(),
+            device_policy: val.get_device_policy(),
+            effective: val.get_effective(),
+            shared_setting: val.get_shared_setting(),
+            user_editable: val.get_user_editable(),
+            user_policy: val.get_user_policy(),
+            user_setting: val.get_user_setting(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedLong")]
@@ -293,6 +346,51 @@ impl ManagedLong {
 impl Default for ManagedLong {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedLong`.
+pub struct ManagedLongData {
+    ///The active value currently used by the network configuration manager (e.g. Shill).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<i32>,
+    ///Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_editable: Option<bool>,
+    ///The property value provided by the device policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_policy: Option<i32>,
+    ///The source from which the effective property value was determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective: Option<String>,
+    ///The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared_setting: Option<i32>,
+    ///Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_editable: Option<bool>,
+    ///The property value provided by the user policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_policy: Option<i32>,
+    ///The property value set by the logged in user. Only provided if |UserEditable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_setting: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedLong> for ManagedLongData {
+    fn from(val: &ManagedLong) -> Self {
+        Self {
+            active: val.get_active(),
+            device_editable: val.get_device_editable(),
+            device_policy: val.get_device_policy(),
+            effective: val.get_effective(),
+            shared_setting: val.get_shared_setting(),
+            user_editable: val.get_user_editable(),
+            user_policy: val.get_user_policy(),
+            user_setting: val.get_user_setting(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -403,6 +501,51 @@ impl Default for ManagedDomString {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedDomString`.
+pub struct ManagedDomStringData {
+    ///The active value currently used by the network configuration manager (e.g. Shill).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<String>,
+    ///Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_editable: Option<bool>,
+    ///The property value provided by the device policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_policy: Option<String>,
+    ///The source from which the effective property value was determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective: Option<String>,
+    ///The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared_setting: Option<String>,
+    ///Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_editable: Option<bool>,
+    ///The property value provided by the user policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_policy: Option<String>,
+    ///The property value set by the logged in user. Only provided if |UserEditable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_setting: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedDomString> for ManagedDomStringData {
+    fn from(val: &ManagedDomString) -> Self {
+        Self {
+            active: val.get_active(),
+            device_editable: val.get_device_editable(),
+            device_policy: val.get_device_policy(),
+            effective: val.get_effective(),
+            shared_setting: val.get_shared_setting(),
+            user_editable: val.get_user_editable(),
+            user_policy: val.get_user_policy(),
+            user_setting: val.get_user_setting(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedDomStringList")]
@@ -509,6 +652,61 @@ impl ManagedDomStringList {
 impl Default for ManagedDomStringList {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedDomStringList`.
+pub struct ManagedDomStringListData {
+    ///The active value currently used by the network configuration manager (e.g. Shill).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<Vec<String>>,
+    ///Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_editable: Option<bool>,
+    ///The property value provided by the device policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_policy: Option<Vec<String>>,
+    ///The source from which the effective property value was determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective: Option<String>,
+    ///The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared_setting: Option<Vec<String>>,
+    ///Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_editable: Option<bool>,
+    ///The property value provided by the user policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_policy: Option<Vec<String>>,
+    ///The property value set by the logged in user. Only provided if |UserEditable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_setting: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedDomStringList> for ManagedDomStringListData {
+    fn from(val: &ManagedDomStringList) -> Self {
+        Self {
+            active: val
+                .get_active()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            device_editable: val.get_device_editable(),
+            device_policy: val
+                .get_device_policy()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            effective: val.get_effective(),
+            shared_setting: val
+                .get_shared_setting()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            user_editable: val.get_user_editable(),
+            user_policy: val
+                .get_user_policy()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            user_setting: val
+                .get_user_setting()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -619,6 +817,51 @@ impl Default for ManagedIpConfigType {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedIpConfigType`.
+pub struct ManagedIpConfigTypeData {
+    ///The active value currently used by the network configuration manager (e.g. Shill).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<IpConfigType>,
+    ///Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_editable: Option<bool>,
+    ///The property value provided by the device policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_policy: Option<IpConfigType>,
+    ///The source from which the effective property value was determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective: Option<String>,
+    ///The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared_setting: Option<IpConfigType>,
+    ///Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_editable: Option<bool>,
+    ///The property value provided by the user policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_policy: Option<IpConfigType>,
+    ///The property value set by the logged in user. Only provided if |UserEditable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_setting: Option<IpConfigType>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedIpConfigType> for ManagedIpConfigTypeData {
+    fn from(val: &ManagedIpConfigType) -> Self {
+        Self {
+            active: val.get_active(),
+            device_editable: val.get_device_editable(),
+            device_policy: val.get_device_policy(),
+            effective: val.get_effective(),
+            shared_setting: val.get_shared_setting(),
+            user_editable: val.get_user_editable(),
+            user_policy: val.get_user_policy(),
+            user_setting: val.get_user_setting(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedProxySettingsType")]
@@ -727,6 +970,51 @@ impl Default for ManagedProxySettingsType {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedProxySettingsType`.
+pub struct ManagedProxySettingsTypeData {
+    ///The active value currently used by the network configuration manager (e.g. Shill).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<ProxySettingsType>,
+    ///Whether a DevicePolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_editable: Option<bool>,
+    ///The property value provided by the device policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_policy: Option<ProxySettingsType>,
+    ///The source from which the effective property value was determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub effective: Option<String>,
+    ///The value set for all users of the device. Only provided if |DeviceEditiable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared_setting: Option<ProxySettingsType>,
+    ///Whether a UserPolicy for the property exists and allows the property to be edited (i.e. the policy set recommended property value). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_editable: Option<bool>,
+    ///The property value provided by the user policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_policy: Option<ProxySettingsType>,
+    ///The property value set by the logged in user. Only provided if |UserEditable| is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_setting: Option<ProxySettingsType>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedProxySettingsType> for ManagedProxySettingsTypeData {
+    fn from(val: &ManagedProxySettingsType) -> Self {
+        Self {
+            active: val.get_active(),
+            device_editable: val.get_device_editable(),
+            device_policy: val.get_device_policy(),
+            effective: val.get_effective(),
+            shared_setting: val.get_shared_setting(),
+            user_editable: val.get_user_editable(),
+            user_policy: val.get_user_policy(),
+            user_setting: val.get_user_setting(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CellularProviderProperties")]
@@ -778,6 +1066,29 @@ impl CellularProviderProperties {
 impl Default for CellularProviderProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CellularProviderProperties`.
+pub struct CellularProviderPropertiesData {
+    ///Cellular network ID as a simple concatenation of the network's MCC (Mobile Country Code) and MNC (Mobile Network Code).
+    pub code: String,
+    ///The two-letter country code.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub country: Option<String>,
+    ///The operator name.
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CellularProviderProperties> for CellularProviderPropertiesData {
+    fn from(val: &CellularProviderProperties) -> Self {
+        Self {
+            code: val.get_code(),
+            country: val.get_country(),
+            name: val.get_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -844,6 +1155,35 @@ impl Default for IssuerSubjectPattern {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IssuerSubjectPattern`.
+pub struct IssuerSubjectPatternData {
+    ///If set, the value against which to match the certificate subject's common name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub common_name: Option<String>,
+    ///If set, the value against which to match the certificate subject's common location.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub locality: Option<String>,
+    ///If set, the value against which to match the certificate subject's organizations. At least one organization should match the value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organization: Option<String>,
+    ///If set, the value against which to match the certificate subject's organizational units. At least one organizational unit should match the value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub organizational_unit: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&IssuerSubjectPattern> for IssuerSubjectPatternData {
+    fn from(val: &IssuerSubjectPattern) -> Self {
+        Self {
+            common_name: val.get_common_name(),
+            locality: val.get_locality(),
+            organization: val.get_organization(),
+            organizational_unit: val.get_organizational_unit(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CertificatePattern")]
@@ -906,6 +1246,39 @@ impl CertificatePattern {
 impl Default for CertificatePattern {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CertificatePattern`.
+pub struct CertificatePatternData {
+    ///List of URIs to which the user can be directed in case no certificates that match this pattern are found.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enrollment_uri: Option<Vec<String>>,
+    ///If set, pattern against which X.509 issuer settings should be matched.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub issuer: Option<IssuerSubjectPatternData>,
+    ///List of certificate issuer CA certificates. A certificate must be signed by one of them in order to match this pattern.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub issuer_ca_ref: Option<Vec<String>>,
+    ///If set, pattern against which X.509 subject settings should be matched.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub subject: Option<IssuerSubjectPatternData>,
+}
+#[cfg(feature = "serde")]
+impl From<&CertificatePattern> for CertificatePatternData {
+    fn from(val: &CertificatePattern) -> Self {
+        Self {
+            enrollment_uri: val
+                .get_enrollment_uri()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            issuer: val.get_issuer().as_ref().map(|v| v.into()),
+            issuer_ca_ref: val
+                .get_issuer_ca_ref()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            subject: val.get_subject().as_ref().map(|v| v.into()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1104,6 +1477,86 @@ impl Default for EapProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EapProperties`.
+pub struct EapPropertiesData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub anonymous_identity: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_cert_pkcs11_id: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_cert_pattern: Option<CertificatePatternData>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_cert_provisioning_profile_id: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_cert_ref: Option<String>,
+    ///
+    pub client_cert_type: ClientCertificateType,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub identity: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inner: Option<String>,
+    ///The outer EAP type. Required by ONC, but may not be provided when translating from Shill.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub outer: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub password: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub save_credentials: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub server_cape_ms: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub server_ca_refs: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub subject_match: Option<ManagedDomStringData>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub use_proactive_key_caching: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub use_system_c_as: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&EapProperties> for EapPropertiesData {
+    fn from(val: &EapProperties) -> Self {
+        Self {
+            anonymous_identity: val.get_anonymous_identity(),
+            client_cert_pkcs11_id: val.get_client_cert_pkcs11_id(),
+            client_cert_pattern: val.get_client_cert_pattern().as_ref().map(|v| v.into()),
+            client_cert_provisioning_profile_id: val.get_client_cert_provisioning_profile_id(),
+            client_cert_ref: val.get_client_cert_ref(),
+            client_cert_type: val.get_client_cert_type(),
+            identity: val.get_identity(),
+            inner: val.get_inner(),
+            outer: val.get_outer(),
+            password: val.get_password(),
+            save_credentials: val.get_save_credentials(),
+            server_cape_ms: val
+                .get_server_cape_ms()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            server_ca_refs: val
+                .get_server_ca_refs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            subject_match: val.get_subject_match().as_ref().map(|v| v.into()),
+            use_proactive_key_caching: val.get_use_proactive_key_caching(),
+            use_system_c_as: val.get_use_system_c_as(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "FoundNetworkProperties")]
@@ -1177,6 +1630,36 @@ impl FoundNetworkProperties {
 impl Default for FoundNetworkProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FoundNetworkProperties`.
+pub struct FoundNetworkPropertiesData {
+    ///The network operator's long-format name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub long_name: Option<String>,
+    ///Network ID.
+    pub network_id: String,
+    ///The network operator's short-format name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub short_name: Option<String>,
+    ///Network availability.
+    pub status: String,
+    ///Access technology used by the network.
+    pub technology: String,
+}
+#[cfg(feature = "serde")]
+impl From<&FoundNetworkProperties> for FoundNetworkPropertiesData {
+    fn from(val: &FoundNetworkProperties) -> Self {
+        Self {
+            long_name: val.get_long_name(),
+            network_id: val.get_network_id(),
+            short_name: val.get_short_name(),
+            status: val.get_status(),
+            technology: val.get_technology(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1298,6 +1781,63 @@ impl Default for IpConfigProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IpConfigProperties`.
+pub struct IpConfigPropertiesData {
+    ///Array of IP blocks in CIDR notation, see onc_spec.md for details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub excluded_routes: Option<Vec<String>>,
+    ///Gateway address used for the IP configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gateway: Option<String>,
+    ///The IP address for a connection. Can be IPv4 or IPv6 address, depending on value of Type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_address: Option<String>,
+    ///Array of IP blocks in CIDR notation, see onc_spec.md for details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub included_routes: Option<Vec<String>>,
+    ///Array of addresses used for name servers.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_servers: Option<Vec<String>>,
+    ///The routing prefix.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub routing_prefix: Option<i32>,
+    ///Array of strings for name resolution, see onc_spec.md for details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub search_domains: Option<Vec<String>>,
+    ///The IP configuration type. Can be IPv4 or IPv6.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+    ///The URL for WEb Proxy Auto-Discovery, as reported over DHCP.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub web_proxy_auto_discovery_url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&IpConfigProperties> for IpConfigPropertiesData {
+    fn from(val: &IpConfigProperties) -> Self {
+        Self {
+            excluded_routes: val
+                .get_excluded_routes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            gateway: val.get_gateway(),
+            ip_address: val.get_ip_address(),
+            included_routes: val
+                .get_included_routes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            name_servers: val
+                .get_name_servers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            routing_prefix: val.get_routing_prefix(),
+            search_domains: val
+                .get_search_domains()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            r#type: val.get_type(),
+            web_proxy_auto_discovery_url: val.get_web_proxy_auto_discovery_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedIpConfigProperties")]
@@ -1389,6 +1929,46 @@ impl Default for ManagedIpConfigProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedIpConfigProperties`.
+pub struct ManagedIpConfigPropertiesData {
+    ///See $(ref:IPConfigProperties.Gateway).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub gateway: Option<ManagedDomStringData>,
+    ///See $(ref:IPConfigProperties.IPAddress).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_address: Option<ManagedDomStringData>,
+    ///See $(ref:IPConfigProperties.NameServers).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_servers: Option<ManagedDomStringListData>,
+    ///See $(ref:IPConfigProperties.RoutingPrefix).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub routing_prefix: Option<ManagedLongData>,
+    ///See $(ref:IPConfigProperties.Type).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<ManagedDomStringData>,
+    ///See $(ref:IPConfigProperties.WebProxyAutoDiscoveryUrl).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub web_proxy_auto_discovery_url: Option<ManagedDomStringData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedIpConfigProperties> for ManagedIpConfigPropertiesData {
+    fn from(val: &ManagedIpConfigProperties) -> Self {
+        Self {
+            gateway: val.get_gateway().as_ref().map(|v| v.into()),
+            ip_address: val.get_ip_address().as_ref().map(|v| v.into()),
+            name_servers: val.get_name_servers().as_ref().map(|v| v.into()),
+            routing_prefix: val.get_routing_prefix().as_ref().map(|v| v.into()),
+            r#type: val.get_type().as_ref().map(|v| v.into()),
+            web_proxy_auto_discovery_url: val
+                .get_web_proxy_auto_discovery_url()
+                .as_ref()
+                .map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "PaymentPortal")]
@@ -1442,6 +2022,30 @@ impl Default for PaymentPortal {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PaymentPortal`.
+pub struct PaymentPortalData {
+    ///The HTTP method to use for the payment portal.
+    pub method: String,
+    ///The post data to send to the payment portal. Ignored unless Method is POST.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub post_data: Option<String>,
+    ///The payment portal URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&PaymentPortal> for PaymentPortalData {
+    fn from(val: &PaymentPortal) -> Self {
+        Self {
+            method: val.get_method(),
+            post_data: val.get_post_data(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ProxyLocation")]
@@ -1484,6 +2088,25 @@ impl Default for ProxyLocation {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProxyLocation`.
+pub struct ProxyLocationData {
+    ///The proxy IP address host.
+    pub host: String,
+    ///The port to use for the proxy.
+    pub port: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ProxyLocation> for ProxyLocationData {
+    fn from(val: &ProxyLocation) -> Self {
+        Self {
+            host: val.get_host(),
+            port: val.get_port(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedProxyLocation")]
@@ -1524,6 +2147,25 @@ impl ManagedProxyLocation {
 impl Default for ManagedProxyLocation {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedProxyLocation`.
+pub struct ManagedProxyLocationData {
+    ///See $(ref:ProxyLocation.Host).
+    pub host: ManagedDomStringData,
+    ///See $(ref:ProxyLocation.Port).
+    pub port: ManagedLongData,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedProxyLocation> for ManagedProxyLocationData {
+    fn from(val: &ManagedProxyLocation) -> Self {
+        Self {
+            host: (&val.get_host()).into(),
+            port: (&val.get_port()).into(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1588,6 +2230,35 @@ impl ManualProxySettings {
 impl Default for ManualProxySettings {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManualProxySettings`.
+pub struct ManualProxySettingsData {
+    ///Settings for FTP proxy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ftp_proxy: Option<ProxyLocationData>,
+    ///Settings for HTTP proxy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub http_proxy: Option<ProxyLocationData>,
+    ///Settings for SOCKS proxy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub socks: Option<ProxyLocationData>,
+    ///Settings for secure HTTP proxy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure_http_proxy: Option<ProxyLocationData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManualProxySettings> for ManualProxySettingsData {
+    fn from(val: &ManualProxySettings) -> Self {
+        Self {
+            ftp_proxy: val.get_ftp_proxy().as_ref().map(|v| v.into()),
+            http_proxy: val.get_http_proxy().as_ref().map(|v| v.into()),
+            socks: val.get_socks().as_ref().map(|v| v.into()),
+            secure_http_proxy: val.get_secure_http_proxy().as_ref().map(|v| v.into()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1655,6 +2326,35 @@ impl Default for ManagedManualProxySettings {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedManualProxySettings`.
+pub struct ManagedManualProxySettingsData {
+    ///See $(ref:ManualProxySettings.FTPProxy).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ftp_proxy: Option<ManagedProxyLocationData>,
+    ///See $(ref:ManualProxySettings.HTTPProxy).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub http_proxy: Option<ManagedProxyLocationData>,
+    ///See $(ref:ManualProxySettings.SOCKS).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub socks: Option<ManagedProxyLocationData>,
+    ///See $(ref:ManualProxySettings.SecureHTTPProxy).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure_http_proxy: Option<ManagedProxyLocationData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedManualProxySettings> for ManagedManualProxySettingsData {
+    fn from(val: &ManagedManualProxySettings) -> Self {
+        Self {
+            ftp_proxy: val.get_ftp_proxy().as_ref().map(|v| v.into()),
+            http_proxy: val.get_http_proxy().as_ref().map(|v| v.into()),
+            socks: val.get_socks().as_ref().map(|v| v.into()),
+            secure_http_proxy: val.get_secure_http_proxy().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ProxySettings")]
@@ -1717,6 +2417,36 @@ impl ProxySettings {
 impl Default for ProxySettings {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProxySettings`.
+pub struct ProxySettingsData {
+    ///Domains and hosts for which manual proxy settings are excluded.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_domains: Option<Vec<String>>,
+    ///Manual proxy settings - used only for Manual proxy settings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub manual: Option<ManualProxySettingsData>,
+    ///URL for proxy auto-configuration file.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pac: Option<String>,
+    ///The type of proxy settings.
+    pub r#type: ProxySettingsType,
+}
+#[cfg(feature = "serde")]
+impl From<&ProxySettings> for ProxySettingsData {
+    fn from(val: &ProxySettings) -> Self {
+        Self {
+            exclude_domains: val
+                .get_exclude_domains()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            manual: val.get_manual().as_ref().map(|v| v.into()),
+            pac: val.get_pac(),
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1783,6 +2513,34 @@ impl Default for ManagedProxySettings {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedProxySettings`.
+pub struct ManagedProxySettingsData {
+    ///See $(ref:ProxySettings.ExcludeDomains).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_domains: Option<ManagedDomStringListData>,
+    ///See $(ref:ProxySettings.Manual).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub manual: Option<ManagedManualProxySettingsData>,
+    ///See $(ref:ProxySettings.PAC).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pac: Option<ManagedDomStringData>,
+    ///See $(ref:ProxySettings.Type).
+    pub r#type: ManagedProxySettingsTypeData,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedProxySettings> for ManagedProxySettingsData {
+    fn from(val: &ManagedProxySettings) -> Self {
+        Self {
+            exclude_domains: val.get_exclude_domains().as_ref().map(|v| v.into()),
+            manual: val.get_manual().as_ref().map(|v| v.into()),
+            pac: val.get_pac().as_ref().map(|v| v.into()),
+            r#type: (&val.get_type()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SimLockStatus")]
@@ -1836,6 +2594,29 @@ impl Default for SimLockStatus {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SimLockStatus`.
+pub struct SimLockStatusData {
+    ///Whether SIM lock is enabled.
+    pub lock_enabled: bool,
+    ///The status of SIM lock - possible values are 'sim-pin', 'sim-puk' and ''.
+    pub lock_type: String,
+    ///Number of PIN lock tries allowed before PUK is required to unlock the SIM.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub retries_left: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SimLockStatus> for SimLockStatusData {
+    fn from(val: &SimLockStatus) -> Self {
+        Self {
+            lock_enabled: val.get_lock_enabled(),
+            lock_type: val.get_lock_type(),
+            retries_left: val.get_retries_left(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ThirdPartyVpnProperties")]
@@ -1876,6 +2657,26 @@ impl ThirdPartyVpnProperties {
 impl Default for ThirdPartyVpnProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ThirdPartyVpnProperties`.
+pub struct ThirdPartyVpnPropertiesData {
+    ///ID of the third-party VPN provider extension.
+    pub extension_id: String,
+    ///The VPN provider name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub provider_name: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ThirdPartyVpnProperties> for ThirdPartyVpnPropertiesData {
+    fn from(val: &ThirdPartyVpnProperties) -> Self {
+        Self {
+            extension_id: val.get_extension_id(),
+            provider_name: val.get_provider_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1921,6 +2722,26 @@ impl ManagedThirdPartyVpnProperties {
 impl Default for ManagedThirdPartyVpnProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedThirdPartyVpnProperties`.
+pub struct ManagedThirdPartyVpnPropertiesData {
+    ///See $(ref:ThirdPartyVPNProperties.ExtensionID).
+    pub extension_id: ManagedDomStringData,
+    ///See $(ref:ThirdPartyVPNProperties.ProviderName).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub provider_name: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedThirdPartyVpnProperties> for ManagedThirdPartyVpnPropertiesData {
+    fn from(val: &ManagedThirdPartyVpnProperties) -> Self {
+        Self {
+            extension_id: (&val.get_extension_id()).into(),
+            provider_name: val.get_provider_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -2161,6 +2982,101 @@ impl CellularProperties {
 impl Default for CellularProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CellularProperties`.
+pub struct CellularPropertiesData {
+    ///Carrier account activation state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub activation_state: Option<ActivationStateType>,
+    ///The cellular network activation type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub activation_type: Option<String>,
+    ///Whether roaming is allowed for the network.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_roaming: Option<bool>,
+    ///Whether the cellular network should be connected automatically (when in range).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<bool>,
+    ///Cellular device technology family - CDMA or GSM.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub family: Option<String>,
+    ///The firmware revision loaded in the cellular modem.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub firmware_revision: Option<String>,
+    ///The list of networks found during the most recent network scan.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub found_networks: Option<Vec<FoundNetworkPropertiesData>>,
+    ///The cellular modem hardware revision.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hardware_revision: Option<String>,
+    ///Information about the operator that issued the SIM card currently installed in the modem.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub home_provider: Option<CellularProviderPropertiesData>,
+    ///The cellular modem manufacturer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub manufacturer: Option<String>,
+    ///The cellular modem model ID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub model_id: Option<String>,
+    ///If the modem is registered on a network, the network technology currently in use.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub network_technology: Option<String>,
+    ///Online payment portal a user can use to sign-up for or modify a mobile data plan.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub payment_portal: Option<PaymentPortalData>,
+    ///The roaming state of the cellular modem on the current network.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub roaming_state: Option<String>,
+    ///The state of SIM lock for GSM family networks.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_lock_status: Option<SimLockStatusData>,
+    ///Whether a SIM card is present.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_present: Option<bool>,
+    ///True when a cellular network scan is in progress.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scanning: Option<bool>,
+    ///Information about the operator on whose network the modem is currently registered.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub serving_operator: Option<CellularProviderPropertiesData>,
+    ///The current network signal strength.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signal_strength: Option<i32>,
+    ///Whether the cellular network supports scanning.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub support_network_scan: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&CellularProperties> for CellularPropertiesData {
+    fn from(val: &CellularProperties) -> Self {
+        Self {
+            activation_state: val.get_activation_state(),
+            activation_type: val.get_activation_type(),
+            allow_roaming: val.get_allow_roaming(),
+            auto_connect: val.get_auto_connect(),
+            family: val.get_family(),
+            firmware_revision: val.get_firmware_revision(),
+            found_networks: val
+                .get_found_networks()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            hardware_revision: val.get_hardware_revision(),
+            home_provider: val.get_home_provider().as_ref().map(|v| v.into()),
+            manufacturer: val.get_manufacturer(),
+            model_id: val.get_model_id(),
+            network_technology: val.get_network_technology(),
+            payment_portal: val.get_payment_portal().as_ref().map(|v| v.into()),
+            roaming_state: val.get_roaming_state(),
+            sim_lock_status: val.get_sim_lock_status().as_ref().map(|v| v.into()),
+            sim_present: val.get_sim_present(),
+            scanning: val.get_scanning(),
+            serving_operator: val.get_serving_operator().as_ref().map(|v| v.into()),
+            signal_strength: val.get_signal_strength(),
+            support_network_scan: val.get_support_network_scan(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -2405,6 +3321,103 @@ impl Default for ManagedCellularProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedCellularProperties`.
+pub struct ManagedCellularPropertiesData {
+    ///See $(ref:CellularProperties.ActivationState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub activation_state: Option<ActivationStateType>,
+    ///See $(ref:CellularProperties.ActivationType).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub activation_type: Option<String>,
+    ///See $(ref:CellularProperties.AllowRoaming).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_roaming: Option<bool>,
+    ///See $(ref:CellularProperties.AutoConnect).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<ManagedBooleanData>,
+    ///See $(ref:CellularProperties.Family).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub family: Option<String>,
+    ///See $(ref:CellularProperties.FirmwareRevision).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub firmware_revision: Option<String>,
+    ///See $(ref:CellularProperties.FoundNetworks).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub found_networks: Option<Vec<FoundNetworkPropertiesData>>,
+    ///See $(ref:CellularProperties.HardwareRevision).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hardware_revision: Option<String>,
+    ///See $(ref:CellularProperties.HomeProvider).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub home_provider: Option<Vec<CellularProviderPropertiesData>>,
+    ///See $(ref:CellularProperties.Manufacturer).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub manufacturer: Option<String>,
+    ///See $(ref:CellularProperties.ModelID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub model_id: Option<String>,
+    ///See $(ref:CellularProperties.NetworkTechnology).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub network_technology: Option<String>,
+    ///See $(ref:CellularProperties.PaymentPortal).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub payment_portal: Option<PaymentPortalData>,
+    ///See $(ref:CellularProperties.RoamingState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub roaming_state: Option<String>,
+    ///See $(ref:CellularProperties.SIMLockStatus).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_lock_status: Option<SimLockStatusData>,
+    ///See $(ref:CellularProperties.SIMPresent).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_present: Option<bool>,
+    ///See $(ref:CellularProperties.Scanning).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scanning: Option<bool>,
+    ///See $(ref:CellularProperties.ServingOperator).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub serving_operator: Option<CellularProviderPropertiesData>,
+    ///See $(ref:CellularProperties.SignalStrength).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signal_strength: Option<i32>,
+    ///See $(ref:CellularProperties.SupportNetworkScan).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub support_network_scan: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedCellularProperties> for ManagedCellularPropertiesData {
+    fn from(val: &ManagedCellularProperties) -> Self {
+        Self {
+            activation_state: val.get_activation_state(),
+            activation_type: val.get_activation_type(),
+            allow_roaming: val.get_allow_roaming(),
+            auto_connect: val.get_auto_connect().as_ref().map(|v| v.into()),
+            family: val.get_family(),
+            firmware_revision: val.get_firmware_revision(),
+            found_networks: val
+                .get_found_networks()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            hardware_revision: val.get_hardware_revision(),
+            home_provider: val
+                .get_home_provider()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            manufacturer: val.get_manufacturer(),
+            model_id: val.get_model_id(),
+            network_technology: val.get_network_technology(),
+            payment_portal: val.get_payment_portal().as_ref().map(|v| v.into()),
+            roaming_state: val.get_roaming_state(),
+            sim_lock_status: val.get_sim_lock_status().as_ref().map(|v| v.into()),
+            sim_present: val.get_sim_present(),
+            scanning: val.get_scanning(),
+            serving_operator: val.get_serving_operator().as_ref().map(|v| v.into()),
+            signal_strength: val.get_signal_strength(),
+            support_network_scan: val.get_support_network_scan(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CellularStateProperties")]
@@ -2480,6 +3493,39 @@ impl Default for CellularStateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CellularStateProperties`.
+pub struct CellularStatePropertiesData {
+    ///See $(ref:CellularProperties.ActivationState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub activation_state: Option<ActivationStateType>,
+    ///See $(ref:CellularProperties.NetworkTechnology).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub network_technology: Option<String>,
+    ///See $(ref:CellularProperties.RoamingState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub roaming_state: Option<String>,
+    ///See $(ref:CellularProperties.SIMPresent).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_present: Option<bool>,
+    ///See $(ref:CellularProperties.SignalStrength).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signal_strength: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&CellularStateProperties> for CellularStatePropertiesData {
+    fn from(val: &CellularStateProperties) -> Self {
+        Self {
+            activation_state: val.get_activation_state(),
+            network_technology: val.get_network_technology(),
+            roaming_state: val.get_roaming_state(),
+            sim_present: val.get_sim_present(),
+            signal_strength: val.get_signal_strength(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "EthernetProperties")]
@@ -2533,6 +3579,31 @@ impl Default for EthernetProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EthernetProperties`.
+pub struct EthernetPropertiesData {
+    ///The authentication used by the Ethernet network. Possible values are None and 8021X.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub authentication: Option<String>,
+    ///Whether the Ethernet network should be connected automatically.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<bool>,
+    ///Network's EAP settings. Required for 8021X authentication.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub eap: Option<EapPropertiesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&EthernetProperties> for EthernetPropertiesData {
+    fn from(val: &EthernetProperties) -> Self {
+        Self {
+            authentication: val.get_authentication(),
+            auto_connect: val.get_auto_connect(),
+            eap: val.get_eap().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedEthernetProperties")]
@@ -2575,6 +3646,27 @@ impl Default for ManagedEthernetProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedEthernetProperties`.
+pub struct ManagedEthernetPropertiesData {
+    ///See $(ref:EthernetProperties.Authentication).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub authentication: Option<ManagedDomStringData>,
+    ///See $(ref:EthernetProperties.AutoConnect).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<ManagedBooleanData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedEthernetProperties> for ManagedEthernetPropertiesData {
+    fn from(val: &ManagedEthernetProperties) -> Self {
+        Self {
+            authentication: val.get_authentication().as_ref().map(|v| v.into()),
+            auto_connect: val.get_auto_connect().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "EthernetStateProperties")]
@@ -2604,6 +3696,22 @@ impl EthernetStateProperties {
 impl Default for EthernetStateProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EthernetStateProperties`.
+pub struct EthernetStatePropertiesData {
+    ///See $(ref:EthernetProperties.Authentication).
+    pub authentication: String,
+}
+#[cfg(feature = "serde")]
+impl From<&EthernetStateProperties> for EthernetStatePropertiesData {
+    fn from(val: &EthernetStateProperties) -> Self {
+        Self {
+            authentication: val.get_authentication(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -2659,6 +3767,31 @@ impl Default for VpnProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `VpnProperties`.
+pub struct VpnPropertiesData {
+    ///Whether the VPN network should be connected automatically.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<bool>,
+    ///The VPN host.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host: Option<String>,
+    ///The VPN type. This cannot be an enum because of 'L2TP-IPSec'. This is optional for NetworkConfigProperties which is passed to setProperties which may be used to set only specific properties.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&VpnProperties> for VpnPropertiesData {
+    fn from(val: &VpnProperties) -> Self {
+        Self {
+            auto_connect: val.get_auto_connect(),
+            host: val.get_host(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedVpnProperties")]
@@ -2712,6 +3845,31 @@ impl Default for ManagedVpnProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedVpnProperties`.
+pub struct ManagedVpnPropertiesData {
+    ///See $(ref:VPNProperties.AutoConnect).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<ManagedBooleanData>,
+    ///See $(ref:VPNProperties.Host).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub host: Option<ManagedDomStringData>,
+    ///See $(ref:VPNProperties.Type).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<ManagedDomStringData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedVpnProperties> for ManagedVpnPropertiesData {
+    fn from(val: &ManagedVpnProperties) -> Self {
+        Self {
+            auto_connect: val.get_auto_connect().as_ref().map(|v| v.into()),
+            host: val.get_host().as_ref().map(|v| v.into()),
+            r#type: val.get_type().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "VpnStateProperties")]
@@ -2741,6 +3899,22 @@ impl VpnStateProperties {
 impl Default for VpnStateProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `VpnStateProperties`.
+pub struct VpnStatePropertiesData {
+    ///See $(ref:VPNProperties.Type).
+    pub r#type: String,
+}
+#[cfg(feature = "serde")]
+impl From<&VpnStateProperties> for VpnStatePropertiesData {
+    fn from(val: &VpnStateProperties) -> Self {
+        Self {
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -2906,6 +4080,73 @@ impl Default for WiFiProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `WiFiProperties`.
+pub struct WiFiPropertiesData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_gateway_arp_polling: Option<bool>,
+    ///Whether the WiFi network should be connected automatically when in range.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<bool>,
+    ///The BSSID of the associated access point..
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bssid: Option<String>,
+    ///The network EAP properties. Required for WEP-8021X and WPA-EAP networks.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub eap: Option<EapPropertiesData>,
+    ///The WiFi service operating frequency in MHz. For connected networks, the current frequency on which the network is connected. Otherwise, the frequency of the best available BSS.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frequency: Option<i32>,
+    ///Contains all operating frequency recently seen for the WiFi network.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frequency_list: Option<Vec<i32>>,
+    ///HEX-encoded copy of the network SSID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hex_ssid: Option<String>,
+    ///Whether the network SSID will be broadcast.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hidden_ssid: Option<bool>,
+    ///The passphrase for WEP/WPA/WPA2 connections. This property can only be set - properties returned by $(ref:getProperties) will not contain this value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub passphrase: Option<String>,
+    ///Deprecated, ignored.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub roam_threshold: Option<i32>,
+    ///The network SSID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ssid: Option<String>,
+    ///The network security type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub security: Option<String>,
+    ///The network signal strength.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signal_strength: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&WiFiProperties> for WiFiPropertiesData {
+    fn from(val: &WiFiProperties) -> Self {
+        Self {
+            allow_gateway_arp_polling: val.get_allow_gateway_arp_polling(),
+            auto_connect: val.get_auto_connect(),
+            bssid: val.get_bssid(),
+            eap: val.get_eap().as_ref().map(|v| v.into()),
+            frequency: val.get_frequency(),
+            frequency_list: val
+                .get_frequency_list()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            hex_ssid: val.get_hex_ssid(),
+            hidden_ssid: val.get_hidden_ssid(),
+            passphrase: val.get_passphrase(),
+            roam_threshold: val.get_roam_threshold(),
+            ssid: val.get_ssid(),
+            security: val.get_security(),
+            signal_strength: val.get_signal_strength(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedWiFiProperties")]
@@ -3047,6 +4288,67 @@ impl Default for ManagedWiFiProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedWiFiProperties`.
+pub struct ManagedWiFiPropertiesData {
+    ///See $(ref:WiFiProperties.AllowGatewayARPPolling).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_gateway_arp_polling: Option<ManagedBooleanData>,
+    ///See $(ref:WiFiProperties.AutoConnect).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<ManagedBooleanData>,
+    ///See $(ref:WiFiProperties.BSSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bssid: Option<String>,
+    ///See $(ref:WiFiProperties.Frequency).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frequency: Option<i32>,
+    ///See $(ref:WiFiProperties.FrequencyList).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frequency_list: Option<Vec<i32>>,
+    ///See $(ref:WiFiProperties.HexSSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hex_ssid: Option<ManagedDomStringData>,
+    ///See $(ref:WiFiProperties.HiddenSSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hidden_ssid: Option<ManagedBooleanData>,
+    ///Deprecated, ignored. See $(ref:WiFiProperties.RoamThreshold).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub roam_threshold: Option<ManagedLongData>,
+    ///See $(ref:WiFiProperties.SSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ssid: Option<ManagedDomStringData>,
+    ///See $(ref:WiFiProperties.Security).
+    pub security: ManagedDomStringData,
+    ///See $(ref:WiFiProperties.SignalStrength).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signal_strength: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedWiFiProperties> for ManagedWiFiPropertiesData {
+    fn from(val: &ManagedWiFiProperties) -> Self {
+        Self {
+            allow_gateway_arp_polling: val
+                .get_allow_gateway_arp_polling()
+                .as_ref()
+                .map(|v| v.into()),
+            auto_connect: val.get_auto_connect().as_ref().map(|v| v.into()),
+            bssid: val.get_bssid(),
+            frequency: val.get_frequency(),
+            frequency_list: val
+                .get_frequency_list()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            hex_ssid: val.get_hex_ssid().as_ref().map(|v| v.into()),
+            hidden_ssid: val.get_hidden_ssid().as_ref().map(|v| v.into()),
+            roam_threshold: val.get_roam_threshold().as_ref().map(|v| v.into()),
+            ssid: val.get_ssid().as_ref().map(|v| v.into()),
+            security: (&val.get_security()).into(),
+            signal_strength: val.get_signal_strength(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "WiFiStateProperties")]
@@ -3133,6 +4435,42 @@ impl Default for WiFiStateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `WiFiStateProperties`.
+pub struct WiFiStatePropertiesData {
+    ///See $(ref:WiFiProperties.BSSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bssid: Option<String>,
+    ///See $(ref:WiFiProperties.Frequency).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frequency: Option<i32>,
+    ///See $(ref:WiFiProperties.HexSSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hex_ssid: Option<String>,
+    ///See $(ref:WiFiProperties.SSID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ssid: Option<String>,
+    ///See $(ref:WiFiProperties.Security).
+    pub security: String,
+    ///See $(ref:WiFiProperties.SignalStrength).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub signal_strength: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&WiFiStateProperties> for WiFiStatePropertiesData {
+    fn from(val: &WiFiStateProperties) -> Self {
+        Self {
+            bssid: val.get_bssid(),
+            frequency: val.get_frequency(),
+            hex_ssid: val.get_hex_ssid(),
+            ssid: val.get_ssid(),
+            security: val.get_security(),
+            signal_strength: val.get_signal_strength(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "WiMaxProperties")]
@@ -3173,6 +4511,27 @@ impl WiMaxProperties {
 impl Default for WiMaxProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `WiMaxProperties`.
+pub struct WiMaxPropertiesData {
+    ///Whether the network should be connected automatically.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_connect: Option<bool>,
+    ///The network EAP properties.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub eap: Option<EapPropertiesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&WiMaxProperties> for WiMaxPropertiesData {
+    fn from(val: &WiMaxProperties) -> Self {
+        Self {
+            auto_connect: val.get_auto_connect(),
+            eap: val.get_eap().as_ref().map(|v| v.into()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -3314,6 +4673,63 @@ impl NetworkConfigProperties {
 impl Default for NetworkConfigProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NetworkConfigProperties`.
+pub struct NetworkConfigPropertiesData {
+    ///See $(ref:NetworkProperties.Cellular).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cellular: Option<CellularPropertiesData>,
+    ///See $(ref:NetworkProperties.Ethernet).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ethernet: Option<EthernetPropertiesData>,
+    ///See $(ref:NetworkProperties.GUID).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub guid: Option<String>,
+    ///See $(ref:NetworkProperties.IPAddressConfigType).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_address_config_type: Option<IpConfigType>,
+    ///See $(ref:NetworkProperties.Name).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///See $(ref:NetworkProperties.NameServersConfigType).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_servers_config_type: Option<IpConfigType>,
+    ///See $(ref:NetworkProperties.Priority).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub priority: Option<i32>,
+    ///See $(ref:NetworkProperties.Type).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<NetworkType>,
+    ///See $(ref:NetworkProperties.VPN).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vpn: Option<VpnPropertiesData>,
+    ///See $(ref:NetworkProperties.WiFi).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub wi_fi: Option<WiFiPropertiesData>,
+    ///Deprecated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub wi_max: Option<WiMaxPropertiesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&NetworkConfigProperties> for NetworkConfigPropertiesData {
+    fn from(val: &NetworkConfigProperties) -> Self {
+        Self {
+            cellular: val.get_cellular().as_ref().map(|v| v.into()),
+            ethernet: val.get_ethernet().as_ref().map(|v| v.into()),
+            guid: val.get_guid(),
+            ip_address_config_type: val.get_ip_address_config_type(),
+            name: val.get_name(),
+            name_servers_config_type: val.get_name_servers_config_type(),
+            priority: val.get_priority(),
+            r#type: val.get_type(),
+            vpn: val.get_vpn().as_ref().map(|v| v.into()),
+            wi_fi: val.get_wi_fi().as_ref().map(|v| v.into()),
+            wi_max: val.get_wi_max().as_ref().map(|v| v.into()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -3578,6 +4994,107 @@ impl Default for NetworkProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NetworkProperties`.
+pub struct NetworkPropertiesData {
+    ///For cellular networks, cellular network properties.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cellular: Option<CellularPropertiesData>,
+    ///Whether the network is connectable.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connectable: Option<bool>,
+    ///The network's current connection state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connection_state: Option<ConnectionStateType>,
+    ///The last recorded network error state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_state: Option<String>,
+    ///For Ethernet networks, the Ethernet network properties.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ethernet: Option<EthernetPropertiesData>,
+    ///The network GUID.
+    pub guid: String,
+    ///The network's IP address configuration type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_address_config_type: Option<IpConfigType>,
+    ///The network's IP configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_configs: Option<Vec<IpConfigPropertiesData>>,
+    ///The network's MAC address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mac_address: Option<String>,
+    ///Whether the network is metered.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metered: Option<bool>,
+    ///A user friendly network name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///The IP configuration type for the name servers used by the network.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_servers_config_type: Option<IpConfigType>,
+    ///The network priority.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub priority: Option<i32>,
+    ///The network's proxy settings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proxy_settings: Option<ProxySettingsData>,
+    ///For a connected network, whether the network connectivity to the Internet is limited, e.g. if the network is behind a portal, or a cellular network is not activated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub restricted_connectivity: Option<bool>,
+    ///IP configuration that was received from the DHCP server before applying static IP configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub saved_ip_config: Option<IpConfigPropertiesData>,
+    ///Indicates whether and how the network is configured. Possible values are: Device DevicePolicy User UserPolicy None 'None' conflicts with extension code generation so we must use a string for 'Source' instead of a SourceType enum.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    ///The network's static IP configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub static_ip_config: Option<IpConfigPropertiesData>,
+    ///When traffic counters were last reset.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub traffic_counter_reset_time: Option<f64>,
+    ///The network type.
+    pub r#type: NetworkType,
+    ///For VPN networks, the network VPN properties.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vpn: Option<VpnPropertiesData>,
+    ///For WiFi networks, the network WiFi properties.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub wi_fi: Option<WiFiPropertiesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&NetworkProperties> for NetworkPropertiesData {
+    fn from(val: &NetworkProperties) -> Self {
+        Self {
+            cellular: val.get_cellular().as_ref().map(|v| v.into()),
+            connectable: val.get_connectable(),
+            connection_state: val.get_connection_state(),
+            error_state: val.get_error_state(),
+            ethernet: val.get_ethernet().as_ref().map(|v| v.into()),
+            guid: val.get_guid(),
+            ip_address_config_type: val.get_ip_address_config_type(),
+            ip_configs: val
+                .get_ip_configs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            mac_address: val.get_mac_address(),
+            metered: val.get_metered(),
+            name: val.get_name(),
+            name_servers_config_type: val.get_name_servers_config_type(),
+            priority: val.get_priority(),
+            proxy_settings: val.get_proxy_settings().as_ref().map(|v| v.into()),
+            restricted_connectivity: val.get_restricted_connectivity(),
+            saved_ip_config: val.get_saved_ip_config().as_ref().map(|v| v.into()),
+            source: val.get_source(),
+            static_ip_config: val.get_static_ip_config().as_ref().map(|v| v.into()),
+            traffic_counter_reset_time: val.get_traffic_counter_reset_time(),
+            r#type: val.get_type(),
+            vpn: val.get_vpn().as_ref().map(|v| v.into()),
+            wi_fi: val.get_wi_fi().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ManagedProperties")]
@@ -3840,6 +5357,110 @@ impl Default for ManagedProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManagedProperties`.
+pub struct ManagedPropertiesData {
+    ///See $(ref:NetworkProperties.Cellular).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cellular: Option<ManagedCellularPropertiesData>,
+    ///See $(ref:NetworkProperties.Connectable).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connectable: Option<bool>,
+    ///See $(ref:NetworkProperties.ConnectionState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connection_state: Option<ConnectionStateType>,
+    ///See $(ref:NetworkProperties.ErrorState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_state: Option<String>,
+    ///See $(ref:NetworkProperties.Ethernet).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ethernet: Option<ManagedEthernetPropertiesData>,
+    ///See $(ref:NetworkProperties.GUID).
+    pub guid: String,
+    ///See $(ref:NetworkProperties.IPAddressConfigType).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_address_config_type: Option<ManagedIpConfigTypeData>,
+    ///See $(ref:NetworkProperties.IPConfigs).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip_configs: Option<Vec<IpConfigPropertiesData>>,
+    ///See $(ref:NetworkProperties.MacAddress).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mac_address: Option<String>,
+    ///See $(ref:NetworkProperties.Metered).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metered: Option<ManagedBooleanData>,
+    ///See $(ref:NetworkProperties.Name).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<ManagedDomStringData>,
+    ///See $(ref:NetworkProperties.NameServersConfigType).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_servers_config_type: Option<ManagedIpConfigTypeData>,
+    ///See $(ref:NetworkProperties.Priority).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub priority: Option<ManagedLongData>,
+    ///See $(ref:NetworkProperties.ProxySettings).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub proxy_settings: Option<ManagedProxySettingsData>,
+    ///See $(ref:NetworkProperties.RestrictedConnectivity).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub restricted_connectivity: Option<bool>,
+    ///See $(ref:NetworkProperties.SavedIPConfig).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub saved_ip_config: Option<IpConfigPropertiesData>,
+    ///See $(ref:NetworkProperties.Source).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    ///See $(ref:NetworkProperties.StaticIPConfig).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub static_ip_config: Option<ManagedIpConfigPropertiesData>,
+    ///See $(ref:NetworkProperties.TrafficCounterResetTime).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub traffic_counter_reset_time: Option<f64>,
+    ///See $(ref:NetworkProperties.Type).
+    pub r#type: NetworkType,
+    ///See $(ref:NetworkProperties.VPN).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vpn: Option<ManagedVpnPropertiesData>,
+    ///See $(ref:NetworkProperties.WiFi).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub wi_fi: Option<ManagedWiFiPropertiesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&ManagedProperties> for ManagedPropertiesData {
+    fn from(val: &ManagedProperties) -> Self {
+        Self {
+            cellular: val.get_cellular().as_ref().map(|v| v.into()),
+            connectable: val.get_connectable(),
+            connection_state: val.get_connection_state(),
+            error_state: val.get_error_state(),
+            ethernet: val.get_ethernet().as_ref().map(|v| v.into()),
+            guid: val.get_guid(),
+            ip_address_config_type: val.get_ip_address_config_type().as_ref().map(|v| v.into()),
+            ip_configs: val
+                .get_ip_configs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            mac_address: val.get_mac_address(),
+            metered: val.get_metered().as_ref().map(|v| v.into()),
+            name: val.get_name().as_ref().map(|v| v.into()),
+            name_servers_config_type: val
+                .get_name_servers_config_type()
+                .as_ref()
+                .map(|v| v.into()),
+            priority: val.get_priority().as_ref().map(|v| v.into()),
+            proxy_settings: val.get_proxy_settings().as_ref().map(|v| v.into()),
+            restricted_connectivity: val.get_restricted_connectivity(),
+            saved_ip_config: val.get_saved_ip_config().as_ref().map(|v| v.into()),
+            source: val.get_source(),
+            static_ip_config: val.get_static_ip_config().as_ref().map(|v| v.into()),
+            traffic_counter_reset_time: val.get_traffic_counter_reset_time(),
+            r#type: val.get_type(),
+            vpn: val.get_vpn().as_ref().map(|v| v.into()),
+            wi_fi: val.get_wi_fi().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "NetworkStateProperties")]
@@ -3992,6 +5613,65 @@ impl Default for NetworkStateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NetworkStateProperties`.
+pub struct NetworkStatePropertiesData {
+    ///See $(ref:NetworkProperties.Cellular).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cellular: Option<CellularStatePropertiesData>,
+    ///See $(ref:NetworkProperties.Connectable).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connectable: Option<bool>,
+    ///See $(ref:NetworkProperties.ConnectionState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connection_state: Option<ConnectionStateType>,
+    ///See $(ref:NetworkProperties.ErrorState).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_state: Option<String>,
+    ///See $(ref:NetworkProperties.Ethernet).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ethernet: Option<EthernetStatePropertiesData>,
+    ///See $(ref:NetworkProperties.GUID).
+    pub guid: String,
+    ///See $(ref:NetworkProperties.Name).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///See $(ref:NetworkProperties.Priority).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub priority: Option<i32>,
+    ///See $(ref:NetworkProperties.Source).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
+    ///See $(ref:NetworkProperties.Type).
+    pub r#type: NetworkType,
+    ///See $(ref:NetworkProperties.VPN).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vpn: Option<VpnStatePropertiesData>,
+    ///See $(ref:NetworkProperties.WiFi).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub wi_fi: Option<WiFiStatePropertiesData>,
+}
+#[cfg(feature = "serde")]
+impl From<&NetworkStateProperties> for NetworkStatePropertiesData {
+    fn from(val: &NetworkStateProperties) -> Self {
+        Self {
+            cellular: val.get_cellular().as_ref().map(|v| v.into()),
+            connectable: val.get_connectable(),
+            connection_state: val.get_connection_state(),
+            error_state: val.get_error_state(),
+            ethernet: val.get_ethernet().as_ref().map(|v| v.into()),
+            guid: val.get_guid(),
+            name: val.get_name(),
+            priority: val.get_priority(),
+            source: val.get_source(),
+            r#type: val.get_type(),
+            vpn: val.get_vpn().as_ref().map(|v| v.into()),
+            wi_fi: val.get_wi_fi().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeviceStateProperties")]
@@ -4067,6 +5747,37 @@ impl Default for DeviceStateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceStateProperties`.
+pub struct DeviceStatePropertiesData {
+    ///The SIM lock status if Type = Cellular and SIMPresent = True.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_lock_status: Option<SimLockStatusData>,
+    ///Set to the SIM present state if the device type is Cellular.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sim_present: Option<bool>,
+    ///Set if the device is enabled. True if the device is currently scanning.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scanning: Option<bool>,
+    ///The current state of the device.
+    pub state: DeviceStateType,
+    ///The network type associated with the device (Cellular, Ethernet or WiFi).
+    pub r#type: NetworkType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceStateProperties> for DeviceStatePropertiesData {
+    fn from(val: &DeviceStateProperties) -> Self {
+        Self {
+            sim_lock_status: val.get_sim_lock_status().as_ref().map(|v| v.into()),
+            sim_present: val.get_sim_present(),
+            scanning: val.get_scanning(),
+            state: val.get_state(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "NetworkFilter")]
@@ -4129,6 +5840,34 @@ impl NetworkFilter {
 impl Default for NetworkFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NetworkFilter`.
+pub struct NetworkFilterData {
+    ///If true, only include configured (saved) networks. Defaults to 'false'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configured: Option<bool>,
+    ///Maximum number of networks to return. Defaults to 1000 if unspecified. Use 0 for no limit.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+    ///The type of networks to return.
+    pub network_type: NetworkType,
+    ///If true, only include visible (physically connected or in-range) networks. Defaults to 'false'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visible: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&NetworkFilter> for NetworkFilterData {
+    fn from(val: &NetworkFilter) -> Self {
+        Self {
+            configured: val.get_configured(),
+            limit: val.get_limit(),
+            network_type: val.get_network_type(),
+            visible: val.get_visible(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -4195,6 +5934,39 @@ impl GlobalPolicy {
 impl Default for GlobalPolicy {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GlobalPolicy`.
+pub struct GlobalPolicyData {
+    ///If true, only policy networks may auto connect. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_only_policy_networks_to_autoconnect: Option<bool>,
+    ///If true, only policy networks may be connected to and no new networks may be added or configured. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_only_policy_networks_to_connect: Option<bool>,
+    ///If true and a managed network is available in the visible network list, only policy networks may be connected to and no new networks may be added or configured. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allow_only_policy_networks_to_connect_if_available: Option<bool>,
+    ///List of blocked networks. Connections to blocked networks are prohibited. Networks can be unblocked again by specifying an explicit network configuration. Defaults to an empty list.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub blocked_hex_ssi_ds: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&GlobalPolicy> for GlobalPolicyData {
+    fn from(val: &GlobalPolicy) -> Self {
+        Self {
+            allow_only_policy_networks_to_autoconnect: val
+                .get_allow_only_policy_networks_to_autoconnect(),
+            allow_only_policy_networks_to_connect: val.get_allow_only_policy_networks_to_connect(),
+            allow_only_policy_networks_to_connect_if_available: val
+                .get_allow_only_policy_networks_to_connect_if_available(),
+            blocked_hex_ssi_ds: val
+                .get_blocked_hex_ssi_ds()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]

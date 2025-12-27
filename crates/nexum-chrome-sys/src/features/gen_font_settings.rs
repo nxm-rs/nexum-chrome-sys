@@ -44,9 +44,29 @@ impl Default for FontName {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FontName`. Represents a font name.
+pub struct FontNameData {
+    ///The display name of the font.
+    pub display_name: String,
+    ///The font ID.
+    pub font_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&FontName> for FontNameData {
+    fn from(val: &FontName) -> Self {
+        Self {
+            display_name: val.get_display_name(),
+            font_id: val.get_font_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///An ISO 15924 script code. The default, or global, script is represented by script code "Zyyy".
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ScriptCode {
     Afak = "Afak",
     Arab = "Arab",
@@ -204,6 +224,7 @@ pub enum ScriptCode {
 #[wasm_bindgen]
 ///A CSS generic font family.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum GenericFamily {
     Standard = "standard",
     Sansserif = "sansserif",
@@ -216,6 +237,7 @@ pub enum GenericFamily {
 #[wasm_bindgen]
 ///One ofnot_controllable: cannot be controlled by any extensioncontrolled_by_other_extensions: controlled by extensions with higher precedencecontrollable_by_this_extension: can be controlled by this extensioncontrolled_by_this_extension: controlled by this extension
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum LevelOfControl {
     NotControllable = "not_controllable",
     ControlledByOtherExtensions = "controlled_by_other_extensions",

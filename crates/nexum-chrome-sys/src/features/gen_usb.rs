@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Direction, Recipient, RequestType, and TransferType all map to their namesakes within the USB specification.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Direction {
     In = "in",
     Out = "out",
@@ -12,6 +13,7 @@ pub enum Direction {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Recipient {
     Device = "device",
     Interface = "interface",
@@ -21,6 +23,7 @@ pub enum Recipient {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RequestType {
     Standard = "standard",
     Class = "class",
@@ -30,6 +33,7 @@ pub enum RequestType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TransferType {
     Control = "control",
     Interrupt = "interrupt",
@@ -39,6 +43,7 @@ pub enum TransferType {
 #[wasm_bindgen]
 ///For interrupt and isochronous modes, SynchronizationType and UsageType map to their namesakes within the USB specification.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SynchronizationType {
     Asynchronous = "asynchronous",
     Adaptive = "adaptive",
@@ -47,6 +52,7 @@ pub enum SynchronizationType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum UsageType {
     Data = "data",
     Feedback = "feedback",
@@ -151,6 +157,40 @@ impl Default for Device {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Device`.
+pub struct DeviceData {
+    ///An opaque ID for the USB device. It remains unchanged until the device is unplugged.
+    pub device: i32,
+    ///The iManufacturer string read from the device, if available.
+    pub manufacturer_name: String,
+    ///The product ID.
+    pub product_id: i32,
+    ///The iProduct string read from the device, if available.
+    pub product_name: String,
+    ///The iSerialNumber string read from the device, if available.
+    pub serial_number: String,
+    ///The device vendor ID.
+    pub vendor_id: i32,
+    ///The device version (bcdDevice field).
+    pub version: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Device> for DeviceData {
+    fn from(val: &Device) -> Self {
+        Self {
+            device: val.get_device(),
+            manufacturer_name: val.get_manufacturer_name(),
+            product_id: val.get_product_id(),
+            product_name: val.get_product_name(),
+            serial_number: val.get_serial_number(),
+            vendor_id: val.get_vendor_id(),
+            version: val.get_version(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConnectionHandle")]
@@ -202,6 +242,28 @@ impl ConnectionHandle {
 impl Default for ConnectionHandle {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConnectionHandle`.
+pub struct ConnectionHandleData {
+    ///An opaque handle representing this connection to the USB device and all associated claimed interfaces and pending transfers. A new handle is created each time the device is opened. The connection handle is different from $(ref:Device.device).
+    pub handle: i32,
+    ///The product ID.
+    pub product_id: i32,
+    ///The device vendor ID.
+    pub vendor_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ConnectionHandle> for ConnectionHandleData {
+    fn from(val: &ConnectionHandle) -> Self {
+        Self {
+            handle: val.get_handle(),
+            product_id: val.get_product_id(),
+            vendor_id: val.get_vendor_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -312,6 +374,43 @@ impl Default for EndpointDescriptor {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EndpointDescriptor`.
+pub struct EndpointDescriptorData {
+    ///Endpoint address.
+    pub address: i32,
+    ///Transfer direction.
+    pub direction: Direction,
+    ///Maximum packet size.
+    pub maximum_packet_size: i32,
+    ///Polling interval (interrupt and isochronous only).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub polling_interval: Option<i32>,
+    ///Transfer synchronization mode (isochronous only).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub synchronization: Option<SynchronizationType>,
+    ///Transfer type.
+    pub r#type: TransferType,
+    ///Endpoint usage hint.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub usage: Option<UsageType>,
+}
+#[cfg(feature = "serde")]
+impl From<&EndpointDescriptor> for EndpointDescriptorData {
+    fn from(val: &EndpointDescriptor) -> Self {
+        Self {
+            address: val.get_address(),
+            direction: val.get_direction(),
+            maximum_packet_size: val.get_maximum_packet_size(),
+            polling_interval: val.get_polling_interval(),
+            synchronization: val.get_synchronization(),
+            r#type: val.get_type(),
+            usage: val.get_usage(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "InterfaceDescriptor")]
@@ -420,6 +519,42 @@ impl Default for InterfaceDescriptor {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InterfaceDescriptor`.
+pub struct InterfaceDescriptorData {
+    ///The interface alternate setting number (defaults to 0
+    pub alternate_setting: i32,
+    ///Description of the interface.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///Available endpoints.
+    pub endpoints: Vec<EndpointDescriptorData>,
+    ///The USB interface class.
+    pub interface_class: i32,
+    ///The interface number.
+    pub interface_number: i32,
+    ///The USB interface protocol.
+    pub interface_protocol: i32,
+    ///The USB interface sub-class.
+    pub interface_subclass: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&InterfaceDescriptor> for InterfaceDescriptorData {
+    fn from(val: &InterfaceDescriptor) -> Self {
+        Self {
+            alternate_setting: val.get_alternate_setting(),
+            description: val.get_description(),
+            endpoints: serde_wasm_bindgen::from_value(val.get_endpoints().into())
+                .unwrap_or_default(),
+            interface_class: val.get_interface_class(),
+            interface_number: val.get_interface_number(),
+            interface_protocol: val.get_interface_protocol(),
+            interface_subclass: val.get_interface_subclass(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConfigDescriptor")]
@@ -526,6 +661,42 @@ impl ConfigDescriptor {
 impl Default for ConfigDescriptor {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConfigDescriptor`.
+pub struct ConfigDescriptorData {
+    ///Is this the active configuration?
+    pub active: bool,
+    ///The configuration number.
+    pub configuration_value: i32,
+    ///Description of the configuration.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///Available interfaces.
+    pub interfaces: Vec<InterfaceDescriptorData>,
+    ///The maximum power needed by this device in milliamps (mA).
+    pub max_power: i32,
+    ///The device supports remote wakeup.
+    pub remote_wakeup: bool,
+    ///The device is self-powered.
+    pub self_powered: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&ConfigDescriptor> for ConfigDescriptorData {
+    fn from(val: &ConfigDescriptor) -> Self {
+        Self {
+            active: val.get_active(),
+            configuration_value: val.get_configuration_value(),
+            description: val.get_description(),
+            interfaces: serde_wasm_bindgen::from_value(val.get_interfaces().into())
+                .unwrap_or_default(),
+            max_power: val.get_max_power(),
+            remote_wakeup: val.get_remote_wakeup(),
+            self_powered: val.get_self_powered(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -647,6 +818,45 @@ impl Default for ControlTransferInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ControlTransferInfo`.
+pub struct ControlTransferInfoData {
+    ///The transfer direction ("in" or "out").
+    pub direction: Direction,
+    ///The wIndex field, see Ibid.
+    pub index: i32,
+    ///The maximum number of bytes to receive (required only by input transfers).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub length: Option<i32>,
+    ///The transfer target. The target given by index must be claimed if "interface" or "endpoint".
+    pub recipient: Recipient,
+    ///The bRequest field, see Universal Serial Bus Specification Revision 1.1 &sect; 9.3.
+    pub request: i32,
+    ///The request type.
+    pub request_type: RequestType,
+    ///Request timeout (in milliseconds). The default value 0 indicates no timeout.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub timeout: Option<i32>,
+    ///The wValue field, see Ibid.
+    pub value: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ControlTransferInfo> for ControlTransferInfoData {
+    fn from(val: &ControlTransferInfo) -> Self {
+        Self {
+            direction: val.get_direction(),
+            index: val.get_index(),
+            length: val.get_length(),
+            recipient: val.get_recipient(),
+            request: val.get_request(),
+            request_type: val.get_request_type(),
+            timeout: val.get_timeout(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GenericTransferInfo")]
@@ -722,6 +932,33 @@ impl Default for GenericTransferInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GenericTransferInfo`.
+pub struct GenericTransferInfoData {
+    ///The transfer direction ("in" or "out").
+    pub direction: Direction,
+    ///The target endpoint address. The interface containing this endpoint must be claimed.
+    pub endpoint: i32,
+    ///The maximum number of bytes to receive (required only by input transfers).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub length: Option<i32>,
+    ///Request timeout (in milliseconds). The default value 0 indicates no timeout.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub timeout: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GenericTransferInfo> for GenericTransferInfoData {
+    fn from(val: &GenericTransferInfo) -> Self {
+        Self {
+            direction: val.get_direction(),
+            endpoint: val.get_endpoint(),
+            length: val.get_length(),
+            timeout: val.get_timeout(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "IsochronousTransferInfo")]
@@ -775,6 +1012,28 @@ impl Default for IsochronousTransferInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IsochronousTransferInfo`.
+pub struct IsochronousTransferInfoData {
+    ///The length of each of the packets in this transfer.
+    pub packet_length: i32,
+    ///The total number of packets in this transfer.
+    pub packets: i32,
+    ///Transfer parameters. The transfer length or data buffer specified in this parameter block is split along packetLength boundaries to form the individual packets of the transfer.
+    pub transfer_info: GenericTransferInfoData,
+}
+#[cfg(feature = "serde")]
+impl From<&IsochronousTransferInfo> for IsochronousTransferInfoData {
+    fn from(val: &IsochronousTransferInfo) -> Self {
+        Self {
+            packet_length: val.get_packet_length(),
+            packets: val.get_packets(),
+            transfer_info: (&val.get_transfer_info()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "TransferResultInfo")]
@@ -815,6 +1074,23 @@ impl TransferResultInfo {
 impl Default for TransferResultInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TransferResultInfo`.
+pub struct TransferResultInfoData {
+    ///A value of 0 indicates that the transfer was a success. Other values indicate failure.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub result_code: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&TransferResultInfo> for TransferResultInfoData {
+    fn from(val: &TransferResultInfo) -> Self {
+        Self {
+            result_code: val.get_result_code(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -892,6 +1168,39 @@ impl Default for DeviceFilter {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceFilter`.
+pub struct DeviceFilterData {
+    ///USB interface class, matches any interface on the device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interface_class: Option<i32>,
+    ///USB interface protocol, checked only if the interface sub-class matches.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interface_protocol: Option<i32>,
+    ///USB interface sub-class, checked only if the interface class matches.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interface_subclass: Option<i32>,
+    ///Device product ID, checked only if the vendor ID matches.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product_id: Option<i32>,
+    ///Device vendor ID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceFilter> for DeviceFilterData {
+    fn from(val: &DeviceFilter) -> Self {
+        Self {
+            interface_class: val.get_interface_class(),
+            interface_protocol: val.get_interface_protocol(),
+            interface_subclass: val.get_interface_subclass(),
+            product_id: val.get_product_id(),
+            vendor_id: val.get_vendor_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "EnumerateDevicesOptions")]
@@ -943,6 +1252,33 @@ impl EnumerateDevicesOptions {
 impl Default for EnumerateDevicesOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EnumerateDevicesOptions`.
+pub struct EnumerateDevicesOptionsData {
+    ///A device matching any given filter will be returned. An empty filter list will return all devices the app has permission for.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filters: Option<Vec<DeviceFilterData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product_id: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&EnumerateDevicesOptions> for EnumerateDevicesOptionsData {
+    fn from(val: &EnumerateDevicesOptions) -> Self {
+        Self {
+            filters: val
+                .get_filters()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            product_id: val.get_product_id(),
+            vendor_id: val.get_vendor_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1001,6 +1337,31 @@ impl Default for EnumerateDevicesAndRequestAccessOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EnumerateDevicesAndRequestAccessOptions`.
+pub struct EnumerateDevicesAndRequestAccessOptionsData {
+    ///The interface ID to request access to. Only available on Chrome OS. It has no effect on other platforms.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interface_id: Option<i32>,
+    ///The product ID.
+    pub product_id: i32,
+    ///The device vendor ID.
+    pub vendor_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&EnumerateDevicesAndRequestAccessOptions>
+    for EnumerateDevicesAndRequestAccessOptionsData
+{
+    fn from(val: &EnumerateDevicesAndRequestAccessOptions) -> Self {
+        Self {
+            interface_id: val.get_interface_id(),
+            product_id: val.get_product_id(),
+            vendor_id: val.get_vendor_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DevicePromptOptions")]
@@ -1041,6 +1402,29 @@ impl DevicePromptOptions {
 impl Default for DevicePromptOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DevicePromptOptions`.
+pub struct DevicePromptOptionsData {
+    ///Filter the list of devices presented to the user. If multiple filters are provided devices matching any filter will be displayed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filters: Option<Vec<DeviceFilterData>>,
+    ///Allow the user to select multiple devices.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub multiple: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&DevicePromptOptions> for DevicePromptOptionsData {
+    fn from(val: &DevicePromptOptions) -> Self {
+        Self {
+            filters: val
+                .get_filters()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            multiple: val.get_multiple(),
+        }
     }
 }
 #[wasm_bindgen]

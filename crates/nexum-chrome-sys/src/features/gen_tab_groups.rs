@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The group's color.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Color {
     Grey = "grey",
     Blue = "blue",
@@ -100,6 +101,38 @@ impl TabGroup {
 impl Default for TabGroup {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TabGroup`.
+pub struct TabGroupData {
+    ///Whether the group is collapsed. A collapsed group is one whose tabs are hidden.
+    pub collapsed: bool,
+    ///The group's color.
+    pub color: Color,
+    ///The ID of the group. Group IDs are unique within a browser session.
+    pub id: i32,
+    ///Whether the group is shared.
+    pub shared: bool,
+    ///The title of the group.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The ID of the window that contains the group.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&TabGroup> for TabGroupData {
+    fn from(val: &TabGroup) -> Self {
+        Self {
+            collapsed: val.get_collapsed(),
+            color: val.get_color(),
+            id: val.get_id(),
+            shared: val.get_shared(),
+            title: val.get_title(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]

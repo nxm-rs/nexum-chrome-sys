@@ -44,6 +44,26 @@ impl Default for Import {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Import`.
+pub struct ImportData {
+    ///Extension ID of the shared module this extension or app depends on.
+    pub id: String,
+    ///Minimum supported version of the shared module.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub minimum_version: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Import> for ImportData {
+    fn from(val: &Import) -> Self {
+        Self {
+            id: val.get_id(),
+            minimum_version: val.get_minimum_version(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Export")]
@@ -73,5 +93,24 @@ impl Export {
 impl Default for Export {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Export`.
+pub struct ExportData {
+    ///Optional list of extension IDs explicitly allowed to import this Shared Module's resources. If no allowlist is given, all extensions are allowed to import it.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub allowlist: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&Export> for ExportData {
+    fn from(val: &Export) -> Self {
+        Self {
+            allowlist: val
+                .get_allowlist()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }

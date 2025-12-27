@@ -33,9 +33,26 @@ impl Default for SidePanel {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SidePanel`.
+pub struct SidePanelData {
+    ///Developer specified path for side panel display.
+    pub default_path: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SidePanel> for SidePanelData {
+    fn from(val: &SidePanel) -> Self {
+        Self {
+            default_path: val.get_default_path(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Defines the possible alignment for the side panel in the browser UI.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Side {
     Left = "left",
     Right = "right",
@@ -69,6 +86,22 @@ impl PanelLayout {
 impl Default for PanelLayout {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PanelLayout`.
+pub struct PanelLayoutData {
+    ///
+    pub side: Side,
+}
+#[cfg(feature = "serde")]
+impl From<&PanelLayout> for PanelLayoutData {
+    fn from(val: &PanelLayout) -> Self {
+        Self {
+            side: val.get_side(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -124,6 +157,31 @@ impl Default for PanelOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PanelOptions`.
+pub struct PanelOptionsData {
+    ///Whether the side panel should be enabled. This is optional. The default value is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    ///The path to the side panel HTML file to use. This must be a local resource within the extension package.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    ///If specified, the side panel options will only apply to the tab with this id. If omitted, these options set the default behavior (used for any tab that doesn't have specific settings). Note: if the same path is set for this tabId and the default tabId, then the panel for this tabId will be a different instance than the panel for the default tabId.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&PanelOptions> for PanelOptionsData {
+    fn from(val: &PanelOptions) -> Self {
+        Self {
+            enabled: val.get_enabled(),
+            path: val.get_path(),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "PanelBehavior")]
@@ -155,6 +213,23 @@ impl Default for PanelBehavior {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PanelBehavior`.
+pub struct PanelBehaviorData {
+    ///Whether clicking the extension's icon will toggle showing the extension's entry in the side panel. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub open_panel_on_action_click: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&PanelBehavior> for PanelBehaviorData {
+    fn from(val: &PanelBehavior) -> Self {
+        Self {
+            open_panel_on_action_click: val.get_open_panel_on_action_click(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetPanelOptions")]
@@ -184,6 +259,23 @@ impl GetPanelOptions {
 impl Default for GetPanelOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetPanelOptions`.
+pub struct GetPanelOptionsData {
+    ///If specified, the side panel options for the given tab will be returned. Otherwise, returns the default side panel options (used for any tab that doesn't have specific settings).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetPanelOptions> for GetPanelOptionsData {
+    fn from(val: &GetPanelOptions) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -228,6 +320,27 @@ impl Default for OpenOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OpenOptions`.
+pub struct OpenOptionsData {
+    ///The tab in which to open the side panel. If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab. If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel. This will override any currently-active side panel (global or tab-specific) in the corresponding tab. At least one of this or windowId must be provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The window in which to open the side panel. This is only applicable if the extension has a global (non-tab-specific) side panel or tabId is also specified. This will override any currently-active global side panel the user has open in the given window. At least one of this or tabId must be provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&OpenOptions> for OpenOptionsData {
+    fn from(val: &OpenOptions) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CloseOptions")]
@@ -268,6 +381,27 @@ impl CloseOptions {
 impl Default for CloseOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CloseOptions`.
+pub struct CloseOptionsData {
+    ///The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or windowId must be provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or tabId must be provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&CloseOptions> for CloseOptionsData {
+    fn from(val: &CloseOptions) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -323,6 +457,29 @@ impl Default for PanelOpenedInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PanelOpenedInfo`.
+pub struct PanelOpenedInfoData {
+    ///The path of the local resource within the extension package whose content is displayed in the panel.
+    pub path: String,
+    ///The optional ID of the tab where the side panel is opened. This is provided only when the panel is tab-specific.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The ID of the window where the side panel is opened. This is available for both global and tab-specific panels.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&PanelOpenedInfo> for PanelOpenedInfoData {
+    fn from(val: &PanelOpenedInfo) -> Self {
+        Self {
+            path: val.get_path(),
+            tab_id: val.get_tab_id(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "PanelClosedInfo")]
@@ -374,6 +531,29 @@ impl PanelClosedInfo {
 impl Default for PanelClosedInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PanelClosedInfo`.
+pub struct PanelClosedInfoData {
+    ///The path of the local resource within the extension package whose content is displayed in the panel.
+    pub path: String,
+    ///The optional ID of the tab where the side panel was closed. This is provided only when the panel is tab-specific.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The ID of the window where the side panel was closed. This is available for both global and tab-specific panels.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&PanelClosedInfo> for PanelClosedInfoData {
+    fn from(val: &PanelClosedInfo) -> Self {
+        Self {
+            path: val.get_path(),
+            tab_id: val.get_tab_id(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]

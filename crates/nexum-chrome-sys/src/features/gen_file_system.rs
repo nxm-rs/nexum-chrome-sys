@@ -55,9 +55,39 @@ impl Default for AcceptOption {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AcceptOption`.
+pub struct AcceptOptionData {
+    ///This is the optional text description for this option. If not present, a description will be automatically generated; typically containing an expanded list of valid extensions (e.g. "text/html" may expand to "*.html, *.htm").
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///Extensions to accept, e.g. "jpg", "gif", "crx".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extensions: Option<Vec<String>>,
+    ///Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or extensions must contain at least one valid element.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mime_types: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&AcceptOption> for AcceptOptionData {
+    fn from(val: &AcceptOption) -> Self {
+        Self {
+            description: val.get_description(),
+            extensions: val
+                .get_extensions()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            mime_types: val
+                .get_mime_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ChooseEntryType {
     ///Prompts the user to open an existing file and returns a FileEntry on success. From Chrome 31 onwards, the FileEntry will be writable if the application has the 'write' permission under 'fileSystem'; otherwise, the FileEntry will be read-only.
     OpenFile = "openFile",
@@ -143,6 +173,41 @@ impl Default for ChooseEntryOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ChooseEntryOptions`.
+pub struct ChooseEntryOptionsData {
+    ///The optional list of accept options for this file opener. Each option will be presented as a unique group to the end-user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub accepts: Option<Vec<AcceptOptionData>>,
+    ///Whether to accept all file types, in addition to the options specified in the accepts argument. The default is true. If the accepts field is unset or contains no valid entries, this will always be reset to true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub accepts_all_types: Option<bool>,
+    ///Whether to accept multiple files. This is only supported for openFile and openWritableFile. The callback to chooseEntry will be called with a list of entries if this is set to true. Otherwise it will be called with a single Entry.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub accepts_multiple: Option<bool>,
+    ///The suggested file name that will be presented to the user as the default name to read or write. This is optional.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub suggested_name: Option<String>,
+    ///Type of the prompt to show. The default is 'openFile'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<ChooseEntryType>,
+}
+#[cfg(feature = "serde")]
+impl From<&ChooseEntryOptions> for ChooseEntryOptionsData {
+    fn from(val: &ChooseEntryOptions) -> Self {
+        Self {
+            accepts: val
+                .get_accepts()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            accepts_all_types: val.get_accepts_all_types(),
+            accepts_multiple: val.get_accepts_multiple(),
+            suggested_name: val.get_suggested_name(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "RequestFileSystemOptions")]
@@ -183,6 +248,26 @@ impl RequestFileSystemOptions {
 impl Default for RequestFileSystemOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RequestFileSystemOptions`.
+pub struct RequestFileSystemOptionsData {
+    ///The ID of the requested volume.
+    pub volume_id: String,
+    ///Whether the requested file system should be writable. The default is read-only.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub writable: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&RequestFileSystemOptions> for RequestFileSystemOptionsData {
+    fn from(val: &RequestFileSystemOptions) -> Self {
+        Self {
+            volume_id: val.get_volume_id(),
+            writable: val.get_writable(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -227,6 +312,25 @@ impl Default for Volume {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Volume`.
+pub struct VolumeData {
+    ///
+    pub volume_id: String,
+    ///
+    pub writable: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&Volume> for VolumeData {
+    fn from(val: &Volume) -> Self {
+        Self {
+            volume_id: val.get_volume_id(),
+            writable: val.get_writable(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "VolumeListChangedEvent")]
@@ -256,6 +360,22 @@ impl VolumeListChangedEvent {
 impl Default for VolumeListChangedEvent {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `VolumeListChangedEvent`.
+pub struct VolumeListChangedEventData {
+    ///
+    pub volumes: Vec<VolumeData>,
+}
+#[cfg(feature = "serde")]
+impl From<&VolumeListChangedEvent> for VolumeListChangedEventData {
+    fn from(val: &VolumeListChangedEvent) -> Self {
+        Self {
+            volumes: serde_wasm_bindgen::from_value(val.get_volumes().into()).unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]

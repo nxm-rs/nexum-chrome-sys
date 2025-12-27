@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, "OK" must be used.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ProviderError {
     Ok = "OK",
     Failed = "FAILED",
@@ -27,6 +28,7 @@ pub enum ProviderError {
 #[wasm_bindgen]
 ///Mode of opening a file. Used by $(ref:onOpenFileRequested).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OpenFileMode {
     Read = "READ",
     Write = "WRITE",
@@ -34,6 +36,7 @@ pub enum OpenFileMode {
 #[wasm_bindgen]
 ///Type of a change detected on the observed directory.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ChangeType {
     Changed = "CHANGED",
     Deleted = "DELETED",
@@ -41,6 +44,7 @@ pub enum ChangeType {
 #[wasm_bindgen]
 ///List of common actions. "SHARE" is for sharing files with others. "SAVE_FOR_OFFLINE" for pinning (saving for offline access). "OFFLINE_NOT_NECESSARY" for notifying that the file doesn't need to be stored for offline access anymore. Used by $(ref:onGetActionsRequested) and $(ref:onExecuteActionRequested).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CommonActionId {
     SaveForOffline = "SAVE_FOR_OFFLINE",
     OfflineNotNecessary = "OFFLINE_NOT_NECESSARY",
@@ -88,6 +92,25 @@ impl Default for CloudIdentifier {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CloudIdentifier`.
+pub struct CloudIdentifierData {
+    ///The provider's identifier for the given file/directory.
+    pub id: String,
+    ///Identifier for the cloud storage provider (e.g. 'drive.google.com').
+    pub provider_name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CloudIdentifier> for CloudIdentifierData {
+    fn from(val: &CloudIdentifier) -> Self {
+        Self {
+            id: val.get_id(),
+            provider_name: val.get_provider_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CloudFileInfo")]
@@ -117,6 +140,23 @@ impl CloudFileInfo {
 impl Default for CloudFileInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CloudFileInfo`.
+pub struct CloudFileInfoData {
+    ///A tag that represents the version of the file.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub version_tag: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&CloudFileInfo> for CloudFileInfoData {
+    fn from(val: &CloudFileInfo) -> Self {
+        Self {
+            version_tag: val.get_version_tag(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -227,6 +267,53 @@ impl Default for EntryMetadata {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EntryMetadata`.
+pub struct EntryMetadataData {
+    ///Information that identifies a specific file in the underlying cloud file system. Must be provided if requested in options and the file is backed by cloud storage.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cloud_file_info: Option<CloudFileInfoData>,
+    ///Cloud storage representation of this entry. Must be provided if requested in options and the file is backed by cloud storage. For local files not backed by cloud storage, it should be undefined when requested.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cloud_identifier: Option<CloudIdentifierData>,
+    ///True if it is a directory. Must be provided if requested in options.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_directory: Option<bool>,
+    ///Mime type for the entry. Always optional, but should be provided if requested in options.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mime_type: Option<String>,
+    ///The last modified time of this entry. Must be provided if requested in options.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub modification_time: Option<serde_json::Value>,
+    ///Name of this entry (not full path name). Must not contain '/'. For root it must be empty. Must be provided if requested in options.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///File size in bytes. Must be provided if requested in options.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub size: Option<f64>,
+    ///Thumbnail image as a data URI in either PNG, JPEG or WEBP format, at most 32 KB in size. Optional, but can be provided only when explicitly requested by the $(ref:onGetMetadataRequested) event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub thumbnail: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&EntryMetadata> for EntryMetadataData {
+    fn from(val: &EntryMetadata) -> Self {
+        Self {
+            cloud_file_info: val.get_cloud_file_info().as_ref().map(|v| v.into()),
+            cloud_identifier: val.get_cloud_identifier().as_ref().map(|v| v.into()),
+            is_directory: val.get_is_directory(),
+            mime_type: val.get_mime_type(),
+            modification_time: val
+                .get_modification_time()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            name: val.get_name(),
+            size: val.get_size(),
+            thumbnail: val.get_thumbnail(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Watcher")]
@@ -280,6 +367,29 @@ impl Default for Watcher {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Watcher`.
+pub struct WatcherData {
+    ///The path of the entry being observed.
+    pub entry_path: String,
+    ///Tag used by the last notification for the watcher.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_tag: Option<String>,
+    ///Whether watching should include all child entries recursively. It can be true for directories only.
+    pub recursive: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&Watcher> for WatcherData {
+    fn from(val: &Watcher) -> Self {
+        Self {
+            entry_path: val.get_entry_path(),
+            last_tag: val.get_last_tag(),
+            recursive: val.get_recursive(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OpenedFile")]
@@ -331,6 +441,28 @@ impl OpenedFile {
 impl Default for OpenedFile {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OpenedFile`.
+pub struct OpenedFileData {
+    ///The path of the opened file.
+    pub file_path: String,
+    ///Whether the file was opened for reading or writing.
+    pub mode: OpenFileMode,
+    ///A request ID to be be used by consecutive read/write and close requests.
+    pub open_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OpenedFile> for OpenedFileData {
+    fn from(val: &OpenedFile) -> Self {
+        Self {
+            file_path: val.get_file_path(),
+            mode: val.get_mode(),
+            open_request_id: val.get_open_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -430,6 +562,42 @@ impl Default for FileSystemInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FileSystemInfo`.
+pub struct FileSystemInfoData {
+    ///A human-readable name for the file system.
+    pub display_name: String,
+    ///The identifier of the file system.
+    pub file_system_id: String,
+    ///List of currently opened files.
+    pub opened_files: Vec<OpenedFileData>,
+    ///The maximum number of files that can be opened at once. If 0, then not limited.
+    pub opened_files_limit: i32,
+    ///Whether the file system supports the tag field for observing directories.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub supports_notify_tag: Option<bool>,
+    ///List of watchers.
+    pub watchers: Vec<WatcherData>,
+    ///Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).
+    pub writable: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&FileSystemInfo> for FileSystemInfoData {
+    fn from(val: &FileSystemInfo) -> Self {
+        Self {
+            display_name: val.get_display_name(),
+            file_system_id: val.get_file_system_id(),
+            opened_files: serde_wasm_bindgen::from_value(val.get_opened_files().into())
+                .unwrap_or_default(),
+            opened_files_limit: val.get_opened_files_limit(),
+            supports_notify_tag: val.get_supports_notify_tag(),
+            watchers: serde_wasm_bindgen::from_value(val.get_watchers().into()).unwrap_or_default(),
+            writable: val.get_writable(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MountOptions")]
@@ -516,6 +684,41 @@ impl Default for MountOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MountOptions`.
+pub struct MountOptionsData {
+    ///A human-readable name for the file system.
+    pub display_name: String,
+    ///The string indentifier of the file system. Must be unique per each extension.
+    pub file_system_id: String,
+    ///The maximum number of files that can be opened at once. If not specified, or 0, then not limited.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub opened_files_limit: Option<i32>,
+    ///Whether the framework should resume the file system at the next sign-in session. True by default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persistent: Option<bool>,
+    ///Whether the file system supports the tag field for observed directories.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub supports_notify_tag: Option<bool>,
+    ///Whether the file system supports operations which may change contents of the file system (such as creating, deleting or writing to files).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub writable: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&MountOptions> for MountOptionsData {
+    fn from(val: &MountOptions) -> Self {
+        Self {
+            display_name: val.get_display_name(),
+            file_system_id: val.get_file_system_id(),
+            opened_files_limit: val.get_opened_files_limit(),
+            persistent: val.get_persistent(),
+            supports_notify_tag: val.get_supports_notify_tag(),
+            writable: val.get_writable(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UnmountOptions")]
@@ -545,6 +748,22 @@ impl UnmountOptions {
 impl Default for UnmountOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UnmountOptions`.
+pub struct UnmountOptionsData {
+    ///The identifier of the file system to be unmounted.
+    pub file_system_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&UnmountOptions> for UnmountOptionsData {
+    fn from(val: &UnmountOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -587,6 +806,25 @@ impl UnmountRequestedOptions {
 impl Default for UnmountRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UnmountRequestedOptions`.
+pub struct UnmountRequestedOptionsData {
+    ///The identifier of the file system to be unmounted.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&UnmountRequestedOptions> for UnmountRequestedOptionsData {
+    fn from(val: &UnmountRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -730,6 +968,52 @@ impl Default for GetMetadataRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetMetadataRequestedOptions`.
+pub struct GetMetadataRequestedOptionsData {
+    ///Set to true if cloudFileInfo value is requested.
+    pub cloud_file_info: bool,
+    ///Set to true if cloudIdentifier value is requested.
+    pub cloud_identifier: bool,
+    ///The path of the entry to fetch metadata about.
+    pub entry_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Set to true if is_directory value is requested.
+    pub is_directory: bool,
+    ///Set to true if mimeType value is requested.
+    pub mime_type: bool,
+    ///Set to true if modificationTime value is requested.
+    pub modification_time: bool,
+    ///Set to true if name value is requested.
+    pub name: bool,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+    ///Set to true if size value is requested.
+    pub size: bool,
+    ///Set to true if thumbnail value is requested.
+    pub thumbnail: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&GetMetadataRequestedOptions> for GetMetadataRequestedOptionsData {
+    fn from(val: &GetMetadataRequestedOptions) -> Self {
+        Self {
+            cloud_file_info: val.get_cloud_file_info(),
+            cloud_identifier: val.get_cloud_identifier(),
+            entry_path: val.get_entry_path(),
+            file_system_id: val.get_file_system_id(),
+            is_directory: val.get_is_directory(),
+            mime_type: val.get_mime_type(),
+            modification_time: val.get_modification_time(),
+            name: val.get_name(),
+            request_id: val.get_request_id(),
+            size: val.get_size(),
+            thumbnail: val.get_thumbnail(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetActionsRequestedOptions")]
@@ -781,6 +1065,29 @@ impl GetActionsRequestedOptions {
 impl Default for GetActionsRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetActionsRequestedOptions`.
+pub struct GetActionsRequestedOptionsData {
+    ///List of paths of entries for the list of actions.
+    pub entry_paths: Vec<String>,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&GetActionsRequestedOptions> for GetActionsRequestedOptionsData {
+    fn from(val: &GetActionsRequestedOptions) -> Self {
+        Self {
+            entry_paths: serde_wasm_bindgen::from_value(val.get_entry_paths().into())
+                .unwrap_or_default(),
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -905,6 +1212,46 @@ impl Default for ReadDirectoryRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReadDirectoryRequestedOptions`.
+pub struct ReadDirectoryRequestedOptionsData {
+    ///The path of the directory which contents are requested.
+    pub directory_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Set to true if is_directory value is requested.
+    pub is_directory: bool,
+    ///Set to true if mimeType value is requested.
+    pub mime_type: bool,
+    ///Set to true if modificationTime value is requested.
+    pub modification_time: bool,
+    ///Set to true if name value is requested.
+    pub name: bool,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+    ///Set to true if size value is requested.
+    pub size: bool,
+    ///Set to true if thumbnail value is requested.
+    pub thumbnail: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&ReadDirectoryRequestedOptions> for ReadDirectoryRequestedOptionsData {
+    fn from(val: &ReadDirectoryRequestedOptions) -> Self {
+        Self {
+            directory_path: val.get_directory_path(),
+            file_system_id: val.get_file_system_id(),
+            is_directory: val.get_is_directory(),
+            mime_type: val.get_mime_type(),
+            modification_time: val.get_modification_time(),
+            name: val.get_name(),
+            request_id: val.get_request_id(),
+            size: val.get_size(),
+            thumbnail: val.get_thumbnail(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OpenFileRequestedOptions")]
@@ -969,6 +1316,31 @@ impl Default for OpenFileRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OpenFileRequestedOptions`.
+pub struct OpenFileRequestedOptionsData {
+    ///The path of the file to be opened.
+    pub file_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Whether the file will be used for reading or writing.
+    pub mode: OpenFileMode,
+    ///A request ID which will be used by consecutive read/write and close requests.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OpenFileRequestedOptions> for OpenFileRequestedOptionsData {
+    fn from(val: &OpenFileRequestedOptions) -> Self {
+        Self {
+            file_path: val.get_file_path(),
+            file_system_id: val.get_file_system_id(),
+            mode: val.get_mode(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CloseFileRequestedOptions")]
@@ -1020,6 +1392,28 @@ impl CloseFileRequestedOptions {
 impl Default for CloseFileRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CloseFileRequestedOptions`.
+pub struct CloseFileRequestedOptionsData {
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///A request ID used to open the file.
+    pub open_request_id: i32,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CloseFileRequestedOptions> for CloseFileRequestedOptionsData {
+    fn from(val: &CloseFileRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            open_request_id: val.get_open_request_id(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1097,6 +1491,34 @@ impl Default for ReadFileRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReadFileRequestedOptions`.
+pub struct ReadFileRequestedOptionsData {
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Number of bytes to be returned.
+    pub length: f64,
+    ///Position in the file (in bytes) to start reading from.
+    pub offset: f64,
+    ///A request ID used to open the file.
+    pub open_request_id: i32,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReadFileRequestedOptions> for ReadFileRequestedOptionsData {
+    fn from(val: &ReadFileRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            length: val.get_length(),
+            offset: val.get_offset(),
+            open_request_id: val.get_open_request_id(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1164,6 +1586,31 @@ impl Default for CreateDirectoryRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateDirectoryRequestedOptions`.
+pub struct CreateDirectoryRequestedOptionsData {
+    ///The path of the directory to be created.
+    pub directory_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Whether the operation is recursive (for directories only).
+    pub recursive: bool,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateDirectoryRequestedOptions> for CreateDirectoryRequestedOptionsData {
+    fn from(val: &CreateDirectoryRequestedOptions) -> Self {
+        Self {
+            directory_path: val.get_directory_path(),
+            file_system_id: val.get_file_system_id(),
+            recursive: val.get_recursive(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeleteEntryRequestedOptions")]
@@ -1228,6 +1675,31 @@ impl Default for DeleteEntryRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeleteEntryRequestedOptions`.
+pub struct DeleteEntryRequestedOptionsData {
+    ///The path of the entry to be deleted.
+    pub entry_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Whether the operation is recursive (for directories only).
+    pub recursive: bool,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&DeleteEntryRequestedOptions> for DeleteEntryRequestedOptionsData {
+    fn from(val: &DeleteEntryRequestedOptions) -> Self {
+        Self {
+            entry_path: val.get_entry_path(),
+            file_system_id: val.get_file_system_id(),
+            recursive: val.get_recursive(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateFileRequestedOptions")]
@@ -1279,6 +1751,28 @@ impl CreateFileRequestedOptions {
 impl Default for CreateFileRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateFileRequestedOptions`.
+pub struct CreateFileRequestedOptionsData {
+    ///The path of the file to be created.
+    pub file_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateFileRequestedOptions> for CreateFileRequestedOptionsData {
+    fn from(val: &CreateFileRequestedOptions) -> Self {
+        Self {
+            file_path: val.get_file_path(),
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1345,6 +1839,31 @@ impl Default for CopyEntryRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CopyEntryRequestedOptions`.
+pub struct CopyEntryRequestedOptionsData {
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+    ///The source path of the entry to be copied.
+    pub source_path: String,
+    ///The destination path for the copy operation.
+    pub target_path: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CopyEntryRequestedOptions> for CopyEntryRequestedOptionsData {
+    fn from(val: &CopyEntryRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+            source_path: val.get_source_path(),
+            target_path: val.get_target_path(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MoveEntryRequestedOptions")]
@@ -1409,6 +1928,31 @@ impl Default for MoveEntryRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MoveEntryRequestedOptions`.
+pub struct MoveEntryRequestedOptionsData {
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+    ///The source path of the entry to be moved into a new place.
+    pub source_path: String,
+    ///The destination path for the copy operation.
+    pub target_path: String,
+}
+#[cfg(feature = "serde")]
+impl From<&MoveEntryRequestedOptions> for MoveEntryRequestedOptionsData {
+    fn from(val: &MoveEntryRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+            source_path: val.get_source_path(),
+            target_path: val.get_target_path(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "TruncateRequestedOptions")]
@@ -1471,6 +2015,31 @@ impl TruncateRequestedOptions {
 impl Default for TruncateRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TruncateRequestedOptions`.
+pub struct TruncateRequestedOptionsData {
+    ///The path of the file to be truncated.
+    pub file_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Number of bytes to be retained after the operation completes.
+    pub length: f64,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&TruncateRequestedOptions> for TruncateRequestedOptionsData {
+    fn from(val: &TruncateRequestedOptions) -> Self {
+        Self {
+            file_path: val.get_file_path(),
+            file_system_id: val.get_file_system_id(),
+            length: val.get_length(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1548,6 +2117,31 @@ impl Default for WriteFileRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `WriteFileRequestedOptions`.
+pub struct WriteFileRequestedOptionsData {
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Position in the file (in bytes) to start writing the bytes from.
+    pub offset: f64,
+    ///A request ID used to open the file.
+    pub open_request_id: i32,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&WriteFileRequestedOptions> for WriteFileRequestedOptionsData {
+    fn from(val: &WriteFileRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            offset: val.get_offset(),
+            open_request_id: val.get_open_request_id(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AbortRequestedOptions")]
@@ -1599,6 +2193,28 @@ impl AbortRequestedOptions {
 impl Default for AbortRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AbortRequestedOptions`.
+pub struct AbortRequestedOptionsData {
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///An ID of the request to be aborted.
+    pub operation_request_id: i32,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AbortRequestedOptions> for AbortRequestedOptionsData {
+    fn from(val: &AbortRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            operation_request_id: val.get_operation_request_id(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1663,6 +2279,31 @@ impl AddWatcherRequestedOptions {
 impl Default for AddWatcherRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AddWatcherRequestedOptions`.
+pub struct AddWatcherRequestedOptionsData {
+    ///The path of the entry to be observed.
+    pub entry_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Whether observing should include all child entries recursively. It can be true for directories only.
+    pub recursive: bool,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AddWatcherRequestedOptions> for AddWatcherRequestedOptionsData {
+    fn from(val: &AddWatcherRequestedOptions) -> Self {
+        Self {
+            entry_path: val.get_entry_path(),
+            file_system_id: val.get_file_system_id(),
+            recursive: val.get_recursive(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1732,6 +2373,31 @@ impl Default for RemoveWatcherRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RemoveWatcherRequestedOptions`.
+pub struct RemoveWatcherRequestedOptionsData {
+    ///The path of the watched entry.
+    pub entry_path: String,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///Mode of the watcher.
+    pub recursive: bool,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&RemoveWatcherRequestedOptions> for RemoveWatcherRequestedOptionsData {
+    fn from(val: &RemoveWatcherRequestedOptions) -> Self {
+        Self {
+            entry_path: val.get_entry_path(),
+            file_system_id: val.get_file_system_id(),
+            recursive: val.get_recursive(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Action")]
@@ -1772,6 +2438,26 @@ impl Action {
 impl Default for Action {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Action`.
+pub struct ActionData {
+    ///The identifier of the action. Any string or $(ref:CommonActionId) for common actions.
+    pub id: String,
+    ///The title of the action. It may be ignored for common actions.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Action> for ActionData {
+    fn from(val: &Action) -> Self {
+        Self {
+            id: val.get_id(),
+            title: val.get_title(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1841,6 +2527,32 @@ impl Default for ExecuteActionRequestedOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ExecuteActionRequestedOptions`.
+pub struct ExecuteActionRequestedOptionsData {
+    ///The identifier of the action to be executed.
+    pub action_id: String,
+    ///The set of paths of the entries to be used for the action.
+    pub entry_paths: Vec<String>,
+    ///The identifier of the file system related to this operation.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ExecuteActionRequestedOptions> for ExecuteActionRequestedOptionsData {
+    fn from(val: &ExecuteActionRequestedOptions) -> Self {
+        Self {
+            action_id: val.get_action_id(),
+            entry_paths: serde_wasm_bindgen::from_value(val.get_entry_paths().into())
+                .unwrap_or_default(),
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Change")]
@@ -1892,6 +2604,29 @@ impl Change {
 impl Default for Change {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Change`.
+pub struct ChangeData {
+    ///The type of the change which happened to the entry.
+    pub change_type: ChangeType,
+    ///Information relating to the file if backed by a cloud file system.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cloud_file_info: Option<CloudFileInfoData>,
+    ///The path of the changed entry.
+    pub entry_path: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Change> for ChangeData {
+    fn from(val: &Change) -> Self {
+        Self {
+            change_type: val.get_change_type(),
+            cloud_file_info: val.get_cloud_file_info().as_ref().map(|v| v.into()),
+            entry_path: val.get_entry_path(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1980,6 +2715,41 @@ impl Default for NotifyOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NotifyOptions`.
+pub struct NotifyOptionsData {
+    ///The type of the change which happened to the observed entry. If it is DELETED, then the observed entry will be automatically removed from the list of observed entries.
+    pub change_type: ChangeType,
+    ///List of changes to entries within the observed directory (including the entry itself)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub changes: Option<Vec<ChangeData>>,
+    ///The identifier of the file system related to this change.
+    pub file_system_id: String,
+    ///The path of the observed entry.
+    pub observed_path: String,
+    ///Mode of the observed entry.
+    pub recursive: bool,
+    ///Tag for the notification. Required if the file system was mounted with the supportsNotifyTag option. Note, that this flag is necessary to provide notifications about changes which changed even when the system was shutdown.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tag: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&NotifyOptions> for NotifyOptionsData {
+    fn from(val: &NotifyOptions) -> Self {
+        Self {
+            change_type: val.get_change_type(),
+            changes: val
+                .get_changes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            file_system_id: val.get_file_system_id(),
+            observed_path: val.get_observed_path(),
+            recursive: val.get_recursive(),
+            tag: val.get_tag(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConfigureRequestedOptions")]
@@ -2020,6 +2790,25 @@ impl ConfigureRequestedOptions {
 impl Default for ConfigureRequestedOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConfigureRequestedOptions`.
+pub struct ConfigureRequestedOptionsData {
+    ///The identifier of the file system to be configured.
+    pub file_system_id: String,
+    ///The unique identifier of this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ConfigureRequestedOptions> for ConfigureRequestedOptionsData {
+    fn from(val: &ConfigureRequestedOptions) -> Self {
+        Self {
+            file_system_id: val.get_file_system_id(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -44,6 +44,29 @@ impl Default for ScanOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ScanOptions`.
+pub struct ScanOptionsData {
+    ///The number of scanned images allowed. The default is 1.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_images: Option<i32>,
+    ///The MIME types that are accepted by the caller.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mime_types: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&ScanOptions> for ScanOptionsData {
+    fn from(val: &ScanOptions) -> Self {
+        Self {
+            max_images: val.get_max_images(),
+            mime_types: val
+                .get_mime_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ScanResults")]
@@ -86,9 +109,30 @@ impl Default for ScanResults {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ScanResults`.
+pub struct ScanResultsData {
+    ///An array of data image URLs in a form that can be passed as the "src" value to an image tag.
+    pub data_urls: Vec<String>,
+    ///The MIME type of the dataUrls.
+    pub mime_type: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ScanResults> for ScanResultsData {
+    fn from(val: &ScanResults) -> Self {
+        Self {
+            data_urls: serde_wasm_bindgen::from_value(val.get_data_urls().into())
+                .unwrap_or_default(),
+            mime_type: val.get_mime_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///An enum that indicates the result of each operation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OperationResult {
     ///An unknown or generic failure occurred.
     Unknown = "UNKNOWN",
@@ -128,6 +172,7 @@ pub enum OperationResult {
 #[wasm_bindgen]
 ///Indicates how the scanner is connected to the computer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ConnectionType {
     Unspecified = "UNSPECIFIED",
     Usb = "USB",
@@ -252,9 +297,51 @@ impl Default for ScannerInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ScannerInfo`.
+pub struct ScannerInfoData {
+    ///Indicates how the scanner is connected to the computer.
+    pub connection_type: ConnectionType,
+    ///For matching against other ScannerInfo entries that point to the same physical device.
+    pub device_uuid: String,
+    ///An array of MIME types that can be requested for returned scans.
+    pub image_formats: Vec<String>,
+    ///The scanner manufacturer.
+    pub manufacturer: String,
+    ///The scanner model if it is available, or a generic description.
+    pub model: String,
+    ///A human-readable name for the scanner to display in the UI.
+    pub name: String,
+    ///A human-readable description of the protocol or driver used to access the scanner, such as Mopria, WSD, or epsonds. This is primarily useful for allowing a user to choose between protocols if a device supports multiple protocols.
+    pub protocol_type: String,
+    ///The ID of a specific scanner.
+    pub scanner_id: String,
+    ///If true, the scanner connection's transport cannot be intercepted by a passive listener, such as TLS or USB.
+    pub secure: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&ScannerInfo> for ScannerInfoData {
+    fn from(val: &ScannerInfo) -> Self {
+        Self {
+            connection_type: val.get_connection_type(),
+            device_uuid: val.get_device_uuid(),
+            image_formats: serde_wasm_bindgen::from_value(val.get_image_formats().into())
+                .unwrap_or_default(),
+            manufacturer: val.get_manufacturer(),
+            model: val.get_model(),
+            name: val.get_name(),
+            protocol_type: val.get_protocol_type(),
+            scanner_id: val.get_scanner_id(),
+            secure: val.get_secure(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The data type of an option.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OptionType {
     ///The option's data type is unknown. The value property will be unset.
     Unknown = "UNKNOWN",
@@ -274,6 +361,7 @@ pub enum OptionType {
 #[wasm_bindgen]
 ///Indicates the data type for $(ref:ScannerOption.unit).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OptionUnit {
     ///The value is a unitless number. For example, it can be a threshold.
     Unitless = "UNITLESS",
@@ -293,6 +381,7 @@ pub enum OptionUnit {
 #[wasm_bindgen]
 ///The data type of constraint represented by an $(ref:OptionConstraint).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ConstraintType {
     ///The constraint on a range of OptionType.INT values. The min, max, and quant properties of OptionConstraint will be long, and its list propety will be unset.
     IntRange = "INT_RANGE",
@@ -380,9 +469,50 @@ impl Default for OptionConstraint {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OptionConstraint`.
+pub struct OptionConstraintData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub list: Option<serde_json::Value>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max: Option<serde_json::Value>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min: Option<serde_json::Value>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub quant: Option<serde_json::Value>,
+    ///
+    pub r#type: ConstraintType,
+}
+#[cfg(feature = "serde")]
+impl From<&OptionConstraint> for OptionConstraintData {
+    fn from(val: &OptionConstraint) -> Self {
+        Self {
+            list: val
+                .get_list()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            max: val
+                .get_max()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            min: val
+                .get_min()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            quant: val
+                .get_quant()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///How an option can be changed.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Configurability {
     ///The option is read-only.
     NotConfigurable = "NOT_CONFIGURABLE",
@@ -565,6 +695,65 @@ impl Default for ScannerOption {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ScannerOption`.
+pub struct ScannerOptionData {
+    ///Indicates whether and how the option can be changed.
+    pub configurability: Configurability,
+    ///Defines $(ref:OptionConstraint) on the current scanner option.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub constraint: Option<OptionConstraintData>,
+    ///A longer description of the option.
+    pub description: String,
+    ///Indicates the option is active and can be set or retrieved. If false, the value property will not be set.
+    pub is_active: bool,
+    ///Indicates that the UI should not display this option by default.
+    pub is_advanced: bool,
+    ///Can be automatically set by the scanner driver.
+    pub is_auto_settable: bool,
+    ///Indicates that this option can be detected from software.
+    pub is_detectable: bool,
+    ///Emulated by the scanner driver if true.
+    pub is_emulated: bool,
+    ///Indicates that the option is used for internal configuration and should never be displayed in the UI.
+    pub is_internal: bool,
+    ///The option name using lowercase ASCII letters, numbers, and dashes. Diacritics are not allowed.
+    pub name: String,
+    ///A printable one-line title.
+    pub title: String,
+    ///The data type contained in the value property, which is needed for setting this option.
+    pub r#type: OptionType,
+    ///The unit of measurement for this option.
+    pub unit: OptionUnit,
+    ///The current value of the option, if relevant. Note that the data type of this property must match the data type specified in type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&ScannerOption> for ScannerOptionData {
+    fn from(val: &ScannerOption) -> Self {
+        Self {
+            configurability: val.get_configurability(),
+            constraint: val.get_constraint().as_ref().map(|v| v.into()),
+            description: val.get_description(),
+            is_active: val.get_is_active(),
+            is_advanced: val.get_is_advanced(),
+            is_auto_settable: val.get_is_auto_settable(),
+            is_detectable: val.get_is_detectable(),
+            is_emulated: val.get_is_emulated(),
+            is_internal: val.get_is_internal(),
+            name: val.get_name(),
+            title: val.get_title(),
+            r#type: val.get_type(),
+            unit: val.get_unit(),
+            value: val
+                .get_value()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeviceFilter")]
@@ -605,6 +794,27 @@ impl DeviceFilter {
 impl Default for DeviceFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceFilter`.
+pub struct DeviceFilterData {
+    ///Only return scanners that are directly attached to the computer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local: Option<bool>,
+    ///Only return scanners that use a secure transport, such as USB or TLS.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceFilter> for DeviceFilterData {
+    fn from(val: &DeviceFilter) -> Self {
+        Self {
+            local: val.get_local(),
+            secure: val.get_secure(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -649,6 +859,25 @@ impl Default for OptionGroup {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OptionGroup`.
+pub struct OptionGroupData {
+    ///An array of option names in driver-provided order.
+    pub members: Vec<String>,
+    ///Provides a printable title, for example "Geometry options".
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OptionGroup> for OptionGroupData {
+    fn from(val: &OptionGroup) -> Self {
+        Self {
+            members: serde_wasm_bindgen::from_value(val.get_members().into()).unwrap_or_default(),
+            title: val.get_title(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetScannerListResponse")]
@@ -689,6 +918,25 @@ impl GetScannerListResponse {
 impl Default for GetScannerListResponse {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetScannerListResponse`.
+pub struct GetScannerListResponseData {
+    ///The enumeration result. Note that partial results could be returned even if this indicates an error.
+    pub result: OperationResult,
+    ///A possibly-empty list of scanners that match the provided $(ref:DeviceFilter).
+    pub scanners: Vec<ScannerInfoData>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetScannerListResponse> for GetScannerListResponseData {
+    fn from(val: &GetScannerListResponse) -> Self {
+        Self {
+            result: val.get_result(),
+            scanners: serde_wasm_bindgen::from_value(val.get_scanners().into()).unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -755,6 +1003,35 @@ impl Default for OpenScannerResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OpenScannerResponse`.
+pub struct OpenScannerResponseData {
+    ///If result is SUCCESS, provides a key-value mapping where the key is a device-specific option and the value is an instance of $(ref:ScannerOption).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub options: Option<serde_json::Value>,
+    ///The result of opening the scanner. If the value of this is SUCCESS, the scannerHandle and options properties will be populated.
+    pub result: OperationResult,
+    ///If result is SUCCESS, a handle to the scanner that can be used for further operations.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scanner_handle: Option<String>,
+    ///The scanner ID passed to openScanner().
+    pub scanner_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OpenScannerResponse> for OpenScannerResponseData {
+    fn from(val: &OpenScannerResponse) -> Self {
+        Self {
+            options: val
+                .get_options()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            result: val.get_result(),
+            scanner_handle: val.get_scanner_handle(),
+            scanner_id: val.get_scanner_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetOptionGroupsResponse")]
@@ -808,6 +1085,31 @@ impl Default for GetOptionGroupsResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetOptionGroupsResponse`.
+pub struct GetOptionGroupsResponseData {
+    ///If result is SUCCESS, provides a list of option groups in the order supplied by the scanner driver.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub groups: Option<Vec<OptionGroupData>>,
+    ///The result of getting the option groups. If the value of this is SUCCESS, the groups property will be populated.
+    pub result: OperationResult,
+    ///The same scanner handle as was passed to $(ref:getOptionGroups).
+    pub scanner_handle: String,
+}
+#[cfg(feature = "serde")]
+impl From<&GetOptionGroupsResponse> for GetOptionGroupsResponseData {
+    fn from(val: &GetOptionGroupsResponse) -> Self {
+        Self {
+            groups: val
+                .get_groups()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            result: val.get_result(),
+            scanner_handle: val.get_scanner_handle(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CloseScannerResponse")]
@@ -848,6 +1150,25 @@ impl CloseScannerResponse {
 impl Default for CloseScannerResponse {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CloseScannerResponse`.
+pub struct CloseScannerResponseData {
+    ///The result of closing the scanner. Even if this value is not SUCCESS, the handle will be invalid and should not be used for any further operations.
+    pub result: OperationResult,
+    ///The same scanner handle as was passed to $(ref:closeScanner).
+    pub scanner_handle: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CloseScannerResponse> for CloseScannerResponseData {
+    fn from(val: &CloseScannerResponse) -> Self {
+        Self {
+            result: val.get_result(),
+            scanner_handle: val.get_scanner_handle(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -903,6 +1224,31 @@ impl Default for OptionSetting {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OptionSetting`.
+pub struct OptionSettingData {
+    ///Indicates the name of the option to set.
+    pub name: String,
+    ///Indicates the data type of the option. The requested data type must match the real data type of the underlying option.
+    pub r#type: OptionType,
+    ///Indicates the value to set. Leave unset to request automatic setting for options that have autoSettable enabled. The data type supplied for value must match type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&OptionSetting> for OptionSettingData {
+    fn from(val: &OptionSetting) -> Self {
+        Self {
+            name: val.get_name(),
+            r#type: val.get_type(),
+            value: val
+                .get_value()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetOptionResult")]
@@ -943,6 +1289,25 @@ impl SetOptionResult {
 impl Default for SetOptionResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetOptionResult`.
+pub struct SetOptionResultData {
+    ///Indicates the name of the option that was set.
+    pub name: String,
+    ///Indicates the result of setting the option.
+    pub result: OperationResult,
+}
+#[cfg(feature = "serde")]
+impl From<&SetOptionResult> for SetOptionResultData {
+    fn from(val: &SetOptionResult) -> Self {
+        Self {
+            name: val.get_name(),
+            result: val.get_result(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -998,6 +1363,31 @@ impl Default for SetOptionsResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetOptionsResponse`.
+pub struct SetOptionsResponseData {
+    ///An updated key-value mapping from option names to $(ref:ScannerOption) values containing the new configuration after attempting to set all supplied options. This has the same structure as the options property in $(ref:OpenScannerResponse).This property will be set even if some options were not set successfully, but will be unset if retrieving the updated configuration fails (for example, if the scanner is disconnected in the middle of scanning).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub options: Option<serde_json::Value>,
+    ///An array of results, one each for every passed-in OptionSetting.
+    pub results: Vec<SetOptionResultData>,
+    ///Provides the scanner handle passed to setOptions().
+    pub scanner_handle: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SetOptionsResponse> for SetOptionsResponseData {
+    fn from(val: &SetOptionsResponse) -> Self {
+        Self {
+            options: val
+                .get_options()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            results: serde_wasm_bindgen::from_value(val.get_results().into()).unwrap_or_default(),
+            scanner_handle: val.get_scanner_handle(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "StartScanOptions")]
@@ -1038,6 +1428,26 @@ impl StartScanOptions {
 impl Default for StartScanOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StartScanOptions`.
+pub struct StartScanOptionsData {
+    ///Specifies the MIME type to return scanned data in.
+    pub format: String,
+    ///If a non-zero value is specified, limits the maximum scanned bytes returned in a single $(ref:readScanData) response to that value. The smallest allowed value is 32768 (32 KB). If this property is not specified, the size of a returned chunk may be as large as the entire scanned image.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_read_size: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&StartScanOptions> for StartScanOptionsData {
+    fn from(val: &StartScanOptions) -> Self {
+        Self {
+            format: val.get_format(),
+            max_read_size: val.get_max_read_size(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1093,6 +1503,29 @@ impl Default for StartScanResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StartScanResponse`.
+pub struct StartScanResponseData {
+    ///If result is SUCCESS, provides a handle that can be used to read scan data or cancel the job.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub job: Option<String>,
+    ///The result of starting a scan. If the value of this is SUCCESS, the job property will be populated.
+    pub result: OperationResult,
+    ///Provides the same scanner handle that was passed to startScan().
+    pub scanner_handle: String,
+}
+#[cfg(feature = "serde")]
+impl From<&StartScanResponse> for StartScanResponseData {
+    fn from(val: &StartScanResponse) -> Self {
+        Self {
+            job: val.get_job(),
+            result: val.get_result(),
+            scanner_handle: val.get_scanner_handle(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CancelScanResponse")]
@@ -1133,6 +1566,25 @@ impl CancelScanResponse {
 impl Default for CancelScanResponse {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CancelScanResponse`.
+pub struct CancelScanResponseData {
+    ///Provides the same job handle that was passed to cancelScan().
+    pub job: String,
+    ///The backend's cancel scan result. If the result is OperationResult.SUCCESS or OperationResult.CANCELLED, the scan has been cancelled and the scanner is ready to start a new scan. If the result is OperationResult.DEVICE_BUSY , the scanner is still processing the requested cancellation; the caller should wait a short time and try the request again. Other result values indicate a permanent error that should not be retried.
+    pub result: OperationResult,
+}
+#[cfg(feature = "serde")]
+impl From<&CancelScanResponse> for CancelScanResponseData {
+    fn from(val: &CancelScanResponse) -> Self {
+        Self {
+            job: val.get_job(),
+            result: val.get_result(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1197,6 +1649,29 @@ impl ReadScanDataResponse {
 impl Default for ReadScanDataResponse {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReadScanDataResponse`.
+pub struct ReadScanDataResponseData {
+    ///If result is SUCCESS, an estimate of how much of the total scan data has been delivered so far, in the range 0 to 100.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub estimated_completion: Option<i32>,
+    ///Provides the job handle passed to readScanData().
+    pub job: String,
+    ///The result of reading data. If its value is SUCCESS, then data contains the next (possibly zero-length) chunk of image data that is ready for reading. If its value is EOF, the data contains the last chunk of image data.
+    pub result: OperationResult,
+}
+#[cfg(feature = "serde")]
+impl From<&ReadScanDataResponse> for ReadScanDataResponseData {
+    fn from(val: &ReadScanDataResponse) -> Self {
+        Self {
+            estimated_completion: val.get_estimated_completion(),
+            job: val.get_job(),
+            result: val.get_result(),
+        }
     }
 }
 #[wasm_bindgen]

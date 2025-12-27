@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The tab's loading status.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TabStatus {
     Unloaded = "unloaded",
     Loading = "loading",
@@ -13,6 +14,7 @@ pub enum TabStatus {
 #[wasm_bindgen]
 ///An event that caused a muted state change.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MutedInfoReason {
     ///A user input action set the muted state.
     User = "user",
@@ -72,6 +74,30 @@ impl MutedInfo {
 impl Default for MutedInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MutedInfo`. The tab's muted state and the reason for the last state change.
+pub struct MutedInfoData {
+    ///The ID of the extension that changed the muted state. Not set if an extension was not the reason the muted state last changed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extension_id: Option<String>,
+    ///Whether the tab is muted (prevented from playing sound). The tab may be muted even if it has not played or is not currently playing sound. Equivalent to whether the 'muted' audio indicator is showing.
+    pub muted: bool,
+    ///The reason the tab was muted or unmuted. Not set if the tab's mute state has never been changed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason: Option<MutedInfoReason>,
+}
+#[cfg(feature = "serde")]
+impl From<&MutedInfo> for MutedInfoData {
+    fn from(val: &MutedInfo) -> Self {
+        Self {
+            extension_id: val.get_extension_id(),
+            muted: val.get_muted(),
+            reason: val.get_reason(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -369,9 +395,111 @@ impl Default for Tab {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Tab`.
+pub struct TabData {
+    ///Whether the tab is active in its window. Does not necessarily mean the window is focused.
+    pub active: bool,
+    ///Whether the tab has produced sound over the past couple of seconds (but it might not be heard if also muted). Equivalent to whether the 'speaker audio' indicator is showing.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audible: Option<bool>,
+    ///Whether the tab can be discarded automatically by the browser when resources are low.
+    pub auto_discardable: bool,
+    ///Whether the tab is discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content is reloaded the next time it is activated.
+    pub discarded: bool,
+    ///The URL of the tab's favicon. This property is only present if the extension has the "tabs" permission or has host permissions for the page. It may also be an empty string if the tab is loading.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fav_icon_url: Option<String>,
+    ///Whether the tab is frozen. A frozen tab cannot execute tasks, including event handlers or timers. It is visible in the tab strip and its content is loaded in memory. It is unfrozen on activation.
+    pub frozen: bool,
+    ///The ID of the group that the tab belongs to.
+    pub group_id: i32,
+    ///The height of the tab in pixels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///Whether the tab is highlighted.
+    pub highlighted: bool,
+    ///The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a tab may not be assigned an ID; for example, when querying foreign tabs using the $(ref:sessions) API, in which case a session ID may be present. Tab ID can also be set to chrome.tabs.TAB_ID_NONE for apps and devtools windows.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    ///Whether the tab is in an incognito window.
+    pub incognito: bool,
+    ///The zero-based index of the tab within its window.
+    pub index: i32,
+    ///The last time the tab became active in its window as the number of milliseconds since epoch.
+    pub last_accessed: f64,
+    ///The tab's muted state and the reason for the last state change.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub muted_info: Option<MutedInfoData>,
+    ///The ID of the tab that opened this tab, if any. This property is only present if the opener tab still exists.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub opener_tab_id: Option<i32>,
+    ///The URL the tab is navigating to, before it has committed. This property is only present if the extension has the "tabs" permission or has host permissions for the page and there is a pending navigation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pending_url: Option<String>,
+    ///Whether the tab is pinned.
+    pub pinned: bool,
+    ///Whether the tab is selected.
+    pub selected: bool,
+    ///The session ID used to uniquely identify a tab obtained from the $(ref:sessions) API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub session_id: Option<String>,
+    ///The ID of the Split View that the tab belongs to.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub split_view_id: Option<i32>,
+    ///The tab's loading status.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<TabStatus>,
+    ///The title of the tab. This property is only present if the extension has the "tabs" permission or has host permissions for the page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The last committed URL of the main frame of the tab. This property is only present if the extension has the "tabs" permission or has host permissions for the page. May be an empty string if the tab has not yet committed. See also $(ref:Tab.pendingUrl).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    ///The width of the tab in pixels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+    ///The ID of the window that contains the tab.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Tab> for TabData {
+    fn from(val: &Tab) -> Self {
+        Self {
+            active: val.get_active(),
+            audible: val.get_audible(),
+            auto_discardable: val.get_auto_discardable(),
+            discarded: val.get_discarded(),
+            fav_icon_url: val.get_fav_icon_url(),
+            frozen: val.get_frozen(),
+            group_id: val.get_group_id(),
+            height: val.get_height(),
+            highlighted: val.get_highlighted(),
+            id: val.get_id(),
+            incognito: val.get_incognito(),
+            index: val.get_index(),
+            last_accessed: val.get_last_accessed(),
+            muted_info: val.get_muted_info().as_ref().map(|v| v.into()),
+            opener_tab_id: val.get_opener_tab_id(),
+            pending_url: val.get_pending_url(),
+            pinned: val.get_pinned(),
+            selected: val.get_selected(),
+            session_id: val.get_session_id(),
+            split_view_id: val.get_split_view_id(),
+            status: val.get_status(),
+            title: val.get_title(),
+            url: val.get_url(),
+            width: val.get_width(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Defines how zoom changes are handled, i.e., which entity is responsible for the actual scaling of the page; defaults to automatic.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ZoomSettingsMode {
     ///Zoom changes are handled automatically by the browser.
     Automatic = "automatic",
@@ -383,6 +511,7 @@ pub enum ZoomSettingsMode {
 #[wasm_bindgen]
 ///Defines whether zoom changes persist for the page's origin, or only take effect in this tab; defaults to per-origin when in automatic mode, and per-tab otherwise.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ZoomSettingsScope {
     ///Zoom changes persist in the zoomed page's origin, i.e., all other tabs navigated to that same origin are zoomed as well. Moreover, per-origin zoom changes are saved with the origin, meaning that when navigating to other pages in the same origin, they are all zoomed to the same zoom factor. The per-origin scope is only available in the automatic mode.
     PerOrigin = "per-origin",
@@ -442,9 +571,35 @@ impl Default for ZoomSettings {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ZoomSettings`. Defines how zoom changes in a tab are handled and at what scope.
+pub struct ZoomSettingsData {
+    ///Used to return the default zoom level for the current tab in calls to tabs.getZoomSettings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_zoom_factor: Option<f64>,
+    ///Defines how zoom changes are handled, i.e., which entity is responsible for the actual scaling of the page; defaults to automatic.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mode: Option<ZoomSettingsMode>,
+    ///Defines whether zoom changes persist for the page's origin, or only take effect in this tab; defaults to per-origin when in automatic mode, and per-tab otherwise.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope: Option<ZoomSettingsScope>,
+}
+#[cfg(feature = "serde")]
+impl From<&ZoomSettings> for ZoomSettingsData {
+    fn from(val: &ZoomSettings) -> Self {
+        Self {
+            default_zoom_factor: val.get_default_zoom_factor(),
+            mode: val.get_mode(),
+            scope: val.get_scope(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The type of window.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum WindowType {
     Normal = "normal",
     Popup = "popup",

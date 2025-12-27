@@ -33,6 +33,20 @@ impl Default for Resource {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Resource`. A resource within the inspected page, such as a document, a script, or an image.
+pub struct ResourceData {
+    ///The URL of the resource.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Resource> for ResourceData {
+    fn from(val: &Resource) -> Self {
+        Self { url: val.get_url() }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "EvalOptions")]

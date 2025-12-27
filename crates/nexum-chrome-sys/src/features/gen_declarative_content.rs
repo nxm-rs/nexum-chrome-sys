@@ -5,30 +5,35 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PageStateMatcherInstanceType {
     DeclarativeContentPageStateMatcher = "declarativeContent.PageStateMatcher",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ShowPageActionInstanceType {
     DeclarativeContentShowPageAction = "declarativeContent.ShowPageAction",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ShowActionInstanceType {
     DeclarativeContentShowAction = "declarativeContent.ShowAction",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SetIconInstanceType {
     DeclarativeContentSetIcon = "declarativeContent.SetIcon",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RequestContentScriptInstanceType {
     DeclarativeContentRequestContentScript = "declarativeContent.RequestContentScript",
 }
@@ -99,6 +104,32 @@ impl Default for PageStateMatcher {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PageStateMatcher`. Matches the state of a web page based on various criteria.
+pub struct PageStateMatcherData {
+    ///Matches if all of the CSS selectors in the array match displayed elements in a frame with the same origin as the page's main frame. All selectors in this array must be compound selectors to speed up matching. Note: Listing hundreds of CSS selectors or listing CSS selectors that match hundreds of times per page can slow down web sites.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css: Option<Vec<String>>,
+    ///
+    pub instance_type: PageStateMatcherInstanceType,
+    ///Matches if the bookmarked state of the page is equal to the specified value. Requres the bookmarks permission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_bookmarked: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&PageStateMatcher> for PageStateMatcherData {
+    fn from(val: &PageStateMatcher) -> Self {
+        Self {
+            css: val
+                .get_css()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            instance_type: val.get_instance_type(),
+            is_bookmarked: val.get_is_bookmarked(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ShowPageAction")]
@@ -130,6 +161,22 @@ impl Default for ShowPageAction {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ShowPageAction`. A declarative event action that sets the extension's $(ref:pageAction page action) to an enabled state while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page action. If the extension has the activeTab permission, clicking the page action grants access to the active tab.On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
+pub struct ShowPageActionData {
+    ///
+    pub instance_type: ShowPageActionInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&ShowPageAction> for ShowPageActionData {
+    fn from(val: &ShowPageAction) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ShowAction")]
@@ -159,6 +206,22 @@ impl ShowAction {
 impl Default for ShowAction {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ShowAction`. A declarative event action that sets the extension's toolbar $(ref:action action) to an enabled state while the corresponding conditions are met. This action can be used without host permissions. If the extension has the activeTab permission, clicking the page action grants access to the active tab.On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
+pub struct ShowActionData {
+    ///
+    pub instance_type: ShowActionInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&ShowAction> for ShowActionData {
+    fn from(val: &ShowAction) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -201,6 +264,28 @@ impl SetIcon {
 impl Default for SetIcon {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetIcon`. Declarative event action that sets the n-dip square icon for the extension's $(ref:pageAction page action) or $(ref:browserAction browser action) while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page or browser action.Exactly one of imageData or path must be specified. Both are dictionaries mapping a number of pixels to an image representation. The image representation in imageData is an ImageData object; for example, from a canvas element, while the image representation in path is the path to an image file relative to the extension's manifest. If scale screen pixels fit into a device-independent pixel, the scale * n icon is used. If that scale is missing, another image is resized to the required size.
+pub struct SetIconData {
+    ///Either an ImageData object or a dictionary {size - ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then an image with size scale * n is selected, where n is the size of the icon in the UI. At least one image must be specified. Note that details.imageData = foo is equivalent to details.imageData = {'16': foo}.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_data: Option<serde_json::Value>,
+    ///
+    pub instance_type: SetIconInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&SetIcon> for SetIconData {
+    fn from(val: &SetIcon) -> Self {
+        Self {
+            image_data: val
+                .get_image_data()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            instance_type: val.get_instance_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -276,6 +361,42 @@ impl RequestContentScript {
 impl Default for RequestContentScript {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RequestContentScript`. Declarative event action that injects a content script. WARNING: This action is still experimental and is not supported on stable builds of Chrome.
+pub struct RequestContentScriptData {
+    ///Whether the content script runs in all frames of the matching page, or in only the top frame. Default is false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///Names of CSS files to be injected as a part of the content script.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css: Option<Vec<String>>,
+    ///
+    pub instance_type: RequestContentScriptInstanceType,
+    ///Names of JavaScript files to be injected as a part of the content script.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub js: Option<Vec<String>>,
+    ///Whether to insert the content script on about:blank and about:srcdoc. Default is false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_about_blank: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&RequestContentScript> for RequestContentScriptData {
+    fn from(val: &RequestContentScript) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            css: val
+                .get_css()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            instance_type: val.get_instance_type(),
+            js: val
+                .get_js()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            match_about_blank: val.get_match_about_blank(),
+        }
     }
 }
 #[wasm_bindgen]

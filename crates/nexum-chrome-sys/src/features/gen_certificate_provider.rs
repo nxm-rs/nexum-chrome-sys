@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Types of supported cryptographic signature algorithms.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Algorithm {
     ///Specifies the RSASSA PKCS#1 v1.5 signature algorithm with the MD5-SHA-1 hashing. The extension must not prepend a DigestInfo prefix but only add PKCS#1 padding. This algorithm is deprecated and will never be requested by Chrome as of version 109.
     RsassaPkcs1V15Md5Sha1 = "RSASSA_PKCS1_v1_5_MD5_SHA1",
@@ -26,6 +27,7 @@ pub enum Algorithm {
 #[wasm_bindgen]
 ///Types of errors that the extension can report.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Error {
     ///General error that cannot be represented by other more specific error codes.
     GeneralError = "GENERAL_ERROR",
@@ -70,6 +72,29 @@ impl ClientCertificateInfo {
 impl Default for ClientCertificateInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ClientCertificateInfo`.
+pub struct ClientCertificateInfoData {
+    ///The array must contain the DER encoding of the X.509 client certificate as its first element. This must include exactly one certificate.
+    pub certificate_chain: Vec<serde_json::Value>,
+    ///All algorithms supported for this certificate. The extension will only be asked for signatures using one of these algorithms.
+    pub supported_algorithms: Vec<Algorithm>,
+}
+#[cfg(feature = "serde")]
+impl From<&ClientCertificateInfo> for ClientCertificateInfoData {
+    fn from(val: &ClientCertificateInfo) -> Self {
+        Self {
+            certificate_chain: serde_wasm_bindgen::from_value(val.get_certificate_chain().into())
+                .unwrap_or_default(),
+            supported_algorithms: serde_wasm_bindgen::from_value(
+                val.get_supported_algorithms().into(),
+            )
+            .unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -125,6 +150,33 @@ impl Default for SetCertificatesDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetCertificatesDetails`.
+pub struct SetCertificatesDetailsData {
+    ///When called in response to $(ref:onCertificatesUpdateRequested), should contain the received certificatesRequestId value. Otherwise, should be unset.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub certificates_request_id: Option<i32>,
+    ///List of currently available client certificates.
+    pub client_certificates: Vec<ClientCertificateInfoData>,
+    ///Error that occurred while extracting the certificates, if any. This error will be surfaced to the user when appropriate.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<Error>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetCertificatesDetails> for SetCertificatesDetailsData {
+    fn from(val: &SetCertificatesDetails) -> Self {
+        Self {
+            certificates_request_id: val.get_certificates_request_id(),
+            client_certificates: serde_wasm_bindgen::from_value(
+                val.get_client_certificates().into(),
+            )
+            .unwrap_or_default(),
+            error: val.get_error(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CertificatesUpdateRequest")]
@@ -154,6 +206,22 @@ impl CertificatesUpdateRequest {
 impl Default for CertificatesUpdateRequest {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CertificatesUpdateRequest`.
+pub struct CertificatesUpdateRequestData {
+    ///Request identifier to be passed to $(ref:setCertificates).
+    pub certificates_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CertificatesUpdateRequest> for CertificatesUpdateRequestData {
+    fn from(val: &CertificatesUpdateRequest) -> Self {
+        Self {
+            certificates_request_id: val.get_certificates_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -220,6 +288,25 @@ impl Default for SignatureRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SignatureRequest`.
+pub struct SignatureRequestData {
+    ///Signature algorithm to be used.
+    pub algorithm: Algorithm,
+    ///Request identifier to be passed to $(ref:reportSignature).
+    pub sign_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SignatureRequest> for SignatureRequestData {
+    fn from(val: &SignatureRequest) -> Self {
+        Self {
+            algorithm: val.get_algorithm(),
+            sign_request_id: val.get_sign_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReportSignatureDetails")]
@@ -273,9 +360,30 @@ impl Default for ReportSignatureDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReportSignatureDetails`.
+pub struct ReportSignatureDetailsData {
+    ///Error that occurred while generating the signature, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<Error>,
+    ///Request identifier that was received via the $(ref:onSignatureRequested) event.
+    pub sign_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReportSignatureDetails> for ReportSignatureDetailsData {
+    fn from(val: &ReportSignatureDetails) -> Self {
+        Self {
+            error: val.get_error(),
+            sign_request_id: val.get_sign_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Deprecated. Replaced by $(ref:Algorithm).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Hash {
     ///Specifies the MD5 and SHA1 hashing algorithms.
     Md5Sha1 = "MD5_SHA1",
@@ -291,6 +399,7 @@ pub enum Hash {
 #[wasm_bindgen]
 ///The type of code being requested by the extension with requestPin function.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PinRequestType {
     ///Specifies the requested code is a PIN.
     Pin = "PIN",
@@ -300,6 +409,7 @@ pub enum PinRequestType {
 #[wasm_bindgen]
 ///The types of errors that can be presented to the user through the requestPin function.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PinRequestErrorType {
     ///Specifies the PIN is invalid.
     InvalidPin = "INVALID_PIN",
@@ -350,6 +460,23 @@ impl CertificateInfo {
 impl Default for CertificateInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CertificateInfo`.
+pub struct CertificateInfoData {
+    ///Must be set to all hashes supported for this certificate. This extension will only be asked for signatures of digests calculated with one of these hash algorithms. This should be in order of decreasing hash preference.
+    pub supported_hashes: Vec<Hash>,
+}
+#[cfg(feature = "serde")]
+impl From<&CertificateInfo> for CertificateInfoData {
+    fn from(val: &CertificateInfo) -> Self {
+        Self {
+            supported_hashes: serde_wasm_bindgen::from_value(val.get_supported_hashes().into())
+                .unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -416,6 +543,25 @@ impl Default for SignRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SignRequest`.
+pub struct SignRequestData {
+    ///Refers to the hash algorithm that was used to create digest.
+    pub hash: Hash,
+    ///The unique ID to be used by the extension should it need to call a method that requires it, e.g. requestPin.
+    pub sign_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SignRequest> for SignRequestData {
+    fn from(val: &SignRequest) -> Self {
+        Self {
+            hash: val.get_hash(),
+            sign_request_id: val.get_sign_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "RequestPinDetails")]
@@ -480,6 +626,34 @@ impl Default for RequestPinDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RequestPinDetails`.
+pub struct RequestPinDetailsData {
+    ///The number of attempts left. This is provided so that any UI can present this information to the user. Chrome is not expected to enforce this, instead stopPinRequest should be called by the extension with errorType = MAX_ATTEMPTS_EXCEEDED when the number of pin requests is exceeded.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub attempts_left: Option<i32>,
+    ///The error template displayed to the user. This should be set if the previous request failed, to notify the user of the failure reason.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_type: Option<PinRequestErrorType>,
+    ///The type of code requested. Default is PIN.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_type: Option<PinRequestType>,
+    ///The ID given by Chrome in SignRequest.
+    pub sign_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&RequestPinDetails> for RequestPinDetailsData {
+    fn from(val: &RequestPinDetails) -> Self {
+        Self {
+            attempts_left: val.get_attempts_left(),
+            error_type: val.get_error_type(),
+            request_type: val.get_request_type(),
+            sign_request_id: val.get_sign_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "StopPinRequestDetails")]
@@ -522,6 +696,26 @@ impl Default for StopPinRequestDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StopPinRequestDetails`.
+pub struct StopPinRequestDetailsData {
+    ///The error template. If present it is displayed to user. Intended to contain the reason for stopping the flow if it was caused by an error, e.g. MAX_ATTEMPTS_EXCEEDED.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error_type: Option<PinRequestErrorType>,
+    ///The ID given by Chrome in SignRequest.
+    pub sign_request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&StopPinRequestDetails> for StopPinRequestDetailsData {
+    fn from(val: &StopPinRequestDetails) -> Self {
+        Self {
+            error_type: val.get_error_type(),
+            sign_request_id: val.get_sign_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "PinResponseDetails")]
@@ -551,6 +745,23 @@ impl PinResponseDetails {
 impl Default for PinResponseDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PinResponseDetails`.
+pub struct PinResponseDetailsData {
+    ///The code provided by the user. Empty if user closed the dialog or some other error occurred.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_input: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&PinResponseDetails> for PinResponseDetailsData {
+    fn from(val: &PinResponseDetails) -> Self {
+        Self {
+            user_input: val.get_user_input(),
+        }
     }
 }
 #[wasm_bindgen]

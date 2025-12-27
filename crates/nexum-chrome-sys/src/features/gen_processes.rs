@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The types of the browser processes.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ProcessType {
     Browser = "browser",
     Renderer = "renderer",
@@ -62,6 +63,26 @@ impl Default for TaskInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TaskInfo`.
+pub struct TaskInfoData {
+    ///Optional tab ID, if this task represents a tab running on a renderer process.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The title of the task.
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&TaskInfo> for TaskInfoData {
+    fn from(val: &TaskInfo) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            title: val.get_title(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Cache")]
@@ -102,6 +123,25 @@ impl Cache {
 impl Default for Cache {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Cache`.
+pub struct CacheData {
+    ///The part of the cache that is utilized, in bytes.
+    pub live_size: f64,
+    ///The size of the cache, in bytes.
+    pub size: f64,
+}
+#[cfg(feature = "serde")]
+impl From<&Cache> for CacheData {
+    fn from(val: &Cache) -> Self {
+        Self {
+            live_size: val.get_live_size(),
+            size: val.get_size(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -287,6 +327,73 @@ impl Process {
 impl Default for Process {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Process`.
+pub struct ProcessData {
+    ///The most recent measurement of the process's CPU usage, expressed as the percentage of a single CPU core used in total, by all of the process's threads. This gives a value from zero to CpuInfo.numOfProcessors*100, which can exceed 100% in multi-threaded processes. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cpu: Option<f64>,
+    ///The most recent information about the CSS cache for the process. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css_cache: Option<CacheData>,
+    ///Unique ID of the process provided by the browser.
+    pub id: i32,
+    ///The most recent information about the image cache for the process. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_cache: Option<CacheData>,
+    ///The most recent measurement of the process JavaScript allocated memory, in bytes. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub js_memory_allocated: Option<f64>,
+    ///The most recent measurement of the process JavaScript memory used, in bytes. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub js_memory_used: Option<f64>,
+    ///The debugging port for Native Client processes. Zero for other process types and for NaCl processes that do not have debugging enabled.
+    pub nacl_debug_port: i32,
+    ///The most recent measurement of the process network usage, in bytes per second. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub network: Option<f64>,
+    ///The ID of the process, as provided by the OS.
+    pub os_process_id: i32,
+    ///The most recent measurement of the process private memory usage, in bytes. Only available when receiving the object as part of a callback from onUpdatedWithMemory or getProcessInfo with the includeMemory flag.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub private_memory: Option<f64>,
+    ///The profile which the process is associated with.
+    pub profile: String,
+    ///The most recent information about the script cache for the process. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub script_cache: Option<CacheData>,
+    ///The most recent measurement of the process's SQLite memory usage, in bytes. Only available when receiving the object as part of a callback from onUpdated or onUpdatedWithMemory.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sqlite_memory: Option<f64>,
+    ///Array of TaskInfos representing the tasks running on this process.
+    pub tasks: Vec<TaskInfoData>,
+    ///The type of process.
+    pub r#type: ProcessType,
+}
+#[cfg(feature = "serde")]
+impl From<&Process> for ProcessData {
+    fn from(val: &Process) -> Self {
+        Self {
+            cpu: val.get_cpu(),
+            css_cache: val.get_css_cache().as_ref().map(|v| v.into()),
+            id: val.get_id(),
+            image_cache: val.get_image_cache().as_ref().map(|v| v.into()),
+            js_memory_allocated: val.get_js_memory_allocated(),
+            js_memory_used: val.get_js_memory_used(),
+            nacl_debug_port: val.get_nacl_debug_port(),
+            network: val.get_network(),
+            os_process_id: val.get_os_process_id(),
+            private_memory: val.get_private_memory(),
+            profile: val.get_profile(),
+            script_cache: val.get_script_cache().as_ref().map(|v| v.into()),
+            sqlite_memory: val.get_sqlite_memory(),
+            tasks: serde_wasm_bindgen::from_value(val.get_tasks().into()).unwrap_or_default(),
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]

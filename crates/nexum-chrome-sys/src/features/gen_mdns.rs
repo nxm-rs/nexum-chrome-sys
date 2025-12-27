@@ -66,6 +66,32 @@ impl Default for MDnsService {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MDnsService`.
+pub struct MDnsServiceData {
+    ///The IP address of an mDNS advertised service.
+    pub ip_address: String,
+    ///Metadata for an mDNS advertised service.
+    pub service_data: Vec<String>,
+    ///The host:port pair of an mDNS advertised service.
+    pub service_host_port: String,
+    ///The service name of an mDNS advertised service, ..
+    pub service_name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&MDnsService> for MDnsServiceData {
+    fn from(val: &MDnsService) -> Self {
+        Self {
+            ip_address: val.get_ip_address(),
+            service_data: serde_wasm_bindgen::from_value(val.get_service_data().into())
+                .unwrap_or_default(),
+            service_host_port: val.get_service_host_port(),
+            service_name: val.get_service_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Immediately issues a multicast DNS query for all service types. |callback| is invoked immediately. At a later time, queries will be sent, and any service events will be fired.

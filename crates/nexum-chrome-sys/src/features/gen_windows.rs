@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The type of browser window this is. In some circumstances a window may not be assigned a type property; for example, when querying closed windows from the $(ref:sessions) API.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum WindowType {
     ///A normal browser window.
     Normal = "normal",
@@ -20,6 +21,7 @@ pub enum WindowType {
 #[wasm_bindgen]
 ///The state of this browser window. In some circumstances a window may not be assigned a state property; for example, when querying closed windows from the $(ref:sessions) API.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum WindowState {
     ///Normal window state (not minimized, maximized, or fullscreen).
     Normal = "normal",
@@ -184,9 +186,70 @@ impl Default for Window {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Window`.
+pub struct WindowData {
+    ///Whether the window is set to be always on top.
+    pub always_on_top: bool,
+    ///Whether the window is currently the focused window.
+    pub focused: bool,
+    ///The height of the window, including the frame, in pixels. In some circumstances a window may not be assigned a height property; for example, when querying closed windows from the $(ref:sessions) API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///The ID of the window. Window IDs are unique within a browser session. In some circumstances a window may not be assigned an ID property; for example, when querying windows using the $(ref:sessions) API, in which case a session ID may be present.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    ///Whether the window is incognito.
+    pub incognito: bool,
+    ///The offset of the window from the left edge of the screen in pixels. In some circumstances a window may not be assigned a left property; for example, when querying closed windows from the $(ref:sessions) API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub left: Option<i32>,
+    ///The session ID used to uniquely identify a window, obtained from the $(ref:sessions) API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub session_id: Option<String>,
+    ///The state of this browser window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<WindowState>,
+    ///Array of $(ref:tabs.Tab) objects representing the current tabs in the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tabs: Option<Vec<serde_json::Value>>,
+    ///The offset of the window from the top edge of the screen in pixels. In some circumstances a window may not be assigned a top property; for example, when querying closed windows from the $(ref:sessions) API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    ///The type of browser window this is.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<WindowType>,
+    ///The width of the window, including the frame, in pixels. In some circumstances a window may not be assigned a width property; for example, when querying closed windows from the $(ref:sessions) API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&Window> for WindowData {
+    fn from(val: &Window) -> Self {
+        Self {
+            always_on_top: val.get_always_on_top(),
+            focused: val.get_focused(),
+            height: val.get_height(),
+            id: val.get_id(),
+            incognito: val.get_incognito(),
+            left: val.get_left(),
+            session_id: val.get_session_id(),
+            state: val.get_state(),
+            tabs: val
+                .get_tabs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            top: val.get_top(),
+            r#type: val.get_type(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Specifies what type of browser window to create. 'panel' is deprecated and is available only to existing allowlisted extensions on Chrome OS.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CreateType {
     ///Specifies the window as a standard window.
     Normal = "normal",
@@ -235,6 +298,29 @@ impl QueryOptions {
 impl Default for QueryOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `QueryOptions`.
+pub struct QueryOptionsData {
+    ///If true, the $(ref:windows.Window) object has a tabs property that contains a list of the $(ref:tabs.Tab) objects. The Tab objects only contain the url, pendingUrl, title, and favIconUrl properties if the extension's manifest file includes the "tabs" permission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub populate: Option<bool>,
+    ///If set, the $(ref:windows.Window) returned is filtered based on its type. If unset, the default filter is set to ['normal', 'popup'].
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_types: Option<Vec<WindowType>>,
+}
+#[cfg(feature = "serde")]
+impl From<&QueryOptions> for QueryOptionsData {
+    fn from(val: &QueryOptions) -> Self {
+        Self {
+            populate: val.get_populate(),
+            window_types: val
+                .get_window_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]

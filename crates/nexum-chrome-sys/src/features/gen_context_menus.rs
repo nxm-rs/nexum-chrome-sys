@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'launcher'. The 'launcher' context is only supported by apps and is used to add menu items to the context menu that appears when clicking the app icon in the launcher/taskbar/dock/etc. Different platforms might put limitations on what is actually supported in a launcher context menu.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ContextType {
     All = "all",
     Page = "page",
@@ -23,6 +24,7 @@ pub enum ContextType {
 #[wasm_bindgen]
 ///The type of menu item.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ItemType {
     Normal = "normal",
     Checkbox = "checkbox",
@@ -181,6 +183,68 @@ impl Default for OnClickData {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnClickData`. Information sent when a context menu item is clicked.
+pub struct OnClickDataData {
+    ///A flag indicating the state of a checkbox or radio item after it is clicked.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checked: Option<bool>,
+    ///A flag indicating whether the element is editable (text input, textarea, etc.).
+    pub editable: bool,
+    ///The ID of the frame of the element where the context menu was clicked, if it was in a frame.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///The URL of the frame of the element where the context menu was clicked, if it was in a frame.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_url: Option<String>,
+    ///If the element is a link, the URL it points to.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub link_url: Option<String>,
+    ///One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub media_type: Option<String>,
+    ///The ID of the menu item that was clicked.
+    pub menu_item_id: serde_json::Value,
+    ///The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub page_url: Option<String>,
+    ///The parent ID, if any, for the item clicked.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_menu_item_id: Option<serde_json::Value>,
+    ///The text for the context selection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_text: Option<String>,
+    ///Will be present for elements with a 'src' URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub src_url: Option<String>,
+    ///A flag indicating the state of a checkbox or radio item before it was clicked.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub was_checked: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnClickData> for OnClickDataData {
+    fn from(val: &OnClickData) -> Self {
+        Self {
+            checked: val.get_checked(),
+            editable: val.get_editable(),
+            frame_id: val.get_frame_id(),
+            frame_url: val.get_frame_url(),
+            link_url: val.get_link_url(),
+            media_type: val.get_media_type(),
+            menu_item_id: serde_wasm_bindgen::from_value(val.get_menu_item_id())
+                .unwrap_or_default(),
+            page_url: val.get_page_url(),
+            parent_menu_item_id: val
+                .get_parent_menu_item_id()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            selection_text: val.get_selection_text(),
+            src_url: val.get_src_url(),
+            was_checked: val.get_was_checked(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateProperties")]
@@ -320,6 +384,67 @@ impl CreateProperties {
 impl Default for CreateProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateProperties`. Properties of the new context menu item.
+pub struct CreatePropertiesData {
+    ///The initial state of a checkbox or radio button: true for selected, false for unselected. Only one radio button can be selected at a time in a given group.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checked: Option<bool>,
+    ///List of contexts this menu item will appear in. Defaults to ['page'].
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub contexts: Option<Vec<ContextType>>,
+    ///Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_url_patterns: Option<Vec<String>>,
+    ///Whether this context menu item is enabled or disabled. Defaults to true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    ///The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    ///The ID of a parent menu item; this makes the item a child of a previously added item.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<serde_json::Value>,
+    ///Similar to documentUrlPatterns, filters based on the src attribute of img, audio, and video tags and the href attribute of a tags.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_url_patterns: Option<Vec<String>>,
+    ///The text to display in the item; this is required unless type is separator. When the context is selection, use %s within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The type of menu item. Defaults to normal.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<ItemType>,
+    ///Whether the item is visible in the menu.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visible: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateProperties> for CreatePropertiesData {
+    fn from(val: &CreateProperties) -> Self {
+        Self {
+            checked: val.get_checked(),
+            contexts: val
+                .get_contexts()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            document_url_patterns: val
+                .get_document_url_patterns()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            enabled: val.get_enabled(),
+            id: val.get_id(),
+            parent_id: val
+                .get_parent_id()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            target_url_patterns: val
+                .get_target_url_patterns()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            title: val.get_title(),
+            r#type: val.get_type(),
+            visible: val.get_visible(),
+        }
     }
 }
 #[wasm_bindgen]

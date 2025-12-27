@@ -33,3 +33,20 @@ impl Default for ResponseHeader {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ResponseHeader`.
+pub struct ResponseHeaderData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ResponseHeader> for ResponseHeaderData {
+    fn from(val: &ResponseHeader) -> Self {
+        Self {
+            value: val.get_value(),
+        }
+    }
+}

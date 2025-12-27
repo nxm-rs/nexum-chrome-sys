@@ -44,6 +44,25 @@ impl Default for HardwarePlatformInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HardwarePlatformInfo`.
+pub struct HardwarePlatformInfoData {
+    ///
+    pub manufacturer: String,
+    ///
+    pub model: String,
+}
+#[cfg(feature = "serde")]
+impl From<&HardwarePlatformInfo> for HardwarePlatformInfoData {
+    fn from(val: &HardwarePlatformInfo) -> Self {
+        Self {
+            manufacturer: val.get_manufacturer(),
+            model: val.get_model(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Obtains the manufacturer and model for the hardware platform and, if the extension is authorized, returns it via |callback|.

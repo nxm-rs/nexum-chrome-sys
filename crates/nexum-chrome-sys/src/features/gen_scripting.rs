@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The origin for a style change. See style origins for more info.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum StyleOrigin {
     Author = "AUTHOR",
     User = "USER",
@@ -12,6 +13,7 @@ pub enum StyleOrigin {
 #[wasm_bindgen]
 ///The JavaScript world for a script to execute within.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExecutionWorld {
     ///Specifies the isolated world, which is the execution environment unique to this extension.
     Isolated = "ISOLATED",
@@ -80,6 +82,38 @@ impl InjectionTarget {
 impl Default for InjectionTarget {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InjectionTarget`.
+pub struct InjectionTargetData {
+    ///Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///The IDs of specific documentIds to inject into. This must not be set if frameIds is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_ids: Option<Vec<String>>,
+    ///The IDs of specific frames to inject into.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_ids: Option<Vec<i32>>,
+    ///The ID of the tab into which to inject.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&InjectionTarget> for InjectionTargetData {
+    fn from(val: &InjectionTarget) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            document_ids: val
+                .get_document_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            frame_ids: val
+                .get_frame_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -179,6 +213,42 @@ impl Default for ScriptInjection {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ScriptInjection`.
+pub struct ScriptInjectionData {
+    ///The arguments to pass to the provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub args: Option<Vec<serde_json::Value>>,
+    ///The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub files: Option<Vec<String>>,
+    ///Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inject_immediately: Option<bool>,
+    ///Details specifying the target into which to inject the script.
+    pub target: InjectionTargetData,
+    ///The JavaScript "world" to run the script in. Defaults to ISOLATED.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world: Option<ExecutionWorld>,
+}
+#[cfg(feature = "serde")]
+impl From<&ScriptInjection> for ScriptInjectionData {
+    fn from(val: &ScriptInjection) -> Self {
+        Self {
+            args: val
+                .get_args()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            files: val
+                .get_files()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            inject_immediately: val.get_inject_immediately(),
+            target: (&val.get_target()).into(),
+            world: val.get_world(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CssInjection")]
@@ -243,6 +313,36 @@ impl Default for CssInjection {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CssInjection`.
+pub struct CssInjectionData {
+    ///A string containing the CSS to inject. Exactly one of files and css must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css: Option<String>,
+    ///The path of the CSS files to inject, relative to the extension's root directory. Exactly one of files and css must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub files: Option<Vec<String>>,
+    ///The style origin for the injection. Defaults to 'AUTHOR'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub origin: Option<StyleOrigin>,
+    ///Details specifying the target into which to insert the CSS.
+    pub target: InjectionTargetData,
+}
+#[cfg(feature = "serde")]
+impl From<&CssInjection> for CssInjectionData {
+    fn from(val: &CssInjection) -> Self {
+        Self {
+            css: val.get_css(),
+            files: val
+                .get_files()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            origin: val.get_origin(),
+            target: (&val.get_target()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "InjectionResult")]
@@ -294,6 +394,31 @@ impl InjectionResult {
 impl Default for InjectionResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InjectionResult`.
+pub struct InjectionResultData {
+    ///The document associated with the injection.
+    pub document_id: String,
+    ///The frame associated with the injection.
+    pub frame_id: i32,
+    ///The result of the script execution.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub result: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&InjectionResult> for InjectionResultData {
+    fn from(val: &InjectionResult) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            result: val
+                .get_result()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -429,6 +554,62 @@ impl Default for RegisteredContentScript {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RegisteredContentScript`.
+pub struct RegisteredContentScriptData {
+    ///If specified true, it will inject into all frames, even if the frame is not the top-most frame in the tab. Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements are not met. Defaults to false, meaning that only the top frame is matched.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///The list of CSS files to be injected into matching pages. These are injected in the order they appear in this array, before any DOM is constructed or displayed for the page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css: Option<Vec<String>>,
+    ///Excludes pages that this content script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_matches: Option<Vec<String>>,
+    ///The id of the content script, specified in the API call. Must not start with a '_' as it's reserved as a prefix for generated script IDs.
+    pub id: String,
+    ///The list of JavaScript files to be injected into matching pages. These are injected in the order they appear in this array.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub js: Option<Vec<String>>,
+    ///Indicates whether the script can be injected into frames where the URL contains an unsupported scheme; specifically: about:, data:, blob:, or filesystem:. In these cases, the URL's origin is checked to determine if the script should be injected. If the origin is `null` (as is the case for data: URLs) then the used origin is either the frame that created the current frame or the frame that initiated the navigation to this frame. Note that this may not be the parent frame.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_origin_as_fallback: Option<bool>,
+    ///Specifies which pages this content script will be injected into. See Match Patterns for more details on the syntax of these strings. Must be specified for $(ref:registerContentScripts).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub matches: Option<Vec<String>>,
+    ///Specifies if this content script will persist into future sessions. The default is true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persist_across_sessions: Option<bool>,
+    ///The JavaScript "world" to run the script in. Defaults to ISOLATED.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world: Option<ExecutionWorld>,
+}
+#[cfg(feature = "serde")]
+impl From<&RegisteredContentScript> for RegisteredContentScriptData {
+    fn from(val: &RegisteredContentScript) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            css: val
+                .get_css()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_matches: val
+                .get_exclude_matches()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            id: val.get_id(),
+            js: val
+                .get_js()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            match_origin_as_fallback: val.get_match_origin_as_fallback(),
+            matches: val
+                .get_matches()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            persist_across_sessions: val.get_persist_across_sessions(),
+            world: val.get_world(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ContentScriptFilter")]
@@ -458,6 +639,25 @@ impl ContentScriptFilter {
 impl Default for ContentScriptFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ContentScriptFilter`.
+pub struct ContentScriptFilterData {
+    ///If specified, $(ref:getRegisteredContentScripts) will only return scripts with an id specified in this list.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ids: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&ContentScriptFilter> for ContentScriptFilterData {
+    fn from(val: &ContentScriptFilter) -> Self {
+        Self {
+            ids: val
+                .get_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]

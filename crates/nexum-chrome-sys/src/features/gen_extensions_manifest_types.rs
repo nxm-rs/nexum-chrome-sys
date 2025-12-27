@@ -44,6 +44,26 @@ impl Default for ContentCapabilities {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ContentCapabilities`. The content_capabilities manifest entry allows an extension to grant certain additional capabilities to web contents whose locations match a given set of URL patterns.
+pub struct ContentCapabilitiesData {
+    ///The set of URL patterns to match against. If any of the given patterns match a URL, its contents will be granted the specified capabilities.
+    pub matches: Vec<String>,
+    ///The set of capabilities to grant matched contents. This is currently limited to clipboardRead, clipboardWrite, and unlimitedStorage.
+    pub permissions: Vec<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ContentCapabilities> for ContentCapabilitiesData {
+    fn from(val: &ContentCapabilities) -> Self {
+        Self {
+            matches: serde_wasm_bindgen::from_value(val.get_matches().into()).unwrap_or_default(),
+            permissions: serde_wasm_bindgen::from_value(val.get_permissions().into())
+                .unwrap_or_default(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ExternallyConnectable")]
@@ -95,6 +115,35 @@ impl ExternallyConnectable {
 impl Default for ExternallyConnectable {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ExternallyConnectable`.
+pub struct ExternallyConnectableData {
+    ///If true, messages sent via $(ref:runtime.connect) or $(ref:runtime.sendMessage) will set $(ref:runtime.MessageSender.tlsChannelId) if those methods request it to be. If false, $(ref:runtime.MessageSender.tlsChannelId) will never be set under any circumstance.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub accepts_tls_channel_id: Option<bool>,
+    ///The IDs of extensions or apps that are allowed to connect. If left empty or unspecified, no extensions or apps can connect.The wildcard "*" will allow all extensions and apps to connect.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ids: Option<Vec<String>>,
+    ///The URL patterns for web pages that are allowed to connect. This does not affect content scripts. If left empty or unspecified, no web pages can connect.Patterns cannot include wildcard domains nor subdomains of (effective) top level domains; *://google.com/* and http://*.chromium.org/* are valid, while &lt;all_urls&gt;, http://*/*, *://*.com/*, and even http://*.appspot.com/* are not.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub matches: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&ExternallyConnectable> for ExternallyConnectableData {
+    fn from(val: &ExternallyConnectable) -> Self {
+        Self {
+            accepts_tls_channel_id: val.get_accepts_tls_channel_id(),
+            ids: val
+                .get_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            matches: val
+                .get_matches()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -150,6 +199,30 @@ impl Default for OptionsUi {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OptionsUi`. The options_ui manifest property declares how the options page should be displayed.
+pub struct OptionsUiData {
+    ///If true, a Chrome user agent stylesheet will be applied to your options page. The default value is false. We do not recommend you enable it as it no longer results in a consistent UI with Chrome. This option will be removed in Manifest V3.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub chrome_style: Option<bool>,
+    ///If true, your extension's options page will be opened in a new tab rather than embedded in chrome://extensions. The default is false, and we recommend that you don't change it.This is only useful to delay the inevitable deprecation of the old options UI! It will be removed soon, so try not to use it. It will break.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub open_in_tab: Option<bool>,
+    ///The path to your options page, relative to your extension's root.
+    pub page: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OptionsUi> for OptionsUiData {
+    fn from(val: &OptionsUi) -> Self {
+        Self {
+            chrome_style: val.get_chrome_style(),
+            open_in_tab: val.get_open_in_tab(),
+            page: val.get_page(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Sockets")]
@@ -201,6 +274,37 @@ impl Sockets {
 impl Default for Sockets {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Sockets`. The sockets manifest property declares which sockets operations an app can issue.
+pub struct SocketsData {
+    ///The tcp manifest property declares which sockets.tcp operations an app can issue.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tcp: Option<serde_json::Value>,
+    ///The tcpServer manifest property declares which sockets.tcpServer operations an app can issue.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tcp_server: Option<serde_json::Value>,
+    ///The udp manifest property declares which sockets.udp operations an app can issue.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub udp: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&Sockets> for SocketsData {
+    fn from(val: &Sockets) -> Self {
+        Self {
+            tcp: val
+                .get_tcp()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            tcp_server: val
+                .get_tcp_server()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            udp: val
+                .get_udp()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -267,6 +371,37 @@ impl Default for Bluetooth {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Bluetooth`. The bluetooth manifest property give permission to an app to use the $(ref:bluetooth) API. A list of UUIDs can be optionally specified to enable communication with devices.
+pub struct BluetoothData {
+    ///If true, gives permission to an app to use the $(ref:bluetoothLowEnergy) API
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub low_energy: Option<bool>,
+    ///If true, gives permission to an app to use the advertisement functions in the $(ref:bluetoothLowEnergy) API
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub peripheral: Option<bool>,
+    ///If true, gives permission to an app to use the $(ref:bluetoothSocket) API
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub socket: Option<bool>,
+    ///The uuids manifest property declares the list of protocols, profiles and services that an app can communicate using.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuids: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&Bluetooth> for BluetoothData {
+    fn from(val: &Bluetooth) -> Self {
+        Self {
+            low_energy: val.get_low_energy(),
+            peripheral: val.get_peripheral(),
+            socket: val.get_socket(),
+            uuids: val
+                .get_uuids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UsbPrinters")]
@@ -296,6 +431,22 @@ impl UsbPrinters {
 impl Default for UsbPrinters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UsbPrinters`. The usb_printers manifest property lists the USB printers supported by an app implementing the $(ref:printerProvider) API.
+pub struct UsbPrintersData {
+    ///A list of $(ref:usb.DeviceFilter USB device filters) matching supported devices. A device only needs to match one of the provided filters. A vendorId is required and only one of productId or interfaceClass may be provided.
+    pub filters: Vec<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&UsbPrinters> for UsbPrintersData {
+    fn from(val: &UsbPrinters) -> Self {
+        Self {
+            filters: serde_wasm_bindgen::from_value(val.get_filters().into()).unwrap_or_default(),
+        }
     }
 }
 ///The kiosk_secondary_apps manifest property lists the secondary kiosk apps to be deployed by the primary kiosk app.

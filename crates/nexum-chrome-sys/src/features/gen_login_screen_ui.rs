@@ -44,6 +44,26 @@ impl Default for ShowOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ShowOptions`.
+pub struct ShowOptionsData {
+    ///Relative url of the contents to show.
+    pub url: String,
+    ///Whether the user can close the window, defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_can_close: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&ShowOptions> for ShowOptionsData {
+    fn from(val: &ShowOptions) -> Self {
+        Self {
+            url: val.get_url(),
+            user_can_close: val.get_user_can_close(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Opens a window, which is visible on top of the login and lock screen.

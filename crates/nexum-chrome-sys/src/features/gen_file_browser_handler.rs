@@ -47,6 +47,26 @@ impl Default for FileHandlerExecuteEventDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FileHandlerExecuteEventDetails`. Event details payload for fileBrowserHandler.onExecute event.
+pub struct FileHandlerExecuteEventDetailsData {
+    ///Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser).
+    pub entries: Vec<serde_json::Value>,
+    ///The ID of the tab that raised this event. Tab IDs are unique within a browser session.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&FileHandlerExecuteEventDetails> for FileHandlerExecuteEventDetailsData {
+    fn from(val: &FileHandlerExecuteEventDetails) -> Self {
+        Self {
+            entries: serde_wasm_bindgen::from_value(val.get_entries().into()).unwrap_or_default(),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Fired when file system action is executed from ChromeOS file browser.

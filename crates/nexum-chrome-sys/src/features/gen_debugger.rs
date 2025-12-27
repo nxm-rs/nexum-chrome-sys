@@ -55,6 +55,31 @@ impl Default for Debuggee {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Debuggee`. Debuggee identifier. Either tabId, extensionId or targetId must be specified
+pub struct DebuggeeData {
+    ///The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the --silent-debugger-extension-api command-line switch is used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extension_id: Option<String>,
+    ///The id of the tab which you intend to debug.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The opaque id of the debug target.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Debuggee> for DebuggeeData {
+    fn from(val: &Debuggee) -> Self {
+        Self {
+            extension_id: val.get_extension_id(),
+            tab_id: val.get_tab_id(),
+            target_id: val.get_target_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DebuggerSession")]
@@ -119,9 +144,39 @@ impl Default for DebuggerSession {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DebuggerSession`. Debugger session identifier. One of tabId, extensionId or targetId must be specified. Additionally, an optional sessionId can be provided. If sessionId is specified for arguments sent from $(ref:onEvent), it means the event is coming from a child protocol session within the root debuggee session. If sessionId is specified when passed to $(ref:sendCommand), it targets a child protocol session within the root debuggee session.
+pub struct DebuggerSessionData {
+    ///The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the --silent-debugger-extension-api command-line switch is used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extension_id: Option<String>,
+    ///The opaque id of the Chrome DevTools Protocol session. Identifies a child session within the root session identified by tabId, extensionId or targetId.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub session_id: Option<String>,
+    ///The id of the tab which you intend to debug.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The opaque id of the debug target.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&DebuggerSession> for DebuggerSessionData {
+    fn from(val: &DebuggerSession) -> Self {
+        Self {
+            extension_id: val.get_extension_id(),
+            session_id: val.get_session_id(),
+            tab_id: val.get_tab_id(),
+            target_id: val.get_target_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Target type.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TargetInfoType {
     Page = "page",
     BackgroundPage = "background_page",
@@ -131,6 +186,7 @@ pub enum TargetInfoType {
 #[wasm_bindgen]
 ///Connection termination reason.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DetachReason {
     TargetClosed = "target_closed",
     CanceledByUser = "canceled_by_user",
@@ -241,6 +297,46 @@ impl TargetInfo {
 impl Default for TargetInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TargetInfo`. Debug target information
+pub struct TargetInfoData {
+    ///True if debugger is already attached.
+    pub attached: bool,
+    ///The extension id, defined if type = 'background_page'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extension_id: Option<String>,
+    ///Target favicon URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub favicon_url: Option<String>,
+    ///Target id.
+    pub id: String,
+    ///The tab id, defined if type == 'page'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///Target page title.
+    pub title: String,
+    ///Target type.
+    pub r#type: TargetInfoType,
+    ///Target URL.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&TargetInfo> for TargetInfoData {
+    fn from(val: &TargetInfo) -> Self {
+        Self {
+            attached: val.get_attached(),
+            extension_id: val.get_extension_id(),
+            favicon_url: val.get_favicon_url(),
+            id: val.get_id(),
+            tab_id: val.get_tab_id(),
+            title: val.get_title(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]

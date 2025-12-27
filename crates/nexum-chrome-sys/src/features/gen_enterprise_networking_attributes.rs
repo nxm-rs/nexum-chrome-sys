@@ -55,6 +55,30 @@ impl Default for NetworkDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NetworkDetails`.
+pub struct NetworkDetailsData {
+    ///The device's local IPv4 address (undefined if not configured).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ipv4: Option<String>,
+    ///The device's local IPv6 address (undefined if not configured).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ipv6: Option<String>,
+    ///The device's MAC address.
+    pub mac_address: String,
+}
+#[cfg(feature = "serde")]
+impl From<&NetworkDetails> for NetworkDetailsData {
+    fn from(val: &NetworkDetails) -> Self {
+        Self {
+            ipv4: val.get_ipv4(),
+            ipv6: val.get_ipv6(),
+            mac_address: val.get_mac_address(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Retrieves the network details of the device's default network. If the user is not affiliated or the device is not connected to a network, $(ref:runtime.lastError) will be set with a failure reason.

@@ -44,9 +44,29 @@ impl Default for IconInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IconInfo`. Information about an icon belonging to an extension, app, or theme.
+pub struct IconInfoData {
+    ///A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16.
+    pub size: i32,
+    ///The URL for this icon image. To display a grayscale version of the icon (to indicate that an extension is disabled, for example), append ?grayscale=true to the URL.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&IconInfo> for IconInfoData {
+    fn from(val: &IconInfo) -> Self {
+        Self {
+            size: val.get_size(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///These are all possible app launch types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum LaunchType {
     OpenAsRegularTab = "OPEN_AS_REGULAR_TAB",
     OpenAsPinnedTab = "OPEN_AS_PINNED_TAB",
@@ -56,6 +76,7 @@ pub enum LaunchType {
 #[wasm_bindgen]
 ///A reason the item is disabled.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExtensionDisabledReason {
     Unknown = "unknown",
     PermissionsIncrease = "permissions_increase",
@@ -63,6 +84,7 @@ pub enum ExtensionDisabledReason {
 #[wasm_bindgen]
 ///The type of this extension, app, or theme.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExtensionType {
     Extension = "extension",
     HostedApp = "hosted_app",
@@ -74,6 +96,7 @@ pub enum ExtensionType {
 #[wasm_bindgen]
 ///How the extension was installed. One ofadmin: The extension was installed because of an administrative policy,development: The extension was loaded unpacked in developer mode,normal: The extension was installed normally via a .crx file,sideload: The extension was installed by other software on the machine,other: The extension was installed by other means.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExtensionInstallType {
     Admin = "admin",
     Development = "development",
@@ -354,6 +377,103 @@ impl Default for ExtensionInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ExtensionInfo`. Information about an installed extension, app, or theme.
+pub struct ExtensionInfoData {
+    ///The launch url (only present for apps).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub app_launch_url: Option<String>,
+    ///The currently available launch types (only present for apps).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub available_launch_types: Option<Vec<LaunchType>>,
+    ///The description of this extension, app, or theme.
+    pub description: String,
+    ///A reason the item is disabled.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub disabled_reason: Option<ExtensionDisabledReason>,
+    ///Whether it is currently enabled or disabled.
+    pub enabled: bool,
+    ///The URL of the homepage of this extension, app, or theme.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub homepage_url: Option<String>,
+    ///Returns a list of host based permissions.
+    pub host_permissions: Vec<String>,
+    ///A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the manifest documentation on icons for more details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icons: Option<Vec<IconInfoData>>,
+    ///The extension's unique identifier.
+    pub id: String,
+    ///How the extension was installed.
+    pub install_type: ExtensionInstallType,
+    ///True if this is an app.
+    pub is_app: bool,
+    ///The app launch type (only present for apps).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub launch_type: Option<LaunchType>,
+    ///Whether this extension can be disabled or uninstalled by the user.
+    pub may_disable: bool,
+    ///Whether this extension can be enabled by the user. This is only returned for extensions which are not enabled.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub may_enable: Option<bool>,
+    ///The name of this extension, app, or theme.
+    pub name: String,
+    ///Whether the extension, app, or theme declares that it supports offline.
+    pub offline_enabled: bool,
+    ///The url for the item's options page, if it has one.
+    pub options_url: String,
+    ///Returns a list of API based permissions.
+    pub permissions: Vec<String>,
+    ///A short version of the name of this extension, app, or theme.
+    pub short_name: String,
+    ///The type of this extension, app, or theme.
+    pub r#type: ExtensionType,
+    ///The update URL of this extension, app, or theme.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub update_url: Option<String>,
+    ///The version of this extension, app, or theme.
+    pub version: String,
+    ///The version name of this extension, app, or theme if the manifest specified one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub version_name: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ExtensionInfo> for ExtensionInfoData {
+    fn from(val: &ExtensionInfo) -> Self {
+        Self {
+            app_launch_url: val.get_app_launch_url(),
+            available_launch_types: val
+                .get_available_launch_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            description: val.get_description(),
+            disabled_reason: val.get_disabled_reason(),
+            enabled: val.get_enabled(),
+            homepage_url: val.get_homepage_url(),
+            host_permissions: serde_wasm_bindgen::from_value(val.get_host_permissions().into())
+                .unwrap_or_default(),
+            icons: val
+                .get_icons()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            id: val.get_id(),
+            install_type: val.get_install_type(),
+            is_app: val.get_is_app(),
+            launch_type: val.get_launch_type(),
+            may_disable: val.get_may_disable(),
+            may_enable: val.get_may_enable(),
+            name: val.get_name(),
+            offline_enabled: val.get_offline_enabled(),
+            options_url: val.get_options_url(),
+            permissions: serde_wasm_bindgen::from_value(val.get_permissions().into())
+                .unwrap_or_default(),
+            short_name: val.get_short_name(),
+            r#type: val.get_type(),
+            update_url: val.get_update_url(),
+            version: val.get_version(),
+            version_name: val.get_version_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UninstallOptions")]
@@ -383,6 +503,23 @@ impl UninstallOptions {
 impl Default for UninstallOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UninstallOptions`. Options for how to handle the extension's uninstallation.
+pub struct UninstallOptionsData {
+    ///Whether or not a confirm-uninstall dialog should prompt the user. Defaults to false for self uninstalls. If an extension uninstalls another extension, this parameter is ignored and the dialog is always shown.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub show_confirm_dialog: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&UninstallOptions> for UninstallOptionsData {
+    fn from(val: &UninstallOptions) -> Self {
+        Self {
+            show_confirm_dialog: val.get_show_confirm_dialog(),
+        }
     }
 }
 #[wasm_bindgen]

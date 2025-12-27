@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The transition type for this visit from its referrer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TransitionType {
     ///The user arrived at this page by clicking a link on another page.
     Link = "link",
@@ -115,6 +116,42 @@ impl Default for HistoryItem {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HistoryItem`. An object encapsulating one result of a history query.
+pub struct HistoryItemData {
+    ///The unique identifier for the item.
+    pub id: String,
+    ///When this page was last loaded, represented in milliseconds since the epoch.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_visit_time: Option<f64>,
+    ///The title of the page when it was last loaded.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The number of times the user has navigated to this page by typing in the address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub typed_count: Option<i32>,
+    ///The URL navigated to by a user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    ///The number of times the user has navigated to this page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visit_count: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&HistoryItem> for HistoryItemData {
+    fn from(val: &HistoryItem) -> Self {
+        Self {
+            id: val.get_id(),
+            last_visit_time: val.get_last_visit_time(),
+            title: val.get_title(),
+            typed_count: val.get_typed_count(),
+            url: val.get_url(),
+            visit_count: val.get_visit_count(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "VisitItem")]
@@ -201,6 +238,38 @@ impl Default for VisitItem {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `VisitItem`. An object encapsulating one visit to a URL.
+pub struct VisitItemData {
+    ///The unique identifier for the corresponding $(ref:history.HistoryItem).
+    pub id: String,
+    ///True if the visit originated on this device. False if it was synced from a different device.
+    pub is_local: bool,
+    ///The visit ID of the referrer.
+    pub referring_visit_id: String,
+    ///The transition type for this visit from its referrer.
+    pub transition: TransitionType,
+    ///The unique identifier for this visit.
+    pub visit_id: String,
+    ///When this visit occurred, represented in milliseconds since the epoch.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visit_time: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&VisitItem> for VisitItemData {
+    fn from(val: &VisitItem) -> Self {
+        Self {
+            id: val.get_id(),
+            is_local: val.get_is_local(),
+            referring_visit_id: val.get_referring_visit_id(),
+            transition: val.get_transition(),
+            visit_id: val.get_visit_id(),
+            visit_time: val.get_visit_time(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UrlDetails")]
@@ -230,6 +299,20 @@ impl UrlDetails {
 impl Default for UrlDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UrlDetails`.
+pub struct UrlDetailsData {
+    ///The URL for the operation. It must be in the format as returned from a call to history.search().
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&UrlDetails> for UrlDetailsData {
+    fn from(val: &UrlDetails) -> Self {
+        Self { url: val.get_url() }
     }
 }
 #[wasm_bindgen]

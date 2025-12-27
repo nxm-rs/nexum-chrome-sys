@@ -55,6 +55,30 @@ impl Default for Icon {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Icon`.
+pub struct IconData {
+    ///Multiple space-separated size values to also accommodate image formats that can act as containers for multiple images of varying dimensions: e.g. "16x16", "16x16 32x32".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub sizes: Option<String>,
+    ///URL from which a user agent can fetch image data.
+    pub src: String,
+    ///MIME type is purely advisory with no default value.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Icon> for IconData {
+    fn from(val: &Icon) -> Self {
+        Self {
+            sizes: val.get_sizes(),
+            src: val.get_src(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "FileHandler")]
@@ -128,5 +152,37 @@ impl FileHandler {
 impl Default for FileHandler {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FileHandler`.
+pub struct FileHandlerData {
+    ///A mapping of one or more MIME types to one or more file extensions. e.g. "accept": {"text/csv": ".csv"} or {"text/csv": [".csv", ".txt"]}.
+    pub accept: serde_json::Value,
+    ///Specifies the url after the origin that is the navigation destination for file handling launches.
+    pub action: String,
+    ///Array of ImageResources. Only icons declared at the manifest level are currently supported. The icon for the extension will appear in the "Open" menu.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icons: Option<Vec<IconData>>,
+    ///Whether multiple files should be opened in a single client or multiple. Defaults to `single-client`, which makes all files available in only one tab. `multiple-client` opens a new tab for each file.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub launch_type: Option<String>,
+    ///Description of the file type.
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&FileHandler> for FileHandlerData {
+    fn from(val: &FileHandler) -> Self {
+        Self {
+            accept: serde_wasm_bindgen::from_value(val.get_accept().into()).unwrap_or_default(),
+            action: val.get_action(),
+            icons: val
+                .get_icons()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            launch_type: val.get_launch_type(),
+            name: val.get_name(),
+        }
     }
 }

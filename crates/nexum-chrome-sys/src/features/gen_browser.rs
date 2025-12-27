@@ -33,6 +33,20 @@ impl Default for OpenTabOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OpenTabOptions`.
+pub struct OpenTabOptionsData {
+    ///The URL to navigate to when the new tab is initially opened.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OpenTabOptions> for OpenTabOptionsData {
+    fn from(val: &OpenTabOptions) -> Self {
+        Self { url: val.get_url() }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Opens a new tab in a browser window associated with the current application and Chrome profile. If no browser window for the Chrome profile is opened, a new one is opened prior to creating the new tab.

@@ -66,6 +66,34 @@ impl Default for SendPacketOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendPacketOptions`.
+pub struct SendPacketOptionsData {
+    ///Target IP address.
+    pub ip: String,
+    ///Size of the payload. If omitted, the system default value will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub size: Option<i32>,
+    ///Packet timeout in seconds. If omitted, the system default value will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub timeout: Option<i32>,
+    ///Packet time to live value. If omitted, the system default value will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ttl: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SendPacketOptions> for SendPacketOptionsData {
+    fn from(val: &SendPacketOptions) -> Self {
+        Self {
+            ip: val.get_ip(),
+            size: val.get_size(),
+            timeout: val.get_timeout(),
+            ttl: val.get_ttl(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendPacketResult")]
@@ -106,6 +134,25 @@ impl SendPacketResult {
 impl Default for SendPacketResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendPacketResult`.
+pub struct SendPacketResultData {
+    ///The IP of the host which we receives the ICMP reply from. The IP may differs from our target IP if the packet's ttl is used up.
+    pub ip: String,
+    ///Latency in millisenconds.
+    pub latency: f64,
+}
+#[cfg(feature = "serde")]
+impl From<&SendPacketResult> for SendPacketResultData {
+    fn from(val: &SendPacketResult) -> Self {
+        Self {
+            ip: val.get_ip(),
+            latency: val.get_latency(),
+        }
     }
 }
 #[wasm_bindgen]

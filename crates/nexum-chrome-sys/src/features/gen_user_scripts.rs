@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The JavaScript world for a user script to execute within.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExecutionWorld {
     ///Specifies the execution environment of the DOM, which is the execution environment shared with the host page's JavaScript.
     Main = "MAIN",
@@ -51,6 +52,27 @@ impl ScriptSource {
 impl Default for ScriptSource {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ScriptSource`.
+pub struct ScriptSourceData {
+    ///A string containing the JavaScript code to inject. Exactly one of file or code must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
+    ///The path of the JavaScript file to inject relative to the extension's root directory. Exactly one of file or code must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ScriptSource> for ScriptSourceData {
+    fn from(val: &ScriptSource) -> Self {
+        Self {
+            code: val.get_code(),
+            file: val.get_file(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -186,6 +208,64 @@ impl Default for RegisteredUserScript {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RegisteredUserScript`.
+pub struct RegisteredUserScriptData {
+    ///If true, it will inject into all frames, even if the frame is not the top-most frame in the tab. Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements are not met. Defaults to false, meaning that only the top frame is matched.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///Specifies wildcard patterns for pages this user script will NOT be injected into.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_globs: Option<Vec<String>>,
+    ///Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_matches: Option<Vec<String>>,
+    ///The ID of the user script specified in the API call. This property must not start with a '_' as it's reserved as a prefix for generated script IDs.
+    pub id: String,
+    ///Specifies wildcard patterns for pages this user script will be injected into.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub include_globs: Option<Vec<String>>,
+    ///The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for ${ref:register}, and when specified it must be a non-empty array.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub js: Option<Vec<ScriptSourceData>>,
+    ///Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for ${ref:register}.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub matches: Option<Vec<String>>,
+    ///The JavaScript execution environment to run the script in. The default is `USER_SCRIPT`.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world: Option<ExecutionWorld>,
+    ///Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&RegisteredUserScript> for RegisteredUserScriptData {
+    fn from(val: &RegisteredUserScript) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            exclude_globs: val
+                .get_exclude_globs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_matches: val
+                .get_exclude_matches()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            id: val.get_id(),
+            include_globs: val
+                .get_include_globs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            js: val
+                .get_js()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            matches: val
+                .get_matches()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            world: val.get_world(),
+            world_id: val.get_world_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UserScriptFilter")]
@@ -215,6 +295,25 @@ impl UserScriptFilter {
 impl Default for UserScriptFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UserScriptFilter`.
+pub struct UserScriptFilterData {
+    ///$(ref:getScripts) only returns scripts with the IDs specified in this list.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ids: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&UserScriptFilter> for UserScriptFilterData {
+    fn from(val: &UserScriptFilter) -> Self {
+        Self {
+            ids: val
+                .get_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -281,6 +380,38 @@ impl Default for InjectionTarget {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InjectionTarget`.
+pub struct InjectionTargetData {
+    ///Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if frameIds is specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///The IDs of specific documentIds to inject into. This must not be set if frameIds is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_ids: Option<Vec<String>>,
+    ///The IDs of specific frames to inject into.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_ids: Option<Vec<i32>>,
+    ///The ID of the tab into which to inject.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&InjectionTarget> for InjectionTargetData {
+    fn from(val: &InjectionTarget) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            document_ids: val
+                .get_document_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            frame_ids: val
+                .get_frame_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "InjectionResult")]
@@ -343,6 +474,35 @@ impl InjectionResult {
 impl Default for InjectionResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InjectionResult`.
+pub struct InjectionResultData {
+    ///The document associated with the injection.
+    pub document_id: String,
+    ///The error, if any. error and result are mutually exclusive.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    ///The frame associated with the injection.
+    pub frame_id: i32,
+    ///The result of the script execution.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub result: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&InjectionResult> for InjectionResultData {
+    fn from(val: &InjectionResult) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            error: val.get_error(),
+            frame_id: val.get_frame_id(),
+            result: val
+                .get_result()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -420,6 +580,37 @@ impl Default for UserScriptInjection {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UserScriptInjection`.
+pub struct UserScriptInjectionData {
+    ///Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inject_immediately: Option<bool>,
+    ///The list of ScriptSource objects defining sources of scripts to be injected into the target.
+    pub js: Vec<ScriptSourceData>,
+    ///Details specifying the target into which to inject the script.
+    pub target: InjectionTargetData,
+    ///The JavaScript "world" to run the script in. The default is USER_SCRIPT.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world: Option<ExecutionWorld>,
+    ///Specifies the user script world ID to execute in. If omitted, the script will execute in the default user script world. Only valid if `world` is omitted or is `USER_SCRIPT`. Values with leading underscores (`_`) are reserved.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UserScriptInjection> for UserScriptInjectionData {
+    fn from(val: &UserScriptInjection) -> Self {
+        Self {
+            inject_immediately: val.get_inject_immediately(),
+            js: serde_wasm_bindgen::from_value(val.get_js().into()).unwrap_or_default(),
+            target: (&val.get_target()).into(),
+            world: val.get_world(),
+            world_id: val.get_world_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "WorldProperties")]
@@ -471,6 +662,31 @@ impl WorldProperties {
 impl Default for WorldProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `WorldProperties`.
+pub struct WorldPropertiesData {
+    ///Specifies the world csp. The default is the `ISOLATED` world csp.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub csp: Option<String>,
+    ///Specifies whether messaging APIs are exposed. The default is false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub messaging: Option<bool>,
+    ///Specifies the ID of the specific user script world to update. If not provided, updates the properties of the default user script world. Values with leading underscores (`_`) are reserved.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub world_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&WorldProperties> for WorldPropertiesData {
+    fn from(val: &WorldProperties) -> Self {
+        Self {
+            csp: val.get_csp(),
+            messaging: val.get_messaging(),
+            world_id: val.get_world_id(),
+        }
     }
 }
 #[wasm_bindgen]

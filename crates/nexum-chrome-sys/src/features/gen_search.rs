@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Disposition {
     ///Specifies that the search results display in the calling tab or the tab from the active browser.
     CurrentTab = "CURRENT_TAB",
@@ -64,6 +65,30 @@ impl QueryInfo {
 impl Default for QueryInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `QueryInfo`.
+pub struct QueryInfoData {
+    ///Location where search results should be displayed. CURRENT_TAB is the default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub disposition: Option<Disposition>,
+    ///Location where search results should be displayed. tabId cannot be used with disposition.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///String to query with the default search provider.
+    pub text: String,
+}
+#[cfg(feature = "serde")]
+impl From<&QueryInfo> for QueryInfoData {
+    fn from(val: &QueryInfo) -> Self {
+        Self {
+            disposition: val.get_disposition(),
+            tab_id: val.get_tab_id(),
+            text: val.get_text(),
+        }
     }
 }
 #[wasm_bindgen]
