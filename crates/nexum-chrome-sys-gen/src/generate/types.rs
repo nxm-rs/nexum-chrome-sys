@@ -30,33 +30,64 @@ pub struct GenContext {
 }
 
 impl GenContext {
-    pub fn new(ns_name: &str, ns_spec: &crate::schema::NamespaceSpec) -> Self {
+    pub fn new(
+        ns_name: &str,
+        ns_spec: &crate::schema::NamespaceSpec,
+        inline_types: &[TypeSpec],
+    ) -> Self {
         let mut enum_types = std::collections::HashSet::new();
         let mut serde_companion_types = std::collections::HashSet::new();
 
+        // Collect all type IDs for conflict detection
+        let all_type_ids: std::collections::HashSet<String> = ns_spec
+            .types
+            .iter()
+            .flatten()
+            .chain(inline_types.iter())
+            .filter_map(|t| t.id.clone())
+            .map(|id| id.to_upper_camel_case())
+            .collect();
+
+        // Helper to check if a type should get a serde companion
+        let should_add_serde_companion = |t: &TypeSpec| -> Option<String> {
+            let id = t.id.as_ref()?;
+            if !t.should_generate_serde_companion() {
+                return None;
+            }
+            // Check if the Data suffix would conflict with an existing type
+            let data_name = format!("{}Data", id.to_upper_camel_case());
+            if all_type_ids.contains(&data_name) {
+                return None;
+            }
+            Some(id.clone())
+        };
+
+        // Process types from ns_spec
         if let Some(types) = &ns_spec.types {
             for t in types {
                 if let Some(id) = &t.id {
                     if t.enum_.is_some() {
                         enum_types.insert(id.clone());
                     }
-                    // Track which types will get serde companions
-                    if t.should_generate_serde_companion() {
-                        // Check if the Data suffix would conflict with an existing type
-                        let data_name = format!("{}Data", id.to_upper_camel_case());
-                        let conflicts = types.iter().any(|other| {
-                            other
-                                .id
-                                .as_ref()
-                                .is_some_and(|other_id| other_id.to_upper_camel_case() == data_name)
-                        });
-                        if !conflicts {
-                            serde_companion_types.insert(id.clone());
-                        }
+                    if let Some(serde_id) = should_add_serde_companion(t) {
+                        serde_companion_types.insert(serde_id);
                     }
                 }
             }
         }
+
+        // Process inline types
+        for t in inline_types {
+            if let Some(id) = &t.id {
+                if t.enum_.is_some() {
+                    enum_types.insert(id.clone());
+                }
+                if let Some(serde_id) = should_add_serde_companion(t) {
+                    serde_companion_types.insert(serde_id);
+                }
+            }
+        }
+
         Self {
             ns_name: ns_name.to_string(),
             enum_types,
