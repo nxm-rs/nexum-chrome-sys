@@ -504,6 +504,655 @@ impl Default for MenuParameters {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "OnSurroundingTextChangedSurroundingInfo"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///The surrounding information.
+    pub type OnSurroundingTextChangedSurroundingInfo;
+    ///Get the `anchor` field of this object.
+    #[wasm_bindgen(method, getter = "anchor")]
+    pub fn get_anchor(this: &OnSurroundingTextChangedSurroundingInfo) -> i32;
+    ///Change the `anchor` field of this object.
+    #[wasm_bindgen(method, setter = "anchor")]
+    pub fn set_anchor(this: &OnSurroundingTextChangedSurroundingInfo, val: i32);
+    ///Get the `focus` field of this object.
+    #[wasm_bindgen(method, getter = "focus")]
+    pub fn get_focus(this: &OnSurroundingTextChangedSurroundingInfo) -> i32;
+    ///Change the `focus` field of this object.
+    #[wasm_bindgen(method, setter = "focus")]
+    pub fn set_focus(this: &OnSurroundingTextChangedSurroundingInfo, val: i32);
+    ///Get the `offset` field of this object.
+    #[wasm_bindgen(method, getter = "offset")]
+    pub fn get_offset(this: &OnSurroundingTextChangedSurroundingInfo) -> i32;
+    ///Change the `offset` field of this object.
+    #[wasm_bindgen(method, setter = "offset")]
+    pub fn set_offset(this: &OnSurroundingTextChangedSurroundingInfo, val: i32);
+    ///Get the `text` field of this object.
+    #[wasm_bindgen(method, getter = "text")]
+    pub fn get_text(this: &OnSurroundingTextChangedSurroundingInfo) -> String;
+    ///Change the `text` field of this object.
+    #[wasm_bindgen(method, setter = "text")]
+    pub fn set_text(this: &OnSurroundingTextChangedSurroundingInfo, val: String);
+}
+impl OnSurroundingTextChangedSurroundingInfo {
+    ///Construct a new `OnSurroundingTextChangedSurroundingInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_anchor()` instead."]
+    pub fn anchor(&mut self, val: i32) -> &mut Self {
+        self.set_anchor(val);
+        self
+    }
+    #[deprecated = "Use `set_focus()` instead."]
+    pub fn focus(&mut self, val: i32) -> &mut Self {
+        self.set_focus(val);
+        self
+    }
+    #[deprecated = "Use `set_offset()` instead."]
+    pub fn offset(&mut self, val: i32) -> &mut Self {
+        self.set_offset(val);
+        self
+    }
+    #[deprecated = "Use `set_text()` instead."]
+    pub fn text(&mut self, val: String) -> &mut Self {
+        self.set_text(val);
+        self
+    }
+}
+impl Default for OnSurroundingTextChangedSurroundingInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "OnAssistiveWindowButtonClickedDetails"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnAssistiveWindowButtonClickedDetails;
+    ///Get the `buttonID` field of this object.
+    #[wasm_bindgen(method, getter = "buttonID")]
+    pub fn get_button_id(this: &OnAssistiveWindowButtonClickedDetails) -> AssistiveWindowButton;
+    ///Change the `buttonID` field of this object.
+    #[wasm_bindgen(method, setter = "buttonID")]
+    pub fn set_button_id(this: &OnAssistiveWindowButtonClickedDetails, val: AssistiveWindowButton);
+    ///Get the `windowType` field of this object.
+    #[wasm_bindgen(method, getter = "windowType")]
+    pub fn get_window_type(this: &OnAssistiveWindowButtonClickedDetails) -> AssistiveWindowType;
+    ///Change the `windowType` field of this object.
+    #[wasm_bindgen(method, setter = "windowType")]
+    pub fn set_window_type(this: &OnAssistiveWindowButtonClickedDetails, val: AssistiveWindowType);
+}
+impl OnAssistiveWindowButtonClickedDetails {
+    ///Construct a new `OnAssistiveWindowButtonClickedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_button_id()` instead."]
+    pub fn button_id(&mut self, val: AssistiveWindowButton) -> &mut Self {
+        self.set_button_id(val);
+        self
+    }
+    #[deprecated = "Use `set_window_type()` instead."]
+    pub fn window_type(&mut self, val: AssistiveWindowType) -> &mut Self {
+        self.set_window_type(val);
+        self
+    }
+}
+impl Default for OnAssistiveWindowButtonClickedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetCompositionParameters")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetCompositionParameters;
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &SetCompositionParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &SetCompositionParameters, val: i32);
+    ///Get the `cursor` field of this object.
+    #[wasm_bindgen(method, getter = "cursor")]
+    pub fn get_cursor(this: &SetCompositionParameters) -> i32;
+    ///Change the `cursor` field of this object.
+    #[wasm_bindgen(method, setter = "cursor")]
+    pub fn set_cursor(this: &SetCompositionParameters, val: i32);
+    ///Get the `segments` field of this object.
+    #[wasm_bindgen(method, getter = "segments")]
+    pub fn get_segments(this: &SetCompositionParameters) -> Option<Array>;
+    ///Change the `segments` field of this object.
+    #[wasm_bindgen(method, setter = "segments")]
+    pub fn set_segments(this: &SetCompositionParameters, val: &Array);
+    ///Get the `selectionEnd` field of this object.
+    #[wasm_bindgen(method, getter = "selectionEnd")]
+    pub fn get_selection_end(this: &SetCompositionParameters) -> Option<i32>;
+    ///Change the `selectionEnd` field of this object.
+    #[wasm_bindgen(method, setter = "selectionEnd")]
+    pub fn set_selection_end(this: &SetCompositionParameters, val: i32);
+    ///Get the `selectionStart` field of this object.
+    #[wasm_bindgen(method, getter = "selectionStart")]
+    pub fn get_selection_start(this: &SetCompositionParameters) -> Option<i32>;
+    ///Change the `selectionStart` field of this object.
+    #[wasm_bindgen(method, setter = "selectionStart")]
+    pub fn set_selection_start(this: &SetCompositionParameters, val: i32);
+    ///Get the `text` field of this object.
+    #[wasm_bindgen(method, getter = "text")]
+    pub fn get_text(this: &SetCompositionParameters) -> String;
+    ///Change the `text` field of this object.
+    #[wasm_bindgen(method, setter = "text")]
+    pub fn set_text(this: &SetCompositionParameters, val: String);
+}
+impl SetCompositionParameters {
+    ///Construct a new `SetCompositionParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_cursor()` instead."]
+    pub fn cursor(&mut self, val: i32) -> &mut Self {
+        self.set_cursor(val);
+        self
+    }
+    #[deprecated = "Use `set_segments()` instead."]
+    pub fn segments(&mut self, val: &Array) -> &mut Self {
+        self.set_segments(val);
+        self
+    }
+    #[deprecated = "Use `set_selection_end()` instead."]
+    pub fn selection_end(&mut self, val: i32) -> &mut Self {
+        self.set_selection_end(val);
+        self
+    }
+    #[deprecated = "Use `set_selection_start()` instead."]
+    pub fn selection_start(&mut self, val: i32) -> &mut Self {
+        self.set_selection_start(val);
+        self
+    }
+    #[deprecated = "Use `set_text()` instead."]
+    pub fn text(&mut self, val: String) -> &mut Self {
+        self.set_text(val);
+        self
+    }
+}
+impl Default for SetCompositionParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ClearCompositionParameters")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type ClearCompositionParameters;
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &ClearCompositionParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &ClearCompositionParameters, val: i32);
+}
+impl ClearCompositionParameters {
+    ///Construct a new `ClearCompositionParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+}
+impl Default for ClearCompositionParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CommitTextParameters")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type CommitTextParameters;
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &CommitTextParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &CommitTextParameters, val: i32);
+    ///Get the `text` field of this object.
+    #[wasm_bindgen(method, getter = "text")]
+    pub fn get_text(this: &CommitTextParameters) -> String;
+    ///Change the `text` field of this object.
+    #[wasm_bindgen(method, setter = "text")]
+    pub fn set_text(this: &CommitTextParameters, val: String);
+}
+impl CommitTextParameters {
+    ///Construct a new `CommitTextParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_text()` instead."]
+    pub fn text(&mut self, val: String) -> &mut Self {
+        self.set_text(val);
+        self
+    }
+}
+impl Default for CommitTextParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendKeyEventsParameters")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SendKeyEventsParameters;
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &SendKeyEventsParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &SendKeyEventsParameters, val: i32);
+    ///Get the `keyData` field of this object.
+    #[wasm_bindgen(method, getter = "keyData")]
+    pub fn get_key_data(this: &SendKeyEventsParameters) -> Array;
+    ///Change the `keyData` field of this object.
+    #[wasm_bindgen(method, setter = "keyData")]
+    pub fn set_key_data(this: &SendKeyEventsParameters, val: &Array);
+}
+impl SendKeyEventsParameters {
+    ///Construct a new `SendKeyEventsParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_key_data()` instead."]
+    pub fn key_data(&mut self, val: &Array) -> &mut Self {
+        self.set_key_data(val);
+        self
+    }
+}
+impl Default for SendKeyEventsParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "SetCandidateWindowPropertiesParameters"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetCandidateWindowPropertiesParameters;
+    ///Get the `engineID` field of this object.
+    #[wasm_bindgen(method, getter = "engineID")]
+    pub fn get_engine_id(this: &SetCandidateWindowPropertiesParameters) -> String;
+    ///Change the `engineID` field of this object.
+    #[wasm_bindgen(method, setter = "engineID")]
+    pub fn set_engine_id(this: &SetCandidateWindowPropertiesParameters, val: String);
+    ///Get the `properties` field of this object.
+    #[wasm_bindgen(method, getter = "properties")]
+    pub fn get_properties(this: &SetCandidateWindowPropertiesParameters) -> Object;
+    ///Change the `properties` field of this object.
+    #[wasm_bindgen(method, setter = "properties")]
+    pub fn set_properties(this: &SetCandidateWindowPropertiesParameters, val: &Object);
+}
+impl SetCandidateWindowPropertiesParameters {
+    ///Construct a new `SetCandidateWindowPropertiesParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_engine_id()` instead."]
+    pub fn engine_id(&mut self, val: String) -> &mut Self {
+        self.set_engine_id(val);
+        self
+    }
+    #[deprecated = "Use `set_properties()` instead."]
+    pub fn properties(&mut self, val: &Object) -> &mut Self {
+        self.set_properties(val);
+        self
+    }
+}
+impl Default for SetCandidateWindowPropertiesParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetCandidatesParameters")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetCandidatesParameters;
+    ///Get the `candidates` field of this object.
+    #[wasm_bindgen(method, getter = "candidates")]
+    pub fn get_candidates(this: &SetCandidatesParameters) -> Array;
+    ///Change the `candidates` field of this object.
+    #[wasm_bindgen(method, setter = "candidates")]
+    pub fn set_candidates(this: &SetCandidatesParameters, val: &Array);
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &SetCandidatesParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &SetCandidatesParameters, val: i32);
+}
+impl SetCandidatesParameters {
+    ///Construct a new `SetCandidatesParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_candidates()` instead."]
+    pub fn candidates(&mut self, val: &Array) -> &mut Self {
+        self.set_candidates(val);
+        self
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+}
+impl Default for SetCandidatesParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetCursorPositionParameters")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetCursorPositionParameters;
+    ///Get the `candidateID` field of this object.
+    #[wasm_bindgen(method, getter = "candidateID")]
+    pub fn get_candidate_id(this: &SetCursorPositionParameters) -> i32;
+    ///Change the `candidateID` field of this object.
+    #[wasm_bindgen(method, setter = "candidateID")]
+    pub fn set_candidate_id(this: &SetCursorPositionParameters, val: i32);
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &SetCursorPositionParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &SetCursorPositionParameters, val: i32);
+}
+impl SetCursorPositionParameters {
+    ///Construct a new `SetCursorPositionParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_candidate_id()` instead."]
+    pub fn candidate_id(&mut self, val: i32) -> &mut Self {
+        self.set_candidate_id(val);
+        self
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+}
+impl Default for SetCursorPositionParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "SetAssistiveWindowPropertiesParameters"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetAssistiveWindowPropertiesParameters;
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &SetAssistiveWindowPropertiesParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &SetAssistiveWindowPropertiesParameters, val: i32);
+    ///Get the `properties` field of this object.
+    #[wasm_bindgen(method, getter = "properties")]
+    pub fn get_properties(
+        this: &SetAssistiveWindowPropertiesParameters,
+    ) -> AssistiveWindowProperties;
+    ///Change the `properties` field of this object.
+    #[wasm_bindgen(method, setter = "properties")]
+    pub fn set_properties(
+        this: &SetAssistiveWindowPropertiesParameters,
+        val: &AssistiveWindowProperties,
+    );
+}
+impl SetAssistiveWindowPropertiesParameters {
+    ///Construct a new `SetAssistiveWindowPropertiesParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_properties()` instead."]
+    pub fn properties(&mut self, val: &AssistiveWindowProperties) -> &mut Self {
+        self.set_properties(val);
+        self
+    }
+}
+impl Default for SetAssistiveWindowPropertiesParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "SetAssistiveWindowButtonHighlightedParameters"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetAssistiveWindowButtonHighlightedParameters;
+    ///Get the `announceString` field of this object.
+    #[wasm_bindgen(method, getter = "announceString")]
+    pub fn get_announce_string(
+        this: &SetAssistiveWindowButtonHighlightedParameters,
+    ) -> Option<String>;
+    ///Change the `announceString` field of this object.
+    #[wasm_bindgen(method, setter = "announceString")]
+    pub fn set_announce_string(this: &SetAssistiveWindowButtonHighlightedParameters, val: String);
+    ///Get the `buttonID` field of this object.
+    #[wasm_bindgen(method, getter = "buttonID")]
+    pub fn get_button_id(
+        this: &SetAssistiveWindowButtonHighlightedParameters,
+    ) -> AssistiveWindowButton;
+    ///Change the `buttonID` field of this object.
+    #[wasm_bindgen(method, setter = "buttonID")]
+    pub fn set_button_id(
+        this: &SetAssistiveWindowButtonHighlightedParameters,
+        val: AssistiveWindowButton,
+    );
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &SetAssistiveWindowButtonHighlightedParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &SetAssistiveWindowButtonHighlightedParameters, val: i32);
+    ///Get the `highlighted` field of this object.
+    #[wasm_bindgen(method, getter = "highlighted")]
+    pub fn get_highlighted(this: &SetAssistiveWindowButtonHighlightedParameters) -> bool;
+    ///Change the `highlighted` field of this object.
+    #[wasm_bindgen(method, setter = "highlighted")]
+    pub fn set_highlighted(this: &SetAssistiveWindowButtonHighlightedParameters, val: bool);
+    ///Get the `windowType` field of this object.
+    #[wasm_bindgen(method, getter = "windowType")]
+    pub fn get_window_type(
+        this: &SetAssistiveWindowButtonHighlightedParameters,
+    ) -> AssistiveWindowType;
+    ///Change the `windowType` field of this object.
+    #[wasm_bindgen(method, setter = "windowType")]
+    pub fn set_window_type(
+        this: &SetAssistiveWindowButtonHighlightedParameters,
+        val: AssistiveWindowType,
+    );
+}
+impl SetAssistiveWindowButtonHighlightedParameters {
+    ///Construct a new `SetAssistiveWindowButtonHighlightedParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_announce_string()` instead."]
+    pub fn announce_string(&mut self, val: String) -> &mut Self {
+        self.set_announce_string(val);
+        self
+    }
+    #[deprecated = "Use `set_button_id()` instead."]
+    pub fn button_id(&mut self, val: AssistiveWindowButton) -> &mut Self {
+        self.set_button_id(val);
+        self
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_highlighted()` instead."]
+    pub fn highlighted(&mut self, val: bool) -> &mut Self {
+        self.set_highlighted(val);
+        self
+    }
+    #[deprecated = "Use `set_window_type()` instead."]
+    pub fn window_type(&mut self, val: AssistiveWindowType) -> &mut Self {
+        self.set_window_type(val);
+        self
+    }
+}
+impl Default for SetAssistiveWindowButtonHighlightedParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "DeleteSurroundingTextParameters"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type DeleteSurroundingTextParameters;
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &DeleteSurroundingTextParameters) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &DeleteSurroundingTextParameters, val: i32);
+    ///Get the `engineID` field of this object.
+    #[wasm_bindgen(method, getter = "engineID")]
+    pub fn get_engine_id(this: &DeleteSurroundingTextParameters) -> String;
+    ///Change the `engineID` field of this object.
+    #[wasm_bindgen(method, setter = "engineID")]
+    pub fn set_engine_id(this: &DeleteSurroundingTextParameters, val: String);
+    ///Get the `length` field of this object.
+    #[wasm_bindgen(method, getter = "length")]
+    pub fn get_length(this: &DeleteSurroundingTextParameters) -> i32;
+    ///Change the `length` field of this object.
+    #[wasm_bindgen(method, setter = "length")]
+    pub fn set_length(this: &DeleteSurroundingTextParameters, val: i32);
+    ///Get the `offset` field of this object.
+    #[wasm_bindgen(method, getter = "offset")]
+    pub fn get_offset(this: &DeleteSurroundingTextParameters) -> i32;
+    ///Change the `offset` field of this object.
+    #[wasm_bindgen(method, setter = "offset")]
+    pub fn set_offset(this: &DeleteSurroundingTextParameters, val: i32);
+}
+impl DeleteSurroundingTextParameters {
+    ///Construct a new `DeleteSurroundingTextParameters`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: i32) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_engine_id()` instead."]
+    pub fn engine_id(&mut self, val: String) -> &mut Self {
+        self.set_engine_id(val);
+        self
+    }
+    #[deprecated = "Use `set_length()` instead."]
+    pub fn length(&mut self, val: i32) -> &mut Self {
+        self.set_length(val);
+        self
+    }
+    #[deprecated = "Use `set_offset()` instead."]
+    pub fn offset(&mut self, val: i32) -> &mut Self {
+        self.set_offset(val);
+        self
+    }
+}
+impl Default for DeleteSurroundingTextParameters {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Set the current composition. If this extension does not own the active IME, this fails.
     #[wasm_bindgen(
         js_namespace = ["chrome",

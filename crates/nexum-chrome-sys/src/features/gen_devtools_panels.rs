@@ -10,7 +10,7 @@ extern "C" {
     pub type ElementsPanel;
     ///Fired when an object is selected in the panel.
     #[wasm_bindgen(method, getter = "onSelectionChanged")]
-    pub fn get_on_selection_changed(this: &ElementsPanel) -> Object;
+    pub fn on_selection_changed(this: &ElementsPanel) -> JsValue;
 }
 impl ElementsPanel {
     ///Construct a new `ElementsPanel`.
@@ -33,7 +33,7 @@ extern "C" {
     pub type SourcesPanel;
     ///Fired when an object is selected in the panel.
     #[wasm_bindgen(method, getter = "onSelectionChanged")]
-    pub fn get_on_selection_changed(this: &SourcesPanel) -> Object;
+    pub fn on_selection_changed(this: &SourcesPanel) -> JsValue;
 }
 impl SourcesPanel {
     ///Construct a new `SourcesPanel`.
@@ -56,13 +56,13 @@ extern "C" {
     pub type ExtensionPanel;
     ///Fired upon a search action (start of a new search, search result navigation, or search being canceled).
     #[wasm_bindgen(method, getter = "onSearch")]
-    pub fn get_on_search(this: &ExtensionPanel) -> Object;
+    pub fn on_search(this: &ExtensionPanel) -> JsValue;
     ///Fired when the user switches to the panel.
     #[wasm_bindgen(method, getter = "onShown")]
-    pub fn get_on_shown(this: &ExtensionPanel) -> Object;
+    pub fn on_shown(this: &ExtensionPanel) -> JsValue;
     ///Fired when the user switches away from the panel.
     #[wasm_bindgen(method, getter = "onHidden")]
-    pub fn get_on_hidden(this: &ExtensionPanel) -> Object;
+    pub fn on_hidden(this: &ExtensionPanel) -> JsValue;
 }
 impl ExtensionPanel {
     ///Construct a new `ExtensionPanel`.
@@ -85,10 +85,10 @@ extern "C" {
     pub type ExtensionSidebarPane;
     ///Fired when the sidebar pane becomes visible as a result of user switching to the panel that hosts it.
     #[wasm_bindgen(method, getter = "onShown")]
-    pub fn get_on_shown(this: &ExtensionSidebarPane) -> Object;
+    pub fn on_shown(this: &ExtensionSidebarPane) -> JsValue;
     ///Fired when the sidebar pane becomes hidden as a result of the user switching away from the panel that hosts the sidebar pane.
     #[wasm_bindgen(method, getter = "onHidden")]
-    pub fn get_on_hidden(this: &ExtensionSidebarPane) -> Object;
+    pub fn on_hidden(this: &ExtensionSidebarPane) -> JsValue;
 }
 impl ExtensionSidebarPane {
     ///Construct a new `ExtensionSidebarPane`.
@@ -111,7 +111,7 @@ extern "C" {
     pub type Button;
     ///Fired when the button is clicked.
     #[wasm_bindgen(method, getter = "onClicked")]
-    pub fn get_on_clicked(this: &Button) -> Object;
+    pub fn on_clicked(this: &Button) -> JsValue;
 }
 impl Button {
     ///Construct a new `Button`.

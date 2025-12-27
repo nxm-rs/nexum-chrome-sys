@@ -239,6 +239,244 @@ impl Default for QueryOptions {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateCreateData")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type CreateCreateData;
+    ///Get the `focused` field of this object.
+    #[wasm_bindgen(method, getter = "focused")]
+    pub fn get_focused(this: &CreateCreateData) -> Option<bool>;
+    ///Change the `focused` field of this object.
+    #[wasm_bindgen(method, setter = "focused")]
+    pub fn set_focused(this: &CreateCreateData, val: bool);
+    ///Get the `height` field of this object.
+    #[wasm_bindgen(method, getter = "height")]
+    pub fn get_height(this: &CreateCreateData) -> Option<i32>;
+    ///Change the `height` field of this object.
+    #[wasm_bindgen(method, setter = "height")]
+    pub fn set_height(this: &CreateCreateData, val: i32);
+    ///Get the `incognito` field of this object.
+    #[wasm_bindgen(method, getter = "incognito")]
+    pub fn get_incognito(this: &CreateCreateData) -> Option<bool>;
+    ///Change the `incognito` field of this object.
+    #[wasm_bindgen(method, setter = "incognito")]
+    pub fn set_incognito(this: &CreateCreateData, val: bool);
+    ///Get the `left` field of this object.
+    #[wasm_bindgen(method, getter = "left")]
+    pub fn get_left(this: &CreateCreateData) -> Option<i32>;
+    ///Change the `left` field of this object.
+    #[wasm_bindgen(method, setter = "left")]
+    pub fn set_left(this: &CreateCreateData, val: i32);
+    ///Get the `setSelfAsOpener` field of this object.
+    #[wasm_bindgen(method, getter = "setSelfAsOpener")]
+    pub fn get_set_self_as_opener(this: &CreateCreateData) -> Option<bool>;
+    ///Change the `setSelfAsOpener` field of this object.
+    #[wasm_bindgen(method, setter = "setSelfAsOpener")]
+    pub fn set_set_self_as_opener(this: &CreateCreateData, val: bool);
+    ///Get the `state` field of this object.
+    #[wasm_bindgen(method, getter = "state")]
+    pub fn get_state(this: &CreateCreateData) -> Option<WindowState>;
+    ///Change the `state` field of this object.
+    #[wasm_bindgen(method, setter = "state")]
+    pub fn set_state(this: &CreateCreateData, val: WindowState);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &CreateCreateData) -> Option<i32>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &CreateCreateData, val: i32);
+    ///Get the `top` field of this object.
+    #[wasm_bindgen(method, getter = "top")]
+    pub fn get_top(this: &CreateCreateData) -> Option<i32>;
+    ///Change the `top` field of this object.
+    #[wasm_bindgen(method, setter = "top")]
+    pub fn set_top(this: &CreateCreateData, val: i32);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &CreateCreateData) -> Option<CreateType>;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &CreateCreateData, val: CreateType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &CreateCreateData) -> Option<JsValue>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &CreateCreateData, val: &JsValue);
+    ///Get the `width` field of this object.
+    #[wasm_bindgen(method, getter = "width")]
+    pub fn get_width(this: &CreateCreateData) -> Option<i32>;
+    ///Change the `width` field of this object.
+    #[wasm_bindgen(method, setter = "width")]
+    pub fn set_width(this: &CreateCreateData, val: i32);
+}
+impl CreateCreateData {
+    ///Construct a new `CreateCreateData`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_focused()` instead."]
+    pub fn focused(&mut self, val: bool) -> &mut Self {
+        self.set_focused(val);
+        self
+    }
+    #[deprecated = "Use `set_height()` instead."]
+    pub fn height(&mut self, val: i32) -> &mut Self {
+        self.set_height(val);
+        self
+    }
+    #[deprecated = "Use `set_incognito()` instead."]
+    pub fn incognito(&mut self, val: bool) -> &mut Self {
+        self.set_incognito(val);
+        self
+    }
+    #[deprecated = "Use `set_left()` instead."]
+    pub fn left(&mut self, val: i32) -> &mut Self {
+        self.set_left(val);
+        self
+    }
+    #[deprecated = "Use `set_set_self_as_opener()` instead."]
+    pub fn set_self_as_opener(&mut self, val: bool) -> &mut Self {
+        self.set_set_self_as_opener(val);
+        self
+    }
+    #[deprecated = "Use `set_state()` instead."]
+    pub fn state(&mut self, val: WindowState) -> &mut Self {
+        self.set_state(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_top()` instead."]
+    pub fn top(&mut self, val: i32) -> &mut Self {
+        self.set_top(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: CreateType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: &JsValue) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+    #[deprecated = "Use `set_width()` instead."]
+    pub fn width(&mut self, val: i32) -> &mut Self {
+        self.set_width(val);
+        self
+    }
+}
+impl Default for CreateCreateData {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateUpdateInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type UpdateUpdateInfo;
+    ///Get the `drawAttention` field of this object.
+    #[wasm_bindgen(method, getter = "drawAttention")]
+    pub fn get_draw_attention(this: &UpdateUpdateInfo) -> Option<bool>;
+    ///Change the `drawAttention` field of this object.
+    #[wasm_bindgen(method, setter = "drawAttention")]
+    pub fn set_draw_attention(this: &UpdateUpdateInfo, val: bool);
+    ///Get the `focused` field of this object.
+    #[wasm_bindgen(method, getter = "focused")]
+    pub fn get_focused(this: &UpdateUpdateInfo) -> Option<bool>;
+    ///Change the `focused` field of this object.
+    #[wasm_bindgen(method, setter = "focused")]
+    pub fn set_focused(this: &UpdateUpdateInfo, val: bool);
+    ///Get the `height` field of this object.
+    #[wasm_bindgen(method, getter = "height")]
+    pub fn get_height(this: &UpdateUpdateInfo) -> Option<i32>;
+    ///Change the `height` field of this object.
+    #[wasm_bindgen(method, setter = "height")]
+    pub fn set_height(this: &UpdateUpdateInfo, val: i32);
+    ///Get the `left` field of this object.
+    #[wasm_bindgen(method, getter = "left")]
+    pub fn get_left(this: &UpdateUpdateInfo) -> Option<i32>;
+    ///Change the `left` field of this object.
+    #[wasm_bindgen(method, setter = "left")]
+    pub fn set_left(this: &UpdateUpdateInfo, val: i32);
+    ///Get the `state` field of this object.
+    #[wasm_bindgen(method, getter = "state")]
+    pub fn get_state(this: &UpdateUpdateInfo) -> Option<WindowState>;
+    ///Change the `state` field of this object.
+    #[wasm_bindgen(method, setter = "state")]
+    pub fn set_state(this: &UpdateUpdateInfo, val: WindowState);
+    ///Get the `top` field of this object.
+    #[wasm_bindgen(method, getter = "top")]
+    pub fn get_top(this: &UpdateUpdateInfo) -> Option<i32>;
+    ///Change the `top` field of this object.
+    #[wasm_bindgen(method, setter = "top")]
+    pub fn set_top(this: &UpdateUpdateInfo, val: i32);
+    ///Get the `width` field of this object.
+    #[wasm_bindgen(method, getter = "width")]
+    pub fn get_width(this: &UpdateUpdateInfo) -> Option<i32>;
+    ///Change the `width` field of this object.
+    #[wasm_bindgen(method, setter = "width")]
+    pub fn set_width(this: &UpdateUpdateInfo, val: i32);
+}
+impl UpdateUpdateInfo {
+    ///Construct a new `UpdateUpdateInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_draw_attention()` instead."]
+    pub fn draw_attention(&mut self, val: bool) -> &mut Self {
+        self.set_draw_attention(val);
+        self
+    }
+    #[deprecated = "Use `set_focused()` instead."]
+    pub fn focused(&mut self, val: bool) -> &mut Self {
+        self.set_focused(val);
+        self
+    }
+    #[deprecated = "Use `set_height()` instead."]
+    pub fn height(&mut self, val: i32) -> &mut Self {
+        self.set_height(val);
+        self
+    }
+    #[deprecated = "Use `set_left()` instead."]
+    pub fn left(&mut self, val: i32) -> &mut Self {
+        self.set_left(val);
+        self
+    }
+    #[deprecated = "Use `set_state()` instead."]
+    pub fn state(&mut self, val: WindowState) -> &mut Self {
+        self.set_state(val);
+        self
+    }
+    #[deprecated = "Use `set_top()` instead."]
+    pub fn top(&mut self, val: i32) -> &mut Self {
+        self.set_top(val);
+        self
+    }
+    #[deprecated = "Use `set_width()` instead."]
+    pub fn width(&mut self, val: i32) -> &mut Self {
+        self.set_width(val);
+        self
+    }
+}
+impl Default for UpdateUpdateInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Gets details about a window.
     #[wasm_bindgen(js_namespace = ["chrome", "windows"], js_name = "get")]
     pub fn get(window_id: i32, query_options: Option<QueryOptions>) -> Promise;

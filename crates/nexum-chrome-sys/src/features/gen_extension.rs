@@ -11,6 +11,59 @@ pub enum ViewType {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetViewsFetchProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type GetViewsFetchProperties;
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &GetViewsFetchProperties) -> Option<i32>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &GetViewsFetchProperties, val: i32);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &GetViewsFetchProperties) -> Option<ViewType>;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &GetViewsFetchProperties, val: ViewType);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &GetViewsFetchProperties) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &GetViewsFetchProperties, val: i32);
+}
+impl GetViewsFetchProperties {
+    ///Construct a new `GetViewsFetchProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ViewType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for GetViewsFetchProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Sends a single request to other listeners within the extension. Similar to $(ref:runtime.connect), but only sends a single request with an optional response. The $(ref:extension.onRequest) event is fired in each page of the extension.
     #[wasm_bindgen(js_namespace = ["chrome", "extension"], js_name = "sendRequest")]
     pub fn send_request(extension_id: Option<String>, request: JsValue) -> Promise;

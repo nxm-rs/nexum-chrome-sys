@@ -4,6 +4,37 @@ use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetMessageOptions")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type GetMessageOptions;
+    ///Get the `escapeLt` field of this object.
+    #[wasm_bindgen(method, getter = "escapeLt")]
+    pub fn get_escape_lt(this: &GetMessageOptions) -> Option<bool>;
+    ///Change the `escapeLt` field of this object.
+    #[wasm_bindgen(method, setter = "escapeLt")]
+    pub fn set_escape_lt(this: &GetMessageOptions, val: bool);
+}
+impl GetMessageOptions {
+    ///Construct a new `GetMessageOptions`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_escape_lt()` instead."]
+    pub fn escape_lt(&mut self, val: bool) -> &mut Self {
+        self.set_escape_lt(val);
+        self
+    }
+}
+impl Default for GetMessageOptions {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use $(ref:i18n.getUILanguage).
     #[wasm_bindgen(js_namespace = ["chrome", "i18n"], js_name = "getAcceptLanguages")]
     pub fn get_accept_languages() -> Promise;

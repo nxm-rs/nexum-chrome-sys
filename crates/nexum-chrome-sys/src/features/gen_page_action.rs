@@ -55,6 +55,154 @@ impl Default for TabDetails {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetTitleDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetTitleDetails;
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &SetTitleDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &SetTitleDetails, val: i32);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &SetTitleDetails) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &SetTitleDetails, val: String);
+}
+impl SetTitleDetails {
+    ///Construct a new `SetTitleDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+}
+impl Default for SetTitleDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetIconDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetIconDetails;
+    ///Get the `iconIndex` field of this object.
+    #[wasm_bindgen(method, getter = "iconIndex")]
+    pub fn get_icon_index(this: &SetIconDetails) -> Option<i32>;
+    ///Change the `iconIndex` field of this object.
+    #[wasm_bindgen(method, setter = "iconIndex")]
+    pub fn set_icon_index(this: &SetIconDetails, val: i32);
+    ///Get the `imageData` field of this object.
+    #[wasm_bindgen(method, getter = "imageData")]
+    pub fn get_image_data(this: &SetIconDetails) -> Option<JsValue>;
+    ///Change the `imageData` field of this object.
+    #[wasm_bindgen(method, setter = "imageData")]
+    pub fn set_image_data(this: &SetIconDetails, val: &JsValue);
+    ///Get the `path` field of this object.
+    #[wasm_bindgen(method, getter = "path")]
+    pub fn get_path(this: &SetIconDetails) -> Option<JsValue>;
+    ///Change the `path` field of this object.
+    #[wasm_bindgen(method, setter = "path")]
+    pub fn set_path(this: &SetIconDetails, val: &JsValue);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &SetIconDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &SetIconDetails, val: i32);
+}
+impl SetIconDetails {
+    ///Construct a new `SetIconDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_icon_index()` instead."]
+    pub fn icon_index(&mut self, val: i32) -> &mut Self {
+        self.set_icon_index(val);
+        self
+    }
+    #[deprecated = "Use `set_image_data()` instead."]
+    pub fn image_data(&mut self, val: &JsValue) -> &mut Self {
+        self.set_image_data(val);
+        self
+    }
+    #[deprecated = "Use `set_path()` instead."]
+    pub fn path(&mut self, val: &JsValue) -> &mut Self {
+        self.set_path(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+}
+impl Default for SetIconDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetPopupDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetPopupDetails;
+    ///Get the `popup` field of this object.
+    #[wasm_bindgen(method, getter = "popup")]
+    pub fn get_popup(this: &SetPopupDetails) -> String;
+    ///Change the `popup` field of this object.
+    #[wasm_bindgen(method, setter = "popup")]
+    pub fn set_popup(this: &SetPopupDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &SetPopupDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &SetPopupDetails, val: i32);
+}
+impl SetPopupDetails {
+    ///Construct a new `SetPopupDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_popup()` instead."]
+    pub fn popup(&mut self, val: String) -> &mut Self {
+        self.set_popup(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+}
+impl Default for SetPopupDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Shows the page action. The page action is shown whenever the tab is selected.
     #[wasm_bindgen(js_namespace = ["chrome", "pageAction"], js_name = "show")]
     pub fn show(tab_id: i32) -> Promise;

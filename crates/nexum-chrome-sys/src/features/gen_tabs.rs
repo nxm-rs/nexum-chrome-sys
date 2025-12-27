@@ -454,6 +454,1275 @@ pub enum WindowType {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnUpdatedChangeInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Lists the changes to the state of the tab that was updated.
+    pub type OnUpdatedChangeInfo;
+    ///Get the `audible` field of this object.
+    #[wasm_bindgen(method, getter = "audible")]
+    pub fn get_audible(this: &OnUpdatedChangeInfo) -> Option<bool>;
+    ///Change the `audible` field of this object.
+    #[wasm_bindgen(method, setter = "audible")]
+    pub fn set_audible(this: &OnUpdatedChangeInfo, val: bool);
+    ///Get the `autoDiscardable` field of this object.
+    #[wasm_bindgen(method, getter = "autoDiscardable")]
+    pub fn get_auto_discardable(this: &OnUpdatedChangeInfo) -> Option<bool>;
+    ///Change the `autoDiscardable` field of this object.
+    #[wasm_bindgen(method, setter = "autoDiscardable")]
+    pub fn set_auto_discardable(this: &OnUpdatedChangeInfo, val: bool);
+    ///Get the `discarded` field of this object.
+    #[wasm_bindgen(method, getter = "discarded")]
+    pub fn get_discarded(this: &OnUpdatedChangeInfo) -> Option<bool>;
+    ///Change the `discarded` field of this object.
+    #[wasm_bindgen(method, setter = "discarded")]
+    pub fn set_discarded(this: &OnUpdatedChangeInfo, val: bool);
+    ///Get the `favIconUrl` field of this object.
+    #[wasm_bindgen(method, getter = "favIconUrl")]
+    pub fn get_fav_icon_url(this: &OnUpdatedChangeInfo) -> Option<String>;
+    ///Change the `favIconUrl` field of this object.
+    #[wasm_bindgen(method, setter = "favIconUrl")]
+    pub fn set_fav_icon_url(this: &OnUpdatedChangeInfo, val: String);
+    ///Get the `frozen` field of this object.
+    #[wasm_bindgen(method, getter = "frozen")]
+    pub fn get_frozen(this: &OnUpdatedChangeInfo) -> Option<bool>;
+    ///Change the `frozen` field of this object.
+    #[wasm_bindgen(method, setter = "frozen")]
+    pub fn set_frozen(this: &OnUpdatedChangeInfo, val: bool);
+    ///Get the `groupId` field of this object.
+    #[wasm_bindgen(method, getter = "groupId")]
+    pub fn get_group_id(this: &OnUpdatedChangeInfo) -> Option<i32>;
+    ///Change the `groupId` field of this object.
+    #[wasm_bindgen(method, setter = "groupId")]
+    pub fn set_group_id(this: &OnUpdatedChangeInfo, val: i32);
+    ///Get the `mutedInfo` field of this object.
+    #[wasm_bindgen(method, getter = "mutedInfo")]
+    pub fn get_muted_info(this: &OnUpdatedChangeInfo) -> Option<MutedInfo>;
+    ///Change the `mutedInfo` field of this object.
+    #[wasm_bindgen(method, setter = "mutedInfo")]
+    pub fn set_muted_info(this: &OnUpdatedChangeInfo, val: &MutedInfo);
+    ///Get the `pinned` field of this object.
+    #[wasm_bindgen(method, getter = "pinned")]
+    pub fn get_pinned(this: &OnUpdatedChangeInfo) -> Option<bool>;
+    ///Change the `pinned` field of this object.
+    #[wasm_bindgen(method, setter = "pinned")]
+    pub fn set_pinned(this: &OnUpdatedChangeInfo, val: bool);
+    ///Get the `splitViewId` field of this object.
+    #[wasm_bindgen(method, getter = "splitViewId")]
+    pub fn get_split_view_id(this: &OnUpdatedChangeInfo) -> Option<i32>;
+    ///Change the `splitViewId` field of this object.
+    #[wasm_bindgen(method, setter = "splitViewId")]
+    pub fn set_split_view_id(this: &OnUpdatedChangeInfo, val: i32);
+    ///Get the `status` field of this object.
+    #[wasm_bindgen(method, getter = "status")]
+    pub fn get_status(this: &OnUpdatedChangeInfo) -> Option<TabStatus>;
+    ///Change the `status` field of this object.
+    #[wasm_bindgen(method, setter = "status")]
+    pub fn set_status(this: &OnUpdatedChangeInfo, val: TabStatus);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &OnUpdatedChangeInfo) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &OnUpdatedChangeInfo, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnUpdatedChangeInfo) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnUpdatedChangeInfo, val: String);
+}
+impl OnUpdatedChangeInfo {
+    ///Construct a new `OnUpdatedChangeInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_audible()` instead."]
+    pub fn audible(&mut self, val: bool) -> &mut Self {
+        self.set_audible(val);
+        self
+    }
+    #[deprecated = "Use `set_auto_discardable()` instead."]
+    pub fn auto_discardable(&mut self, val: bool) -> &mut Self {
+        self.set_auto_discardable(val);
+        self
+    }
+    #[deprecated = "Use `set_discarded()` instead."]
+    pub fn discarded(&mut self, val: bool) -> &mut Self {
+        self.set_discarded(val);
+        self
+    }
+    #[deprecated = "Use `set_fav_icon_url()` instead."]
+    pub fn fav_icon_url(&mut self, val: String) -> &mut Self {
+        self.set_fav_icon_url(val);
+        self
+    }
+    #[deprecated = "Use `set_frozen()` instead."]
+    pub fn frozen(&mut self, val: bool) -> &mut Self {
+        self.set_frozen(val);
+        self
+    }
+    #[deprecated = "Use `set_group_id()` instead."]
+    pub fn group_id(&mut self, val: i32) -> &mut Self {
+        self.set_group_id(val);
+        self
+    }
+    #[deprecated = "Use `set_muted_info()` instead."]
+    pub fn muted_info(&mut self, val: &MutedInfo) -> &mut Self {
+        self.set_muted_info(val);
+        self
+    }
+    #[deprecated = "Use `set_pinned()` instead."]
+    pub fn pinned(&mut self, val: bool) -> &mut Self {
+        self.set_pinned(val);
+        self
+    }
+    #[deprecated = "Use `set_split_view_id()` instead."]
+    pub fn split_view_id(&mut self, val: i32) -> &mut Self {
+        self.set_split_view_id(val);
+        self
+    }
+    #[deprecated = "Use `set_status()` instead."]
+    pub fn status(&mut self, val: TabStatus) -> &mut Self {
+        self.set_status(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnUpdatedChangeInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnMovedMoveInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnMovedMoveInfo;
+    ///Get the `fromIndex` field of this object.
+    #[wasm_bindgen(method, getter = "fromIndex")]
+    pub fn get_from_index(this: &OnMovedMoveInfo) -> i32;
+    ///Change the `fromIndex` field of this object.
+    #[wasm_bindgen(method, setter = "fromIndex")]
+    pub fn set_from_index(this: &OnMovedMoveInfo, val: i32);
+    ///Get the `toIndex` field of this object.
+    #[wasm_bindgen(method, getter = "toIndex")]
+    pub fn get_to_index(this: &OnMovedMoveInfo) -> i32;
+    ///Change the `toIndex` field of this object.
+    #[wasm_bindgen(method, setter = "toIndex")]
+    pub fn set_to_index(this: &OnMovedMoveInfo, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnMovedMoveInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnMovedMoveInfo, val: i32);
+}
+impl OnMovedMoveInfo {
+    ///Construct a new `OnMovedMoveInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_from_index()` instead."]
+    pub fn from_index(&mut self, val: i32) -> &mut Self {
+        self.set_from_index(val);
+        self
+    }
+    #[deprecated = "Use `set_to_index()` instead."]
+    pub fn to_index(&mut self, val: i32) -> &mut Self {
+        self.set_to_index(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnMovedMoveInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnSelectionChangedSelectInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnSelectionChangedSelectInfo;
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnSelectionChangedSelectInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnSelectionChangedSelectInfo, val: i32);
+}
+impl OnSelectionChangedSelectInfo {
+    ///Construct a new `OnSelectionChangedSelectInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnSelectionChangedSelectInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnActiveChangedSelectInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnActiveChangedSelectInfo;
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnActiveChangedSelectInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnActiveChangedSelectInfo, val: i32);
+}
+impl OnActiveChangedSelectInfo {
+    ///Construct a new `OnActiveChangedSelectInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnActiveChangedSelectInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnActivatedActiveInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnActivatedActiveInfo;
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnActivatedActiveInfo) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnActivatedActiveInfo, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnActivatedActiveInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnActivatedActiveInfo, val: i32);
+}
+impl OnActivatedActiveInfo {
+    ///Construct a new `OnActivatedActiveInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnActivatedActiveInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnHighlightChangedSelectInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnHighlightChangedSelectInfo;
+    ///Get the `tabIds` field of this object.
+    #[wasm_bindgen(method, getter = "tabIds")]
+    pub fn get_tab_ids(this: &OnHighlightChangedSelectInfo) -> Array;
+    ///Change the `tabIds` field of this object.
+    #[wasm_bindgen(method, setter = "tabIds")]
+    pub fn set_tab_ids(this: &OnHighlightChangedSelectInfo, val: &Array);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnHighlightChangedSelectInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnHighlightChangedSelectInfo, val: i32);
+}
+impl OnHighlightChangedSelectInfo {
+    ///Construct a new `OnHighlightChangedSelectInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_ids()` instead."]
+    pub fn tab_ids(&mut self, val: &Array) -> &mut Self {
+        self.set_tab_ids(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnHighlightChangedSelectInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnHighlightedHighlightInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnHighlightedHighlightInfo;
+    ///Get the `tabIds` field of this object.
+    #[wasm_bindgen(method, getter = "tabIds")]
+    pub fn get_tab_ids(this: &OnHighlightedHighlightInfo) -> Array;
+    ///Change the `tabIds` field of this object.
+    #[wasm_bindgen(method, setter = "tabIds")]
+    pub fn set_tab_ids(this: &OnHighlightedHighlightInfo, val: &Array);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnHighlightedHighlightInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnHighlightedHighlightInfo, val: i32);
+}
+impl OnHighlightedHighlightInfo {
+    ///Construct a new `OnHighlightedHighlightInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tab_ids()` instead."]
+    pub fn tab_ids(&mut self, val: &Array) -> &mut Self {
+        self.set_tab_ids(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnHighlightedHighlightInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnDetachedDetachInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnDetachedDetachInfo;
+    ///Get the `oldPosition` field of this object.
+    #[wasm_bindgen(method, getter = "oldPosition")]
+    pub fn get_old_position(this: &OnDetachedDetachInfo) -> i32;
+    ///Change the `oldPosition` field of this object.
+    #[wasm_bindgen(method, setter = "oldPosition")]
+    pub fn set_old_position(this: &OnDetachedDetachInfo, val: i32);
+    ///Get the `oldWindowId` field of this object.
+    #[wasm_bindgen(method, getter = "oldWindowId")]
+    pub fn get_old_window_id(this: &OnDetachedDetachInfo) -> i32;
+    ///Change the `oldWindowId` field of this object.
+    #[wasm_bindgen(method, setter = "oldWindowId")]
+    pub fn set_old_window_id(this: &OnDetachedDetachInfo, val: i32);
+}
+impl OnDetachedDetachInfo {
+    ///Construct a new `OnDetachedDetachInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_old_position()` instead."]
+    pub fn old_position(&mut self, val: i32) -> &mut Self {
+        self.set_old_position(val);
+        self
+    }
+    #[deprecated = "Use `set_old_window_id()` instead."]
+    pub fn old_window_id(&mut self, val: i32) -> &mut Self {
+        self.set_old_window_id(val);
+        self
+    }
+}
+impl Default for OnDetachedDetachInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnAttachedAttachInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnAttachedAttachInfo;
+    ///Get the `newPosition` field of this object.
+    #[wasm_bindgen(method, getter = "newPosition")]
+    pub fn get_new_position(this: &OnAttachedAttachInfo) -> i32;
+    ///Change the `newPosition` field of this object.
+    #[wasm_bindgen(method, setter = "newPosition")]
+    pub fn set_new_position(this: &OnAttachedAttachInfo, val: i32);
+    ///Get the `newWindowId` field of this object.
+    #[wasm_bindgen(method, getter = "newWindowId")]
+    pub fn get_new_window_id(this: &OnAttachedAttachInfo) -> i32;
+    ///Change the `newWindowId` field of this object.
+    #[wasm_bindgen(method, setter = "newWindowId")]
+    pub fn set_new_window_id(this: &OnAttachedAttachInfo, val: i32);
+}
+impl OnAttachedAttachInfo {
+    ///Construct a new `OnAttachedAttachInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_new_position()` instead."]
+    pub fn new_position(&mut self, val: i32) -> &mut Self {
+        self.set_new_position(val);
+        self
+    }
+    #[deprecated = "Use `set_new_window_id()` instead."]
+    pub fn new_window_id(&mut self, val: i32) -> &mut Self {
+        self.set_new_window_id(val);
+        self
+    }
+}
+impl Default for OnAttachedAttachInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnRemovedRemoveInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnRemovedRemoveInfo;
+    ///Get the `isWindowClosing` field of this object.
+    #[wasm_bindgen(method, getter = "isWindowClosing")]
+    pub fn get_is_window_closing(this: &OnRemovedRemoveInfo) -> bool;
+    ///Change the `isWindowClosing` field of this object.
+    #[wasm_bindgen(method, setter = "isWindowClosing")]
+    pub fn set_is_window_closing(this: &OnRemovedRemoveInfo, val: bool);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &OnRemovedRemoveInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &OnRemovedRemoveInfo, val: i32);
+}
+impl OnRemovedRemoveInfo {
+    ///Construct a new `OnRemovedRemoveInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_is_window_closing()` instead."]
+    pub fn is_window_closing(&mut self, val: bool) -> &mut Self {
+        self.set_is_window_closing(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for OnRemovedRemoveInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnZoomChangeZoomChangeInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnZoomChangeZoomChangeInfo;
+    ///Get the `newZoomFactor` field of this object.
+    #[wasm_bindgen(method, getter = "newZoomFactor")]
+    pub fn get_new_zoom_factor(this: &OnZoomChangeZoomChangeInfo) -> f64;
+    ///Change the `newZoomFactor` field of this object.
+    #[wasm_bindgen(method, setter = "newZoomFactor")]
+    pub fn set_new_zoom_factor(this: &OnZoomChangeZoomChangeInfo, val: f64);
+    ///Get the `oldZoomFactor` field of this object.
+    #[wasm_bindgen(method, getter = "oldZoomFactor")]
+    pub fn get_old_zoom_factor(this: &OnZoomChangeZoomChangeInfo) -> f64;
+    ///Change the `oldZoomFactor` field of this object.
+    #[wasm_bindgen(method, setter = "oldZoomFactor")]
+    pub fn set_old_zoom_factor(this: &OnZoomChangeZoomChangeInfo, val: f64);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnZoomChangeZoomChangeInfo) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnZoomChangeZoomChangeInfo, val: i32);
+    ///Get the `zoomSettings` field of this object.
+    #[wasm_bindgen(method, getter = "zoomSettings")]
+    pub fn get_zoom_settings(this: &OnZoomChangeZoomChangeInfo) -> ZoomSettings;
+    ///Change the `zoomSettings` field of this object.
+    #[wasm_bindgen(method, setter = "zoomSettings")]
+    pub fn set_zoom_settings(this: &OnZoomChangeZoomChangeInfo, val: &ZoomSettings);
+}
+impl OnZoomChangeZoomChangeInfo {
+    ///Construct a new `OnZoomChangeZoomChangeInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_new_zoom_factor()` instead."]
+    pub fn new_zoom_factor(&mut self, val: f64) -> &mut Self {
+        self.set_new_zoom_factor(val);
+        self
+    }
+    #[deprecated = "Use `set_old_zoom_factor()` instead."]
+    pub fn old_zoom_factor(&mut self, val: f64) -> &mut Self {
+        self.set_old_zoom_factor(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_zoom_settings()` instead."]
+    pub fn zoom_settings(&mut self, val: &ZoomSettings) -> &mut Self {
+        self.set_zoom_settings(val);
+        self
+    }
+}
+impl Default for OnZoomChangeZoomChangeInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConnectConnectInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type ConnectConnectInfo;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &ConnectConnectInfo) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &ConnectConnectInfo, val: String);
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &ConnectConnectInfo) -> Option<i32>;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &ConnectConnectInfo, val: i32);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &ConnectConnectInfo) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &ConnectConnectInfo, val: String);
+}
+impl ConnectConnectInfo {
+    ///Construct a new `ConnectConnectInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+}
+impl Default for ConnectConnectInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendMessageOptions")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SendMessageOptions;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &SendMessageOptions) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &SendMessageOptions, val: String);
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &SendMessageOptions) -> Option<i32>;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &SendMessageOptions, val: i32);
+}
+impl SendMessageOptions {
+    ///Construct a new `SendMessageOptions`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+}
+impl Default for SendMessageOptions {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateCreateProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type CreateCreateProperties;
+    ///Get the `active` field of this object.
+    #[wasm_bindgen(method, getter = "active")]
+    pub fn get_active(this: &CreateCreateProperties) -> Option<bool>;
+    ///Change the `active` field of this object.
+    #[wasm_bindgen(method, setter = "active")]
+    pub fn set_active(this: &CreateCreateProperties, val: bool);
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &CreateCreateProperties) -> Option<i32>;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &CreateCreateProperties, val: i32);
+    ///Get the `openerTabId` field of this object.
+    #[wasm_bindgen(method, getter = "openerTabId")]
+    pub fn get_opener_tab_id(this: &CreateCreateProperties) -> Option<i32>;
+    ///Change the `openerTabId` field of this object.
+    #[wasm_bindgen(method, setter = "openerTabId")]
+    pub fn set_opener_tab_id(this: &CreateCreateProperties, val: i32);
+    ///Get the `pinned` field of this object.
+    #[wasm_bindgen(method, getter = "pinned")]
+    pub fn get_pinned(this: &CreateCreateProperties) -> Option<bool>;
+    ///Change the `pinned` field of this object.
+    #[wasm_bindgen(method, setter = "pinned")]
+    pub fn set_pinned(this: &CreateCreateProperties, val: bool);
+    ///Get the `selected` field of this object.
+    #[wasm_bindgen(method, getter = "selected")]
+    pub fn get_selected(this: &CreateCreateProperties) -> Option<bool>;
+    ///Change the `selected` field of this object.
+    #[wasm_bindgen(method, setter = "selected")]
+    pub fn set_selected(this: &CreateCreateProperties, val: bool);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &CreateCreateProperties) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &CreateCreateProperties, val: String);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &CreateCreateProperties) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &CreateCreateProperties, val: i32);
+}
+impl CreateCreateProperties {
+    ///Construct a new `CreateCreateProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_active()` instead."]
+    pub fn active(&mut self, val: bool) -> &mut Self {
+        self.set_active(val);
+        self
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_opener_tab_id()` instead."]
+    pub fn opener_tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_opener_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_pinned()` instead."]
+    pub fn pinned(&mut self, val: bool) -> &mut Self {
+        self.set_pinned(val);
+        self
+    }
+    #[deprecated = "Use `set_selected()` instead."]
+    pub fn selected(&mut self, val: bool) -> &mut Self {
+        self.set_selected(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for CreateCreateProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "QueryQueryInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type QueryQueryInfo;
+    ///Get the `active` field of this object.
+    #[wasm_bindgen(method, getter = "active")]
+    pub fn get_active(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `active` field of this object.
+    #[wasm_bindgen(method, setter = "active")]
+    pub fn set_active(this: &QueryQueryInfo, val: bool);
+    ///Get the `audible` field of this object.
+    #[wasm_bindgen(method, getter = "audible")]
+    pub fn get_audible(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `audible` field of this object.
+    #[wasm_bindgen(method, setter = "audible")]
+    pub fn set_audible(this: &QueryQueryInfo, val: bool);
+    ///Get the `autoDiscardable` field of this object.
+    #[wasm_bindgen(method, getter = "autoDiscardable")]
+    pub fn get_auto_discardable(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `autoDiscardable` field of this object.
+    #[wasm_bindgen(method, setter = "autoDiscardable")]
+    pub fn set_auto_discardable(this: &QueryQueryInfo, val: bool);
+    ///Get the `currentWindow` field of this object.
+    #[wasm_bindgen(method, getter = "currentWindow")]
+    pub fn get_current_window(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `currentWindow` field of this object.
+    #[wasm_bindgen(method, setter = "currentWindow")]
+    pub fn set_current_window(this: &QueryQueryInfo, val: bool);
+    ///Get the `discarded` field of this object.
+    #[wasm_bindgen(method, getter = "discarded")]
+    pub fn get_discarded(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `discarded` field of this object.
+    #[wasm_bindgen(method, setter = "discarded")]
+    pub fn set_discarded(this: &QueryQueryInfo, val: bool);
+    ///Get the `frozen` field of this object.
+    #[wasm_bindgen(method, getter = "frozen")]
+    pub fn get_frozen(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `frozen` field of this object.
+    #[wasm_bindgen(method, setter = "frozen")]
+    pub fn set_frozen(this: &QueryQueryInfo, val: bool);
+    ///Get the `groupId` field of this object.
+    #[wasm_bindgen(method, getter = "groupId")]
+    pub fn get_group_id(this: &QueryQueryInfo) -> Option<i32>;
+    ///Change the `groupId` field of this object.
+    #[wasm_bindgen(method, setter = "groupId")]
+    pub fn set_group_id(this: &QueryQueryInfo, val: i32);
+    ///Get the `highlighted` field of this object.
+    #[wasm_bindgen(method, getter = "highlighted")]
+    pub fn get_highlighted(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `highlighted` field of this object.
+    #[wasm_bindgen(method, setter = "highlighted")]
+    pub fn set_highlighted(this: &QueryQueryInfo, val: bool);
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &QueryQueryInfo) -> Option<i32>;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &QueryQueryInfo, val: i32);
+    ///Get the `lastFocusedWindow` field of this object.
+    #[wasm_bindgen(method, getter = "lastFocusedWindow")]
+    pub fn get_last_focused_window(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `lastFocusedWindow` field of this object.
+    #[wasm_bindgen(method, setter = "lastFocusedWindow")]
+    pub fn set_last_focused_window(this: &QueryQueryInfo, val: bool);
+    ///Get the `muted` field of this object.
+    #[wasm_bindgen(method, getter = "muted")]
+    pub fn get_muted(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `muted` field of this object.
+    #[wasm_bindgen(method, setter = "muted")]
+    pub fn set_muted(this: &QueryQueryInfo, val: bool);
+    ///Get the `pinned` field of this object.
+    #[wasm_bindgen(method, getter = "pinned")]
+    pub fn get_pinned(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `pinned` field of this object.
+    #[wasm_bindgen(method, setter = "pinned")]
+    pub fn set_pinned(this: &QueryQueryInfo, val: bool);
+    ///Get the `splitViewId` field of this object.
+    #[wasm_bindgen(method, getter = "splitViewId")]
+    pub fn get_split_view_id(this: &QueryQueryInfo) -> Option<i32>;
+    ///Change the `splitViewId` field of this object.
+    #[wasm_bindgen(method, setter = "splitViewId")]
+    pub fn set_split_view_id(this: &QueryQueryInfo, val: i32);
+    ///Get the `status` field of this object.
+    #[wasm_bindgen(method, getter = "status")]
+    pub fn get_status(this: &QueryQueryInfo) -> Option<TabStatus>;
+    ///Change the `status` field of this object.
+    #[wasm_bindgen(method, setter = "status")]
+    pub fn set_status(this: &QueryQueryInfo, val: TabStatus);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &QueryQueryInfo) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &QueryQueryInfo, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &QueryQueryInfo) -> Option<JsValue>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &QueryQueryInfo, val: &JsValue);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &QueryQueryInfo) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &QueryQueryInfo, val: i32);
+    ///Get the `windowType` field of this object.
+    #[wasm_bindgen(method, getter = "windowType")]
+    pub fn get_window_type(this: &QueryQueryInfo) -> Option<WindowType>;
+    ///Change the `windowType` field of this object.
+    #[wasm_bindgen(method, setter = "windowType")]
+    pub fn set_window_type(this: &QueryQueryInfo, val: WindowType);
+}
+impl QueryQueryInfo {
+    ///Construct a new `QueryQueryInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_active()` instead."]
+    pub fn active(&mut self, val: bool) -> &mut Self {
+        self.set_active(val);
+        self
+    }
+    #[deprecated = "Use `set_audible()` instead."]
+    pub fn audible(&mut self, val: bool) -> &mut Self {
+        self.set_audible(val);
+        self
+    }
+    #[deprecated = "Use `set_auto_discardable()` instead."]
+    pub fn auto_discardable(&mut self, val: bool) -> &mut Self {
+        self.set_auto_discardable(val);
+        self
+    }
+    #[deprecated = "Use `set_current_window()` instead."]
+    pub fn current_window(&mut self, val: bool) -> &mut Self {
+        self.set_current_window(val);
+        self
+    }
+    #[deprecated = "Use `set_discarded()` instead."]
+    pub fn discarded(&mut self, val: bool) -> &mut Self {
+        self.set_discarded(val);
+        self
+    }
+    #[deprecated = "Use `set_frozen()` instead."]
+    pub fn frozen(&mut self, val: bool) -> &mut Self {
+        self.set_frozen(val);
+        self
+    }
+    #[deprecated = "Use `set_group_id()` instead."]
+    pub fn group_id(&mut self, val: i32) -> &mut Self {
+        self.set_group_id(val);
+        self
+    }
+    #[deprecated = "Use `set_highlighted()` instead."]
+    pub fn highlighted(&mut self, val: bool) -> &mut Self {
+        self.set_highlighted(val);
+        self
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_last_focused_window()` instead."]
+    pub fn last_focused_window(&mut self, val: bool) -> &mut Self {
+        self.set_last_focused_window(val);
+        self
+    }
+    #[deprecated = "Use `set_muted()` instead."]
+    pub fn muted(&mut self, val: bool) -> &mut Self {
+        self.set_muted(val);
+        self
+    }
+    #[deprecated = "Use `set_pinned()` instead."]
+    pub fn pinned(&mut self, val: bool) -> &mut Self {
+        self.set_pinned(val);
+        self
+    }
+    #[deprecated = "Use `set_split_view_id()` instead."]
+    pub fn split_view_id(&mut self, val: i32) -> &mut Self {
+        self.set_split_view_id(val);
+        self
+    }
+    #[deprecated = "Use `set_status()` instead."]
+    pub fn status(&mut self, val: TabStatus) -> &mut Self {
+        self.set_status(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: &JsValue) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+    #[deprecated = "Use `set_window_type()` instead."]
+    pub fn window_type(&mut self, val: WindowType) -> &mut Self {
+        self.set_window_type(val);
+        self
+    }
+}
+impl Default for QueryQueryInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HighlightHighlightInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type HighlightHighlightInfo;
+    ///Get the `tabs` field of this object.
+    #[wasm_bindgen(method, getter = "tabs")]
+    pub fn get_tabs(this: &HighlightHighlightInfo) -> JsValue;
+    ///Change the `tabs` field of this object.
+    #[wasm_bindgen(method, setter = "tabs")]
+    pub fn set_tabs(this: &HighlightHighlightInfo, val: &JsValue);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &HighlightHighlightInfo) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &HighlightHighlightInfo, val: i32);
+}
+impl HighlightHighlightInfo {
+    ///Construct a new `HighlightHighlightInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_tabs()` instead."]
+    pub fn tabs(&mut self, val: &JsValue) -> &mut Self {
+        self.set_tabs(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for HighlightHighlightInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateUpdateProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type UpdateUpdateProperties;
+    ///Get the `active` field of this object.
+    #[wasm_bindgen(method, getter = "active")]
+    pub fn get_active(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `active` field of this object.
+    #[wasm_bindgen(method, setter = "active")]
+    pub fn set_active(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `autoDiscardable` field of this object.
+    #[wasm_bindgen(method, getter = "autoDiscardable")]
+    pub fn get_auto_discardable(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `autoDiscardable` field of this object.
+    #[wasm_bindgen(method, setter = "autoDiscardable")]
+    pub fn set_auto_discardable(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `highlighted` field of this object.
+    #[wasm_bindgen(method, getter = "highlighted")]
+    pub fn get_highlighted(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `highlighted` field of this object.
+    #[wasm_bindgen(method, setter = "highlighted")]
+    pub fn set_highlighted(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `muted` field of this object.
+    #[wasm_bindgen(method, getter = "muted")]
+    pub fn get_muted(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `muted` field of this object.
+    #[wasm_bindgen(method, setter = "muted")]
+    pub fn set_muted(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `openerTabId` field of this object.
+    #[wasm_bindgen(method, getter = "openerTabId")]
+    pub fn get_opener_tab_id(this: &UpdateUpdateProperties) -> Option<i32>;
+    ///Change the `openerTabId` field of this object.
+    #[wasm_bindgen(method, setter = "openerTabId")]
+    pub fn set_opener_tab_id(this: &UpdateUpdateProperties, val: i32);
+    ///Get the `pinned` field of this object.
+    #[wasm_bindgen(method, getter = "pinned")]
+    pub fn get_pinned(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `pinned` field of this object.
+    #[wasm_bindgen(method, setter = "pinned")]
+    pub fn set_pinned(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `selected` field of this object.
+    #[wasm_bindgen(method, getter = "selected")]
+    pub fn get_selected(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `selected` field of this object.
+    #[wasm_bindgen(method, setter = "selected")]
+    pub fn set_selected(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &UpdateUpdateProperties) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &UpdateUpdateProperties, val: String);
+}
+impl UpdateUpdateProperties {
+    ///Construct a new `UpdateUpdateProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_active()` instead."]
+    pub fn active(&mut self, val: bool) -> &mut Self {
+        self.set_active(val);
+        self
+    }
+    #[deprecated = "Use `set_auto_discardable()` instead."]
+    pub fn auto_discardable(&mut self, val: bool) -> &mut Self {
+        self.set_auto_discardable(val);
+        self
+    }
+    #[deprecated = "Use `set_highlighted()` instead."]
+    pub fn highlighted(&mut self, val: bool) -> &mut Self {
+        self.set_highlighted(val);
+        self
+    }
+    #[deprecated = "Use `set_muted()` instead."]
+    pub fn muted(&mut self, val: bool) -> &mut Self {
+        self.set_muted(val);
+        self
+    }
+    #[deprecated = "Use `set_opener_tab_id()` instead."]
+    pub fn opener_tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_opener_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_pinned()` instead."]
+    pub fn pinned(&mut self, val: bool) -> &mut Self {
+        self.set_pinned(val);
+        self
+    }
+    #[deprecated = "Use `set_selected()` instead."]
+    pub fn selected(&mut self, val: bool) -> &mut Self {
+        self.set_selected(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for UpdateUpdateProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MoveMoveProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type MoveMoveProperties;
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &MoveMoveProperties) -> i32;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &MoveMoveProperties, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &MoveMoveProperties) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &MoveMoveProperties, val: i32);
+}
+impl MoveMoveProperties {
+    ///Construct a new `MoveMoveProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for MoveMoveProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReloadReloadProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type ReloadReloadProperties;
+    ///Get the `bypassCache` field of this object.
+    #[wasm_bindgen(method, getter = "bypassCache")]
+    pub fn get_bypass_cache(this: &ReloadReloadProperties) -> Option<bool>;
+    ///Change the `bypassCache` field of this object.
+    #[wasm_bindgen(method, setter = "bypassCache")]
+    pub fn set_bypass_cache(this: &ReloadReloadProperties, val: bool);
+}
+impl ReloadReloadProperties {
+    ///Construct a new `ReloadReloadProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_bypass_cache()` instead."]
+    pub fn bypass_cache(&mut self, val: bool) -> &mut Self {
+        self.set_bypass_cache(val);
+        self
+    }
+}
+impl Default for ReloadReloadProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GroupOptions")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type GroupOptions;
+    ///Get the `createProperties` field of this object.
+    #[wasm_bindgen(method, getter = "createProperties")]
+    pub fn get_create_properties(this: &GroupOptions) -> Option<Object>;
+    ///Change the `createProperties` field of this object.
+    #[wasm_bindgen(method, setter = "createProperties")]
+    pub fn set_create_properties(this: &GroupOptions, val: &Object);
+    ///Get the `groupId` field of this object.
+    #[wasm_bindgen(method, getter = "groupId")]
+    pub fn get_group_id(this: &GroupOptions) -> Option<i32>;
+    ///Change the `groupId` field of this object.
+    #[wasm_bindgen(method, setter = "groupId")]
+    pub fn set_group_id(this: &GroupOptions, val: i32);
+    ///Get the `tabIds` field of this object.
+    #[wasm_bindgen(method, getter = "tabIds")]
+    pub fn get_tab_ids(this: &GroupOptions) -> JsValue;
+    ///Change the `tabIds` field of this object.
+    #[wasm_bindgen(method, setter = "tabIds")]
+    pub fn set_tab_ids(this: &GroupOptions, val: &JsValue);
+}
+impl GroupOptions {
+    ///Construct a new `GroupOptions`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_create_properties()` instead."]
+    pub fn create_properties(&mut self, val: &Object) -> &mut Self {
+        self.set_create_properties(val);
+        self
+    }
+    #[deprecated = "Use `set_group_id()` instead."]
+    pub fn group_id(&mut self, val: i32) -> &mut Self {
+        self.set_group_id(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_ids()` instead."]
+    pub fn tab_ids(&mut self, val: &JsValue) -> &mut Self {
+        self.set_tab_ids(val);
+        self
+    }
+}
+impl Default for GroupOptions {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Retrieves details about the specified tab.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "get")]
     pub fn get(tab_id: i32) -> Promise;

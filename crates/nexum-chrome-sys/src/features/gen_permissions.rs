@@ -46,6 +46,115 @@ impl Default for Permissions {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AddHostAccessRequestRequest")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type AddHostAccessRequestRequest;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &AddHostAccessRequestRequest) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &AddHostAccessRequestRequest, val: String);
+    ///Get the `pattern` field of this object.
+    #[wasm_bindgen(method, getter = "pattern")]
+    pub fn get_pattern(this: &AddHostAccessRequestRequest) -> Option<String>;
+    ///Change the `pattern` field of this object.
+    #[wasm_bindgen(method, setter = "pattern")]
+    pub fn set_pattern(this: &AddHostAccessRequestRequest, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &AddHostAccessRequestRequest) -> Option<f64>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &AddHostAccessRequestRequest, val: f64);
+}
+impl AddHostAccessRequestRequest {
+    ///Construct a new `AddHostAccessRequestRequest`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_pattern()` instead."]
+    pub fn pattern(&mut self, val: String) -> &mut Self {
+        self.set_pattern(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: f64) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+}
+impl Default for AddHostAccessRequestRequest {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "RemoveHostAccessRequestRequest"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type RemoveHostAccessRequestRequest;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &RemoveHostAccessRequestRequest) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &RemoveHostAccessRequestRequest, val: String);
+    ///Get the `pattern` field of this object.
+    #[wasm_bindgen(method, getter = "pattern")]
+    pub fn get_pattern(this: &RemoveHostAccessRequestRequest) -> Option<String>;
+    ///Change the `pattern` field of this object.
+    #[wasm_bindgen(method, setter = "pattern")]
+    pub fn set_pattern(this: &RemoveHostAccessRequestRequest, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &RemoveHostAccessRequestRequest) -> Option<f64>;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &RemoveHostAccessRequestRequest, val: f64);
+}
+impl RemoveHostAccessRequestRequest {
+    ///Construct a new `RemoveHostAccessRequestRequest`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_pattern()` instead."]
+    pub fn pattern(&mut self, val: String) -> &mut Self {
+        self.set_pattern(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: f64) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+}
+impl Default for RemoveHostAccessRequestRequest {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Gets the extension's current set of permissions.
     #[wasm_bindgen(js_namespace = ["chrome", "permissions"], js_name = "getAll")]
     pub fn get_all() -> Promise;

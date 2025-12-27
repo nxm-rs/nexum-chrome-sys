@@ -4,6 +4,101 @@ use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetTokenGetTokenParams")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Parameters for getToken.
+    pub type GetTokenGetTokenParams;
+    ///Get the `authorizedEntity` field of this object.
+    #[wasm_bindgen(method, getter = "authorizedEntity")]
+    pub fn get_authorized_entity(this: &GetTokenGetTokenParams) -> String;
+    ///Change the `authorizedEntity` field of this object.
+    #[wasm_bindgen(method, setter = "authorizedEntity")]
+    pub fn set_authorized_entity(this: &GetTokenGetTokenParams, val: String);
+    ///Get the `options` field of this object.
+    #[wasm_bindgen(method, getter = "options")]
+    pub fn get_options(this: &GetTokenGetTokenParams) -> Option<Object>;
+    ///Change the `options` field of this object.
+    #[wasm_bindgen(method, setter = "options")]
+    pub fn set_options(this: &GetTokenGetTokenParams, val: &Object);
+    ///Get the `scope` field of this object.
+    #[wasm_bindgen(method, getter = "scope")]
+    pub fn get_scope(this: &GetTokenGetTokenParams) -> String;
+    ///Change the `scope` field of this object.
+    #[wasm_bindgen(method, setter = "scope")]
+    pub fn set_scope(this: &GetTokenGetTokenParams, val: String);
+}
+impl GetTokenGetTokenParams {
+    ///Construct a new `GetTokenGetTokenParams`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_authorized_entity()` instead."]
+    pub fn authorized_entity(&mut self, val: String) -> &mut Self {
+        self.set_authorized_entity(val);
+        self
+    }
+    #[deprecated = "Use `set_options()` instead."]
+    pub fn options(&mut self, val: &Object) -> &mut Self {
+        self.set_options(val);
+        self
+    }
+    #[deprecated = "Use `set_scope()` instead."]
+    pub fn scope(&mut self, val: String) -> &mut Self {
+        self.set_scope(val);
+        self
+    }
+}
+impl Default for GetTokenGetTokenParams {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeleteTokenDeleteTokenParams")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Parameters for deleteToken.
+    pub type DeleteTokenDeleteTokenParams;
+    ///Get the `authorizedEntity` field of this object.
+    #[wasm_bindgen(method, getter = "authorizedEntity")]
+    pub fn get_authorized_entity(this: &DeleteTokenDeleteTokenParams) -> String;
+    ///Change the `authorizedEntity` field of this object.
+    #[wasm_bindgen(method, setter = "authorizedEntity")]
+    pub fn set_authorized_entity(this: &DeleteTokenDeleteTokenParams, val: String);
+    ///Get the `scope` field of this object.
+    #[wasm_bindgen(method, getter = "scope")]
+    pub fn get_scope(this: &DeleteTokenDeleteTokenParams) -> String;
+    ///Change the `scope` field of this object.
+    #[wasm_bindgen(method, setter = "scope")]
+    pub fn set_scope(this: &DeleteTokenDeleteTokenParams, val: String);
+}
+impl DeleteTokenDeleteTokenParams {
+    ///Construct a new `DeleteTokenDeleteTokenParams`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_authorized_entity()` instead."]
+    pub fn authorized_entity(&mut self, val: String) -> &mut Self {
+        self.set_authorized_entity(val);
+        self
+    }
+    #[deprecated = "Use `set_scope()` instead."]
+    pub fn scope(&mut self, val: String) -> &mut Self {
+        self.set_scope(val);
+        self
+    }
+}
+impl Default for DeleteTokenDeleteTokenParams {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Retrieves an identifier for the app instance. The instance ID will be returned by the callback. The same ID will be returned as long as the application identity has not been revoked or expired.
     #[wasm_bindgen(js_namespace = ["chrome", "instanceID"], js_name = "getID")]
     pub fn get_id() -> Promise;

@@ -30,10 +30,10 @@ extern "C" {
     pub type RecorderView;
     ///Fired when the view is shown.
     #[wasm_bindgen(method, getter = "onShown")]
-    pub fn get_on_shown(this: &RecorderView) -> Object;
+    pub fn on_shown(this: &RecorderView) -> JsValue;
     ///Fired when the view is hidden.
     #[wasm_bindgen(method, getter = "onHidden")]
-    pub fn get_on_hidden(this: &RecorderView) -> Object;
+    pub fn on_hidden(this: &RecorderView) -> JsValue;
 }
 impl RecorderView {
     ///Construct a new `RecorderView`.

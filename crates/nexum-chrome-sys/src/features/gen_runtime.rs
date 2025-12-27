@@ -34,10 +34,10 @@ extern "C" {
     pub fn set_sender(this: &Port, val: &MessageSender);
     ///Fired when the port is disconnected from the other end(s). $(ref:runtime.lastError) may be set if the port was disconnected by an error. If the port is closed via $(ref:Port.disconnect disconnect), then this event is only fired on the other end. This event is fired at most once (see also Port lifetime).
     #[wasm_bindgen(method, getter = "onDisconnect")]
-    pub fn get_on_disconnect(this: &Port) -> Object;
+    pub fn on_disconnect(this: &Port) -> JsValue;
     ///This event is fired when $(ref:Port.postMessage postMessage) is called by the other end of the port.
     #[wasm_bindgen(method, getter = "onMessage")]
-    pub fn get_on_message(this: &Port) -> Object;
+    pub fn on_message(this: &Port) -> JsValue;
 }
 impl Port {
     ///Construct a new `Port`.
@@ -606,6 +606,163 @@ impl ContextFilter {
     }
 }
 impl Default for ContextFilter {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnInstalledDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnInstalledDetails;
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &OnInstalledDetails) -> Option<String>;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &OnInstalledDetails, val: String);
+    ///Get the `previousVersion` field of this object.
+    #[wasm_bindgen(method, getter = "previousVersion")]
+    pub fn get_previous_version(this: &OnInstalledDetails) -> Option<String>;
+    ///Change the `previousVersion` field of this object.
+    #[wasm_bindgen(method, setter = "previousVersion")]
+    pub fn set_previous_version(this: &OnInstalledDetails, val: String);
+    ///Get the `reason` field of this object.
+    #[wasm_bindgen(method, getter = "reason")]
+    pub fn get_reason(this: &OnInstalledDetails) -> OnInstalledReason;
+    ///Change the `reason` field of this object.
+    #[wasm_bindgen(method, setter = "reason")]
+    pub fn set_reason(this: &OnInstalledDetails, val: OnInstalledReason);
+}
+impl OnInstalledDetails {
+    ///Construct a new `OnInstalledDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_previous_version()` instead."]
+    pub fn previous_version(&mut self, val: String) -> &mut Self {
+        self.set_previous_version(val);
+        self
+    }
+    #[deprecated = "Use `set_reason()` instead."]
+    pub fn reason(&mut self, val: OnInstalledReason) -> &mut Self {
+        self.set_reason(val);
+        self
+    }
+}
+impl Default for OnInstalledDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnUpdateAvailableDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///The manifest details of the available update.
+    pub type OnUpdateAvailableDetails;
+    ///Get the `version` field of this object.
+    #[wasm_bindgen(method, getter = "version")]
+    pub fn get_version(this: &OnUpdateAvailableDetails) -> String;
+    ///Change the `version` field of this object.
+    #[wasm_bindgen(method, setter = "version")]
+    pub fn set_version(this: &OnUpdateAvailableDetails, val: String);
+}
+impl OnUpdateAvailableDetails {
+    ///Construct a new `OnUpdateAvailableDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_version()` instead."]
+    pub fn version(&mut self, val: String) -> &mut Self {
+        self.set_version(val);
+        self
+    }
+}
+impl Default for OnUpdateAvailableDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConnectConnectInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type ConnectConnectInfo;
+    ///Get the `includeTlsChannelId` field of this object.
+    #[wasm_bindgen(method, getter = "includeTlsChannelId")]
+    pub fn get_include_tls_channel_id(this: &ConnectConnectInfo) -> Option<bool>;
+    ///Change the `includeTlsChannelId` field of this object.
+    #[wasm_bindgen(method, setter = "includeTlsChannelId")]
+    pub fn set_include_tls_channel_id(this: &ConnectConnectInfo, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &ConnectConnectInfo) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &ConnectConnectInfo, val: String);
+}
+impl ConnectConnectInfo {
+    ///Construct a new `ConnectConnectInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_include_tls_channel_id()` instead."]
+    pub fn include_tls_channel_id(&mut self, val: bool) -> &mut Self {
+        self.set_include_tls_channel_id(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+}
+impl Default for ConnectConnectInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendMessageOptions")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SendMessageOptions;
+    ///Get the `includeTlsChannelId` field of this object.
+    #[wasm_bindgen(method, getter = "includeTlsChannelId")]
+    pub fn get_include_tls_channel_id(this: &SendMessageOptions) -> Option<bool>;
+    ///Change the `includeTlsChannelId` field of this object.
+    #[wasm_bindgen(method, setter = "includeTlsChannelId")]
+    pub fn set_include_tls_channel_id(this: &SendMessageOptions, val: bool);
+}
+impl SendMessageOptions {
+    ///Construct a new `SendMessageOptions`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_include_tls_channel_id()` instead."]
+    pub fn include_tls_channel_id(&mut self, val: bool) -> &mut Self {
+        self.set_include_tls_channel_id(val);
+        self
+    }
+}
+impl Default for SendMessageOptions {
     fn default() -> Self {
         Self::new()
     }

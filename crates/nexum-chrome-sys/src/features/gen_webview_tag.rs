@@ -646,7 +646,7 @@ extern "C" {
     pub type ContextMenus;
     ///Fired before showing a context menu on this webview. Can be used to disable this context menu by calling event.preventDefault().
     #[wasm_bindgen(method, getter = "onShow")]
-    pub fn get_on_show(this: &ContextMenus) -> Object;
+    pub fn on_show(this: &ContextMenus) -> JsValue;
 }
 impl ContextMenus {
     ///Construct a new `ContextMenus`.
@@ -1280,6 +1280,48 @@ pub enum PermissionType {
     Filesystem = "filesystem",
     Fullscreen = "fullscreen",
     Hid = "hid",
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ExitDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type ExitDetails;
+    ///Get the `processID` field of this object.
+    #[wasm_bindgen(method, getter = "processID")]
+    pub fn get_process_id(this: &ExitDetails) -> i32;
+    ///Change the `processID` field of this object.
+    #[wasm_bindgen(method, setter = "processID")]
+    pub fn set_process_id(this: &ExitDetails, val: i32);
+    ///Get the `reason` field of this object.
+    #[wasm_bindgen(method, getter = "reason")]
+    pub fn get_reason(this: &ExitDetails) -> ExitReason;
+    ///Change the `reason` field of this object.
+    #[wasm_bindgen(method, setter = "reason")]
+    pub fn set_reason(this: &ExitDetails, val: ExitReason);
+}
+impl ExitDetails {
+    ///Construct a new `ExitDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_process_id()` instead."]
+    pub fn process_id(&mut self, val: i32) -> &mut Self {
+        self.set_process_id(val);
+        self
+    }
+    #[deprecated = "Use `set_reason()` instead."]
+    pub fn reason(&mut self, val: ExitReason) -> &mut Self {
+        self.set_reason(val);
+        self
+    }
+}
+impl Default for ExitDetails {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 #[wasm_bindgen]
 extern "C" {

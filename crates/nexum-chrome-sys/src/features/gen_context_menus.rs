@@ -324,6 +324,136 @@ impl Default for CreateProperties {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateUpdateProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///The properties to update. Accepts the same values as the $(ref:contextMenus.create) function.
+    pub type UpdateUpdateProperties;
+    ///Get the `checked` field of this object.
+    #[wasm_bindgen(method, getter = "checked")]
+    pub fn get_checked(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `checked` field of this object.
+    #[wasm_bindgen(method, setter = "checked")]
+    pub fn set_checked(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `contexts` field of this object.
+    #[wasm_bindgen(method, getter = "contexts")]
+    pub fn get_contexts(this: &UpdateUpdateProperties) -> Option<Array>;
+    ///Change the `contexts` field of this object.
+    #[wasm_bindgen(method, setter = "contexts")]
+    pub fn set_contexts(this: &UpdateUpdateProperties, val: &Array);
+    ///Get the `documentUrlPatterns` field of this object.
+    #[wasm_bindgen(method, getter = "documentUrlPatterns")]
+    pub fn get_document_url_patterns(this: &UpdateUpdateProperties) -> Option<Array>;
+    ///Change the `documentUrlPatterns` field of this object.
+    #[wasm_bindgen(method, setter = "documentUrlPatterns")]
+    pub fn set_document_url_patterns(this: &UpdateUpdateProperties, val: &Array);
+    ///Get the `enabled` field of this object.
+    #[wasm_bindgen(method, getter = "enabled")]
+    pub fn get_enabled(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `enabled` field of this object.
+    #[wasm_bindgen(method, setter = "enabled")]
+    pub fn set_enabled(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `onclick` field of this object.
+    #[wasm_bindgen(method, getter = "onclick")]
+    pub fn get_onclick(this: &UpdateUpdateProperties) -> Option<Function>;
+    ///Change the `onclick` field of this object.
+    #[wasm_bindgen(method, setter = "onclick")]
+    pub fn set_onclick(this: &UpdateUpdateProperties, val: &Function);
+    ///Get the `parentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentId")]
+    pub fn get_parent_id(this: &UpdateUpdateProperties) -> Option<JsValue>;
+    ///Change the `parentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentId")]
+    pub fn set_parent_id(this: &UpdateUpdateProperties, val: &JsValue);
+    ///Get the `targetUrlPatterns` field of this object.
+    #[wasm_bindgen(method, getter = "targetUrlPatterns")]
+    pub fn get_target_url_patterns(this: &UpdateUpdateProperties) -> Option<Array>;
+    ///Change the `targetUrlPatterns` field of this object.
+    #[wasm_bindgen(method, setter = "targetUrlPatterns")]
+    pub fn set_target_url_patterns(this: &UpdateUpdateProperties, val: &Array);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &UpdateUpdateProperties) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &UpdateUpdateProperties, val: String);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &UpdateUpdateProperties) -> Option<ItemType>;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &UpdateUpdateProperties, val: ItemType);
+    ///Get the `visible` field of this object.
+    #[wasm_bindgen(method, getter = "visible")]
+    pub fn get_visible(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `visible` field of this object.
+    #[wasm_bindgen(method, setter = "visible")]
+    pub fn set_visible(this: &UpdateUpdateProperties, val: bool);
+}
+impl UpdateUpdateProperties {
+    ///Construct a new `UpdateUpdateProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_checked()` instead."]
+    pub fn checked(&mut self, val: bool) -> &mut Self {
+        self.set_checked(val);
+        self
+    }
+    #[deprecated = "Use `set_contexts()` instead."]
+    pub fn contexts(&mut self, val: &Array) -> &mut Self {
+        self.set_contexts(val);
+        self
+    }
+    #[deprecated = "Use `set_document_url_patterns()` instead."]
+    pub fn document_url_patterns(&mut self, val: &Array) -> &mut Self {
+        self.set_document_url_patterns(val);
+        self
+    }
+    #[deprecated = "Use `set_enabled()` instead."]
+    pub fn enabled(&mut self, val: bool) -> &mut Self {
+        self.set_enabled(val);
+        self
+    }
+    #[deprecated = "Use `set_onclick()` instead."]
+    pub fn onclick(&mut self, val: &Function) -> &mut Self {
+        self.set_onclick(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_id()` instead."]
+    pub fn parent_id(&mut self, val: &JsValue) -> &mut Self {
+        self.set_parent_id(val);
+        self
+    }
+    #[deprecated = "Use `set_target_url_patterns()` instead."]
+    pub fn target_url_patterns(&mut self, val: &Array) -> &mut Self {
+        self.set_target_url_patterns(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ItemType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_visible()` instead."]
+    pub fn visible(&mut self, val: bool) -> &mut Self {
+        self.set_visible(val);
+        self
+    }
+}
+impl Default for UpdateUpdateProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in $(ref:runtime.lastError).
     #[wasm_bindgen(js_namespace = ["chrome", "contextMenus"], js_name = "create")]
     pub fn create(create_properties: CreateProperties) -> Promise;
