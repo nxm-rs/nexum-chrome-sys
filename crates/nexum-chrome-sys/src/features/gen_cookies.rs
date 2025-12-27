@@ -376,6 +376,308 @@ impl Default for FrameDetails {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnChangedChangeInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnChangedChangeInfo;
+    ///Get the `cause` field of this object.
+    #[wasm_bindgen(method, getter = "cause")]
+    pub fn get_cause(this: &OnChangedChangeInfo) -> OnChangedCause;
+    ///Change the `cause` field of this object.
+    #[wasm_bindgen(method, setter = "cause")]
+    pub fn set_cause(this: &OnChangedChangeInfo, val: OnChangedCause);
+    ///Get the `cookie` field of this object.
+    #[wasm_bindgen(method, getter = "cookie")]
+    pub fn get_cookie(this: &OnChangedChangeInfo) -> Cookie;
+    ///Change the `cookie` field of this object.
+    #[wasm_bindgen(method, setter = "cookie")]
+    pub fn set_cookie(this: &OnChangedChangeInfo, val: &Cookie);
+    ///Get the `removed` field of this object.
+    #[wasm_bindgen(method, getter = "removed")]
+    pub fn get_removed(this: &OnChangedChangeInfo) -> bool;
+    ///Change the `removed` field of this object.
+    #[wasm_bindgen(method, setter = "removed")]
+    pub fn set_removed(this: &OnChangedChangeInfo, val: bool);
+}
+impl OnChangedChangeInfo {
+    ///Construct a new `OnChangedChangeInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_cause()` instead."]
+    pub fn cause(&mut self, val: OnChangedCause) -> &mut Self {
+        self.set_cause(val);
+        self
+    }
+    #[deprecated = "Use `set_cookie()` instead."]
+    pub fn cookie(&mut self, val: &Cookie) -> &mut Self {
+        self.set_cookie(val);
+        self
+    }
+    #[deprecated = "Use `set_removed()` instead."]
+    pub fn removed(&mut self, val: bool) -> &mut Self {
+        self.set_removed(val);
+        self
+    }
+}
+impl Default for OnChangedChangeInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetAllDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Information to filter the cookies being retrieved.
+    pub type GetAllDetails;
+    ///Get the `domain` field of this object.
+    #[wasm_bindgen(method, getter = "domain")]
+    pub fn get_domain(this: &GetAllDetails) -> Option<String>;
+    ///Change the `domain` field of this object.
+    #[wasm_bindgen(method, setter = "domain")]
+    pub fn set_domain(this: &GetAllDetails, val: String);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &GetAllDetails) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &GetAllDetails, val: String);
+    ///Get the `partitionKey` field of this object.
+    #[wasm_bindgen(method, getter = "partitionKey")]
+    pub fn get_partition_key(this: &GetAllDetails) -> Option<CookiePartitionKey>;
+    ///Change the `partitionKey` field of this object.
+    #[wasm_bindgen(method, setter = "partitionKey")]
+    pub fn set_partition_key(this: &GetAllDetails, val: &CookiePartitionKey);
+    ///Get the `path` field of this object.
+    #[wasm_bindgen(method, getter = "path")]
+    pub fn get_path(this: &GetAllDetails) -> Option<String>;
+    ///Change the `path` field of this object.
+    #[wasm_bindgen(method, setter = "path")]
+    pub fn set_path(this: &GetAllDetails, val: String);
+    ///Get the `secure` field of this object.
+    #[wasm_bindgen(method, getter = "secure")]
+    pub fn get_secure(this: &GetAllDetails) -> Option<bool>;
+    ///Change the `secure` field of this object.
+    #[wasm_bindgen(method, setter = "secure")]
+    pub fn set_secure(this: &GetAllDetails, val: bool);
+    ///Get the `session` field of this object.
+    #[wasm_bindgen(method, getter = "session")]
+    pub fn get_session(this: &GetAllDetails) -> Option<bool>;
+    ///Change the `session` field of this object.
+    #[wasm_bindgen(method, setter = "session")]
+    pub fn set_session(this: &GetAllDetails, val: bool);
+    ///Get the `storeId` field of this object.
+    #[wasm_bindgen(method, getter = "storeId")]
+    pub fn get_store_id(this: &GetAllDetails) -> Option<String>;
+    ///Change the `storeId` field of this object.
+    #[wasm_bindgen(method, setter = "storeId")]
+    pub fn set_store_id(this: &GetAllDetails, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &GetAllDetails) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &GetAllDetails, val: String);
+}
+impl GetAllDetails {
+    ///Construct a new `GetAllDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_domain()` instead."]
+    pub fn domain(&mut self, val: String) -> &mut Self {
+        self.set_domain(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_partition_key()` instead."]
+    pub fn partition_key(&mut self, val: &CookiePartitionKey) -> &mut Self {
+        self.set_partition_key(val);
+        self
+    }
+    #[deprecated = "Use `set_path()` instead."]
+    pub fn path(&mut self, val: String) -> &mut Self {
+        self.set_path(val);
+        self
+    }
+    #[deprecated = "Use `set_secure()` instead."]
+    pub fn secure(&mut self, val: bool) -> &mut Self {
+        self.set_secure(val);
+        self
+    }
+    #[deprecated = "Use `set_session()` instead."]
+    pub fn session(&mut self, val: bool) -> &mut Self {
+        self.set_session(val);
+        self
+    }
+    #[deprecated = "Use `set_store_id()` instead."]
+    pub fn store_id(&mut self, val: String) -> &mut Self {
+        self.set_store_id(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for GetAllDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///Details about the cookie being set.
+    pub type SetDetails;
+    ///Get the `domain` field of this object.
+    #[wasm_bindgen(method, getter = "domain")]
+    pub fn get_domain(this: &SetDetails) -> Option<String>;
+    ///Change the `domain` field of this object.
+    #[wasm_bindgen(method, setter = "domain")]
+    pub fn set_domain(this: &SetDetails, val: String);
+    ///Get the `expirationDate` field of this object.
+    #[wasm_bindgen(method, getter = "expirationDate")]
+    pub fn get_expiration_date(this: &SetDetails) -> Option<f64>;
+    ///Change the `expirationDate` field of this object.
+    #[wasm_bindgen(method, setter = "expirationDate")]
+    pub fn set_expiration_date(this: &SetDetails, val: f64);
+    ///Get the `httpOnly` field of this object.
+    #[wasm_bindgen(method, getter = "httpOnly")]
+    pub fn get_http_only(this: &SetDetails) -> Option<bool>;
+    ///Change the `httpOnly` field of this object.
+    #[wasm_bindgen(method, setter = "httpOnly")]
+    pub fn set_http_only(this: &SetDetails, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &SetDetails) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &SetDetails, val: String);
+    ///Get the `partitionKey` field of this object.
+    #[wasm_bindgen(method, getter = "partitionKey")]
+    pub fn get_partition_key(this: &SetDetails) -> Option<CookiePartitionKey>;
+    ///Change the `partitionKey` field of this object.
+    #[wasm_bindgen(method, setter = "partitionKey")]
+    pub fn set_partition_key(this: &SetDetails, val: &CookiePartitionKey);
+    ///Get the `path` field of this object.
+    #[wasm_bindgen(method, getter = "path")]
+    pub fn get_path(this: &SetDetails) -> Option<String>;
+    ///Change the `path` field of this object.
+    #[wasm_bindgen(method, setter = "path")]
+    pub fn set_path(this: &SetDetails, val: String);
+    ///Get the `sameSite` field of this object.
+    #[wasm_bindgen(method, getter = "sameSite")]
+    pub fn get_same_site(this: &SetDetails) -> Option<SameSiteStatus>;
+    ///Change the `sameSite` field of this object.
+    #[wasm_bindgen(method, setter = "sameSite")]
+    pub fn set_same_site(this: &SetDetails, val: SameSiteStatus);
+    ///Get the `secure` field of this object.
+    #[wasm_bindgen(method, getter = "secure")]
+    pub fn get_secure(this: &SetDetails) -> Option<bool>;
+    ///Change the `secure` field of this object.
+    #[wasm_bindgen(method, setter = "secure")]
+    pub fn set_secure(this: &SetDetails, val: bool);
+    ///Get the `storeId` field of this object.
+    #[wasm_bindgen(method, getter = "storeId")]
+    pub fn get_store_id(this: &SetDetails) -> Option<String>;
+    ///Change the `storeId` field of this object.
+    #[wasm_bindgen(method, setter = "storeId")]
+    pub fn set_store_id(this: &SetDetails, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &SetDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &SetDetails, val: String);
+    ///Get the `value` field of this object.
+    #[wasm_bindgen(method, getter = "value")]
+    pub fn get_value(this: &SetDetails) -> Option<String>;
+    ///Change the `value` field of this object.
+    #[wasm_bindgen(method, setter = "value")]
+    pub fn set_value(this: &SetDetails, val: String);
+}
+impl SetDetails {
+    ///Construct a new `SetDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_domain()` instead."]
+    pub fn domain(&mut self, val: String) -> &mut Self {
+        self.set_domain(val);
+        self
+    }
+    #[deprecated = "Use `set_expiration_date()` instead."]
+    pub fn expiration_date(&mut self, val: f64) -> &mut Self {
+        self.set_expiration_date(val);
+        self
+    }
+    #[deprecated = "Use `set_http_only()` instead."]
+    pub fn http_only(&mut self, val: bool) -> &mut Self {
+        self.set_http_only(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_partition_key()` instead."]
+    pub fn partition_key(&mut self, val: &CookiePartitionKey) -> &mut Self {
+        self.set_partition_key(val);
+        self
+    }
+    #[deprecated = "Use `set_path()` instead."]
+    pub fn path(&mut self, val: String) -> &mut Self {
+        self.set_path(val);
+        self
+    }
+    #[deprecated = "Use `set_same_site()` instead."]
+    pub fn same_site(&mut self, val: SameSiteStatus) -> &mut Self {
+        self.set_same_site(val);
+        self
+    }
+    #[deprecated = "Use `set_secure()` instead."]
+    pub fn secure(&mut self, val: bool) -> &mut Self {
+        self.set_secure(val);
+        self
+    }
+    #[deprecated = "Use `set_store_id()` instead."]
+    pub fn store_id(&mut self, val: String) -> &mut Self {
+        self.set_store_id(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+    #[deprecated = "Use `set_value()` instead."]
+    pub fn value(&mut self, val: String) -> &mut Self {
+        self.set_value(val);
+        self
+    }
+}
+impl Default for SetDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
     #[wasm_bindgen(js_namespace = ["chrome", "cookies"], js_name = "get")]
     pub fn get(details: CookieDetails) -> Promise;

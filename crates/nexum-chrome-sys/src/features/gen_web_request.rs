@@ -364,6 +364,2009 @@ pub enum IgnoredActionType {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnBeforeRequestDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnBeforeRequestDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnBeforeRequestDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnBeforeRequestDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnBeforeRequestDetails,
+    ) -> Option<super::extension_types::DocumentLifecycle>;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnBeforeRequestDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnBeforeRequestDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnBeforeRequestDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(
+        this: &OnBeforeRequestDetails,
+    ) -> Option<super::extension_types::FrameType>;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnBeforeRequestDetails, val: super::extension_types::FrameType);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnBeforeRequestDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnBeforeRequestDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnBeforeRequestDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnBeforeRequestDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnBeforeRequestDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnBeforeRequestDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnBeforeRequestDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnBeforeRequestDetails, val: i32);
+    ///Get the `requestBody` field of this object.
+    #[wasm_bindgen(method, getter = "requestBody")]
+    pub fn get_request_body(this: &OnBeforeRequestDetails) -> Option<Object>;
+    ///Change the `requestBody` field of this object.
+    #[wasm_bindgen(method, setter = "requestBody")]
+    pub fn set_request_body(this: &OnBeforeRequestDetails, val: &Object);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnBeforeRequestDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnBeforeRequestDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnBeforeRequestDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnBeforeRequestDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnBeforeRequestDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnBeforeRequestDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnBeforeRequestDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnBeforeRequestDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnBeforeRequestDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnBeforeRequestDetails, val: String);
+}
+impl OnBeforeRequestDetails {
+    ///Construct a new `OnBeforeRequestDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_body()` instead."]
+    pub fn request_body(&mut self, val: &Object) -> &mut Self {
+        self.set_request_body(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnBeforeRequestDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnBeforeSendHeadersDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnBeforeSendHeadersDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnBeforeSendHeadersDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnBeforeSendHeadersDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnBeforeSendHeadersDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnBeforeSendHeadersDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnBeforeSendHeadersDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnBeforeSendHeadersDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnBeforeSendHeadersDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(
+        this: &OnBeforeSendHeadersDetails,
+        val: super::extension_types::FrameType,
+    );
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnBeforeSendHeadersDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnBeforeSendHeadersDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnBeforeSendHeadersDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnBeforeSendHeadersDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnBeforeSendHeadersDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnBeforeSendHeadersDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnBeforeSendHeadersDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnBeforeSendHeadersDetails, val: i32);
+    ///Get the `requestHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "requestHeaders")]
+    pub fn get_request_headers(this: &OnBeforeSendHeadersDetails) -> Option<HttpHeaders>;
+    ///Change the `requestHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "requestHeaders")]
+    pub fn set_request_headers(this: &OnBeforeSendHeadersDetails, val: &HttpHeaders);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnBeforeSendHeadersDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnBeforeSendHeadersDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnBeforeSendHeadersDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnBeforeSendHeadersDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnBeforeSendHeadersDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnBeforeSendHeadersDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnBeforeSendHeadersDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnBeforeSendHeadersDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnBeforeSendHeadersDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnBeforeSendHeadersDetails, val: String);
+}
+impl OnBeforeSendHeadersDetails {
+    ///Construct a new `OnBeforeSendHeadersDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_headers()` instead."]
+    pub fn request_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_request_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnBeforeSendHeadersDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnSendHeadersDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnSendHeadersDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnSendHeadersDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnSendHeadersDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnSendHeadersDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnSendHeadersDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnSendHeadersDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnSendHeadersDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnSendHeadersDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnSendHeadersDetails, val: super::extension_types::FrameType);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnSendHeadersDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnSendHeadersDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnSendHeadersDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnSendHeadersDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnSendHeadersDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnSendHeadersDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnSendHeadersDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnSendHeadersDetails, val: i32);
+    ///Get the `requestHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "requestHeaders")]
+    pub fn get_request_headers(this: &OnSendHeadersDetails) -> Option<HttpHeaders>;
+    ///Change the `requestHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "requestHeaders")]
+    pub fn set_request_headers(this: &OnSendHeadersDetails, val: &HttpHeaders);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnSendHeadersDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnSendHeadersDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnSendHeadersDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnSendHeadersDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnSendHeadersDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnSendHeadersDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnSendHeadersDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnSendHeadersDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnSendHeadersDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnSendHeadersDetails, val: String);
+}
+impl OnSendHeadersDetails {
+    ///Construct a new `OnSendHeadersDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_headers()` instead."]
+    pub fn request_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_request_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnSendHeadersDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnHeadersReceivedDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnHeadersReceivedDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnHeadersReceivedDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnHeadersReceivedDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnHeadersReceivedDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnHeadersReceivedDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnHeadersReceivedDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnHeadersReceivedDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnHeadersReceivedDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnHeadersReceivedDetails, val: super::extension_types::FrameType);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnHeadersReceivedDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnHeadersReceivedDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnHeadersReceivedDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnHeadersReceivedDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnHeadersReceivedDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnHeadersReceivedDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnHeadersReceivedDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnHeadersReceivedDetails, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnHeadersReceivedDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnHeadersReceivedDetails, val: String);
+    ///Get the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "responseHeaders")]
+    pub fn get_response_headers(this: &OnHeadersReceivedDetails) -> Option<HttpHeaders>;
+    ///Change the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "responseHeaders")]
+    pub fn set_response_headers(this: &OnHeadersReceivedDetails, val: &HttpHeaders);
+    ///Get the `securityInfo` field of this object.
+    #[wasm_bindgen(method, getter = "securityInfo")]
+    pub fn get_security_info(this: &OnHeadersReceivedDetails) -> Option<SecurityInfo>;
+    ///Change the `securityInfo` field of this object.
+    #[wasm_bindgen(method, setter = "securityInfo")]
+    pub fn set_security_info(this: &OnHeadersReceivedDetails, val: &SecurityInfo);
+    ///Get the `statusCode` field of this object.
+    #[wasm_bindgen(method, getter = "statusCode")]
+    pub fn get_status_code(this: &OnHeadersReceivedDetails) -> i32;
+    ///Change the `statusCode` field of this object.
+    #[wasm_bindgen(method, setter = "statusCode")]
+    pub fn set_status_code(this: &OnHeadersReceivedDetails, val: i32);
+    ///Get the `statusLine` field of this object.
+    #[wasm_bindgen(method, getter = "statusLine")]
+    pub fn get_status_line(this: &OnHeadersReceivedDetails) -> String;
+    ///Change the `statusLine` field of this object.
+    #[wasm_bindgen(method, setter = "statusLine")]
+    pub fn set_status_line(this: &OnHeadersReceivedDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnHeadersReceivedDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnHeadersReceivedDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnHeadersReceivedDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnHeadersReceivedDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnHeadersReceivedDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnHeadersReceivedDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnHeadersReceivedDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnHeadersReceivedDetails, val: String);
+}
+impl OnHeadersReceivedDetails {
+    ///Construct a new `OnHeadersReceivedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_response_headers()` instead."]
+    pub fn response_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_response_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_security_info()` instead."]
+    pub fn security_info(&mut self, val: &SecurityInfo) -> &mut Self {
+        self.set_security_info(val);
+        self
+    }
+    #[deprecated = "Use `set_status_code()` instead."]
+    pub fn status_code(&mut self, val: i32) -> &mut Self {
+        self.set_status_code(val);
+        self
+    }
+    #[deprecated = "Use `set_status_line()` instead."]
+    pub fn status_line(&mut self, val: String) -> &mut Self {
+        self.set_status_line(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnHeadersReceivedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnAuthRequiredDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnAuthRequiredDetails;
+    ///Get the `challenger` field of this object.
+    #[wasm_bindgen(method, getter = "challenger")]
+    pub fn get_challenger(this: &OnAuthRequiredDetails) -> Object;
+    ///Change the `challenger` field of this object.
+    #[wasm_bindgen(method, setter = "challenger")]
+    pub fn set_challenger(this: &OnAuthRequiredDetails, val: &Object);
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnAuthRequiredDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnAuthRequiredDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnAuthRequiredDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnAuthRequiredDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnAuthRequiredDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnAuthRequiredDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnAuthRequiredDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnAuthRequiredDetails, val: super::extension_types::FrameType);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnAuthRequiredDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `isProxy` field of this object.
+    #[wasm_bindgen(method, getter = "isProxy")]
+    pub fn get_is_proxy(this: &OnAuthRequiredDetails) -> bool;
+    ///Change the `isProxy` field of this object.
+    #[wasm_bindgen(method, setter = "isProxy")]
+    pub fn set_is_proxy(this: &OnAuthRequiredDetails, val: bool);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnAuthRequiredDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnAuthRequiredDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnAuthRequiredDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnAuthRequiredDetails, val: i32);
+    ///Get the `realm` field of this object.
+    #[wasm_bindgen(method, getter = "realm")]
+    pub fn get_realm(this: &OnAuthRequiredDetails) -> Option<String>;
+    ///Change the `realm` field of this object.
+    #[wasm_bindgen(method, setter = "realm")]
+    pub fn set_realm(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnAuthRequiredDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "responseHeaders")]
+    pub fn get_response_headers(this: &OnAuthRequiredDetails) -> Option<HttpHeaders>;
+    ///Change the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "responseHeaders")]
+    pub fn set_response_headers(this: &OnAuthRequiredDetails, val: &HttpHeaders);
+    ///Get the `scheme` field of this object.
+    #[wasm_bindgen(method, getter = "scheme")]
+    pub fn get_scheme(this: &OnAuthRequiredDetails) -> String;
+    ///Change the `scheme` field of this object.
+    #[wasm_bindgen(method, setter = "scheme")]
+    pub fn set_scheme(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `statusCode` field of this object.
+    #[wasm_bindgen(method, getter = "statusCode")]
+    pub fn get_status_code(this: &OnAuthRequiredDetails) -> i32;
+    ///Change the `statusCode` field of this object.
+    #[wasm_bindgen(method, setter = "statusCode")]
+    pub fn set_status_code(this: &OnAuthRequiredDetails, val: i32);
+    ///Get the `statusLine` field of this object.
+    #[wasm_bindgen(method, getter = "statusLine")]
+    pub fn get_status_line(this: &OnAuthRequiredDetails) -> String;
+    ///Change the `statusLine` field of this object.
+    #[wasm_bindgen(method, setter = "statusLine")]
+    pub fn set_status_line(this: &OnAuthRequiredDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnAuthRequiredDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnAuthRequiredDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnAuthRequiredDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnAuthRequiredDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnAuthRequiredDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnAuthRequiredDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnAuthRequiredDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnAuthRequiredDetails, val: String);
+}
+impl OnAuthRequiredDetails {
+    ///Construct a new `OnAuthRequiredDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_challenger()` instead."]
+    pub fn challenger(&mut self, val: &Object) -> &mut Self {
+        self.set_challenger(val);
+        self
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_is_proxy()` instead."]
+    pub fn is_proxy(&mut self, val: bool) -> &mut Self {
+        self.set_is_proxy(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_realm()` instead."]
+    pub fn realm(&mut self, val: String) -> &mut Self {
+        self.set_realm(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_response_headers()` instead."]
+    pub fn response_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_response_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_scheme()` instead."]
+    pub fn scheme(&mut self, val: String) -> &mut Self {
+        self.set_scheme(val);
+        self
+    }
+    #[deprecated = "Use `set_status_code()` instead."]
+    pub fn status_code(&mut self, val: i32) -> &mut Self {
+        self.set_status_code(val);
+        self
+    }
+    #[deprecated = "Use `set_status_line()` instead."]
+    pub fn status_line(&mut self, val: String) -> &mut Self {
+        self.set_status_line(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnAuthRequiredDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnResponseStartedDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnResponseStartedDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnResponseStartedDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnResponseStartedDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnResponseStartedDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnResponseStartedDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnResponseStartedDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnResponseStartedDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnResponseStartedDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnResponseStartedDetails, val: super::extension_types::FrameType);
+    ///Get the `fromCache` field of this object.
+    #[wasm_bindgen(method, getter = "fromCache")]
+    pub fn get_from_cache(this: &OnResponseStartedDetails) -> bool;
+    ///Change the `fromCache` field of this object.
+    #[wasm_bindgen(method, setter = "fromCache")]
+    pub fn set_from_cache(this: &OnResponseStartedDetails, val: bool);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnResponseStartedDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnResponseStartedDetails, val: String);
+    ///Get the `ip` field of this object.
+    #[wasm_bindgen(method, getter = "ip")]
+    pub fn get_ip(this: &OnResponseStartedDetails) -> Option<String>;
+    ///Change the `ip` field of this object.
+    #[wasm_bindgen(method, setter = "ip")]
+    pub fn set_ip(this: &OnResponseStartedDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnResponseStartedDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnResponseStartedDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnResponseStartedDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnResponseStartedDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnResponseStartedDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnResponseStartedDetails, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnResponseStartedDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnResponseStartedDetails, val: String);
+    ///Get the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "responseHeaders")]
+    pub fn get_response_headers(this: &OnResponseStartedDetails) -> Option<HttpHeaders>;
+    ///Change the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "responseHeaders")]
+    pub fn set_response_headers(this: &OnResponseStartedDetails, val: &HttpHeaders);
+    ///Get the `statusCode` field of this object.
+    #[wasm_bindgen(method, getter = "statusCode")]
+    pub fn get_status_code(this: &OnResponseStartedDetails) -> i32;
+    ///Change the `statusCode` field of this object.
+    #[wasm_bindgen(method, setter = "statusCode")]
+    pub fn set_status_code(this: &OnResponseStartedDetails, val: i32);
+    ///Get the `statusLine` field of this object.
+    #[wasm_bindgen(method, getter = "statusLine")]
+    pub fn get_status_line(this: &OnResponseStartedDetails) -> String;
+    ///Change the `statusLine` field of this object.
+    #[wasm_bindgen(method, setter = "statusLine")]
+    pub fn set_status_line(this: &OnResponseStartedDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnResponseStartedDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnResponseStartedDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnResponseStartedDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnResponseStartedDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnResponseStartedDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnResponseStartedDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnResponseStartedDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnResponseStartedDetails, val: String);
+}
+impl OnResponseStartedDetails {
+    ///Construct a new `OnResponseStartedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_from_cache()` instead."]
+    pub fn from_cache(&mut self, val: bool) -> &mut Self {
+        self.set_from_cache(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_ip()` instead."]
+    pub fn ip(&mut self, val: String) -> &mut Self {
+        self.set_ip(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_response_headers()` instead."]
+    pub fn response_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_response_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_status_code()` instead."]
+    pub fn status_code(&mut self, val: i32) -> &mut Self {
+        self.set_status_code(val);
+        self
+    }
+    #[deprecated = "Use `set_status_line()` instead."]
+    pub fn status_line(&mut self, val: String) -> &mut Self {
+        self.set_status_line(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnResponseStartedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnBeforeRedirectDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnBeforeRedirectDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnBeforeRedirectDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnBeforeRedirectDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnBeforeRedirectDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnBeforeRedirectDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnBeforeRedirectDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnBeforeRedirectDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnBeforeRedirectDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnBeforeRedirectDetails, val: super::extension_types::FrameType);
+    ///Get the `fromCache` field of this object.
+    #[wasm_bindgen(method, getter = "fromCache")]
+    pub fn get_from_cache(this: &OnBeforeRedirectDetails) -> bool;
+    ///Change the `fromCache` field of this object.
+    #[wasm_bindgen(method, setter = "fromCache")]
+    pub fn set_from_cache(this: &OnBeforeRedirectDetails, val: bool);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnBeforeRedirectDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `ip` field of this object.
+    #[wasm_bindgen(method, getter = "ip")]
+    pub fn get_ip(this: &OnBeforeRedirectDetails) -> Option<String>;
+    ///Change the `ip` field of this object.
+    #[wasm_bindgen(method, setter = "ip")]
+    pub fn set_ip(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnBeforeRedirectDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnBeforeRedirectDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnBeforeRedirectDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnBeforeRedirectDetails, val: i32);
+    ///Get the `redirectUrl` field of this object.
+    #[wasm_bindgen(method, getter = "redirectUrl")]
+    pub fn get_redirect_url(this: &OnBeforeRedirectDetails) -> String;
+    ///Change the `redirectUrl` field of this object.
+    #[wasm_bindgen(method, setter = "redirectUrl")]
+    pub fn set_redirect_url(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnBeforeRedirectDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "responseHeaders")]
+    pub fn get_response_headers(this: &OnBeforeRedirectDetails) -> Option<HttpHeaders>;
+    ///Change the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "responseHeaders")]
+    pub fn set_response_headers(this: &OnBeforeRedirectDetails, val: &HttpHeaders);
+    ///Get the `statusCode` field of this object.
+    #[wasm_bindgen(method, getter = "statusCode")]
+    pub fn get_status_code(this: &OnBeforeRedirectDetails) -> i32;
+    ///Change the `statusCode` field of this object.
+    #[wasm_bindgen(method, setter = "statusCode")]
+    pub fn set_status_code(this: &OnBeforeRedirectDetails, val: i32);
+    ///Get the `statusLine` field of this object.
+    #[wasm_bindgen(method, getter = "statusLine")]
+    pub fn get_status_line(this: &OnBeforeRedirectDetails) -> String;
+    ///Change the `statusLine` field of this object.
+    #[wasm_bindgen(method, setter = "statusLine")]
+    pub fn set_status_line(this: &OnBeforeRedirectDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnBeforeRedirectDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnBeforeRedirectDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnBeforeRedirectDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnBeforeRedirectDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnBeforeRedirectDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnBeforeRedirectDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnBeforeRedirectDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnBeforeRedirectDetails, val: String);
+}
+impl OnBeforeRedirectDetails {
+    ///Construct a new `OnBeforeRedirectDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_from_cache()` instead."]
+    pub fn from_cache(&mut self, val: bool) -> &mut Self {
+        self.set_from_cache(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_ip()` instead."]
+    pub fn ip(&mut self, val: String) -> &mut Self {
+        self.set_ip(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_redirect_url()` instead."]
+    pub fn redirect_url(&mut self, val: String) -> &mut Self {
+        self.set_redirect_url(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_response_headers()` instead."]
+    pub fn response_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_response_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_status_code()` instead."]
+    pub fn status_code(&mut self, val: i32) -> &mut Self {
+        self.set_status_code(val);
+        self
+    }
+    #[deprecated = "Use `set_status_line()` instead."]
+    pub fn status_line(&mut self, val: String) -> &mut Self {
+        self.set_status_line(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnBeforeRedirectDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnCompletedDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnCompletedDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnCompletedDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnCompletedDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnCompletedDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnCompletedDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnCompletedDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnCompletedDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnCompletedDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnCompletedDetails, val: super::extension_types::FrameType);
+    ///Get the `fromCache` field of this object.
+    #[wasm_bindgen(method, getter = "fromCache")]
+    pub fn get_from_cache(this: &OnCompletedDetails) -> bool;
+    ///Change the `fromCache` field of this object.
+    #[wasm_bindgen(method, setter = "fromCache")]
+    pub fn set_from_cache(this: &OnCompletedDetails, val: bool);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnCompletedDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnCompletedDetails, val: String);
+    ///Get the `ip` field of this object.
+    #[wasm_bindgen(method, getter = "ip")]
+    pub fn get_ip(this: &OnCompletedDetails) -> Option<String>;
+    ///Change the `ip` field of this object.
+    #[wasm_bindgen(method, setter = "ip")]
+    pub fn set_ip(this: &OnCompletedDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnCompletedDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnCompletedDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnCompletedDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnCompletedDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnCompletedDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnCompletedDetails, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnCompletedDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnCompletedDetails, val: String);
+    ///Get the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "responseHeaders")]
+    pub fn get_response_headers(this: &OnCompletedDetails) -> Option<HttpHeaders>;
+    ///Change the `responseHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "responseHeaders")]
+    pub fn set_response_headers(this: &OnCompletedDetails, val: &HttpHeaders);
+    ///Get the `statusCode` field of this object.
+    #[wasm_bindgen(method, getter = "statusCode")]
+    pub fn get_status_code(this: &OnCompletedDetails) -> i32;
+    ///Change the `statusCode` field of this object.
+    #[wasm_bindgen(method, setter = "statusCode")]
+    pub fn set_status_code(this: &OnCompletedDetails, val: i32);
+    ///Get the `statusLine` field of this object.
+    #[wasm_bindgen(method, getter = "statusLine")]
+    pub fn get_status_line(this: &OnCompletedDetails) -> String;
+    ///Change the `statusLine` field of this object.
+    #[wasm_bindgen(method, setter = "statusLine")]
+    pub fn set_status_line(this: &OnCompletedDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnCompletedDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnCompletedDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnCompletedDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnCompletedDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnCompletedDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnCompletedDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnCompletedDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnCompletedDetails, val: String);
+}
+impl OnCompletedDetails {
+    ///Construct a new `OnCompletedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_from_cache()` instead."]
+    pub fn from_cache(&mut self, val: bool) -> &mut Self {
+        self.set_from_cache(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_ip()` instead."]
+    pub fn ip(&mut self, val: String) -> &mut Self {
+        self.set_ip(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_response_headers()` instead."]
+    pub fn response_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_response_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_status_code()` instead."]
+    pub fn status_code(&mut self, val: i32) -> &mut Self {
+        self.set_status_code(val);
+        self
+    }
+    #[deprecated = "Use `set_status_line()` instead."]
+    pub fn status_line(&mut self, val: String) -> &mut Self {
+        self.set_status_line(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnCompletedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnErrorOccurredDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnErrorOccurredDetails;
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &OnErrorOccurredDetails) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &OnErrorOccurredDetails, val: String);
+    #[cfg(feature = "extension_types")]
+    ///Get the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, getter = "documentLifecycle")]
+    pub fn get_document_lifecycle(
+        this: &OnErrorOccurredDetails,
+    ) -> super::extension_types::DocumentLifecycle;
+    #[cfg(feature = "extension_types")]
+    ///Change the `documentLifecycle` field of this object.
+    #[wasm_bindgen(method, setter = "documentLifecycle")]
+    pub fn set_document_lifecycle(
+        this: &OnErrorOccurredDetails,
+        val: super::extension_types::DocumentLifecycle,
+    );
+    ///Get the `error` field of this object.
+    #[wasm_bindgen(method, getter = "error")]
+    pub fn get_error(this: &OnErrorOccurredDetails) -> String;
+    ///Change the `error` field of this object.
+    #[wasm_bindgen(method, setter = "error")]
+    pub fn set_error(this: &OnErrorOccurredDetails, val: String);
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &OnErrorOccurredDetails) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &OnErrorOccurredDetails, val: i32);
+    #[cfg(feature = "extension_types")]
+    ///Get the `frameType` field of this object.
+    #[wasm_bindgen(method, getter = "frameType")]
+    pub fn get_frame_type(this: &OnErrorOccurredDetails) -> super::extension_types::FrameType;
+    #[cfg(feature = "extension_types")]
+    ///Change the `frameType` field of this object.
+    #[wasm_bindgen(method, setter = "frameType")]
+    pub fn set_frame_type(this: &OnErrorOccurredDetails, val: super::extension_types::FrameType);
+    ///Get the `fromCache` field of this object.
+    #[wasm_bindgen(method, getter = "fromCache")]
+    pub fn get_from_cache(this: &OnErrorOccurredDetails) -> bool;
+    ///Change the `fromCache` field of this object.
+    #[wasm_bindgen(method, setter = "fromCache")]
+    pub fn set_from_cache(this: &OnErrorOccurredDetails, val: bool);
+    ///Get the `initiator` field of this object.
+    #[wasm_bindgen(method, getter = "initiator")]
+    pub fn get_initiator(this: &OnErrorOccurredDetails) -> Option<String>;
+    ///Change the `initiator` field of this object.
+    #[wasm_bindgen(method, setter = "initiator")]
+    pub fn set_initiator(this: &OnErrorOccurredDetails, val: String);
+    ///Get the `ip` field of this object.
+    #[wasm_bindgen(method, getter = "ip")]
+    pub fn get_ip(this: &OnErrorOccurredDetails) -> Option<String>;
+    ///Change the `ip` field of this object.
+    #[wasm_bindgen(method, setter = "ip")]
+    pub fn set_ip(this: &OnErrorOccurredDetails, val: String);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &OnErrorOccurredDetails) -> String;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &OnErrorOccurredDetails, val: String);
+    ///Get the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentDocumentId")]
+    pub fn get_parent_document_id(this: &OnErrorOccurredDetails) -> Option<String>;
+    ///Change the `parentDocumentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentDocumentId")]
+    pub fn set_parent_document_id(this: &OnErrorOccurredDetails, val: String);
+    ///Get the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, getter = "parentFrameId")]
+    pub fn get_parent_frame_id(this: &OnErrorOccurredDetails) -> i32;
+    ///Change the `parentFrameId` field of this object.
+    #[wasm_bindgen(method, setter = "parentFrameId")]
+    pub fn set_parent_frame_id(this: &OnErrorOccurredDetails, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnErrorOccurredDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnErrorOccurredDetails, val: String);
+    ///Get the `tabId` field of this object.
+    #[wasm_bindgen(method, getter = "tabId")]
+    pub fn get_tab_id(this: &OnErrorOccurredDetails) -> i32;
+    ///Change the `tabId` field of this object.
+    #[wasm_bindgen(method, setter = "tabId")]
+    pub fn set_tab_id(this: &OnErrorOccurredDetails, val: i32);
+    ///Get the `timeStamp` field of this object.
+    #[wasm_bindgen(method, getter = "timeStamp")]
+    pub fn get_time_stamp(this: &OnErrorOccurredDetails) -> f64;
+    ///Change the `timeStamp` field of this object.
+    #[wasm_bindgen(method, setter = "timeStamp")]
+    pub fn set_time_stamp(this: &OnErrorOccurredDetails, val: f64);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OnErrorOccurredDetails) -> ResourceType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OnErrorOccurredDetails, val: ResourceType);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnErrorOccurredDetails) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnErrorOccurredDetails, val: String);
+}
+impl OnErrorOccurredDetails {
+    ///Construct a new `OnErrorOccurredDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_document_lifecycle()` instead."]
+    pub fn document_lifecycle(
+        &mut self,
+        val: super::extension_types::DocumentLifecycle,
+    ) -> &mut Self {
+        self.set_document_lifecycle(val);
+        self
+    }
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: String) -> &mut Self {
+        self.set_error(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_frame_type()` instead."]
+    pub fn frame_type(&mut self, val: super::extension_types::FrameType) -> &mut Self {
+        self.set_frame_type(val);
+        self
+    }
+    #[deprecated = "Use `set_from_cache()` instead."]
+    pub fn from_cache(&mut self, val: bool) -> &mut Self {
+        self.set_from_cache(val);
+        self
+    }
+    #[deprecated = "Use `set_initiator()` instead."]
+    pub fn initiator(&mut self, val: String) -> &mut Self {
+        self.set_initiator(val);
+        self
+    }
+    #[deprecated = "Use `set_ip()` instead."]
+    pub fn ip(&mut self, val: String) -> &mut Self {
+        self.set_ip(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: String) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_document_id()` instead."]
+    pub fn parent_document_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_frame_id()` instead."]
+    pub fn parent_frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_parent_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_time_stamp()` instead."]
+    pub fn time_stamp(&mut self, val: f64) -> &mut Self {
+        self.set_time_stamp(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ResourceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnErrorOccurredDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnActionIgnoredDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnActionIgnoredDetails;
+    ///Get the `action` field of this object.
+    #[wasm_bindgen(method, getter = "action")]
+    pub fn get_action(this: &OnActionIgnoredDetails) -> IgnoredActionType;
+    ///Change the `action` field of this object.
+    #[wasm_bindgen(method, setter = "action")]
+    pub fn set_action(this: &OnActionIgnoredDetails, val: IgnoredActionType);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OnActionIgnoredDetails) -> String;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OnActionIgnoredDetails, val: String);
+}
+impl OnActionIgnoredDetails {
+    ///Construct a new `OnActionIgnoredDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_action()` instead."]
+    pub fn action(&mut self, val: IgnoredActionType) -> &mut Self {
+        self.set_action(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+}
+impl Default for OnActionIgnoredDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Needs to be called when the behavior of the webRequest handlers has changed to prevent incorrect handling due to caching. This function call is expensive. Don't call it often.
     #[wasm_bindgen(
         js_namespace = ["chrome",

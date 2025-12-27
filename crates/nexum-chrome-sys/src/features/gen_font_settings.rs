@@ -224,6 +224,438 @@ pub enum LevelOfControl {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnFontChangedDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnFontChangedDetails;
+    ///Get the `fontId` field of this object.
+    #[wasm_bindgen(method, getter = "fontId")]
+    pub fn get_font_id(this: &OnFontChangedDetails) -> String;
+    ///Change the `fontId` field of this object.
+    #[wasm_bindgen(method, setter = "fontId")]
+    pub fn set_font_id(this: &OnFontChangedDetails, val: String);
+    ///Get the `genericFamily` field of this object.
+    #[wasm_bindgen(method, getter = "genericFamily")]
+    pub fn get_generic_family(this: &OnFontChangedDetails) -> GenericFamily;
+    ///Change the `genericFamily` field of this object.
+    #[wasm_bindgen(method, setter = "genericFamily")]
+    pub fn set_generic_family(this: &OnFontChangedDetails, val: GenericFamily);
+    ///Get the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, getter = "levelOfControl")]
+    pub fn get_level_of_control(this: &OnFontChangedDetails) -> LevelOfControl;
+    ///Change the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, setter = "levelOfControl")]
+    pub fn set_level_of_control(this: &OnFontChangedDetails, val: LevelOfControl);
+    ///Get the `script` field of this object.
+    #[wasm_bindgen(method, getter = "script")]
+    pub fn get_script(this: &OnFontChangedDetails) -> Option<ScriptCode>;
+    ///Change the `script` field of this object.
+    #[wasm_bindgen(method, setter = "script")]
+    pub fn set_script(this: &OnFontChangedDetails, val: ScriptCode);
+}
+impl OnFontChangedDetails {
+    ///Construct a new `OnFontChangedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_font_id()` instead."]
+    pub fn font_id(&mut self, val: String) -> &mut Self {
+        self.set_font_id(val);
+        self
+    }
+    #[deprecated = "Use `set_generic_family()` instead."]
+    pub fn generic_family(&mut self, val: GenericFamily) -> &mut Self {
+        self.set_generic_family(val);
+        self
+    }
+    #[deprecated = "Use `set_level_of_control()` instead."]
+    pub fn level_of_control(&mut self, val: LevelOfControl) -> &mut Self {
+        self.set_level_of_control(val);
+        self
+    }
+    #[deprecated = "Use `set_script()` instead."]
+    pub fn script(&mut self, val: ScriptCode) -> &mut Self {
+        self.set_script(val);
+        self
+    }
+}
+impl Default for OnFontChangedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "OnDefaultFontSizeChangedDetails"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnDefaultFontSizeChangedDetails;
+    ///Get the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, getter = "levelOfControl")]
+    pub fn get_level_of_control(this: &OnDefaultFontSizeChangedDetails) -> LevelOfControl;
+    ///Change the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, setter = "levelOfControl")]
+    pub fn set_level_of_control(this: &OnDefaultFontSizeChangedDetails, val: LevelOfControl);
+    ///Get the `pixelSize` field of this object.
+    #[wasm_bindgen(method, getter = "pixelSize")]
+    pub fn get_pixel_size(this: &OnDefaultFontSizeChangedDetails) -> i32;
+    ///Change the `pixelSize` field of this object.
+    #[wasm_bindgen(method, setter = "pixelSize")]
+    pub fn set_pixel_size(this: &OnDefaultFontSizeChangedDetails, val: i32);
+}
+impl OnDefaultFontSizeChangedDetails {
+    ///Construct a new `OnDefaultFontSizeChangedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_level_of_control()` instead."]
+    pub fn level_of_control(&mut self, val: LevelOfControl) -> &mut Self {
+        self.set_level_of_control(val);
+        self
+    }
+    #[deprecated = "Use `set_pixel_size()` instead."]
+    pub fn pixel_size(&mut self, val: i32) -> &mut Self {
+        self.set_pixel_size(val);
+        self
+    }
+}
+impl Default for OnDefaultFontSizeChangedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "OnDefaultFixedFontSizeChangedDetails"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnDefaultFixedFontSizeChangedDetails;
+    ///Get the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, getter = "levelOfControl")]
+    pub fn get_level_of_control(this: &OnDefaultFixedFontSizeChangedDetails) -> LevelOfControl;
+    ///Change the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, setter = "levelOfControl")]
+    pub fn set_level_of_control(this: &OnDefaultFixedFontSizeChangedDetails, val: LevelOfControl);
+    ///Get the `pixelSize` field of this object.
+    #[wasm_bindgen(method, getter = "pixelSize")]
+    pub fn get_pixel_size(this: &OnDefaultFixedFontSizeChangedDetails) -> i32;
+    ///Change the `pixelSize` field of this object.
+    #[wasm_bindgen(method, setter = "pixelSize")]
+    pub fn set_pixel_size(this: &OnDefaultFixedFontSizeChangedDetails, val: i32);
+}
+impl OnDefaultFixedFontSizeChangedDetails {
+    ///Construct a new `OnDefaultFixedFontSizeChangedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_level_of_control()` instead."]
+    pub fn level_of_control(&mut self, val: LevelOfControl) -> &mut Self {
+        self.set_level_of_control(val);
+        self
+    }
+    #[deprecated = "Use `set_pixel_size()` instead."]
+    pub fn pixel_size(&mut self, val: i32) -> &mut Self {
+        self.set_pixel_size(val);
+        self
+    }
+}
+impl Default for OnDefaultFixedFontSizeChangedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "OnMinimumFontSizeChangedDetails"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnMinimumFontSizeChangedDetails;
+    ///Get the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, getter = "levelOfControl")]
+    pub fn get_level_of_control(this: &OnMinimumFontSizeChangedDetails) -> LevelOfControl;
+    ///Change the `levelOfControl` field of this object.
+    #[wasm_bindgen(method, setter = "levelOfControl")]
+    pub fn set_level_of_control(this: &OnMinimumFontSizeChangedDetails, val: LevelOfControl);
+    ///Get the `pixelSize` field of this object.
+    #[wasm_bindgen(method, getter = "pixelSize")]
+    pub fn get_pixel_size(this: &OnMinimumFontSizeChangedDetails) -> i32;
+    ///Change the `pixelSize` field of this object.
+    #[wasm_bindgen(method, setter = "pixelSize")]
+    pub fn set_pixel_size(this: &OnMinimumFontSizeChangedDetails, val: i32);
+}
+impl OnMinimumFontSizeChangedDetails {
+    ///Construct a new `OnMinimumFontSizeChangedDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_level_of_control()` instead."]
+    pub fn level_of_control(&mut self, val: LevelOfControl) -> &mut Self {
+        self.set_level_of_control(val);
+        self
+    }
+    #[deprecated = "Use `set_pixel_size()` instead."]
+    pub fn pixel_size(&mut self, val: i32) -> &mut Self {
+        self.set_pixel_size(val);
+        self
+    }
+}
+impl Default for OnMinimumFontSizeChangedDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ClearFontDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type ClearFontDetails;
+    ///Get the `genericFamily` field of this object.
+    #[wasm_bindgen(method, getter = "genericFamily")]
+    pub fn get_generic_family(this: &ClearFontDetails) -> GenericFamily;
+    ///Change the `genericFamily` field of this object.
+    #[wasm_bindgen(method, setter = "genericFamily")]
+    pub fn set_generic_family(this: &ClearFontDetails, val: GenericFamily);
+    ///Get the `script` field of this object.
+    #[wasm_bindgen(method, getter = "script")]
+    pub fn get_script(this: &ClearFontDetails) -> Option<ScriptCode>;
+    ///Change the `script` field of this object.
+    #[wasm_bindgen(method, setter = "script")]
+    pub fn set_script(this: &ClearFontDetails, val: ScriptCode);
+}
+impl ClearFontDetails {
+    ///Construct a new `ClearFontDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_generic_family()` instead."]
+    pub fn generic_family(&mut self, val: GenericFamily) -> &mut Self {
+        self.set_generic_family(val);
+        self
+    }
+    #[deprecated = "Use `set_script()` instead."]
+    pub fn script(&mut self, val: ScriptCode) -> &mut Self {
+        self.set_script(val);
+        self
+    }
+}
+impl Default for ClearFontDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetFontDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type GetFontDetails;
+    ///Get the `genericFamily` field of this object.
+    #[wasm_bindgen(method, getter = "genericFamily")]
+    pub fn get_generic_family(this: &GetFontDetails) -> GenericFamily;
+    ///Change the `genericFamily` field of this object.
+    #[wasm_bindgen(method, setter = "genericFamily")]
+    pub fn set_generic_family(this: &GetFontDetails, val: GenericFamily);
+    ///Get the `script` field of this object.
+    #[wasm_bindgen(method, getter = "script")]
+    pub fn get_script(this: &GetFontDetails) -> Option<ScriptCode>;
+    ///Change the `script` field of this object.
+    #[wasm_bindgen(method, setter = "script")]
+    pub fn set_script(this: &GetFontDetails, val: ScriptCode);
+}
+impl GetFontDetails {
+    ///Construct a new `GetFontDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_generic_family()` instead."]
+    pub fn generic_family(&mut self, val: GenericFamily) -> &mut Self {
+        self.set_generic_family(val);
+        self
+    }
+    #[deprecated = "Use `set_script()` instead."]
+    pub fn script(&mut self, val: ScriptCode) -> &mut Self {
+        self.set_script(val);
+        self
+    }
+}
+impl Default for GetFontDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetFontDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetFontDetails;
+    ///Get the `fontId` field of this object.
+    #[wasm_bindgen(method, getter = "fontId")]
+    pub fn get_font_id(this: &SetFontDetails) -> String;
+    ///Change the `fontId` field of this object.
+    #[wasm_bindgen(method, setter = "fontId")]
+    pub fn set_font_id(this: &SetFontDetails, val: String);
+    ///Get the `genericFamily` field of this object.
+    #[wasm_bindgen(method, getter = "genericFamily")]
+    pub fn get_generic_family(this: &SetFontDetails) -> GenericFamily;
+    ///Change the `genericFamily` field of this object.
+    #[wasm_bindgen(method, setter = "genericFamily")]
+    pub fn set_generic_family(this: &SetFontDetails, val: GenericFamily);
+    ///Get the `script` field of this object.
+    #[wasm_bindgen(method, getter = "script")]
+    pub fn get_script(this: &SetFontDetails) -> Option<ScriptCode>;
+    ///Change the `script` field of this object.
+    #[wasm_bindgen(method, setter = "script")]
+    pub fn set_script(this: &SetFontDetails, val: ScriptCode);
+}
+impl SetFontDetails {
+    ///Construct a new `SetFontDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_font_id()` instead."]
+    pub fn font_id(&mut self, val: String) -> &mut Self {
+        self.set_font_id(val);
+        self
+    }
+    #[deprecated = "Use `set_generic_family()` instead."]
+    pub fn generic_family(&mut self, val: GenericFamily) -> &mut Self {
+        self.set_generic_family(val);
+        self
+    }
+    #[deprecated = "Use `set_script()` instead."]
+    pub fn script(&mut self, val: ScriptCode) -> &mut Self {
+        self.set_script(val);
+        self
+    }
+}
+impl Default for SetFontDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetDefaultFontSizeDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetDefaultFontSizeDetails;
+    ///Get the `pixelSize` field of this object.
+    #[wasm_bindgen(method, getter = "pixelSize")]
+    pub fn get_pixel_size(this: &SetDefaultFontSizeDetails) -> i32;
+    ///Change the `pixelSize` field of this object.
+    #[wasm_bindgen(method, setter = "pixelSize")]
+    pub fn set_pixel_size(this: &SetDefaultFontSizeDetails, val: i32);
+}
+impl SetDefaultFontSizeDetails {
+    ///Construct a new `SetDefaultFontSizeDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_pixel_size()` instead."]
+    pub fn pixel_size(&mut self, val: i32) -> &mut Self {
+        self.set_pixel_size(val);
+        self
+    }
+}
+impl Default for SetDefaultFontSizeDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "SetDefaultFixedFontSizeDetails"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetDefaultFixedFontSizeDetails;
+    ///Get the `pixelSize` field of this object.
+    #[wasm_bindgen(method, getter = "pixelSize")]
+    pub fn get_pixel_size(this: &SetDefaultFixedFontSizeDetails) -> i32;
+    ///Change the `pixelSize` field of this object.
+    #[wasm_bindgen(method, setter = "pixelSize")]
+    pub fn set_pixel_size(this: &SetDefaultFixedFontSizeDetails, val: i32);
+}
+impl SetDefaultFixedFontSizeDetails {
+    ///Construct a new `SetDefaultFixedFontSizeDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_pixel_size()` instead."]
+    pub fn pixel_size(&mut self, val: i32) -> &mut Self {
+        self.set_pixel_size(val);
+        self
+    }
+}
+impl Default for SetDefaultFixedFontSizeDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetMinimumFontSizeDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SetMinimumFontSizeDetails;
+    ///Get the `pixelSize` field of this object.
+    #[wasm_bindgen(method, getter = "pixelSize")]
+    pub fn get_pixel_size(this: &SetMinimumFontSizeDetails) -> i32;
+    ///Change the `pixelSize` field of this object.
+    #[wasm_bindgen(method, setter = "pixelSize")]
+    pub fn set_pixel_size(this: &SetMinimumFontSizeDetails, val: i32);
+}
+impl SetMinimumFontSizeDetails {
+    ///Construct a new `SetMinimumFontSizeDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_pixel_size()` instead."]
+    pub fn pixel_size(&mut self, val: i32) -> &mut Self {
+        self.set_pixel_size(val);
+        self
+    }
+}
+impl Default for SetMinimumFontSizeDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Clears the font set by this extension, if any.
     #[wasm_bindgen(js_namespace = ["chrome", "fontSettings"], js_name = "clearFont")]
     pub fn clear_font(details: Object) -> Promise;

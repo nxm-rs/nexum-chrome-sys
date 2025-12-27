@@ -4,6 +4,48 @@ use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnMessageInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnMessageInfo;
+    ///Get the `data` field of this object.
+    #[wasm_bindgen(method, getter = "data")]
+    pub fn get_data(this: &OnMessageInfo) -> String;
+    ///Change the `data` field of this object.
+    #[wasm_bindgen(method, setter = "data")]
+    pub fn set_data(this: &OnMessageInfo, val: String);
+    ///Get the `lastMessage` field of this object.
+    #[wasm_bindgen(method, getter = "lastMessage")]
+    pub fn get_last_message(this: &OnMessageInfo) -> bool;
+    ///Change the `lastMessage` field of this object.
+    #[wasm_bindgen(method, setter = "lastMessage")]
+    pub fn set_last_message(this: &OnMessageInfo, val: bool);
+}
+impl OnMessageInfo {
+    ///Construct a new `OnMessageInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_data()` instead."]
+    pub fn data(&mut self, val: String) -> &mut Self {
+        self.set_data(val);
+        self
+    }
+    #[deprecated = "Use `set_last_message()` instead."]
+    pub fn last_message(&mut self, val: bool) -> &mut Self {
+        self.set_last_message(val);
+        self
+    }
+}
+impl Default for OnMessageInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Gives configuration options set by the test.
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "getConfig")]
     pub fn get_config() -> Promise;

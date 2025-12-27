@@ -234,6 +234,154 @@ impl Default for UrlDetails {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnVisitRemovedRemoved")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnVisitRemovedRemoved;
+    ///Get the `allHistory` field of this object.
+    #[wasm_bindgen(method, getter = "allHistory")]
+    pub fn get_all_history(this: &OnVisitRemovedRemoved) -> bool;
+    ///Change the `allHistory` field of this object.
+    #[wasm_bindgen(method, setter = "allHistory")]
+    pub fn set_all_history(this: &OnVisitRemovedRemoved, val: bool);
+    ///Get the `urls` field of this object.
+    #[wasm_bindgen(method, getter = "urls")]
+    pub fn get_urls(this: &OnVisitRemovedRemoved) -> Option<Array>;
+    ///Change the `urls` field of this object.
+    #[wasm_bindgen(method, setter = "urls")]
+    pub fn set_urls(this: &OnVisitRemovedRemoved, val: &Array);
+}
+impl OnVisitRemovedRemoved {
+    ///Construct a new `OnVisitRemovedRemoved`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_all_history()` instead."]
+    pub fn all_history(&mut self, val: bool) -> &mut Self {
+        self.set_all_history(val);
+        self
+    }
+    #[deprecated = "Use `set_urls()` instead."]
+    pub fn urls(&mut self, val: &Array) -> &mut Self {
+        self.set_urls(val);
+        self
+    }
+}
+impl Default for OnVisitRemovedRemoved {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SearchQuery")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type SearchQuery;
+    ///Get the `endTime` field of this object.
+    #[wasm_bindgen(method, getter = "endTime")]
+    pub fn get_end_time(this: &SearchQuery) -> Option<f64>;
+    ///Change the `endTime` field of this object.
+    #[wasm_bindgen(method, setter = "endTime")]
+    pub fn set_end_time(this: &SearchQuery, val: f64);
+    ///Get the `maxResults` field of this object.
+    #[wasm_bindgen(method, getter = "maxResults")]
+    pub fn get_max_results(this: &SearchQuery) -> Option<i32>;
+    ///Change the `maxResults` field of this object.
+    #[wasm_bindgen(method, setter = "maxResults")]
+    pub fn set_max_results(this: &SearchQuery, val: i32);
+    ///Get the `startTime` field of this object.
+    #[wasm_bindgen(method, getter = "startTime")]
+    pub fn get_start_time(this: &SearchQuery) -> Option<f64>;
+    ///Change the `startTime` field of this object.
+    #[wasm_bindgen(method, setter = "startTime")]
+    pub fn set_start_time(this: &SearchQuery, val: f64);
+    ///Get the `text` field of this object.
+    #[wasm_bindgen(method, getter = "text")]
+    pub fn get_text(this: &SearchQuery) -> String;
+    ///Change the `text` field of this object.
+    #[wasm_bindgen(method, setter = "text")]
+    pub fn set_text(this: &SearchQuery, val: String);
+}
+impl SearchQuery {
+    ///Construct a new `SearchQuery`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_end_time()` instead."]
+    pub fn end_time(&mut self, val: f64) -> &mut Self {
+        self.set_end_time(val);
+        self
+    }
+    #[deprecated = "Use `set_max_results()` instead."]
+    pub fn max_results(&mut self, val: i32) -> &mut Self {
+        self.set_max_results(val);
+        self
+    }
+    #[deprecated = "Use `set_start_time()` instead."]
+    pub fn start_time(&mut self, val: f64) -> &mut Self {
+        self.set_start_time(val);
+        self
+    }
+    #[deprecated = "Use `set_text()` instead."]
+    pub fn text(&mut self, val: String) -> &mut Self {
+        self.set_text(val);
+        self
+    }
+}
+impl Default for SearchQuery {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeleteRangeRange")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type DeleteRangeRange;
+    ///Get the `endTime` field of this object.
+    #[wasm_bindgen(method, getter = "endTime")]
+    pub fn get_end_time(this: &DeleteRangeRange) -> f64;
+    ///Change the `endTime` field of this object.
+    #[wasm_bindgen(method, setter = "endTime")]
+    pub fn set_end_time(this: &DeleteRangeRange, val: f64);
+    ///Get the `startTime` field of this object.
+    #[wasm_bindgen(method, getter = "startTime")]
+    pub fn get_start_time(this: &DeleteRangeRange) -> f64;
+    ///Change the `startTime` field of this object.
+    #[wasm_bindgen(method, setter = "startTime")]
+    pub fn set_start_time(this: &DeleteRangeRange, val: f64);
+}
+impl DeleteRangeRange {
+    ///Construct a new `DeleteRangeRange`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_end_time()` instead."]
+    pub fn end_time(&mut self, val: f64) -> &mut Self {
+        self.set_end_time(val);
+        self
+    }
+    #[deprecated = "Use `set_start_time()` instead."]
+    pub fn start_time(&mut self, val: f64) -> &mut Self {
+        self.set_start_time(val);
+        self
+    }
+}
+impl Default for DeleteRangeRange {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Searches the history for the last visit time of each page matching the query.
     #[wasm_bindgen(js_namespace = ["chrome", "history"], js_name = "search")]
     pub fn search(query: Object) -> Promise;

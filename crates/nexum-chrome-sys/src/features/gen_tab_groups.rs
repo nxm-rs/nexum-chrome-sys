@@ -104,6 +104,176 @@ impl Default for TabGroup {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "QueryQueryInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type QueryQueryInfo;
+    ///Get the `collapsed` field of this object.
+    #[wasm_bindgen(method, getter = "collapsed")]
+    pub fn get_collapsed(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `collapsed` field of this object.
+    #[wasm_bindgen(method, setter = "collapsed")]
+    pub fn set_collapsed(this: &QueryQueryInfo, val: bool);
+    ///Get the `color` field of this object.
+    #[wasm_bindgen(method, getter = "color")]
+    pub fn get_color(this: &QueryQueryInfo) -> Option<Color>;
+    ///Change the `color` field of this object.
+    #[wasm_bindgen(method, setter = "color")]
+    pub fn set_color(this: &QueryQueryInfo, val: Color);
+    ///Get the `shared` field of this object.
+    #[wasm_bindgen(method, getter = "shared")]
+    pub fn get_shared(this: &QueryQueryInfo) -> Option<bool>;
+    ///Change the `shared` field of this object.
+    #[wasm_bindgen(method, setter = "shared")]
+    pub fn set_shared(this: &QueryQueryInfo, val: bool);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &QueryQueryInfo) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &QueryQueryInfo, val: String);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &QueryQueryInfo) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &QueryQueryInfo, val: i32);
+}
+impl QueryQueryInfo {
+    ///Construct a new `QueryQueryInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_collapsed()` instead."]
+    pub fn collapsed(&mut self, val: bool) -> &mut Self {
+        self.set_collapsed(val);
+        self
+    }
+    #[deprecated = "Use `set_color()` instead."]
+    pub fn color(&mut self, val: Color) -> &mut Self {
+        self.set_color(val);
+        self
+    }
+    #[deprecated = "Use `set_shared()` instead."]
+    pub fn shared(&mut self, val: bool) -> &mut Self {
+        self.set_shared(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for QueryQueryInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateUpdateProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type UpdateUpdateProperties;
+    ///Get the `collapsed` field of this object.
+    #[wasm_bindgen(method, getter = "collapsed")]
+    pub fn get_collapsed(this: &UpdateUpdateProperties) -> Option<bool>;
+    ///Change the `collapsed` field of this object.
+    #[wasm_bindgen(method, setter = "collapsed")]
+    pub fn set_collapsed(this: &UpdateUpdateProperties, val: bool);
+    ///Get the `color` field of this object.
+    #[wasm_bindgen(method, getter = "color")]
+    pub fn get_color(this: &UpdateUpdateProperties) -> Option<Color>;
+    ///Change the `color` field of this object.
+    #[wasm_bindgen(method, setter = "color")]
+    pub fn set_color(this: &UpdateUpdateProperties, val: Color);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &UpdateUpdateProperties) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &UpdateUpdateProperties, val: String);
+}
+impl UpdateUpdateProperties {
+    ///Construct a new `UpdateUpdateProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_collapsed()` instead."]
+    pub fn collapsed(&mut self, val: bool) -> &mut Self {
+        self.set_collapsed(val);
+        self
+    }
+    #[deprecated = "Use `set_color()` instead."]
+    pub fn color(&mut self, val: Color) -> &mut Self {
+        self.set_color(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+}
+impl Default for UpdateUpdateProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MoveMoveProperties")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type MoveMoveProperties;
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &MoveMoveProperties) -> i32;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &MoveMoveProperties, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &MoveMoveProperties) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &MoveMoveProperties, val: i32);
+}
+impl MoveMoveProperties {
+    ///Construct a new `MoveMoveProperties`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
+        self
+    }
+}
+impl Default for MoveMoveProperties {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Retrieves details about the specified group.
     #[wasm_bindgen(js_namespace = ["chrome", "tabGroups"], js_name = "get")]
     pub fn get(group_id: i32) -> Promise;

@@ -269,6 +269,59 @@ impl Default for ProxyConfig {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnProxyErrorDetails")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnProxyErrorDetails;
+    ///Get the `details` field of this object.
+    #[wasm_bindgen(method, getter = "details")]
+    pub fn get_details(this: &OnProxyErrorDetails) -> String;
+    ///Change the `details` field of this object.
+    #[wasm_bindgen(method, setter = "details")]
+    pub fn set_details(this: &OnProxyErrorDetails, val: String);
+    ///Get the `error` field of this object.
+    #[wasm_bindgen(method, getter = "error")]
+    pub fn get_error(this: &OnProxyErrorDetails) -> String;
+    ///Change the `error` field of this object.
+    #[wasm_bindgen(method, setter = "error")]
+    pub fn set_error(this: &OnProxyErrorDetails, val: String);
+    ///Get the `fatal` field of this object.
+    #[wasm_bindgen(method, getter = "fatal")]
+    pub fn get_fatal(this: &OnProxyErrorDetails) -> bool;
+    ///Change the `fatal` field of this object.
+    #[wasm_bindgen(method, setter = "fatal")]
+    pub fn set_fatal(this: &OnProxyErrorDetails, val: bool);
+}
+impl OnProxyErrorDetails {
+    ///Construct a new `OnProxyErrorDetails`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_details()` instead."]
+    pub fn details(&mut self, val: String) -> &mut Self {
+        self.set_details(val);
+        self
+    }
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: String) -> &mut Self {
+        self.set_error(val);
+        self
+    }
+    #[deprecated = "Use `set_fatal()` instead."]
+    pub fn fatal(&mut self, val: bool) -> &mut Self {
+        self.set_fatal(val);
+        self
+    }
+}
+impl Default for OnProxyErrorDetails {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Notifies about proxy errors.
     #[wasm_bindgen(
         js_namespace = ["chrome",

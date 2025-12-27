@@ -239,6 +239,283 @@ impl Default for CreateDetails {
 }
 #[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnRemovedRemoveInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnRemovedRemoveInfo;
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &OnRemovedRemoveInfo) -> i32;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &OnRemovedRemoveInfo, val: i32);
+    ///Get the `node` field of this object.
+    #[wasm_bindgen(method, getter = "node")]
+    pub fn get_node(this: &OnRemovedRemoveInfo) -> BookmarkTreeNode;
+    ///Change the `node` field of this object.
+    #[wasm_bindgen(method, setter = "node")]
+    pub fn set_node(this: &OnRemovedRemoveInfo, val: &BookmarkTreeNode);
+    ///Get the `parentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentId")]
+    pub fn get_parent_id(this: &OnRemovedRemoveInfo) -> String;
+    ///Change the `parentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentId")]
+    pub fn set_parent_id(this: &OnRemovedRemoveInfo, val: String);
+}
+impl OnRemovedRemoveInfo {
+    ///Construct a new `OnRemovedRemoveInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_node()` instead."]
+    pub fn node(&mut self, val: &BookmarkTreeNode) -> &mut Self {
+        self.set_node(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_id()` instead."]
+    pub fn parent_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_id(val);
+        self
+    }
+}
+impl Default for OnRemovedRemoveInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnChangedChangeInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnChangedChangeInfo;
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &OnChangedChangeInfo) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &OnChangedChangeInfo, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &OnChangedChangeInfo) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &OnChangedChangeInfo, val: String);
+}
+impl OnChangedChangeInfo {
+    ///Construct a new `OnChangedChangeInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for OnChangedChangeInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnMovedMoveInfo")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnMovedMoveInfo;
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &OnMovedMoveInfo) -> i32;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &OnMovedMoveInfo, val: i32);
+    ///Get the `oldIndex` field of this object.
+    #[wasm_bindgen(method, getter = "oldIndex")]
+    pub fn get_old_index(this: &OnMovedMoveInfo) -> i32;
+    ///Change the `oldIndex` field of this object.
+    #[wasm_bindgen(method, setter = "oldIndex")]
+    pub fn set_old_index(this: &OnMovedMoveInfo, val: i32);
+    ///Get the `oldParentId` field of this object.
+    #[wasm_bindgen(method, getter = "oldParentId")]
+    pub fn get_old_parent_id(this: &OnMovedMoveInfo) -> String;
+    ///Change the `oldParentId` field of this object.
+    #[wasm_bindgen(method, setter = "oldParentId")]
+    pub fn set_old_parent_id(this: &OnMovedMoveInfo, val: String);
+    ///Get the `parentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentId")]
+    pub fn get_parent_id(this: &OnMovedMoveInfo) -> String;
+    ///Change the `parentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentId")]
+    pub fn set_parent_id(this: &OnMovedMoveInfo, val: String);
+}
+impl OnMovedMoveInfo {
+    ///Construct a new `OnMovedMoveInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_old_index()` instead."]
+    pub fn old_index(&mut self, val: i32) -> &mut Self {
+        self.set_old_index(val);
+        self
+    }
+    #[deprecated = "Use `set_old_parent_id()` instead."]
+    pub fn old_parent_id(&mut self, val: String) -> &mut Self {
+        self.set_old_parent_id(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_id()` instead."]
+    pub fn parent_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_id(val);
+        self
+    }
+}
+impl Default for OnMovedMoveInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(
+        extends = ::js_sys::Object,
+        js_name = "OnChildrenReorderedReorderInfo"
+    )]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type OnChildrenReorderedReorderInfo;
+    ///Get the `childIds` field of this object.
+    #[wasm_bindgen(method, getter = "childIds")]
+    pub fn get_child_ids(this: &OnChildrenReorderedReorderInfo) -> Array;
+    ///Change the `childIds` field of this object.
+    #[wasm_bindgen(method, setter = "childIds")]
+    pub fn set_child_ids(this: &OnChildrenReorderedReorderInfo, val: &Array);
+}
+impl OnChildrenReorderedReorderInfo {
+    ///Construct a new `OnChildrenReorderedReorderInfo`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_child_ids()` instead."]
+    pub fn child_ids(&mut self, val: &Array) -> &mut Self {
+        self.set_child_ids(val);
+        self
+    }
+}
+impl Default for OnChildrenReorderedReorderInfo {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MoveDestination")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type MoveDestination;
+    ///Get the `index` field of this object.
+    #[wasm_bindgen(method, getter = "index")]
+    pub fn get_index(this: &MoveDestination) -> Option<i32>;
+    ///Change the `index` field of this object.
+    #[wasm_bindgen(method, setter = "index")]
+    pub fn set_index(this: &MoveDestination, val: i32);
+    ///Get the `parentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentId")]
+    pub fn get_parent_id(this: &MoveDestination) -> Option<String>;
+    ///Change the `parentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentId")]
+    pub fn set_parent_id(this: &MoveDestination, val: String);
+}
+impl MoveDestination {
+    ///Construct a new `MoveDestination`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_index()` instead."]
+    pub fn index(&mut self, val: i32) -> &mut Self {
+        self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_id()` instead."]
+    pub fn parent_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_id(val);
+        self
+    }
+}
+impl Default for MoveDestination {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateChanges")]
+    #[derive(Debug, Clone, PartialEq, Eq)]
+    ///
+    pub type UpdateChanges;
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &UpdateChanges) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &UpdateChanges, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &UpdateChanges) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &UpdateChanges, val: String);
+}
+impl UpdateChanges {
+    ///Construct a new `UpdateChanges`.
+    pub fn new() -> Self {
+        #[allow(unused_mut)]
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        ret
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+}
+impl Default for UpdateChanges {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+#[wasm_bindgen]
+extern "C" {
     ///Retrieves the specified BookmarkTreeNode(s).
     #[wasm_bindgen(js_namespace = ["chrome", "bookmarks"], js_name = "get")]
     pub fn get(id_or_id_list: JsValue) -> Promise;

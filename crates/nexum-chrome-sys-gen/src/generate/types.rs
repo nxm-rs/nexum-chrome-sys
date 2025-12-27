@@ -414,7 +414,7 @@ impl TypeSpec {
     /// `addListener`, `removeListener`, etc. methods.
     fn generate_event_accessor(type_name: &syn::Ident, event: &EventSpec) -> TokenStream {
         let js_name = &event.name;
-        let rust_getter = format_ident!("get_{}", event.name.to_snake_case());
+        let rust_getter = format_ident!("{}", event.name.to_snake_case());
 
         let doc = event
             .description
@@ -422,13 +422,11 @@ impl TypeSpec {
             .map(clean_html)
             .unwrap_or_default();
 
-        // Return Object since Chrome Events are opaque objects with addListener/removeListener
-        // The `events` feature would be needed for the proper Event type, but Object works
-        // universally and allows calling methods via js_sys::Reflect
+        // Return JsValue since Chrome Events are opaque objects with addListener/removeListener
         quote! {
             #[doc = #doc]
             #[wasm_bindgen(method, getter = #js_name)]
-            pub fn #rust_getter(this: &#type_name) -> Object;
+            pub fn #rust_getter(this: &#type_name) -> JsValue;
         }
     }
 }
