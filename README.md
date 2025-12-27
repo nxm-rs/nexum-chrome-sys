@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/nexum-chrome-sys.svg)](https://crates.io/crates/nexum-chrome-sys)
 [![Documentation](https://docs.rs/nexum-chrome-sys/badge.svg)](https://docs.rs/nexum-chrome-sys)
 [![CI](https://github.com/nxm-rs/nexum-chrome-sys/actions/workflows/ci.yml/badge.svg)](https://github.com/nxm-rs/nexum-chrome-sys/actions/workflows/ci.yml)
-[![License](https://img.shields.io/crates/l/nexum-chrome-sys.svg)](LICENSE-MIT)
+[![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](LICENSE)
 
 **Rust bindings for Chrome Extension APIs using wasm-bindgen.**
 
@@ -121,12 +121,7 @@ cargo fmt --all
 
 ## License
 
-Licensed under either of:
-
-- [Apache License, Version 2.0](LICENSE-APACHE)
-- [MIT License](LICENSE-MIT)
-
-at your option.
+This project is licensed under the [GNU Affero General Public License v3.0 or later](LICENSE).
 
 ## Contributing
 
