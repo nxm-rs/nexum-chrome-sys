@@ -32,6 +32,12 @@ extern "C" {
     ///Change the `sender` field of this object.
     #[wasm_bindgen(method, setter = "sender")]
     pub fn set_sender(this: &Port, val: &MessageSender);
+    ///Fired when the port is disconnected from the other end(s). $(ref:runtime.lastError) may be set if the port was disconnected by an error. If the port is closed via $(ref:Port.disconnect disconnect), then this event is only fired on the other end. This event is fired at most once (see also Port lifetime).
+    #[wasm_bindgen(method, getter = "onDisconnect")]
+    pub fn get_on_disconnect(this: &Port) -> Object;
+    ///This event is fired when $(ref:Port.postMessage postMessage) is called by the other end of the port.
+    #[wasm_bindgen(method, getter = "onMessage")]
+    pub fn get_on_message(this: &Port) -> Object;
 }
 impl Port {
     ///Construct a new `Port`.

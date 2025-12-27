@@ -644,6 +644,9 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ContextMenus;
+    ///Fired before showing a context menu on this webview. Can be used to disable this context menu by calling event.preventDefault().
+    #[wasm_bindgen(method, getter = "onShow")]
+    pub fn get_on_show(this: &ContextMenus) -> Object;
 }
 impl ContextMenus {
     ///Construct a new `ContextMenus`.

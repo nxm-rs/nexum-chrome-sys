@@ -5,7 +5,7 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 
 use super::utils::{clean_html, make_ident, make_type_ident, to_enum_variant};
-use crate::schema::{EnumValue, PrimitiveType, TypeSpec};
+use crate::schema::{EnumValue, EventSpec, PrimitiveType, TypeSpec};
 
 /// Context for code generation within a namespace.
 pub struct GenContext {
@@ -263,6 +263,14 @@ impl TypeSpec {
             .flat_map(|(name, prop)| self.generate_property_accessors(ctx, &type_name, name, prop))
             .collect();
 
+        // Generate event accessors for events defined on this type (e.g., Port.onMessage)
+        let event_accessors: Vec<TokenStream> = self
+            .events
+            .iter()
+            .flatten()
+            .map(|event| Self::generate_event_accessor(&type_name, event))
+            .collect();
+
         let builder_methods: Vec<TokenStream> = sorted_props()
             .filter_map(|(name, prop)| self.generate_builder_method(ctx, &prop_names, name, prop))
             .collect();
@@ -278,6 +286,8 @@ impl TypeSpec {
                 pub type #type_name;
 
                 #(#accessors)*
+
+                #(#event_accessors)*
             }
 
             impl #type_name {
@@ -396,5 +406,29 @@ impl TypeSpec {
                 self
             }
         })
+    }
+
+    /// Generate a getter for an event property on a dictionary type.
+    ///
+    /// Events on types (like `Port.onMessage`) are Chrome Event objects with
+    /// `addListener`, `removeListener`, etc. methods.
+    fn generate_event_accessor(type_name: &syn::Ident, event: &EventSpec) -> TokenStream {
+        let js_name = &event.name;
+        let rust_getter = format_ident!("get_{}", event.name.to_snake_case());
+
+        let doc = event
+            .description
+            .as_deref()
+            .map(clean_html)
+            .unwrap_or_default();
+
+        // Return Object since Chrome Events are opaque objects with addListener/removeListener
+        // The `events` feature would be needed for the proper Event type, but Object works
+        // universally and allows calling methods via js_sys::Reflect
+        quote! {
+            #[doc = #doc]
+            #[wasm_bindgen(method, getter = #js_name)]
+            pub fn #rust_getter(this: &#type_name) -> Object;
+        }
     }
 }

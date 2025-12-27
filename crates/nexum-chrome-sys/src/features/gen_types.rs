@@ -26,6 +26,9 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An interface that allows access to a Chrome browser setting. See $(ref:accessibilityFeatures) for an example.
     pub type ChromeSetting;
+    ///Fired after the setting changes.
+    #[wasm_bindgen(method, getter = "onChange")]
+    pub fn get_on_change(this: &ChromeSetting) -> Object;
 }
 impl ChromeSetting {
     ///Construct a new `ChromeSetting`.

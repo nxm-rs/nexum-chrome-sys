@@ -28,6 +28,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Represents a view created by extension to be embedded inside the Recorder panel.
     pub type RecorderView;
+    ///Fired when the view is shown.
+    #[wasm_bindgen(method, getter = "onShown")]
+    pub fn get_on_shown(this: &RecorderView) -> Object;
+    ///Fired when the view is hidden.
+    #[wasm_bindgen(method, getter = "onHidden")]
+    pub fn get_on_hidden(this: &RecorderView) -> Object;
 }
 impl RecorderView {
     ///Construct a new `RecorderView`.
