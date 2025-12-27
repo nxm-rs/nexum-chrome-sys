@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "NetworkInterface")]
@@ -31,7 +31,9 @@ impl NetworkInterface {
     ///Construct a new `NetworkInterface`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_address()` instead."]

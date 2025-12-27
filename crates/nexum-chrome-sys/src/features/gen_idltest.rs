@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     ///Functions for testing binary data request/response parameters. The first two just return back the bytes they were passed in an array.

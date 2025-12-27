@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Values representing the possible properties of a characteristic. Characteristic permissions are inferred from these properties. Please see the Bluetooth 4.x spec to see the meaning of each individual property.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -45,6 +45,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Device;
+    ///Get the `address` field of this object.
+    #[wasm_bindgen(method, getter = "address")]
+    pub fn get_address(this: &Device) -> String;
+    ///Change the `address` field of this object.
+    #[wasm_bindgen(method, setter = "address")]
+    pub fn set_address(this: &Device, val: String);
     ///Get the `deviceClass` field of this object.
     #[wasm_bindgen(method, getter = "deviceClass")]
     pub fn get_device_class(this: &Device) -> Option<i32>;
@@ -57,19 +63,20 @@ extern "C" {
     ///Change the `name` field of this object.
     #[wasm_bindgen(method, setter = "name")]
     pub fn set_name(this: &Device, val: String);
-    ///Get the `address` field of this object.
-    #[wasm_bindgen(method, getter = "address")]
-    pub fn get_address(this: &Device) -> String;
-    ///Change the `address` field of this object.
-    #[wasm_bindgen(method, setter = "address")]
-    pub fn set_address(this: &Device, val: String);
 }
 impl Device {
     ///Construct a new `Device`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_address()` instead."]
+    pub fn address(&mut self, val: String) -> &mut Self {
+        self.set_address(val);
+        self
     }
     #[deprecated = "Use `set_device_class()` instead."]
     pub fn device_class(&mut self, val: i32) -> &mut Self {
@@ -79,11 +86,6 @@ impl Device {
     #[deprecated = "Use `set_name()` instead."]
     pub fn name(&mut self, val: String) -> &mut Self {
         self.set_name(val);
-        self
-    }
-    #[deprecated = "Use `set_address()` instead."]
-    pub fn address(&mut self, val: String) -> &mut Self {
-        self.set_address(val);
         self
     }
 }
@@ -98,46 +100,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Service;
-    ///Get the `uuid` field of this object.
-    #[wasm_bindgen(method, getter = "uuid")]
-    pub fn get_uuid(this: &Service) -> String;
-    ///Change the `uuid` field of this object.
-    #[wasm_bindgen(method, setter = "uuid")]
-    pub fn set_uuid(this: &Service, val: String);
     ///Get the `deviceAddress` field of this object.
     #[wasm_bindgen(method, getter = "deviceAddress")]
     pub fn get_device_address(this: &Service) -> Option<String>;
     ///Change the `deviceAddress` field of this object.
     #[wasm_bindgen(method, setter = "deviceAddress")]
     pub fn set_device_address(this: &Service, val: String);
-    ///Get the `isPrimary` field of this object.
-    #[wasm_bindgen(method, getter = "isPrimary")]
-    pub fn get_is_primary(this: &Service) -> bool;
-    ///Change the `isPrimary` field of this object.
-    #[wasm_bindgen(method, setter = "isPrimary")]
-    pub fn set_is_primary(this: &Service, val: bool);
     ///Get the `instanceId` field of this object.
     #[wasm_bindgen(method, getter = "instanceId")]
     pub fn get_instance_id(this: &Service) -> Option<String>;
     ///Change the `instanceId` field of this object.
     #[wasm_bindgen(method, setter = "instanceId")]
     pub fn set_instance_id(this: &Service, val: String);
+    ///Get the `isPrimary` field of this object.
+    #[wasm_bindgen(method, getter = "isPrimary")]
+    pub fn get_is_primary(this: &Service) -> bool;
+    ///Change the `isPrimary` field of this object.
+    #[wasm_bindgen(method, setter = "isPrimary")]
+    pub fn set_is_primary(this: &Service, val: bool);
+    ///Get the `uuid` field of this object.
+    #[wasm_bindgen(method, getter = "uuid")]
+    pub fn get_uuid(this: &Service) -> String;
+    ///Change the `uuid` field of this object.
+    #[wasm_bindgen(method, setter = "uuid")]
+    pub fn set_uuid(this: &Service, val: String);
 }
 impl Service {
     ///Construct a new `Service`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_uuid()` instead."]
-    pub fn uuid(&mut self, val: String) -> &mut Self {
-        self.set_uuid(val);
-        self
     }
     #[deprecated = "Use `set_device_address()` instead."]
     pub fn device_address(&mut self, val: String) -> &mut Self {
         self.set_device_address(val);
+        self
+    }
+    #[deprecated = "Use `set_instance_id()` instead."]
+    pub fn instance_id(&mut self, val: String) -> &mut Self {
+        self.set_instance_id(val);
         self
     }
     #[deprecated = "Use `set_is_primary()` instead."]
@@ -145,9 +149,9 @@ impl Service {
         self.set_is_primary(val);
         self
     }
-    #[deprecated = "Use `set_instance_id()` instead."]
-    pub fn instance_id(&mut self, val: String) -> &mut Self {
-        self.set_instance_id(val);
+    #[deprecated = "Use `set_uuid()` instead."]
+    pub fn uuid(&mut self, val: String) -> &mut Self {
+        self.set_uuid(val);
         self
     }
 }
@@ -162,52 +166,54 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Characteristic;
-    ///Get the `properties` field of this object.
-    #[wasm_bindgen(method, getter = "properties")]
-    pub fn get_properties(this: &Characteristic) -> Array;
-    ///Change the `properties` field of this object.
-    #[wasm_bindgen(method, setter = "properties")]
-    pub fn set_properties(this: &Characteristic, val: &Array);
-    ///Get the `value` field of this object.
-    #[wasm_bindgen(method, getter = "value")]
-    pub fn get_value(this: &Characteristic) -> Option<::js_sys::ArrayBuffer>;
-    ///Change the `value` field of this object.
-    #[wasm_bindgen(method, setter = "value")]
-    pub fn set_value(this: &Characteristic, val: &::js_sys::ArrayBuffer);
-    ///Get the `service` field of this object.
-    #[wasm_bindgen(method, getter = "service")]
-    pub fn get_service(this: &Characteristic) -> Option<Service>;
-    ///Change the `service` field of this object.
-    #[wasm_bindgen(method, setter = "service")]
-    pub fn set_service(this: &Characteristic, val: &Service);
     ///Get the `instanceId` field of this object.
     #[wasm_bindgen(method, getter = "instanceId")]
     pub fn get_instance_id(this: &Characteristic) -> Option<String>;
     ///Change the `instanceId` field of this object.
     #[wasm_bindgen(method, setter = "instanceId")]
     pub fn set_instance_id(this: &Characteristic, val: String);
+    ///Get the `properties` field of this object.
+    #[wasm_bindgen(method, getter = "properties")]
+    pub fn get_properties(this: &Characteristic) -> Array;
+    ///Change the `properties` field of this object.
+    #[wasm_bindgen(method, setter = "properties")]
+    pub fn set_properties(this: &Characteristic, val: &Array);
+    ///Get the `service` field of this object.
+    #[wasm_bindgen(method, getter = "service")]
+    pub fn get_service(this: &Characteristic) -> Option<Service>;
+    ///Change the `service` field of this object.
+    #[wasm_bindgen(method, setter = "service")]
+    pub fn set_service(this: &Characteristic, val: &Service);
     ///Get the `uuid` field of this object.
     #[wasm_bindgen(method, getter = "uuid")]
     pub fn get_uuid(this: &Characteristic) -> String;
     ///Change the `uuid` field of this object.
     #[wasm_bindgen(method, setter = "uuid")]
     pub fn set_uuid(this: &Characteristic, val: String);
+    ///Get the `value` field of this object.
+    #[wasm_bindgen(method, getter = "value")]
+    pub fn get_value(this: &Characteristic) -> Option<::js_sys::ArrayBuffer>;
+    ///Change the `value` field of this object.
+    #[wasm_bindgen(method, setter = "value")]
+    pub fn set_value(this: &Characteristic, val: &::js_sys::ArrayBuffer);
 }
 impl Characteristic {
     ///Construct a new `Characteristic`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_instance_id()` instead."]
+    pub fn instance_id(&mut self, val: String) -> &mut Self {
+        self.set_instance_id(val);
+        self
     }
     #[deprecated = "Use `set_properties()` instead."]
     pub fn properties(&mut self, val: &Array) -> &mut Self {
         self.set_properties(val);
-        self
-    }
-    #[deprecated = "Use `set_value()` instead."]
-    pub fn value(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_value(val);
         self
     }
     #[deprecated = "Use `set_service()` instead."]
@@ -215,14 +221,14 @@ impl Characteristic {
         self.set_service(val);
         self
     }
-    #[deprecated = "Use `set_instance_id()` instead."]
-    pub fn instance_id(&mut self, val: String) -> &mut Self {
-        self.set_instance_id(val);
-        self
-    }
     #[deprecated = "Use `set_uuid()` instead."]
     pub fn uuid(&mut self, val: String) -> &mut Self {
         self.set_uuid(val);
+        self
+    }
+    #[deprecated = "Use `set_value()` instead."]
+    pub fn value(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_value(val);
         self
     }
 }
@@ -237,18 +243,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Descriptor;
-    ///Get the `uuid` field of this object.
-    #[wasm_bindgen(method, getter = "uuid")]
-    pub fn get_uuid(this: &Descriptor) -> String;
-    ///Change the `uuid` field of this object.
-    #[wasm_bindgen(method, setter = "uuid")]
-    pub fn set_uuid(this: &Descriptor, val: String);
-    ///Get the `value` field of this object.
-    #[wasm_bindgen(method, getter = "value")]
-    pub fn get_value(this: &Descriptor) -> Option<::js_sys::ArrayBuffer>;
-    ///Change the `value` field of this object.
-    #[wasm_bindgen(method, setter = "value")]
-    pub fn set_value(this: &Descriptor, val: &::js_sys::ArrayBuffer);
     ///Get the `characteristic` field of this object.
     #[wasm_bindgen(method, getter = "characteristic")]
     pub fn get_characteristic(this: &Descriptor) -> Option<Characteristic>;
@@ -267,23 +261,27 @@ extern "C" {
     ///Change the `permissions` field of this object.
     #[wasm_bindgen(method, setter = "permissions")]
     pub fn set_permissions(this: &Descriptor, val: &Array);
+    ///Get the `uuid` field of this object.
+    #[wasm_bindgen(method, getter = "uuid")]
+    pub fn get_uuid(this: &Descriptor) -> String;
+    ///Change the `uuid` field of this object.
+    #[wasm_bindgen(method, setter = "uuid")]
+    pub fn set_uuid(this: &Descriptor, val: String);
+    ///Get the `value` field of this object.
+    #[wasm_bindgen(method, getter = "value")]
+    pub fn get_value(this: &Descriptor) -> Option<::js_sys::ArrayBuffer>;
+    ///Change the `value` field of this object.
+    #[wasm_bindgen(method, setter = "value")]
+    pub fn set_value(this: &Descriptor, val: &::js_sys::ArrayBuffer);
 }
 impl Descriptor {
     ///Construct a new `Descriptor`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_uuid()` instead."]
-    pub fn uuid(&mut self, val: String) -> &mut Self {
-        self.set_uuid(val);
-        self
-    }
-    #[deprecated = "Use `set_value()` instead."]
-    pub fn value(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_value(val);
-        self
     }
     #[deprecated = "Use `set_characteristic()` instead."]
     pub fn characteristic(&mut self, val: &Characteristic) -> &mut Self {
@@ -298,6 +296,16 @@ impl Descriptor {
     #[deprecated = "Use `set_permissions()` instead."]
     pub fn permissions(&mut self, val: &Array) -> &mut Self {
         self.set_permissions(val);
+        self
+    }
+    #[deprecated = "Use `set_uuid()` instead."]
+    pub fn uuid(&mut self, val: String) -> &mut Self {
+        self.set_uuid(val);
+        self
+    }
+    #[deprecated = "Use `set_value()` instead."]
+    pub fn value(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_value(val);
         self
     }
 }
@@ -323,7 +331,9 @@ impl ConnectProperties {
     ///Construct a new `ConnectProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_persistent()` instead."]
@@ -354,7 +364,9 @@ impl NotificationProperties {
     ///Construct a new `NotificationProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_persistent()` instead."]
@@ -391,7 +403,9 @@ impl ManufacturerData {
     ///Construct a new `ManufacturerData`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -433,7 +447,9 @@ impl ServiceData {
     ///Construct a new `ServiceData`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -464,36 +480,38 @@ extern "C" {
     ///Change the `manufacturerData` field of this object.
     #[wasm_bindgen(method, setter = "manufacturerData")]
     pub fn set_manufacturer_data(this: &Advertisement, val: &Array);
-    ///Get the `solicitUuids` field of this object.
-    #[wasm_bindgen(method, getter = "solicitUuids")]
-    pub fn get_solicit_uuids(this: &Advertisement) -> Option<Array>;
-    ///Change the `solicitUuids` field of this object.
-    #[wasm_bindgen(method, setter = "solicitUuids")]
-    pub fn set_solicit_uuids(this: &Advertisement, val: &Array);
     ///Get the `serviceData` field of this object.
     #[wasm_bindgen(method, getter = "serviceData")]
     pub fn get_service_data(this: &Advertisement) -> Option<Array>;
     ///Change the `serviceData` field of this object.
     #[wasm_bindgen(method, setter = "serviceData")]
     pub fn set_service_data(this: &Advertisement, val: &Array);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &Advertisement) -> AdvertisementType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &Advertisement, val: AdvertisementType);
     ///Get the `serviceUuids` field of this object.
     #[wasm_bindgen(method, getter = "serviceUuids")]
     pub fn get_service_uuids(this: &Advertisement) -> Option<Array>;
     ///Change the `serviceUuids` field of this object.
     #[wasm_bindgen(method, setter = "serviceUuids")]
     pub fn set_service_uuids(this: &Advertisement, val: &Array);
+    ///Get the `solicitUuids` field of this object.
+    #[wasm_bindgen(method, getter = "solicitUuids")]
+    pub fn get_solicit_uuids(this: &Advertisement) -> Option<Array>;
+    ///Change the `solicitUuids` field of this object.
+    #[wasm_bindgen(method, setter = "solicitUuids")]
+    pub fn set_solicit_uuids(this: &Advertisement, val: &Array);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &Advertisement) -> AdvertisementType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &Advertisement, val: AdvertisementType);
 }
 impl Advertisement {
     ///Construct a new `Advertisement`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_manufacturer_data()` instead."]
@@ -501,24 +519,24 @@ impl Advertisement {
         self.set_manufacturer_data(val);
         self
     }
-    #[deprecated = "Use `set_solicit_uuids()` instead."]
-    pub fn solicit_uuids(&mut self, val: &Array) -> &mut Self {
-        self.set_solicit_uuids(val);
-        self
-    }
     #[deprecated = "Use `set_service_data()` instead."]
     pub fn service_data(&mut self, val: &Array) -> &mut Self {
         self.set_service_data(val);
         self
     }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: AdvertisementType) -> &mut Self {
-        self.set_type(val);
-        self
-    }
     #[deprecated = "Use `set_service_uuids()` instead."]
     pub fn service_uuids(&mut self, val: &Array) -> &mut Self {
         self.set_service_uuids(val);
+        self
+    }
+    #[deprecated = "Use `set_solicit_uuids()` instead."]
+    pub fn solicit_uuids(&mut self, val: &Array) -> &mut Self {
+        self.set_solicit_uuids(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: AdvertisementType) -> &mut Self {
+        self.set_type(val);
         self
     }
 }
@@ -533,12 +551,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Request;
-    ///Get the `value` field of this object.
-    #[wasm_bindgen(method, getter = "value")]
-    pub fn get_value(this: &Request) -> Option<::js_sys::ArrayBuffer>;
-    ///Change the `value` field of this object.
-    #[wasm_bindgen(method, setter = "value")]
-    pub fn set_value(this: &Request, val: &::js_sys::ArrayBuffer);
     ///Get the `device` field of this object.
     #[wasm_bindgen(method, getter = "device")]
     pub fn get_device(this: &Request) -> Device;
@@ -551,18 +563,21 @@ extern "C" {
     ///Change the `requestId` field of this object.
     #[wasm_bindgen(method, setter = "requestId")]
     pub fn set_request_id(this: &Request, val: i32);
+    ///Get the `value` field of this object.
+    #[wasm_bindgen(method, getter = "value")]
+    pub fn get_value(this: &Request) -> Option<::js_sys::ArrayBuffer>;
+    ///Change the `value` field of this object.
+    #[wasm_bindgen(method, setter = "value")]
+    pub fn set_value(this: &Request, val: &::js_sys::ArrayBuffer);
 }
 impl Request {
     ///Construct a new `Request`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_value()` instead."]
-    pub fn value(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_value(val);
-        self
     }
     #[deprecated = "Use `set_device()` instead."]
     pub fn device(&mut self, val: &Device) -> &mut Self {
@@ -572,6 +587,11 @@ impl Request {
     #[deprecated = "Use `set_request_id()` instead."]
     pub fn request_id(&mut self, val: i32) -> &mut Self {
         self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_value()` instead."]
+    pub fn value(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_value(val);
         self
     }
 }
@@ -586,18 +606,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Response;
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &Response) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &Response, val: i32);
     ///Get the `isError` field of this object.
     #[wasm_bindgen(method, getter = "isError")]
     pub fn get_is_error(this: &Response) -> bool;
     ///Change the `isError` field of this object.
     #[wasm_bindgen(method, setter = "isError")]
     pub fn set_is_error(this: &Response, val: bool);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &Response) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &Response, val: i32);
     ///Get the `value` field of this object.
     #[wasm_bindgen(method, getter = "value")]
     pub fn get_value(this: &Response) -> Option<::js_sys::ArrayBuffer>;
@@ -609,17 +629,19 @@ impl Response {
     ///Construct a new `Response`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
     }
     #[deprecated = "Use `set_is_error()` instead."]
     pub fn is_error(&mut self, val: bool) -> &mut Self {
         self.set_is_error(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
     #[deprecated = "Use `set_value()` instead."]
@@ -656,7 +678,9 @@ impl Notification {
     ///Construct a new `Notification`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_should_indicate()` instead."]
@@ -679,7 +703,10 @@ impl Default for Notification {
 extern "C" {
     ///Establishes a connection between the application and the device with the given address. A device may be already connected and its GATT services available without calling connect, however, an app that wants to access GATT services of a device should call this function to make sure that a connection to the device is maintained. If the device is not connected, all GATT services of the device will be discovered after a successful call to connect.
     #[wasm_bindgen(js_namespace = ["chrome", "bluetoothLowEnergy"], js_name = "connect")]
-    pub fn connect(device_address: String, properties: Option<ConnectProperties>) -> Promise;
+    pub fn connect(
+        device_address: String,
+        properties: Option<ConnectProperties>,
+    ) -> Promise;
     ///Closes the app's connection to the device with the given address. Note that this will not always destroy the physical link itself, since there may be other apps with open connections.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -721,7 +748,10 @@ extern "C" {
         "bluetoothLowEnergy"],
         js_name = "createCharacteristic"
     )]
-    pub fn create_characteristic(characteristic: Characteristic, service_id: String) -> Promise;
+    pub fn create_characteristic(
+        characteristic: Characteristic,
+        service_id: String,
+    ) -> Promise;
     ///Get a list of all discovered GATT characteristics that belong to the given service.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -749,7 +779,10 @@ extern "C" {
         "bluetoothLowEnergy"],
         js_name = "createDescriptor"
     )]
-    pub fn create_descriptor(descriptor: Descriptor, characteristic_id: String) -> Promise;
+    pub fn create_descriptor(
+        descriptor: Descriptor,
+        characteristic_id: String,
+    ) -> Promise;
     ///Get a list of GATT characteristic descriptors that belong to the given characteristic.
     #[wasm_bindgen(
         js_namespace = ["chrome",
@@ -814,7 +847,10 @@ extern "C" {
         "bluetoothLowEnergy"],
         js_name = "writeDescriptorValue"
     )]
-    pub fn write_descriptor_value(descriptor_id: String, value: ::js_sys::ArrayBuffer) -> Promise;
+    pub fn write_descriptor_value(
+        descriptor_id: String,
+        value: ::js_sys::ArrayBuffer,
+    ) -> Promise;
     ///Register the given service with the local GATT server. If the service ID is invalid, the lastError will be set. This function is only available if the app has both the bluetooth:low_energy and the bluetooth:peripheral permissions set to true. The peripheral permission may not be available to all apps.
     #[wasm_bindgen(
         js_namespace = ["chrome",

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     ///Registers the application with FCM. The registration ID will be returned by the callback. If register is called again with the same list of senderIds, the same registration ID will be returned.

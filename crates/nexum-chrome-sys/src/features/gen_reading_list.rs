@@ -1,13 +1,19 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReadingListEntry")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ReadingListEntry;
+    ///Get the `creationTime` field of this object.
+    #[wasm_bindgen(method, getter = "creationTime")]
+    pub fn get_creation_time(this: &ReadingListEntry) -> f64;
+    ///Change the `creationTime` field of this object.
+    #[wasm_bindgen(method, setter = "creationTime")]
+    pub fn set_creation_time(this: &ReadingListEntry, val: f64);
     ///Get the `hasBeenRead` field of this object.
     #[wasm_bindgen(method, getter = "hasBeenRead")]
     pub fn get_has_been_read(this: &ReadingListEntry) -> bool;
@@ -32,19 +38,20 @@ extern "C" {
     ///Change the `url` field of this object.
     #[wasm_bindgen(method, setter = "url")]
     pub fn set_url(this: &ReadingListEntry, val: String);
-    ///Get the `creationTime` field of this object.
-    #[wasm_bindgen(method, getter = "creationTime")]
-    pub fn get_creation_time(this: &ReadingListEntry) -> f64;
-    ///Change the `creationTime` field of this object.
-    #[wasm_bindgen(method, setter = "creationTime")]
-    pub fn set_creation_time(this: &ReadingListEntry, val: f64);
 }
 impl ReadingListEntry {
     ///Construct a new `ReadingListEntry`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_creation_time()` instead."]
+    pub fn creation_time(&mut self, val: f64) -> &mut Self {
+        self.set_creation_time(val);
+        self
     }
     #[deprecated = "Use `set_has_been_read()` instead."]
     pub fn has_been_read(&mut self, val: bool) -> &mut Self {
@@ -66,11 +73,6 @@ impl ReadingListEntry {
         self.set_url(val);
         self
     }
-    #[deprecated = "Use `set_creation_time()` instead."]
-    pub fn creation_time(&mut self, val: f64) -> &mut Self {
-        self.set_creation_time(val);
-        self
-    }
 }
 impl Default for ReadingListEntry {
     fn default() -> Self {
@@ -89,24 +91,26 @@ extern "C" {
     ///Change the `hasBeenRead` field of this object.
     #[wasm_bindgen(method, setter = "hasBeenRead")]
     pub fn set_has_been_read(this: &AddEntryOptions, val: bool);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &AddEntryOptions) -> String;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &AddEntryOptions, val: String);
     ///Get the `title` field of this object.
     #[wasm_bindgen(method, getter = "title")]
     pub fn get_title(this: &AddEntryOptions) -> String;
     ///Change the `title` field of this object.
     #[wasm_bindgen(method, setter = "title")]
     pub fn set_title(this: &AddEntryOptions, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &AddEntryOptions) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &AddEntryOptions, val: String);
 }
 impl AddEntryOptions {
     ///Construct a new `AddEntryOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_has_been_read()` instead."]
@@ -114,14 +118,14 @@ impl AddEntryOptions {
         self.set_has_been_read(val);
         self
     }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
-    }
     #[deprecated = "Use `set_title()` instead."]
     pub fn title(&mut self, val: String) -> &mut Self {
         self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -147,7 +151,9 @@ impl RemoveOptions {
     ///Construct a new `RemoveOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_url()` instead."]
@@ -167,35 +173,37 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type UpdateEntryOptions;
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &UpdateEntryOptions) -> String;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &UpdateEntryOptions, val: String);
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &UpdateEntryOptions) -> Option<String>;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &UpdateEntryOptions, val: String);
     ///Get the `hasBeenRead` field of this object.
     #[wasm_bindgen(method, getter = "hasBeenRead")]
     pub fn get_has_been_read(this: &UpdateEntryOptions) -> Option<bool>;
     ///Change the `hasBeenRead` field of this object.
     #[wasm_bindgen(method, setter = "hasBeenRead")]
     pub fn set_has_been_read(this: &UpdateEntryOptions, val: bool);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &UpdateEntryOptions) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &UpdateEntryOptions, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &UpdateEntryOptions) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &UpdateEntryOptions, val: String);
 }
 impl UpdateEntryOptions {
     ///Construct a new `UpdateEntryOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
+    #[deprecated = "Use `set_has_been_read()` instead."]
+    pub fn has_been_read(&mut self, val: bool) -> &mut Self {
+        self.set_has_been_read(val);
         self
     }
     #[deprecated = "Use `set_title()` instead."]
@@ -203,9 +211,9 @@ impl UpdateEntryOptions {
         self.set_title(val);
         self
     }
-    #[deprecated = "Use `set_has_been_read()` instead."]
-    pub fn has_been_read(&mut self, val: bool) -> &mut Self {
-        self.set_has_been_read(val);
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -226,24 +234,26 @@ extern "C" {
     ///Change the `hasBeenRead` field of this object.
     #[wasm_bindgen(method, setter = "hasBeenRead")]
     pub fn set_has_been_read(this: &QueryInfo, val: bool);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &QueryInfo) -> Option<String>;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &QueryInfo, val: String);
     ///Get the `title` field of this object.
     #[wasm_bindgen(method, getter = "title")]
     pub fn get_title(this: &QueryInfo) -> Option<String>;
     ///Change the `title` field of this object.
     #[wasm_bindgen(method, setter = "title")]
     pub fn set_title(this: &QueryInfo, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &QueryInfo) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &QueryInfo, val: String);
 }
 impl QueryInfo {
     ///Construct a new `QueryInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_has_been_read()` instead."]
@@ -251,14 +261,14 @@ impl QueryInfo {
         self.set_has_been_read(val);
         self
     }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
-    }
     #[deprecated = "Use `set_title()` instead."]
     pub fn title(&mut self, val: String) -> &mut Self {
         self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }

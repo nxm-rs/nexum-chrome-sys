@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ProtocolHandler")]
@@ -14,24 +14,26 @@ extern "C" {
     ///Change the `name` field of this object.
     #[wasm_bindgen(method, setter = "name")]
     pub fn set_name(this: &ProtocolHandler, val: String);
-    ///Get the `uriTemplate` field of this object.
-    #[wasm_bindgen(method, getter = "uriTemplate")]
-    pub fn get_uri_template(this: &ProtocolHandler) -> String;
-    ///Change the `uriTemplate` field of this object.
-    #[wasm_bindgen(method, setter = "uriTemplate")]
-    pub fn set_uri_template(this: &ProtocolHandler, val: String);
     ///Get the `protocol` field of this object.
     #[wasm_bindgen(method, getter = "protocol")]
     pub fn get_protocol(this: &ProtocolHandler) -> String;
     ///Change the `protocol` field of this object.
     #[wasm_bindgen(method, setter = "protocol")]
     pub fn set_protocol(this: &ProtocolHandler, val: String);
+    ///Get the `uriTemplate` field of this object.
+    #[wasm_bindgen(method, getter = "uriTemplate")]
+    pub fn get_uri_template(this: &ProtocolHandler) -> String;
+    ///Change the `uriTemplate` field of this object.
+    #[wasm_bindgen(method, setter = "uriTemplate")]
+    pub fn set_uri_template(this: &ProtocolHandler, val: String);
 }
 impl ProtocolHandler {
     ///Construct a new `ProtocolHandler`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -39,14 +41,14 @@ impl ProtocolHandler {
         self.set_name(val);
         self
     }
-    #[deprecated = "Use `set_uri_template()` instead."]
-    pub fn uri_template(&mut self, val: String) -> &mut Self {
-        self.set_uri_template(val);
-        self
-    }
     #[deprecated = "Use `set_protocol()` instead."]
     pub fn protocol(&mut self, val: String) -> &mut Self {
         self.set_protocol(val);
+        self
+    }
+    #[deprecated = "Use `set_uri_template()` instead."]
+    pub fn uri_template(&mut self, val: String) -> &mut Self {
+        self.set_uri_template(val);
         self
     }
 }

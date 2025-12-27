@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -28,12 +28,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object encapsulating a single proxy server's specification.
     pub type ProxyServer;
-    ///Get the `scheme` field of this object.
-    #[wasm_bindgen(method, getter = "scheme")]
-    pub fn get_scheme(this: &ProxyServer) -> Option<Scheme>;
-    ///Change the `scheme` field of this object.
-    #[wasm_bindgen(method, setter = "scheme")]
-    pub fn set_scheme(this: &ProxyServer, val: Scheme);
     ///Get the `host` field of this object.
     #[wasm_bindgen(method, getter = "host")]
     pub fn get_host(this: &ProxyServer) -> String;
@@ -46,18 +40,21 @@ extern "C" {
     ///Change the `port` field of this object.
     #[wasm_bindgen(method, setter = "port")]
     pub fn set_port(this: &ProxyServer, val: i32);
+    ///Get the `scheme` field of this object.
+    #[wasm_bindgen(method, getter = "scheme")]
+    pub fn get_scheme(this: &ProxyServer) -> Option<Scheme>;
+    ///Change the `scheme` field of this object.
+    #[wasm_bindgen(method, setter = "scheme")]
+    pub fn set_scheme(this: &ProxyServer, val: Scheme);
 }
 impl ProxyServer {
     ///Construct a new `ProxyServer`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_scheme()` instead."]
-    pub fn scheme(&mut self, val: Scheme) -> &mut Self {
-        self.set_scheme(val);
-        self
     }
     #[deprecated = "Use `set_host()` instead."]
     pub fn host(&mut self, val: String) -> &mut Self {
@@ -67,6 +64,11 @@ impl ProxyServer {
     #[deprecated = "Use `set_port()` instead."]
     pub fn port(&mut self, val: i32) -> &mut Self {
         self.set_port(val);
+        self
+    }
+    #[deprecated = "Use `set_scheme()` instead."]
+    pub fn scheme(&mut self, val: Scheme) -> &mut Self {
+        self.set_scheme(val);
         self
     }
 }
@@ -81,6 +83,24 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object encapsulating the set of proxy rules for all protocols. Use either 'singleProxy' or (a subset of) 'proxyForHttp', 'proxyForHttps', 'proxyForFtp' and 'fallbackProxy'.
     pub type ProxyRules;
+    ///Get the `bypassList` field of this object.
+    #[wasm_bindgen(method, getter = "bypassList")]
+    pub fn get_bypass_list(this: &ProxyRules) -> Option<Array>;
+    ///Change the `bypassList` field of this object.
+    #[wasm_bindgen(method, setter = "bypassList")]
+    pub fn set_bypass_list(this: &ProxyRules, val: &Array);
+    ///Get the `fallbackProxy` field of this object.
+    #[wasm_bindgen(method, getter = "fallbackProxy")]
+    pub fn get_fallback_proxy(this: &ProxyRules) -> Option<ProxyServer>;
+    ///Change the `fallbackProxy` field of this object.
+    #[wasm_bindgen(method, setter = "fallbackProxy")]
+    pub fn set_fallback_proxy(this: &ProxyRules, val: &ProxyServer);
+    ///Get the `proxyForFtp` field of this object.
+    #[wasm_bindgen(method, getter = "proxyForFtp")]
+    pub fn get_proxy_for_ftp(this: &ProxyRules) -> Option<ProxyServer>;
+    ///Change the `proxyForFtp` field of this object.
+    #[wasm_bindgen(method, setter = "proxyForFtp")]
+    pub fn set_proxy_for_ftp(this: &ProxyRules, val: &ProxyServer);
     ///Get the `proxyForHttp` field of this object.
     #[wasm_bindgen(method, getter = "proxyForHttp")]
     pub fn get_proxy_for_http(this: &ProxyRules) -> Option<ProxyServer>;
@@ -99,31 +119,30 @@ extern "C" {
     ///Change the `singleProxy` field of this object.
     #[wasm_bindgen(method, setter = "singleProxy")]
     pub fn set_single_proxy(this: &ProxyRules, val: &ProxyServer);
-    ///Get the `proxyForFtp` field of this object.
-    #[wasm_bindgen(method, getter = "proxyForFtp")]
-    pub fn get_proxy_for_ftp(this: &ProxyRules) -> Option<ProxyServer>;
-    ///Change the `proxyForFtp` field of this object.
-    #[wasm_bindgen(method, setter = "proxyForFtp")]
-    pub fn set_proxy_for_ftp(this: &ProxyRules, val: &ProxyServer);
-    ///Get the `fallbackProxy` field of this object.
-    #[wasm_bindgen(method, getter = "fallbackProxy")]
-    pub fn get_fallback_proxy(this: &ProxyRules) -> Option<ProxyServer>;
-    ///Change the `fallbackProxy` field of this object.
-    #[wasm_bindgen(method, setter = "fallbackProxy")]
-    pub fn set_fallback_proxy(this: &ProxyRules, val: &ProxyServer);
-    ///Get the `bypassList` field of this object.
-    #[wasm_bindgen(method, getter = "bypassList")]
-    pub fn get_bypass_list(this: &ProxyRules) -> Option<Array>;
-    ///Change the `bypassList` field of this object.
-    #[wasm_bindgen(method, setter = "bypassList")]
-    pub fn set_bypass_list(this: &ProxyRules, val: &Array);
 }
 impl ProxyRules {
     ///Construct a new `ProxyRules`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_bypass_list()` instead."]
+    pub fn bypass_list(&mut self, val: &Array) -> &mut Self {
+        self.set_bypass_list(val);
+        self
+    }
+    #[deprecated = "Use `set_fallback_proxy()` instead."]
+    pub fn fallback_proxy(&mut self, val: &ProxyServer) -> &mut Self {
+        self.set_fallback_proxy(val);
+        self
+    }
+    #[deprecated = "Use `set_proxy_for_ftp()` instead."]
+    pub fn proxy_for_ftp(&mut self, val: &ProxyServer) -> &mut Self {
+        self.set_proxy_for_ftp(val);
+        self
     }
     #[deprecated = "Use `set_proxy_for_http()` instead."]
     pub fn proxy_for_http(&mut self, val: &ProxyServer) -> &mut Self {
@@ -140,21 +159,6 @@ impl ProxyRules {
         self.set_single_proxy(val);
         self
     }
-    #[deprecated = "Use `set_proxy_for_ftp()` instead."]
-    pub fn proxy_for_ftp(&mut self, val: &ProxyServer) -> &mut Self {
-        self.set_proxy_for_ftp(val);
-        self
-    }
-    #[deprecated = "Use `set_fallback_proxy()` instead."]
-    pub fn fallback_proxy(&mut self, val: &ProxyServer) -> &mut Self {
-        self.set_fallback_proxy(val);
-        self
-    }
-    #[deprecated = "Use `set_bypass_list()` instead."]
-    pub fn bypass_list(&mut self, val: &Array) -> &mut Self {
-        self.set_bypass_list(val);
-        self
-    }
 }
 impl Default for ProxyRules {
     fn default() -> Self {
@@ -167,12 +171,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object holding proxy auto-config information. Exactly one of the fields should be non-empty.
     pub type PacScript;
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &PacScript) -> Option<String>;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &PacScript, val: String);
     ///Get the `data` field of this object.
     #[wasm_bindgen(method, getter = "data")]
     pub fn get_data(this: &PacScript) -> Option<String>;
@@ -185,18 +183,21 @@ extern "C" {
     ///Change the `mandatory` field of this object.
     #[wasm_bindgen(method, setter = "mandatory")]
     pub fn set_mandatory(this: &PacScript, val: bool);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &PacScript) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &PacScript, val: String);
 }
 impl PacScript {
     ///Construct a new `PacScript`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
     }
     #[deprecated = "Use `set_data()` instead."]
     pub fn data(&mut self, val: String) -> &mut Self {
@@ -206,6 +207,11 @@ impl PacScript {
     #[deprecated = "Use `set_mandatory()` instead."]
     pub fn mandatory(&mut self, val: bool) -> &mut Self {
         self.set_mandatory(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -220,12 +226,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object encapsulating a complete proxy configuration.
     pub type ProxyConfig;
-    ///Get the `rules` field of this object.
-    #[wasm_bindgen(method, getter = "rules")]
-    pub fn get_rules(this: &ProxyConfig) -> Option<ProxyRules>;
-    ///Change the `rules` field of this object.
-    #[wasm_bindgen(method, setter = "rules")]
-    pub fn set_rules(this: &ProxyConfig, val: &ProxyRules);
     ///Get the `mode` field of this object.
     #[wasm_bindgen(method, getter = "mode")]
     pub fn get_mode(this: &ProxyConfig) -> Mode;
@@ -238,18 +238,21 @@ extern "C" {
     ///Change the `pacScript` field of this object.
     #[wasm_bindgen(method, setter = "pacScript")]
     pub fn set_pac_script(this: &ProxyConfig, val: &PacScript);
+    ///Get the `rules` field of this object.
+    #[wasm_bindgen(method, getter = "rules")]
+    pub fn get_rules(this: &ProxyConfig) -> Option<ProxyRules>;
+    ///Change the `rules` field of this object.
+    #[wasm_bindgen(method, setter = "rules")]
+    pub fn set_rules(this: &ProxyConfig, val: &ProxyRules);
 }
 impl ProxyConfig {
     ///Construct a new `ProxyConfig`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_rules()` instead."]
-    pub fn rules(&mut self, val: &ProxyRules) -> &mut Self {
-        self.set_rules(val);
-        self
     }
     #[deprecated = "Use `set_mode()` instead."]
     pub fn mode(&mut self, val: Mode) -> &mut Self {
@@ -259,6 +262,11 @@ impl ProxyConfig {
     #[deprecated = "Use `set_pac_script()` instead."]
     pub fn pac_script(&mut self, val: &PacScript) -> &mut Self {
         self.set_pac_script(val);
+        self
+    }
+    #[deprecated = "Use `set_rules()` instead."]
+    pub fn rules(&mut self, val: &ProxyRules) -> &mut Self {
+        self.set_rules(val);
         self
     }
 }

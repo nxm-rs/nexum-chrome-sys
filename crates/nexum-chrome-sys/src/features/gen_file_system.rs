@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AcceptOption")]
@@ -14,24 +14,26 @@ extern "C" {
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &AcceptOption, val: String);
-    ///Get the `mimeTypes` field of this object.
-    #[wasm_bindgen(method, getter = "mimeTypes")]
-    pub fn get_mime_types(this: &AcceptOption) -> Option<Array>;
-    ///Change the `mimeTypes` field of this object.
-    #[wasm_bindgen(method, setter = "mimeTypes")]
-    pub fn set_mime_types(this: &AcceptOption, val: &Array);
     ///Get the `extensions` field of this object.
     #[wasm_bindgen(method, getter = "extensions")]
     pub fn get_extensions(this: &AcceptOption) -> Option<Array>;
     ///Change the `extensions` field of this object.
     #[wasm_bindgen(method, setter = "extensions")]
     pub fn set_extensions(this: &AcceptOption, val: &Array);
+    ///Get the `mimeTypes` field of this object.
+    #[wasm_bindgen(method, getter = "mimeTypes")]
+    pub fn get_mime_types(this: &AcceptOption) -> Option<Array>;
+    ///Change the `mimeTypes` field of this object.
+    #[wasm_bindgen(method, setter = "mimeTypes")]
+    pub fn set_mime_types(this: &AcceptOption, val: &Array);
 }
 impl AcceptOption {
     ///Construct a new `AcceptOption`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -39,14 +41,14 @@ impl AcceptOption {
         self.set_description(val);
         self
     }
-    #[deprecated = "Use `set_mime_types()` instead."]
-    pub fn mime_types(&mut self, val: &Array) -> &mut Self {
-        self.set_mime_types(val);
-        self
-    }
     #[deprecated = "Use `set_extensions()` instead."]
     pub fn extensions(&mut self, val: &Array) -> &mut Self {
         self.set_extensions(val);
+        self
+    }
+    #[deprecated = "Use `set_mime_types()` instead."]
+    pub fn mime_types(&mut self, val: &Array) -> &mut Self {
+        self.set_mime_types(val);
         self
     }
 }
@@ -74,57 +76,49 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ChooseEntryOptions;
-    ///Get the `suggestedName` field of this object.
-    #[wasm_bindgen(method, getter = "suggestedName")]
-    pub fn get_suggested_name(this: &ChooseEntryOptions) -> Option<String>;
-    ///Change the `suggestedName` field of this object.
-    #[wasm_bindgen(method, setter = "suggestedName")]
-    pub fn set_suggested_name(this: &ChooseEntryOptions, val: String);
-    ///Get the `acceptsMultiple` field of this object.
-    #[wasm_bindgen(method, getter = "acceptsMultiple")]
-    pub fn get_accepts_multiple(this: &ChooseEntryOptions) -> Option<bool>;
-    ///Change the `acceptsMultiple` field of this object.
-    #[wasm_bindgen(method, setter = "acceptsMultiple")]
-    pub fn set_accepts_multiple(this: &ChooseEntryOptions, val: bool);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &ChooseEntryOptions) -> Option<ChooseEntryType>;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &ChooseEntryOptions, val: ChooseEntryType);
-    ///Get the `acceptsAllTypes` field of this object.
-    #[wasm_bindgen(method, getter = "acceptsAllTypes")]
-    pub fn get_accepts_all_types(this: &ChooseEntryOptions) -> Option<bool>;
-    ///Change the `acceptsAllTypes` field of this object.
-    #[wasm_bindgen(method, setter = "acceptsAllTypes")]
-    pub fn set_accepts_all_types(this: &ChooseEntryOptions, val: bool);
     ///Get the `accepts` field of this object.
     #[wasm_bindgen(method, getter = "accepts")]
     pub fn get_accepts(this: &ChooseEntryOptions) -> Option<Array>;
     ///Change the `accepts` field of this object.
     #[wasm_bindgen(method, setter = "accepts")]
     pub fn set_accepts(this: &ChooseEntryOptions, val: &Array);
+    ///Get the `acceptsAllTypes` field of this object.
+    #[wasm_bindgen(method, getter = "acceptsAllTypes")]
+    pub fn get_accepts_all_types(this: &ChooseEntryOptions) -> Option<bool>;
+    ///Change the `acceptsAllTypes` field of this object.
+    #[wasm_bindgen(method, setter = "acceptsAllTypes")]
+    pub fn set_accepts_all_types(this: &ChooseEntryOptions, val: bool);
+    ///Get the `acceptsMultiple` field of this object.
+    #[wasm_bindgen(method, getter = "acceptsMultiple")]
+    pub fn get_accepts_multiple(this: &ChooseEntryOptions) -> Option<bool>;
+    ///Change the `acceptsMultiple` field of this object.
+    #[wasm_bindgen(method, setter = "acceptsMultiple")]
+    pub fn set_accepts_multiple(this: &ChooseEntryOptions, val: bool);
+    ///Get the `suggestedName` field of this object.
+    #[wasm_bindgen(method, getter = "suggestedName")]
+    pub fn get_suggested_name(this: &ChooseEntryOptions) -> Option<String>;
+    ///Change the `suggestedName` field of this object.
+    #[wasm_bindgen(method, setter = "suggestedName")]
+    pub fn set_suggested_name(this: &ChooseEntryOptions, val: String);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &ChooseEntryOptions) -> Option<ChooseEntryType>;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &ChooseEntryOptions, val: ChooseEntryType);
 }
 impl ChooseEntryOptions {
     ///Construct a new `ChooseEntryOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_suggested_name()` instead."]
-    pub fn suggested_name(&mut self, val: String) -> &mut Self {
-        self.set_suggested_name(val);
-        self
-    }
-    #[deprecated = "Use `set_accepts_multiple()` instead."]
-    pub fn accepts_multiple(&mut self, val: bool) -> &mut Self {
-        self.set_accepts_multiple(val);
-        self
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: ChooseEntryType) -> &mut Self {
-        self.set_type(val);
+    #[deprecated = "Use `set_accepts()` instead."]
+    pub fn accepts(&mut self, val: &Array) -> &mut Self {
+        self.set_accepts(val);
         self
     }
     #[deprecated = "Use `set_accepts_all_types()` instead."]
@@ -132,9 +126,19 @@ impl ChooseEntryOptions {
         self.set_accepts_all_types(val);
         self
     }
-    #[deprecated = "Use `set_accepts()` instead."]
-    pub fn accepts(&mut self, val: &Array) -> &mut Self {
-        self.set_accepts(val);
+    #[deprecated = "Use `set_accepts_multiple()` instead."]
+    pub fn accepts_multiple(&mut self, val: bool) -> &mut Self {
+        self.set_accepts_multiple(val);
+        self
+    }
+    #[deprecated = "Use `set_suggested_name()` instead."]
+    pub fn suggested_name(&mut self, val: String) -> &mut Self {
+        self.set_suggested_name(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ChooseEntryType) -> &mut Self {
+        self.set_type(val);
         self
     }
 }
@@ -166,7 +170,9 @@ impl RequestFileSystemOptions {
     ///Construct a new `RequestFileSystemOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_volume_id()` instead."]
@@ -191,34 +197,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Volume;
-    ///Get the `writable` field of this object.
-    #[wasm_bindgen(method, getter = "writable")]
-    pub fn get_writable(this: &Volume) -> bool;
-    ///Change the `writable` field of this object.
-    #[wasm_bindgen(method, setter = "writable")]
-    pub fn set_writable(this: &Volume, val: bool);
     ///Get the `volumeId` field of this object.
     #[wasm_bindgen(method, getter = "volumeId")]
     pub fn get_volume_id(this: &Volume) -> String;
     ///Change the `volumeId` field of this object.
     #[wasm_bindgen(method, setter = "volumeId")]
     pub fn set_volume_id(this: &Volume, val: String);
+    ///Get the `writable` field of this object.
+    #[wasm_bindgen(method, getter = "writable")]
+    pub fn get_writable(this: &Volume) -> bool;
+    ///Change the `writable` field of this object.
+    #[wasm_bindgen(method, setter = "writable")]
+    pub fn set_writable(this: &Volume, val: bool);
 }
 impl Volume {
     ///Construct a new `Volume`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_writable()` instead."]
-    pub fn writable(&mut self, val: bool) -> &mut Self {
-        self.set_writable(val);
-        self
     }
     #[deprecated = "Use `set_volume_id()` instead."]
     pub fn volume_id(&mut self, val: String) -> &mut Self {
         self.set_volume_id(val);
+        self
+    }
+    #[deprecated = "Use `set_writable()` instead."]
+    pub fn writable(&mut self, val: bool) -> &mut Self {
+        self.set_writable(val);
         self
     }
 }
@@ -244,7 +252,9 @@ impl VolumeListChangedEvent {
     ///Construct a new `VolumeListChangedEvent`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_volumes()` instead."]

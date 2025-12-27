@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeviceInfo")]
@@ -14,12 +14,6 @@ extern "C" {
     ///Change the `displayName` field of this object.
     #[wasm_bindgen(method, setter = "displayName")]
     pub fn set_display_name(this: &DeviceInfo, val: String);
-    ///Get the `vendorId` field of this object.
-    #[wasm_bindgen(method, getter = "vendorId")]
-    pub fn get_vendor_id(this: &DeviceInfo) -> Option<i32>;
-    ///Change the `vendorId` field of this object.
-    #[wasm_bindgen(method, setter = "vendorId")]
-    pub fn set_vendor_id(this: &DeviceInfo, val: i32);
     ///Get the `path` field of this object.
     #[wasm_bindgen(method, getter = "path")]
     pub fn get_path(this: &DeviceInfo) -> String;
@@ -32,22 +26,25 @@ extern "C" {
     ///Change the `productId` field of this object.
     #[wasm_bindgen(method, setter = "productId")]
     pub fn set_product_id(this: &DeviceInfo, val: i32);
+    ///Get the `vendorId` field of this object.
+    #[wasm_bindgen(method, getter = "vendorId")]
+    pub fn get_vendor_id(this: &DeviceInfo) -> Option<i32>;
+    ///Change the `vendorId` field of this object.
+    #[wasm_bindgen(method, setter = "vendorId")]
+    pub fn set_vendor_id(this: &DeviceInfo, val: i32);
 }
 impl DeviceInfo {
     ///Construct a new `DeviceInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_display_name()` instead."]
     pub fn display_name(&mut self, val: String) -> &mut Self {
         self.set_display_name(val);
-        self
-    }
-    #[deprecated = "Use `set_vendor_id()` instead."]
-    pub fn vendor_id(&mut self, val: i32) -> &mut Self {
-        self.set_vendor_id(val);
         self
     }
     #[deprecated = "Use `set_path()` instead."]
@@ -58,6 +55,11 @@ impl DeviceInfo {
     #[deprecated = "Use `set_product_id()` instead."]
     pub fn product_id(&mut self, val: i32) -> &mut Self {
         self.set_product_id(val);
+        self
+    }
+    #[deprecated = "Use `set_vendor_id()` instead."]
+    pub fn vendor_id(&mut self, val: i32) -> &mut Self {
+        self.set_vendor_id(val);
         self
     }
 }
@@ -94,36 +96,30 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ConnectionOptions;
-    ///Get the `sendTimeout` field of this object.
-    #[wasm_bindgen(method, getter = "sendTimeout")]
-    pub fn get_send_timeout(this: &ConnectionOptions) -> Option<i32>;
-    ///Change the `sendTimeout` field of this object.
-    #[wasm_bindgen(method, setter = "sendTimeout")]
-    pub fn set_send_timeout(this: &ConnectionOptions, val: i32);
-    ///Get the `persistent` field of this object.
-    #[wasm_bindgen(method, getter = "persistent")]
-    pub fn get_persistent(this: &ConnectionOptions) -> Option<bool>;
-    ///Change the `persistent` field of this object.
-    #[wasm_bindgen(method, setter = "persistent")]
-    pub fn set_persistent(this: &ConnectionOptions, val: bool);
-    ///Get the `dataBits` field of this object.
-    #[wasm_bindgen(method, getter = "dataBits")]
-    pub fn get_data_bits(this: &ConnectionOptions) -> Option<DataBits>;
-    ///Change the `dataBits` field of this object.
-    #[wasm_bindgen(method, setter = "dataBits")]
-    pub fn set_data_bits(this: &ConnectionOptions, val: DataBits);
-    ///Get the `stopBits` field of this object.
-    #[wasm_bindgen(method, getter = "stopBits")]
-    pub fn get_stop_bits(this: &ConnectionOptions) -> Option<StopBits>;
-    ///Change the `stopBits` field of this object.
-    #[wasm_bindgen(method, setter = "stopBits")]
-    pub fn set_stop_bits(this: &ConnectionOptions, val: StopBits);
+    ///Get the `bitrate` field of this object.
+    #[wasm_bindgen(method, getter = "bitrate")]
+    pub fn get_bitrate(this: &ConnectionOptions) -> Option<i32>;
+    ///Change the `bitrate` field of this object.
+    #[wasm_bindgen(method, setter = "bitrate")]
+    pub fn set_bitrate(this: &ConnectionOptions, val: i32);
     ///Get the `bufferSize` field of this object.
     #[wasm_bindgen(method, getter = "bufferSize")]
     pub fn get_buffer_size(this: &ConnectionOptions) -> Option<i32>;
     ///Change the `bufferSize` field of this object.
     #[wasm_bindgen(method, setter = "bufferSize")]
     pub fn set_buffer_size(this: &ConnectionOptions, val: i32);
+    ///Get the `ctsFlowControl` field of this object.
+    #[wasm_bindgen(method, getter = "ctsFlowControl")]
+    pub fn get_cts_flow_control(this: &ConnectionOptions) -> Option<bool>;
+    ///Change the `ctsFlowControl` field of this object.
+    #[wasm_bindgen(method, setter = "ctsFlowControl")]
+    pub fn set_cts_flow_control(this: &ConnectionOptions, val: bool);
+    ///Get the `dataBits` field of this object.
+    #[wasm_bindgen(method, getter = "dataBits")]
+    pub fn get_data_bits(this: &ConnectionOptions) -> Option<DataBits>;
+    ///Change the `dataBits` field of this object.
+    #[wasm_bindgen(method, setter = "dataBits")]
+    pub fn set_data_bits(this: &ConnectionOptions, val: DataBits);
     ///Get the `name` field of this object.
     #[wasm_bindgen(method, getter = "name")]
     pub fn get_name(this: &ConnectionOptions) -> Option<String>;
@@ -136,55 +132,58 @@ extern "C" {
     ///Change the `parityBit` field of this object.
     #[wasm_bindgen(method, setter = "parityBit")]
     pub fn set_parity_bit(this: &ConnectionOptions, val: ParityBit);
-    ///Get the `bitrate` field of this object.
-    #[wasm_bindgen(method, getter = "bitrate")]
-    pub fn get_bitrate(this: &ConnectionOptions) -> Option<i32>;
-    ///Change the `bitrate` field of this object.
-    #[wasm_bindgen(method, setter = "bitrate")]
-    pub fn set_bitrate(this: &ConnectionOptions, val: i32);
-    ///Get the `ctsFlowControl` field of this object.
-    #[wasm_bindgen(method, getter = "ctsFlowControl")]
-    pub fn get_cts_flow_control(this: &ConnectionOptions) -> Option<bool>;
-    ///Change the `ctsFlowControl` field of this object.
-    #[wasm_bindgen(method, setter = "ctsFlowControl")]
-    pub fn set_cts_flow_control(this: &ConnectionOptions, val: bool);
+    ///Get the `persistent` field of this object.
+    #[wasm_bindgen(method, getter = "persistent")]
+    pub fn get_persistent(this: &ConnectionOptions) -> Option<bool>;
+    ///Change the `persistent` field of this object.
+    #[wasm_bindgen(method, setter = "persistent")]
+    pub fn set_persistent(this: &ConnectionOptions, val: bool);
     ///Get the `receiveTimeout` field of this object.
     #[wasm_bindgen(method, getter = "receiveTimeout")]
     pub fn get_receive_timeout(this: &ConnectionOptions) -> Option<i32>;
     ///Change the `receiveTimeout` field of this object.
     #[wasm_bindgen(method, setter = "receiveTimeout")]
     pub fn set_receive_timeout(this: &ConnectionOptions, val: i32);
+    ///Get the `sendTimeout` field of this object.
+    #[wasm_bindgen(method, getter = "sendTimeout")]
+    pub fn get_send_timeout(this: &ConnectionOptions) -> Option<i32>;
+    ///Change the `sendTimeout` field of this object.
+    #[wasm_bindgen(method, setter = "sendTimeout")]
+    pub fn set_send_timeout(this: &ConnectionOptions, val: i32);
+    ///Get the `stopBits` field of this object.
+    #[wasm_bindgen(method, getter = "stopBits")]
+    pub fn get_stop_bits(this: &ConnectionOptions) -> Option<StopBits>;
+    ///Change the `stopBits` field of this object.
+    #[wasm_bindgen(method, setter = "stopBits")]
+    pub fn set_stop_bits(this: &ConnectionOptions, val: StopBits);
 }
 impl ConnectionOptions {
     ///Construct a new `ConnectionOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_send_timeout()` instead."]
-    pub fn send_timeout(&mut self, val: i32) -> &mut Self {
-        self.set_send_timeout(val);
-        self
-    }
-    #[deprecated = "Use `set_persistent()` instead."]
-    pub fn persistent(&mut self, val: bool) -> &mut Self {
-        self.set_persistent(val);
-        self
-    }
-    #[deprecated = "Use `set_data_bits()` instead."]
-    pub fn data_bits(&mut self, val: DataBits) -> &mut Self {
-        self.set_data_bits(val);
-        self
-    }
-    #[deprecated = "Use `set_stop_bits()` instead."]
-    pub fn stop_bits(&mut self, val: StopBits) -> &mut Self {
-        self.set_stop_bits(val);
+    #[deprecated = "Use `set_bitrate()` instead."]
+    pub fn bitrate(&mut self, val: i32) -> &mut Self {
+        self.set_bitrate(val);
         self
     }
     #[deprecated = "Use `set_buffer_size()` instead."]
     pub fn buffer_size(&mut self, val: i32) -> &mut Self {
         self.set_buffer_size(val);
+        self
+    }
+    #[deprecated = "Use `set_cts_flow_control()` instead."]
+    pub fn cts_flow_control(&mut self, val: bool) -> &mut Self {
+        self.set_cts_flow_control(val);
+        self
+    }
+    #[deprecated = "Use `set_data_bits()` instead."]
+    pub fn data_bits(&mut self, val: DataBits) -> &mut Self {
+        self.set_data_bits(val);
         self
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -197,19 +196,24 @@ impl ConnectionOptions {
         self.set_parity_bit(val);
         self
     }
-    #[deprecated = "Use `set_bitrate()` instead."]
-    pub fn bitrate(&mut self, val: i32) -> &mut Self {
-        self.set_bitrate(val);
-        self
-    }
-    #[deprecated = "Use `set_cts_flow_control()` instead."]
-    pub fn cts_flow_control(&mut self, val: bool) -> &mut Self {
-        self.set_cts_flow_control(val);
+    #[deprecated = "Use `set_persistent()` instead."]
+    pub fn persistent(&mut self, val: bool) -> &mut Self {
+        self.set_persistent(val);
         self
     }
     #[deprecated = "Use `set_receive_timeout()` instead."]
     pub fn receive_timeout(&mut self, val: i32) -> &mut Self {
         self.set_receive_timeout(val);
+        self
+    }
+    #[deprecated = "Use `set_send_timeout()` instead."]
+    pub fn send_timeout(&mut self, val: i32) -> &mut Self {
+        self.set_send_timeout(val);
+        self
+    }
+    #[deprecated = "Use `set_stop_bits()` instead."]
+    pub fn stop_bits(&mut self, val: StopBits) -> &mut Self {
+        self.set_stop_bits(val);
         self
     }
 }
@@ -224,6 +228,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ConnectionInfo;
+    ///Get the `bitrate` field of this object.
+    #[wasm_bindgen(method, getter = "bitrate")]
+    pub fn get_bitrate(this: &ConnectionInfo) -> Option<i32>;
+    ///Change the `bitrate` field of this object.
+    #[wasm_bindgen(method, setter = "bitrate")]
+    pub fn set_bitrate(this: &ConnectionInfo, val: i32);
+    ///Get the `bufferSize` field of this object.
+    #[wasm_bindgen(method, getter = "bufferSize")]
+    pub fn get_buffer_size(this: &ConnectionInfo) -> i32;
+    ///Change the `bufferSize` field of this object.
+    #[wasm_bindgen(method, setter = "bufferSize")]
+    pub fn set_buffer_size(this: &ConnectionInfo, val: i32);
+    ///Get the `connectionId` field of this object.
+    #[wasm_bindgen(method, getter = "connectionId")]
+    pub fn get_connection_id(this: &ConnectionInfo) -> i32;
+    ///Change the `connectionId` field of this object.
+    #[wasm_bindgen(method, setter = "connectionId")]
+    pub fn set_connection_id(this: &ConnectionInfo, val: i32);
+    ///Get the `ctsFlowControl` field of this object.
+    #[wasm_bindgen(method, getter = "ctsFlowControl")]
+    pub fn get_cts_flow_control(this: &ConnectionInfo) -> Option<bool>;
+    ///Change the `ctsFlowControl` field of this object.
+    #[wasm_bindgen(method, setter = "ctsFlowControl")]
+    pub fn set_cts_flow_control(this: &ConnectionInfo, val: bool);
+    ///Get the `dataBits` field of this object.
+    #[wasm_bindgen(method, getter = "dataBits")]
+    pub fn get_data_bits(this: &ConnectionInfo) -> Option<DataBits>;
+    ///Change the `dataBits` field of this object.
+    #[wasm_bindgen(method, setter = "dataBits")]
+    pub fn set_data_bits(this: &ConnectionInfo, val: DataBits);
     ///Get the `name` field of this object.
     #[wasm_bindgen(method, getter = "name")]
     pub fn get_name(this: &ConnectionInfo) -> String;
@@ -236,73 +270,70 @@ extern "C" {
     ///Change the `parityBit` field of this object.
     #[wasm_bindgen(method, setter = "parityBit")]
     pub fn set_parity_bit(this: &ConnectionInfo, val: ParityBit);
-    ///Get the `sendTimeout` field of this object.
-    #[wasm_bindgen(method, getter = "sendTimeout")]
-    pub fn get_send_timeout(this: &ConnectionInfo) -> i32;
-    ///Change the `sendTimeout` field of this object.
-    #[wasm_bindgen(method, setter = "sendTimeout")]
-    pub fn set_send_timeout(this: &ConnectionInfo, val: i32);
-    ///Get the `dataBits` field of this object.
-    #[wasm_bindgen(method, getter = "dataBits")]
-    pub fn get_data_bits(this: &ConnectionInfo) -> Option<DataBits>;
-    ///Change the `dataBits` field of this object.
-    #[wasm_bindgen(method, setter = "dataBits")]
-    pub fn set_data_bits(this: &ConnectionInfo, val: DataBits);
-    ///Get the `connectionId` field of this object.
-    #[wasm_bindgen(method, getter = "connectionId")]
-    pub fn get_connection_id(this: &ConnectionInfo) -> i32;
-    ///Change the `connectionId` field of this object.
-    #[wasm_bindgen(method, setter = "connectionId")]
-    pub fn set_connection_id(this: &ConnectionInfo, val: i32);
     ///Get the `paused` field of this object.
     #[wasm_bindgen(method, getter = "paused")]
     pub fn get_paused(this: &ConnectionInfo) -> bool;
     ///Change the `paused` field of this object.
     #[wasm_bindgen(method, setter = "paused")]
     pub fn set_paused(this: &ConnectionInfo, val: bool);
-    ///Get the `receiveTimeout` field of this object.
-    #[wasm_bindgen(method, getter = "receiveTimeout")]
-    pub fn get_receive_timeout(this: &ConnectionInfo) -> i32;
-    ///Change the `receiveTimeout` field of this object.
-    #[wasm_bindgen(method, setter = "receiveTimeout")]
-    pub fn set_receive_timeout(this: &ConnectionInfo, val: i32);
     ///Get the `persistent` field of this object.
     #[wasm_bindgen(method, getter = "persistent")]
     pub fn get_persistent(this: &ConnectionInfo) -> bool;
     ///Change the `persistent` field of this object.
     #[wasm_bindgen(method, setter = "persistent")]
     pub fn set_persistent(this: &ConnectionInfo, val: bool);
+    ///Get the `receiveTimeout` field of this object.
+    #[wasm_bindgen(method, getter = "receiveTimeout")]
+    pub fn get_receive_timeout(this: &ConnectionInfo) -> i32;
+    ///Change the `receiveTimeout` field of this object.
+    #[wasm_bindgen(method, setter = "receiveTimeout")]
+    pub fn set_receive_timeout(this: &ConnectionInfo, val: i32);
+    ///Get the `sendTimeout` field of this object.
+    #[wasm_bindgen(method, getter = "sendTimeout")]
+    pub fn get_send_timeout(this: &ConnectionInfo) -> i32;
+    ///Change the `sendTimeout` field of this object.
+    #[wasm_bindgen(method, setter = "sendTimeout")]
+    pub fn set_send_timeout(this: &ConnectionInfo, val: i32);
     ///Get the `stopBits` field of this object.
     #[wasm_bindgen(method, getter = "stopBits")]
     pub fn get_stop_bits(this: &ConnectionInfo) -> Option<StopBits>;
     ///Change the `stopBits` field of this object.
     #[wasm_bindgen(method, setter = "stopBits")]
     pub fn set_stop_bits(this: &ConnectionInfo, val: StopBits);
-    ///Get the `bufferSize` field of this object.
-    #[wasm_bindgen(method, getter = "bufferSize")]
-    pub fn get_buffer_size(this: &ConnectionInfo) -> i32;
-    ///Change the `bufferSize` field of this object.
-    #[wasm_bindgen(method, setter = "bufferSize")]
-    pub fn set_buffer_size(this: &ConnectionInfo, val: i32);
-    ///Get the `ctsFlowControl` field of this object.
-    #[wasm_bindgen(method, getter = "ctsFlowControl")]
-    pub fn get_cts_flow_control(this: &ConnectionInfo) -> Option<bool>;
-    ///Change the `ctsFlowControl` field of this object.
-    #[wasm_bindgen(method, setter = "ctsFlowControl")]
-    pub fn set_cts_flow_control(this: &ConnectionInfo, val: bool);
-    ///Get the `bitrate` field of this object.
-    #[wasm_bindgen(method, getter = "bitrate")]
-    pub fn get_bitrate(this: &ConnectionInfo) -> Option<i32>;
-    ///Change the `bitrate` field of this object.
-    #[wasm_bindgen(method, setter = "bitrate")]
-    pub fn set_bitrate(this: &ConnectionInfo, val: i32);
 }
 impl ConnectionInfo {
     ///Construct a new `ConnectionInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_bitrate()` instead."]
+    pub fn bitrate(&mut self, val: i32) -> &mut Self {
+        self.set_bitrate(val);
+        self
+    }
+    #[deprecated = "Use `set_buffer_size()` instead."]
+    pub fn buffer_size(&mut self, val: i32) -> &mut Self {
+        self.set_buffer_size(val);
+        self
+    }
+    #[deprecated = "Use `set_connection_id()` instead."]
+    pub fn connection_id(&mut self, val: i32) -> &mut Self {
+        self.set_connection_id(val);
+        self
+    }
+    #[deprecated = "Use `set_cts_flow_control()` instead."]
+    pub fn cts_flow_control(&mut self, val: bool) -> &mut Self {
+        self.set_cts_flow_control(val);
+        self
+    }
+    #[deprecated = "Use `set_data_bits()` instead."]
+    pub fn data_bits(&mut self, val: DataBits) -> &mut Self {
+        self.set_data_bits(val);
+        self
     }
     #[deprecated = "Use `set_name()` instead."]
     pub fn name(&mut self, val: String) -> &mut Self {
@@ -314,29 +345,9 @@ impl ConnectionInfo {
         self.set_parity_bit(val);
         self
     }
-    #[deprecated = "Use `set_send_timeout()` instead."]
-    pub fn send_timeout(&mut self, val: i32) -> &mut Self {
-        self.set_send_timeout(val);
-        self
-    }
-    #[deprecated = "Use `set_data_bits()` instead."]
-    pub fn data_bits(&mut self, val: DataBits) -> &mut Self {
-        self.set_data_bits(val);
-        self
-    }
-    #[deprecated = "Use `set_connection_id()` instead."]
-    pub fn connection_id(&mut self, val: i32) -> &mut Self {
-        self.set_connection_id(val);
-        self
-    }
     #[deprecated = "Use `set_paused()` instead."]
     pub fn paused(&mut self, val: bool) -> &mut Self {
         self.set_paused(val);
-        self
-    }
-    #[deprecated = "Use `set_receive_timeout()` instead."]
-    pub fn receive_timeout(&mut self, val: i32) -> &mut Self {
-        self.set_receive_timeout(val);
         self
     }
     #[deprecated = "Use `set_persistent()` instead."]
@@ -344,24 +355,19 @@ impl ConnectionInfo {
         self.set_persistent(val);
         self
     }
+    #[deprecated = "Use `set_receive_timeout()` instead."]
+    pub fn receive_timeout(&mut self, val: i32) -> &mut Self {
+        self.set_receive_timeout(val);
+        self
+    }
+    #[deprecated = "Use `set_send_timeout()` instead."]
+    pub fn send_timeout(&mut self, val: i32) -> &mut Self {
+        self.set_send_timeout(val);
+        self
+    }
     #[deprecated = "Use `set_stop_bits()` instead."]
     pub fn stop_bits(&mut self, val: StopBits) -> &mut Self {
         self.set_stop_bits(val);
-        self
-    }
-    #[deprecated = "Use `set_buffer_size()` instead."]
-    pub fn buffer_size(&mut self, val: i32) -> &mut Self {
-        self.set_buffer_size(val);
-        self
-    }
-    #[deprecated = "Use `set_cts_flow_control()` instead."]
-    pub fn cts_flow_control(&mut self, val: bool) -> &mut Self {
-        self.set_cts_flow_control(val);
-        self
-    }
-    #[deprecated = "Use `set_bitrate()` instead."]
-    pub fn bitrate(&mut self, val: i32) -> &mut Self {
-        self.set_bitrate(val);
         self
     }
 }
@@ -406,7 +412,9 @@ impl SendInfo {
     ///Construct a new `SendInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_bytes_sent()` instead."]
@@ -431,34 +439,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type HostControlSignals;
-    ///Get the `rts` field of this object.
-    #[wasm_bindgen(method, getter = "rts")]
-    pub fn get_rts(this: &HostControlSignals) -> Option<bool>;
-    ///Change the `rts` field of this object.
-    #[wasm_bindgen(method, setter = "rts")]
-    pub fn set_rts(this: &HostControlSignals, val: bool);
     ///Get the `dtr` field of this object.
     #[wasm_bindgen(method, getter = "dtr")]
     pub fn get_dtr(this: &HostControlSignals) -> Option<bool>;
     ///Change the `dtr` field of this object.
     #[wasm_bindgen(method, setter = "dtr")]
     pub fn set_dtr(this: &HostControlSignals, val: bool);
+    ///Get the `rts` field of this object.
+    #[wasm_bindgen(method, getter = "rts")]
+    pub fn get_rts(this: &HostControlSignals) -> Option<bool>;
+    ///Change the `rts` field of this object.
+    #[wasm_bindgen(method, setter = "rts")]
+    pub fn set_rts(this: &HostControlSignals, val: bool);
 }
 impl HostControlSignals {
     ///Construct a new `HostControlSignals`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_rts()` instead."]
-    pub fn rts(&mut self, val: bool) -> &mut Self {
-        self.set_rts(val);
-        self
     }
     #[deprecated = "Use `set_dtr()` instead."]
     pub fn dtr(&mut self, val: bool) -> &mut Self {
         self.set_dtr(val);
+        self
+    }
+    #[deprecated = "Use `set_rts()` instead."]
+    pub fn rts(&mut self, val: bool) -> &mut Self {
+        self.set_rts(val);
         self
     }
 }
@@ -473,6 +483,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DeviceControlSignals;
+    ///Get the `cts` field of this object.
+    #[wasm_bindgen(method, getter = "cts")]
+    pub fn get_cts(this: &DeviceControlSignals) -> bool;
+    ///Change the `cts` field of this object.
+    #[wasm_bindgen(method, setter = "cts")]
+    pub fn set_cts(this: &DeviceControlSignals, val: bool);
+    ///Get the `dcd` field of this object.
+    #[wasm_bindgen(method, getter = "dcd")]
+    pub fn get_dcd(this: &DeviceControlSignals) -> bool;
+    ///Change the `dcd` field of this object.
+    #[wasm_bindgen(method, setter = "dcd")]
+    pub fn set_dcd(this: &DeviceControlSignals, val: bool);
     ///Get the `dsr` field of this object.
     #[wasm_bindgen(method, getter = "dsr")]
     pub fn get_dsr(this: &DeviceControlSignals) -> bool;
@@ -485,25 +507,25 @@ extern "C" {
     ///Change the `ri` field of this object.
     #[wasm_bindgen(method, setter = "ri")]
     pub fn set_ri(this: &DeviceControlSignals, val: bool);
-    ///Get the `dcd` field of this object.
-    #[wasm_bindgen(method, getter = "dcd")]
-    pub fn get_dcd(this: &DeviceControlSignals) -> bool;
-    ///Change the `dcd` field of this object.
-    #[wasm_bindgen(method, setter = "dcd")]
-    pub fn set_dcd(this: &DeviceControlSignals, val: bool);
-    ///Get the `cts` field of this object.
-    #[wasm_bindgen(method, getter = "cts")]
-    pub fn get_cts(this: &DeviceControlSignals) -> bool;
-    ///Change the `cts` field of this object.
-    #[wasm_bindgen(method, setter = "cts")]
-    pub fn set_cts(this: &DeviceControlSignals, val: bool);
 }
 impl DeviceControlSignals {
     ///Construct a new `DeviceControlSignals`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_cts()` instead."]
+    pub fn cts(&mut self, val: bool) -> &mut Self {
+        self.set_cts(val);
+        self
+    }
+    #[deprecated = "Use `set_dcd()` instead."]
+    pub fn dcd(&mut self, val: bool) -> &mut Self {
+        self.set_dcd(val);
+        self
     }
     #[deprecated = "Use `set_dsr()` instead."]
     pub fn dsr(&mut self, val: bool) -> &mut Self {
@@ -513,16 +535,6 @@ impl DeviceControlSignals {
     #[deprecated = "Use `set_ri()` instead."]
     pub fn ri(&mut self, val: bool) -> &mut Self {
         self.set_ri(val);
-        self
-    }
-    #[deprecated = "Use `set_dcd()` instead."]
-    pub fn dcd(&mut self, val: bool) -> &mut Self {
-        self.set_dcd(val);
-        self
-    }
-    #[deprecated = "Use `set_cts()` instead."]
-    pub fn cts(&mut self, val: bool) -> &mut Self {
-        self.set_cts(val);
         self
     }
 }
@@ -554,7 +566,9 @@ impl ReceiveInfo {
     ///Construct a new `ReceiveInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_connection_id()` instead."]
@@ -619,7 +633,9 @@ impl ReceiveErrorInfo {
     ///Construct a new `ReceiveErrorInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_connection_id()` instead."]
@@ -672,7 +688,10 @@ extern "C" {
     pub fn get_control_signals(connection_id: i32) -> Promise;
     ///Sets the state of control signals on a given connection.
     #[wasm_bindgen(js_namespace = ["chrome", "serial"], js_name = "setControlSignals")]
-    pub fn set_control_signals(connection_id: i32, signals: HostControlSignals) -> Promise;
+    pub fn set_control_signals(
+        connection_id: i32,
+        signals: HostControlSignals,
+    ) -> Promise;
     ///Suspends character transmission on a given connection and places the transmission line in a break state until the clearBreak is called.
     #[wasm_bindgen(js_namespace = ["chrome", "serial"], js_name = "setBreak")]
     pub fn set_break(connection_id: i32) -> Promise;

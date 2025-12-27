@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///The group's color.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -22,30 +22,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type TabGroup;
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &TabGroup) -> Option<String>;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &TabGroup, val: String);
-    ///Get the `shared` field of this object.
-    #[wasm_bindgen(method, getter = "shared")]
-    pub fn get_shared(this: &TabGroup) -> bool;
-    ///Change the `shared` field of this object.
-    #[wasm_bindgen(method, setter = "shared")]
-    pub fn set_shared(this: &TabGroup, val: bool);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &TabGroup) -> i32;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &TabGroup, val: i32);
-    ///Get the `windowId` field of this object.
-    #[wasm_bindgen(method, getter = "windowId")]
-    pub fn get_window_id(this: &TabGroup) -> i32;
-    ///Change the `windowId` field of this object.
-    #[wasm_bindgen(method, setter = "windowId")]
-    pub fn set_window_id(this: &TabGroup, val: i32);
     ///Get the `collapsed` field of this object.
     #[wasm_bindgen(method, getter = "collapsed")]
     pub fn get_collapsed(this: &TabGroup) -> bool;
@@ -58,33 +34,39 @@ extern "C" {
     ///Change the `color` field of this object.
     #[wasm_bindgen(method, setter = "color")]
     pub fn set_color(this: &TabGroup, val: Color);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &TabGroup) -> i32;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &TabGroup, val: i32);
+    ///Get the `shared` field of this object.
+    #[wasm_bindgen(method, getter = "shared")]
+    pub fn get_shared(this: &TabGroup) -> bool;
+    ///Change the `shared` field of this object.
+    #[wasm_bindgen(method, setter = "shared")]
+    pub fn set_shared(this: &TabGroup, val: bool);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &TabGroup) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &TabGroup, val: String);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &TabGroup) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &TabGroup, val: i32);
 }
 impl TabGroup {
     ///Construct a new `TabGroup`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
-        self
-    }
-    #[deprecated = "Use `set_shared()` instead."]
-    pub fn shared(&mut self, val: bool) -> &mut Self {
-        self.set_shared(val);
-        self
-    }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: i32) -> &mut Self {
-        self.set_id(val);
-        self
-    }
-    #[deprecated = "Use `set_window_id()` instead."]
-    pub fn window_id(&mut self, val: i32) -> &mut Self {
-        self.set_window_id(val);
-        self
     }
     #[deprecated = "Use `set_collapsed()` instead."]
     pub fn collapsed(&mut self, val: bool) -> &mut Self {
@@ -94,6 +76,26 @@ impl TabGroup {
     #[deprecated = "Use `set_color()` instead."]
     pub fn color(&mut self, val: Color) -> &mut Self {
         self.set_color(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: i32) -> &mut Self {
+        self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_shared()` instead."]
+    pub fn shared(&mut self, val: bool) -> &mut Self {
+        self.set_shared(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
         self
     }
 }

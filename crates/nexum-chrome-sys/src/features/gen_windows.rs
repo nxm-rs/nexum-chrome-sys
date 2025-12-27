@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///The type of browser window this is. In some circumstances a window may not be assigned a type property; for example, when querying closed windows from the $(ref:sessions) API.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -38,89 +38,91 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Window;
-    ///Get the `tabs` field of this object.
-    #[wasm_bindgen(method, getter = "tabs")]
-    pub fn get_tabs(this: &Window) -> Option<Array>;
-    ///Change the `tabs` field of this object.
-    #[wasm_bindgen(method, setter = "tabs")]
-    pub fn set_tabs(this: &Window, val: &Array);
-    ///Get the `focused` field of this object.
-    #[wasm_bindgen(method, getter = "focused")]
-    pub fn get_focused(this: &Window) -> bool;
-    ///Change the `focused` field of this object.
-    #[wasm_bindgen(method, setter = "focused")]
-    pub fn set_focused(this: &Window, val: bool);
-    ///Get the `incognito` field of this object.
-    #[wasm_bindgen(method, getter = "incognito")]
-    pub fn get_incognito(this: &Window) -> bool;
-    ///Change the `incognito` field of this object.
-    #[wasm_bindgen(method, setter = "incognito")]
-    pub fn set_incognito(this: &Window, val: bool);
-    ///Get the `height` field of this object.
-    #[wasm_bindgen(method, getter = "height")]
-    pub fn get_height(this: &Window) -> Option<i32>;
-    ///Change the `height` field of this object.
-    #[wasm_bindgen(method, setter = "height")]
-    pub fn set_height(this: &Window, val: i32);
-    ///Get the `top` field of this object.
-    #[wasm_bindgen(method, getter = "top")]
-    pub fn get_top(this: &Window) -> Option<i32>;
-    ///Change the `top` field of this object.
-    #[wasm_bindgen(method, setter = "top")]
-    pub fn set_top(this: &Window, val: i32);
-    ///Get the `left` field of this object.
-    #[wasm_bindgen(method, getter = "left")]
-    pub fn get_left(this: &Window) -> Option<i32>;
-    ///Change the `left` field of this object.
-    #[wasm_bindgen(method, setter = "left")]
-    pub fn set_left(this: &Window, val: i32);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &Window) -> Option<WindowType>;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &Window, val: WindowType);
     ///Get the `alwaysOnTop` field of this object.
     #[wasm_bindgen(method, getter = "alwaysOnTop")]
     pub fn get_always_on_top(this: &Window) -> bool;
     ///Change the `alwaysOnTop` field of this object.
     #[wasm_bindgen(method, setter = "alwaysOnTop")]
     pub fn set_always_on_top(this: &Window, val: bool);
+    ///Get the `focused` field of this object.
+    #[wasm_bindgen(method, getter = "focused")]
+    pub fn get_focused(this: &Window) -> bool;
+    ///Change the `focused` field of this object.
+    #[wasm_bindgen(method, setter = "focused")]
+    pub fn set_focused(this: &Window, val: bool);
+    ///Get the `height` field of this object.
+    #[wasm_bindgen(method, getter = "height")]
+    pub fn get_height(this: &Window) -> Option<i32>;
+    ///Change the `height` field of this object.
+    #[wasm_bindgen(method, setter = "height")]
+    pub fn set_height(this: &Window, val: i32);
     ///Get the `id` field of this object.
     #[wasm_bindgen(method, getter = "id")]
     pub fn get_id(this: &Window) -> Option<i32>;
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &Window, val: i32);
+    ///Get the `incognito` field of this object.
+    #[wasm_bindgen(method, getter = "incognito")]
+    pub fn get_incognito(this: &Window) -> bool;
+    ///Change the `incognito` field of this object.
+    #[wasm_bindgen(method, setter = "incognito")]
+    pub fn set_incognito(this: &Window, val: bool);
+    ///Get the `left` field of this object.
+    #[wasm_bindgen(method, getter = "left")]
+    pub fn get_left(this: &Window) -> Option<i32>;
+    ///Change the `left` field of this object.
+    #[wasm_bindgen(method, setter = "left")]
+    pub fn set_left(this: &Window, val: i32);
     ///Get the `sessionId` field of this object.
     #[wasm_bindgen(method, getter = "sessionId")]
     pub fn get_session_id(this: &Window) -> Option<String>;
     ///Change the `sessionId` field of this object.
     #[wasm_bindgen(method, setter = "sessionId")]
     pub fn set_session_id(this: &Window, val: String);
-    ///Get the `width` field of this object.
-    #[wasm_bindgen(method, getter = "width")]
-    pub fn get_width(this: &Window) -> Option<i32>;
-    ///Change the `width` field of this object.
-    #[wasm_bindgen(method, setter = "width")]
-    pub fn set_width(this: &Window, val: i32);
     ///Get the `state` field of this object.
     #[wasm_bindgen(method, getter = "state")]
     pub fn get_state(this: &Window) -> Option<WindowState>;
     ///Change the `state` field of this object.
     #[wasm_bindgen(method, setter = "state")]
     pub fn set_state(this: &Window, val: WindowState);
+    ///Get the `tabs` field of this object.
+    #[wasm_bindgen(method, getter = "tabs")]
+    pub fn get_tabs(this: &Window) -> Option<Array>;
+    ///Change the `tabs` field of this object.
+    #[wasm_bindgen(method, setter = "tabs")]
+    pub fn set_tabs(this: &Window, val: &Array);
+    ///Get the `top` field of this object.
+    #[wasm_bindgen(method, getter = "top")]
+    pub fn get_top(this: &Window) -> Option<i32>;
+    ///Change the `top` field of this object.
+    #[wasm_bindgen(method, setter = "top")]
+    pub fn set_top(this: &Window, val: i32);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &Window) -> Option<WindowType>;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &Window, val: WindowType);
+    ///Get the `width` field of this object.
+    #[wasm_bindgen(method, getter = "width")]
+    pub fn get_width(this: &Window) -> Option<i32>;
+    ///Change the `width` field of this object.
+    #[wasm_bindgen(method, setter = "width")]
+    pub fn set_width(this: &Window, val: i32);
 }
 impl Window {
     ///Construct a new `Window`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_tabs()` instead."]
-    pub fn tabs(&mut self, val: &Array) -> &mut Self {
-        self.set_tabs(val);
+    #[deprecated = "Use `set_always_on_top()` instead."]
+    pub fn always_on_top(&mut self, val: bool) -> &mut Self {
+        self.set_always_on_top(val);
         self
     }
     #[deprecated = "Use `set_focused()` instead."]
@@ -128,34 +130,9 @@ impl Window {
         self.set_focused(val);
         self
     }
-    #[deprecated = "Use `set_incognito()` instead."]
-    pub fn incognito(&mut self, val: bool) -> &mut Self {
-        self.set_incognito(val);
-        self
-    }
     #[deprecated = "Use `set_height()` instead."]
     pub fn height(&mut self, val: i32) -> &mut Self {
         self.set_height(val);
-        self
-    }
-    #[deprecated = "Use `set_top()` instead."]
-    pub fn top(&mut self, val: i32) -> &mut Self {
-        self.set_top(val);
-        self
-    }
-    #[deprecated = "Use `set_left()` instead."]
-    pub fn left(&mut self, val: i32) -> &mut Self {
-        self.set_left(val);
-        self
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: WindowType) -> &mut Self {
-        self.set_type(val);
-        self
-    }
-    #[deprecated = "Use `set_always_on_top()` instead."]
-    pub fn always_on_top(&mut self, val: bool) -> &mut Self {
-        self.set_always_on_top(val);
         self
     }
     #[deprecated = "Use `set_id()` instead."]
@@ -163,19 +140,44 @@ impl Window {
         self.set_id(val);
         self
     }
+    #[deprecated = "Use `set_incognito()` instead."]
+    pub fn incognito(&mut self, val: bool) -> &mut Self {
+        self.set_incognito(val);
+        self
+    }
+    #[deprecated = "Use `set_left()` instead."]
+    pub fn left(&mut self, val: i32) -> &mut Self {
+        self.set_left(val);
+        self
+    }
     #[deprecated = "Use `set_session_id()` instead."]
     pub fn session_id(&mut self, val: String) -> &mut Self {
         self.set_session_id(val);
         self
     }
-    #[deprecated = "Use `set_width()` instead."]
-    pub fn width(&mut self, val: i32) -> &mut Self {
-        self.set_width(val);
-        self
-    }
     #[deprecated = "Use `set_state()` instead."]
     pub fn state(&mut self, val: WindowState) -> &mut Self {
         self.set_state(val);
+        self
+    }
+    #[deprecated = "Use `set_tabs()` instead."]
+    pub fn tabs(&mut self, val: &Array) -> &mut Self {
+        self.set_tabs(val);
+        self
+    }
+    #[deprecated = "Use `set_top()` instead."]
+    pub fn top(&mut self, val: i32) -> &mut Self {
+        self.set_top(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: WindowType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_width()` instead."]
+    pub fn width(&mut self, val: i32) -> &mut Self {
+        self.set_width(val);
         self
     }
 }
@@ -201,34 +203,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type QueryOptions;
-    ///Get the `windowTypes` field of this object.
-    #[wasm_bindgen(method, getter = "windowTypes")]
-    pub fn get_window_types(this: &QueryOptions) -> Option<Array>;
-    ///Change the `windowTypes` field of this object.
-    #[wasm_bindgen(method, setter = "windowTypes")]
-    pub fn set_window_types(this: &QueryOptions, val: &Array);
     ///Get the `populate` field of this object.
     #[wasm_bindgen(method, getter = "populate")]
     pub fn get_populate(this: &QueryOptions) -> Option<bool>;
     ///Change the `populate` field of this object.
     #[wasm_bindgen(method, setter = "populate")]
     pub fn set_populate(this: &QueryOptions, val: bool);
+    ///Get the `windowTypes` field of this object.
+    #[wasm_bindgen(method, getter = "windowTypes")]
+    pub fn get_window_types(this: &QueryOptions) -> Option<Array>;
+    ///Change the `windowTypes` field of this object.
+    #[wasm_bindgen(method, setter = "windowTypes")]
+    pub fn set_window_types(this: &QueryOptions, val: &Array);
 }
 impl QueryOptions {
     ///Construct a new `QueryOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_window_types()` instead."]
-    pub fn window_types(&mut self, val: &Array) -> &mut Self {
-        self.set_window_types(val);
-        self
     }
     #[deprecated = "Use `set_populate()` instead."]
     pub fn populate(&mut self, val: bool) -> &mut Self {
         self.set_populate(val);
+        self
+    }
+    #[deprecated = "Use `set_window_types()` instead."]
+    pub fn window_types(&mut self, val: &Array) -> &mut Self {
+        self.set_window_types(val);
         self
     }
 }

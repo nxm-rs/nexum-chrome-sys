@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -15,108 +15,90 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent
     pub type KeyboardEvent;
-    ///Get the `key` field of this object.
-    #[wasm_bindgen(method, getter = "key")]
-    pub fn get_key(this: &KeyboardEvent) -> String;
-    ///Change the `key` field of this object.
-    #[wasm_bindgen(method, setter = "key")]
-    pub fn set_key(this: &KeyboardEvent, val: String);
-    ///Get the `code` field of this object.
-    #[wasm_bindgen(method, getter = "code")]
-    pub fn get_code(this: &KeyboardEvent) -> String;
-    ///Change the `code` field of this object.
-    #[wasm_bindgen(method, setter = "code")]
-    pub fn set_code(this: &KeyboardEvent, val: String);
-    ///Get the `shiftKey` field of this object.
-    #[wasm_bindgen(method, getter = "shiftKey")]
-    pub fn get_shift_key(this: &KeyboardEvent) -> Option<bool>;
-    ///Change the `shiftKey` field of this object.
-    #[wasm_bindgen(method, setter = "shiftKey")]
-    pub fn set_shift_key(this: &KeyboardEvent, val: bool);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &KeyboardEvent) -> Option<String>;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &KeyboardEvent, val: String);
-    ///Get the `ctrlKey` field of this object.
-    #[wasm_bindgen(method, getter = "ctrlKey")]
-    pub fn get_ctrl_key(this: &KeyboardEvent) -> Option<bool>;
-    ///Change the `ctrlKey` field of this object.
-    #[wasm_bindgen(method, setter = "ctrlKey")]
-    pub fn set_ctrl_key(this: &KeyboardEvent, val: bool);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &KeyboardEvent) -> KeyboardEventType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &KeyboardEvent, val: KeyboardEventType);
-    ///Get the `capsLock` field of this object.
-    #[wasm_bindgen(method, getter = "capsLock")]
-    pub fn get_caps_lock(this: &KeyboardEvent) -> Option<bool>;
-    ///Change the `capsLock` field of this object.
-    #[wasm_bindgen(method, setter = "capsLock")]
-    pub fn set_caps_lock(this: &KeyboardEvent, val: bool);
-    ///Get the `keyCode` field of this object.
-    #[wasm_bindgen(method, getter = "keyCode")]
-    pub fn get_key_code(this: &KeyboardEvent) -> Option<i32>;
-    ///Change the `keyCode` field of this object.
-    #[wasm_bindgen(method, setter = "keyCode")]
-    pub fn set_key_code(this: &KeyboardEvent, val: i32);
     ///Get the `altKey` field of this object.
     #[wasm_bindgen(method, getter = "altKey")]
     pub fn get_alt_key(this: &KeyboardEvent) -> Option<bool>;
     ///Change the `altKey` field of this object.
     #[wasm_bindgen(method, setter = "altKey")]
     pub fn set_alt_key(this: &KeyboardEvent, val: bool);
-    ///Get the `extensionId` field of this object.
-    #[wasm_bindgen(method, getter = "extensionId")]
-    pub fn get_extension_id(this: &KeyboardEvent) -> Option<String>;
-    ///Change the `extensionId` field of this object.
-    #[wasm_bindgen(method, setter = "extensionId")]
-    pub fn set_extension_id(this: &KeyboardEvent, val: String);
     ///Get the `altgrKey` field of this object.
     #[wasm_bindgen(method, getter = "altgrKey")]
     pub fn get_altgr_key(this: &KeyboardEvent) -> Option<bool>;
     ///Change the `altgrKey` field of this object.
     #[wasm_bindgen(method, setter = "altgrKey")]
     pub fn set_altgr_key(this: &KeyboardEvent, val: bool);
+    ///Get the `capsLock` field of this object.
+    #[wasm_bindgen(method, getter = "capsLock")]
+    pub fn get_caps_lock(this: &KeyboardEvent) -> Option<bool>;
+    ///Change the `capsLock` field of this object.
+    #[wasm_bindgen(method, setter = "capsLock")]
+    pub fn set_caps_lock(this: &KeyboardEvent, val: bool);
+    ///Get the `code` field of this object.
+    #[wasm_bindgen(method, getter = "code")]
+    pub fn get_code(this: &KeyboardEvent) -> String;
+    ///Change the `code` field of this object.
+    #[wasm_bindgen(method, setter = "code")]
+    pub fn set_code(this: &KeyboardEvent, val: String);
+    ///Get the `ctrlKey` field of this object.
+    #[wasm_bindgen(method, getter = "ctrlKey")]
+    pub fn get_ctrl_key(this: &KeyboardEvent) -> Option<bool>;
+    ///Change the `ctrlKey` field of this object.
+    #[wasm_bindgen(method, setter = "ctrlKey")]
+    pub fn set_ctrl_key(this: &KeyboardEvent, val: bool);
+    ///Get the `extensionId` field of this object.
+    #[wasm_bindgen(method, getter = "extensionId")]
+    pub fn get_extension_id(this: &KeyboardEvent) -> Option<String>;
+    ///Change the `extensionId` field of this object.
+    #[wasm_bindgen(method, setter = "extensionId")]
+    pub fn set_extension_id(this: &KeyboardEvent, val: String);
+    ///Get the `key` field of this object.
+    #[wasm_bindgen(method, getter = "key")]
+    pub fn get_key(this: &KeyboardEvent) -> String;
+    ///Change the `key` field of this object.
+    #[wasm_bindgen(method, setter = "key")]
+    pub fn set_key(this: &KeyboardEvent, val: String);
+    ///Get the `keyCode` field of this object.
+    #[wasm_bindgen(method, getter = "keyCode")]
+    pub fn get_key_code(this: &KeyboardEvent) -> Option<i32>;
+    ///Change the `keyCode` field of this object.
+    #[wasm_bindgen(method, setter = "keyCode")]
+    pub fn set_key_code(this: &KeyboardEvent, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &KeyboardEvent) -> Option<String>;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &KeyboardEvent, val: String);
+    ///Get the `shiftKey` field of this object.
+    #[wasm_bindgen(method, getter = "shiftKey")]
+    pub fn get_shift_key(this: &KeyboardEvent) -> Option<bool>;
+    ///Change the `shiftKey` field of this object.
+    #[wasm_bindgen(method, setter = "shiftKey")]
+    pub fn set_shift_key(this: &KeyboardEvent, val: bool);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &KeyboardEvent) -> KeyboardEventType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &KeyboardEvent, val: KeyboardEventType);
 }
 impl KeyboardEvent {
     ///Construct a new `KeyboardEvent`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_key()` instead."]
-    pub fn key(&mut self, val: String) -> &mut Self {
-        self.set_key(val);
+    #[deprecated = "Use `set_alt_key()` instead."]
+    pub fn alt_key(&mut self, val: bool) -> &mut Self {
+        self.set_alt_key(val);
         self
     }
-    #[deprecated = "Use `set_code()` instead."]
-    pub fn code(&mut self, val: String) -> &mut Self {
-        self.set_code(val);
-        self
-    }
-    #[deprecated = "Use `set_shift_key()` instead."]
-    pub fn shift_key(&mut self, val: bool) -> &mut Self {
-        self.set_shift_key(val);
-        self
-    }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: String) -> &mut Self {
-        self.set_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_ctrl_key()` instead."]
-    pub fn ctrl_key(&mut self, val: bool) -> &mut Self {
-        self.set_ctrl_key(val);
-        self
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: KeyboardEventType) -> &mut Self {
-        self.set_type(val);
+    #[deprecated = "Use `set_altgr_key()` instead."]
+    pub fn altgr_key(&mut self, val: bool) -> &mut Self {
+        self.set_altgr_key(val);
         self
     }
     #[deprecated = "Use `set_caps_lock()` instead."]
@@ -124,14 +106,14 @@ impl KeyboardEvent {
         self.set_caps_lock(val);
         self
     }
-    #[deprecated = "Use `set_key_code()` instead."]
-    pub fn key_code(&mut self, val: i32) -> &mut Self {
-        self.set_key_code(val);
+    #[deprecated = "Use `set_code()` instead."]
+    pub fn code(&mut self, val: String) -> &mut Self {
+        self.set_code(val);
         self
     }
-    #[deprecated = "Use `set_alt_key()` instead."]
-    pub fn alt_key(&mut self, val: bool) -> &mut Self {
-        self.set_alt_key(val);
+    #[deprecated = "Use `set_ctrl_key()` instead."]
+    pub fn ctrl_key(&mut self, val: bool) -> &mut Self {
+        self.set_ctrl_key(val);
         self
     }
     #[deprecated = "Use `set_extension_id()` instead."]
@@ -139,9 +121,29 @@ impl KeyboardEvent {
         self.set_extension_id(val);
         self
     }
-    #[deprecated = "Use `set_altgr_key()` instead."]
-    pub fn altgr_key(&mut self, val: bool) -> &mut Self {
-        self.set_altgr_key(val);
+    #[deprecated = "Use `set_key()` instead."]
+    pub fn key(&mut self, val: String) -> &mut Self {
+        self.set_key(val);
+        self
+    }
+    #[deprecated = "Use `set_key_code()` instead."]
+    pub fn key_code(&mut self, val: i32) -> &mut Self {
+        self.set_key_code(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: String) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_shift_key()` instead."]
+    pub fn shift_key(&mut self, val: bool) -> &mut Self {
+        self.set_shift_key(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: KeyboardEventType) -> &mut Self {
+        self.set_type(val);
         self
     }
 }
@@ -177,36 +179,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Describes an input Context
     pub type InputContext;
-    ///Get the `shouldDoLearning` field of this object.
-    #[wasm_bindgen(method, getter = "shouldDoLearning")]
-    pub fn get_should_do_learning(this: &InputContext) -> bool;
-    ///Change the `shouldDoLearning` field of this object.
-    #[wasm_bindgen(method, setter = "shouldDoLearning")]
-    pub fn set_should_do_learning(this: &InputContext, val: bool);
-    ///Get the `spellCheck` field of this object.
-    #[wasm_bindgen(method, getter = "spellCheck")]
-    pub fn get_spell_check(this: &InputContext) -> bool;
-    ///Change the `spellCheck` field of this object.
-    #[wasm_bindgen(method, setter = "spellCheck")]
-    pub fn set_spell_check(this: &InputContext, val: bool);
-    ///Get the `autoCorrect` field of this object.
-    #[wasm_bindgen(method, getter = "autoCorrect")]
-    pub fn get_auto_correct(this: &InputContext) -> bool;
-    ///Change the `autoCorrect` field of this object.
-    #[wasm_bindgen(method, setter = "autoCorrect")]
-    pub fn set_auto_correct(this: &InputContext, val: bool);
-    ///Get the `contextID` field of this object.
-    #[wasm_bindgen(method, getter = "contextID")]
-    pub fn get_context_id(this: &InputContext) -> i32;
-    ///Change the `contextID` field of this object.
-    #[wasm_bindgen(method, setter = "contextID")]
-    pub fn set_context_id(this: &InputContext, val: i32);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &InputContext) -> InputContextType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &InputContext, val: InputContextType);
     ///Get the `autoCapitalize` field of this object.
     #[wasm_bindgen(method, getter = "autoCapitalize")]
     pub fn get_auto_capitalize(this: &InputContext) -> AutoCapitalizeType;
@@ -219,22 +191,54 @@ extern "C" {
     ///Change the `autoComplete` field of this object.
     #[wasm_bindgen(method, setter = "autoComplete")]
     pub fn set_auto_complete(this: &InputContext, val: bool);
+    ///Get the `autoCorrect` field of this object.
+    #[wasm_bindgen(method, getter = "autoCorrect")]
+    pub fn get_auto_correct(this: &InputContext) -> bool;
+    ///Change the `autoCorrect` field of this object.
+    #[wasm_bindgen(method, setter = "autoCorrect")]
+    pub fn set_auto_correct(this: &InputContext, val: bool);
+    ///Get the `contextID` field of this object.
+    #[wasm_bindgen(method, getter = "contextID")]
+    pub fn get_context_id(this: &InputContext) -> i32;
+    ///Change the `contextID` field of this object.
+    #[wasm_bindgen(method, setter = "contextID")]
+    pub fn set_context_id(this: &InputContext, val: i32);
+    ///Get the `shouldDoLearning` field of this object.
+    #[wasm_bindgen(method, getter = "shouldDoLearning")]
+    pub fn get_should_do_learning(this: &InputContext) -> bool;
+    ///Change the `shouldDoLearning` field of this object.
+    #[wasm_bindgen(method, setter = "shouldDoLearning")]
+    pub fn set_should_do_learning(this: &InputContext, val: bool);
+    ///Get the `spellCheck` field of this object.
+    #[wasm_bindgen(method, getter = "spellCheck")]
+    pub fn get_spell_check(this: &InputContext) -> bool;
+    ///Change the `spellCheck` field of this object.
+    #[wasm_bindgen(method, setter = "spellCheck")]
+    pub fn set_spell_check(this: &InputContext, val: bool);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &InputContext) -> InputContextType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &InputContext, val: InputContextType);
 }
 impl InputContext {
     ///Construct a new `InputContext`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_should_do_learning()` instead."]
-    pub fn should_do_learning(&mut self, val: bool) -> &mut Self {
-        self.set_should_do_learning(val);
+    #[deprecated = "Use `set_auto_capitalize()` instead."]
+    pub fn auto_capitalize(&mut self, val: AutoCapitalizeType) -> &mut Self {
+        self.set_auto_capitalize(val);
         self
     }
-    #[deprecated = "Use `set_spell_check()` instead."]
-    pub fn spell_check(&mut self, val: bool) -> &mut Self {
-        self.set_spell_check(val);
+    #[deprecated = "Use `set_auto_complete()` instead."]
+    pub fn auto_complete(&mut self, val: bool) -> &mut Self {
+        self.set_auto_complete(val);
         self
     }
     #[deprecated = "Use `set_auto_correct()` instead."]
@@ -247,19 +251,19 @@ impl InputContext {
         self.set_context_id(val);
         self
     }
+    #[deprecated = "Use `set_should_do_learning()` instead."]
+    pub fn should_do_learning(&mut self, val: bool) -> &mut Self {
+        self.set_should_do_learning(val);
+        self
+    }
+    #[deprecated = "Use `set_spell_check()` instead."]
+    pub fn spell_check(&mut self, val: bool) -> &mut Self {
+        self.set_spell_check(val);
+        self
+    }
     #[deprecated = "Use `set_type()` instead."]
     pub fn r#type(&mut self, val: InputContextType) -> &mut Self {
         self.set_type(val);
-        self
-    }
-    #[deprecated = "Use `set_auto_capitalize()` instead."]
-    pub fn auto_capitalize(&mut self, val: AutoCapitalizeType) -> &mut Self {
-        self.set_auto_capitalize(val);
-        self
-    }
-    #[deprecated = "Use `set_auto_complete()` instead."]
-    pub fn auto_complete(&mut self, val: bool) -> &mut Self {
-        self.set_auto_complete(val);
         self
     }
 }
@@ -282,30 +286,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///A menu item used by an input method to interact with the user from the language menu.
     pub type MenuItem;
-    ///Get the `label` field of this object.
-    #[wasm_bindgen(method, getter = "label")]
-    pub fn get_label(this: &MenuItem) -> Option<String>;
-    ///Change the `label` field of this object.
-    #[wasm_bindgen(method, setter = "label")]
-    pub fn set_label(this: &MenuItem, val: String);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &MenuItem) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &MenuItem, val: String);
-    ///Get the `style` field of this object.
-    #[wasm_bindgen(method, getter = "style")]
-    pub fn get_style(this: &MenuItem) -> Option<MenuItemStyle>;
-    ///Change the `style` field of this object.
-    #[wasm_bindgen(method, setter = "style")]
-    pub fn set_style(this: &MenuItem, val: MenuItemStyle);
-    ///Get the `visible` field of this object.
-    #[wasm_bindgen(method, getter = "visible")]
-    pub fn get_visible(this: &MenuItem) -> Option<bool>;
-    ///Change the `visible` field of this object.
-    #[wasm_bindgen(method, setter = "visible")]
-    pub fn set_visible(this: &MenuItem, val: bool);
     ///Get the `checked` field of this object.
     #[wasm_bindgen(method, getter = "checked")]
     pub fn get_checked(this: &MenuItem) -> Option<bool>;
@@ -318,22 +298,58 @@ extern "C" {
     ///Change the `enabled` field of this object.
     #[wasm_bindgen(method, setter = "enabled")]
     pub fn set_enabled(this: &MenuItem, val: bool);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &MenuItem) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &MenuItem, val: String);
+    ///Get the `label` field of this object.
+    #[wasm_bindgen(method, getter = "label")]
+    pub fn get_label(this: &MenuItem) -> Option<String>;
+    ///Change the `label` field of this object.
+    #[wasm_bindgen(method, setter = "label")]
+    pub fn set_label(this: &MenuItem, val: String);
+    ///Get the `style` field of this object.
+    #[wasm_bindgen(method, getter = "style")]
+    pub fn get_style(this: &MenuItem) -> Option<MenuItemStyle>;
+    ///Change the `style` field of this object.
+    #[wasm_bindgen(method, setter = "style")]
+    pub fn set_style(this: &MenuItem, val: MenuItemStyle);
+    ///Get the `visible` field of this object.
+    #[wasm_bindgen(method, getter = "visible")]
+    pub fn get_visible(this: &MenuItem) -> Option<bool>;
+    ///Change the `visible` field of this object.
+    #[wasm_bindgen(method, setter = "visible")]
+    pub fn set_visible(this: &MenuItem, val: bool);
 }
 impl MenuItem {
     ///Construct a new `MenuItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_label()` instead."]
-    pub fn label(&mut self, val: String) -> &mut Self {
-        self.set_label(val);
+    #[deprecated = "Use `set_checked()` instead."]
+    pub fn checked(&mut self, val: bool) -> &mut Self {
+        self.set_checked(val);
+        self
+    }
+    #[deprecated = "Use `set_enabled()` instead."]
+    pub fn enabled(&mut self, val: bool) -> &mut Self {
+        self.set_enabled(val);
         self
     }
     #[deprecated = "Use `set_id()` instead."]
     pub fn id(&mut self, val: String) -> &mut Self {
         self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_label()` instead."]
+    pub fn label(&mut self, val: String) -> &mut Self {
+        self.set_label(val);
         self
     }
     #[deprecated = "Use `set_style()` instead."]
@@ -344,16 +360,6 @@ impl MenuItem {
     #[deprecated = "Use `set_visible()` instead."]
     pub fn visible(&mut self, val: bool) -> &mut Self {
         self.set_visible(val);
-        self
-    }
-    #[deprecated = "Use `set_checked()` instead."]
-    pub fn checked(&mut self, val: bool) -> &mut Self {
-        self.set_checked(val);
-        self
-    }
-    #[deprecated = "Use `set_enabled()` instead."]
-    pub fn enabled(&mut self, val: bool) -> &mut Self {
-        self.set_enabled(val);
         self
     }
 }
@@ -406,6 +412,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Properties of the assistive window.
     pub type AssistiveWindowProperties;
+    ///Get the `announceString` field of this object.
+    #[wasm_bindgen(method, getter = "announceString")]
+    pub fn get_announce_string(this: &AssistiveWindowProperties) -> Option<String>;
+    ///Change the `announceString` field of this object.
+    #[wasm_bindgen(method, setter = "announceString")]
+    pub fn set_announce_string(this: &AssistiveWindowProperties, val: String);
     ///Get the `type` field of this object.
     #[wasm_bindgen(method, getter = "type")]
     pub fn get_type(this: &AssistiveWindowProperties) -> AssistiveWindowType;
@@ -418,19 +430,20 @@ extern "C" {
     ///Change the `visible` field of this object.
     #[wasm_bindgen(method, setter = "visible")]
     pub fn set_visible(this: &AssistiveWindowProperties, val: bool);
-    ///Get the `announceString` field of this object.
-    #[wasm_bindgen(method, getter = "announceString")]
-    pub fn get_announce_string(this: &AssistiveWindowProperties) -> Option<String>;
-    ///Change the `announceString` field of this object.
-    #[wasm_bindgen(method, setter = "announceString")]
-    pub fn set_announce_string(this: &AssistiveWindowProperties, val: String);
 }
 impl AssistiveWindowProperties {
     ///Construct a new `AssistiveWindowProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_announce_string()` instead."]
+    pub fn announce_string(&mut self, val: String) -> &mut Self {
+        self.set_announce_string(val);
+        self
     }
     #[deprecated = "Use `set_type()` instead."]
     pub fn r#type(&mut self, val: AssistiveWindowType) -> &mut Self {
@@ -440,11 +453,6 @@ impl AssistiveWindowProperties {
     #[deprecated = "Use `set_visible()` instead."]
     pub fn visible(&mut self, val: bool) -> &mut Self {
         self.set_visible(val);
-        self
-    }
-    #[deprecated = "Use `set_announce_string()` instead."]
-    pub fn announce_string(&mut self, val: String) -> &mut Self {
-        self.set_announce_string(val);
         self
     }
 }
@@ -483,7 +491,9 @@ impl MenuParameters {
     ///Construct a new `MenuParameters`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_engine_id()` instead."]

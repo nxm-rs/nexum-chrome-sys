@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Types of supported cryptographic signature algorithms.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -53,7 +53,9 @@ impl ClientCertificateInfo {
     ///Construct a new `ClientCertificateInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_certificate_chain()` instead."]
@@ -78,35 +80,37 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SetCertificatesDetails;
-    ///Get the `error` field of this object.
-    #[wasm_bindgen(method, getter = "error")]
-    pub fn get_error(this: &SetCertificatesDetails) -> Option<Error>;
-    ///Change the `error` field of this object.
-    #[wasm_bindgen(method, setter = "error")]
-    pub fn set_error(this: &SetCertificatesDetails, val: Error);
-    ///Get the `clientCertificates` field of this object.
-    #[wasm_bindgen(method, getter = "clientCertificates")]
-    pub fn get_client_certificates(this: &SetCertificatesDetails) -> Array;
-    ///Change the `clientCertificates` field of this object.
-    #[wasm_bindgen(method, setter = "clientCertificates")]
-    pub fn set_client_certificates(this: &SetCertificatesDetails, val: &Array);
     ///Get the `certificatesRequestId` field of this object.
     #[wasm_bindgen(method, getter = "certificatesRequestId")]
     pub fn get_certificates_request_id(this: &SetCertificatesDetails) -> Option<i32>;
     ///Change the `certificatesRequestId` field of this object.
     #[wasm_bindgen(method, setter = "certificatesRequestId")]
     pub fn set_certificates_request_id(this: &SetCertificatesDetails, val: i32);
+    ///Get the `clientCertificates` field of this object.
+    #[wasm_bindgen(method, getter = "clientCertificates")]
+    pub fn get_client_certificates(this: &SetCertificatesDetails) -> Array;
+    ///Change the `clientCertificates` field of this object.
+    #[wasm_bindgen(method, setter = "clientCertificates")]
+    pub fn set_client_certificates(this: &SetCertificatesDetails, val: &Array);
+    ///Get the `error` field of this object.
+    #[wasm_bindgen(method, getter = "error")]
+    pub fn get_error(this: &SetCertificatesDetails) -> Option<Error>;
+    ///Change the `error` field of this object.
+    #[wasm_bindgen(method, setter = "error")]
+    pub fn set_error(this: &SetCertificatesDetails, val: Error);
 }
 impl SetCertificatesDetails {
     ///Construct a new `SetCertificatesDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: Error) -> &mut Self {
-        self.set_error(val);
+    #[deprecated = "Use `set_certificates_request_id()` instead."]
+    pub fn certificates_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_certificates_request_id(val);
         self
     }
     #[deprecated = "Use `set_client_certificates()` instead."]
@@ -114,9 +118,9 @@ impl SetCertificatesDetails {
         self.set_client_certificates(val);
         self
     }
-    #[deprecated = "Use `set_certificates_request_id()` instead."]
-    pub fn certificates_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_certificates_request_id(val);
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: Error) -> &mut Self {
+        self.set_error(val);
         self
     }
 }
@@ -142,7 +146,9 @@ impl CertificatesUpdateRequest {
     ///Construct a new `CertificatesUpdateRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_certificates_request_id()` instead."]
@@ -162,46 +168,43 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SignatureRequest;
-    ///Get the `signRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "signRequestId")]
-    pub fn get_sign_request_id(this: &SignatureRequest) -> i32;
-    ///Change the `signRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "signRequestId")]
-    pub fn set_sign_request_id(this: &SignatureRequest, val: i32);
-    ///Get the `input` field of this object.
-    #[wasm_bindgen(method, getter = "input")]
-    pub fn get_input(this: &SignatureRequest) -> ::js_sys::ArrayBuffer;
-    ///Change the `input` field of this object.
-    #[wasm_bindgen(method, setter = "input")]
-    pub fn set_input(this: &SignatureRequest, val: &::js_sys::ArrayBuffer);
-    ///Get the `certificate` field of this object.
-    #[wasm_bindgen(method, getter = "certificate")]
-    pub fn get_certificate(this: &SignatureRequest) -> ::js_sys::ArrayBuffer;
-    ///Change the `certificate` field of this object.
-    #[wasm_bindgen(method, setter = "certificate")]
-    pub fn set_certificate(this: &SignatureRequest, val: &::js_sys::ArrayBuffer);
     ///Get the `algorithm` field of this object.
     #[wasm_bindgen(method, getter = "algorithm")]
     pub fn get_algorithm(this: &SignatureRequest) -> Algorithm;
     ///Change the `algorithm` field of this object.
     #[wasm_bindgen(method, setter = "algorithm")]
     pub fn set_algorithm(this: &SignatureRequest, val: Algorithm);
+    ///Get the `certificate` field of this object.
+    #[wasm_bindgen(method, getter = "certificate")]
+    pub fn get_certificate(this: &SignatureRequest) -> ::js_sys::ArrayBuffer;
+    ///Change the `certificate` field of this object.
+    #[wasm_bindgen(method, setter = "certificate")]
+    pub fn set_certificate(this: &SignatureRequest, val: &::js_sys::ArrayBuffer);
+    ///Get the `input` field of this object.
+    #[wasm_bindgen(method, getter = "input")]
+    pub fn get_input(this: &SignatureRequest) -> ::js_sys::ArrayBuffer;
+    ///Change the `input` field of this object.
+    #[wasm_bindgen(method, setter = "input")]
+    pub fn set_input(this: &SignatureRequest, val: &::js_sys::ArrayBuffer);
+    ///Get the `signRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "signRequestId")]
+    pub fn get_sign_request_id(this: &SignatureRequest) -> i32;
+    ///Change the `signRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "signRequestId")]
+    pub fn set_sign_request_id(this: &SignatureRequest, val: i32);
 }
 impl SignatureRequest {
     ///Construct a new `SignatureRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_sign_request_id()` instead."]
-    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_sign_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_input()` instead."]
-    pub fn input(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_input(val);
+    #[deprecated = "Use `set_algorithm()` instead."]
+    pub fn algorithm(&mut self, val: Algorithm) -> &mut Self {
+        self.set_algorithm(val);
         self
     }
     #[deprecated = "Use `set_certificate()` instead."]
@@ -209,9 +212,14 @@ impl SignatureRequest {
         self.set_certificate(val);
         self
     }
-    #[deprecated = "Use `set_algorithm()` instead."]
-    pub fn algorithm(&mut self, val: Algorithm) -> &mut Self {
-        self.set_algorithm(val);
+    #[deprecated = "Use `set_input()` instead."]
+    pub fn input(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_input(val);
+        self
+    }
+    #[deprecated = "Use `set_sign_request_id()` instead."]
+    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_sign_request_id(val);
         self
     }
 }
@@ -232,24 +240,26 @@ extern "C" {
     ///Change the `error` field of this object.
     #[wasm_bindgen(method, setter = "error")]
     pub fn set_error(this: &ReportSignatureDetails, val: Error);
-    ///Get the `signature` field of this object.
-    #[wasm_bindgen(method, getter = "signature")]
-    pub fn get_signature(this: &ReportSignatureDetails) -> Option<::js_sys::ArrayBuffer>;
-    ///Change the `signature` field of this object.
-    #[wasm_bindgen(method, setter = "signature")]
-    pub fn set_signature(this: &ReportSignatureDetails, val: &::js_sys::ArrayBuffer);
     ///Get the `signRequestId` field of this object.
     #[wasm_bindgen(method, getter = "signRequestId")]
     pub fn get_sign_request_id(this: &ReportSignatureDetails) -> i32;
     ///Change the `signRequestId` field of this object.
     #[wasm_bindgen(method, setter = "signRequestId")]
     pub fn set_sign_request_id(this: &ReportSignatureDetails, val: i32);
+    ///Get the `signature` field of this object.
+    #[wasm_bindgen(method, getter = "signature")]
+    pub fn get_signature(this: &ReportSignatureDetails) -> Option<::js_sys::ArrayBuffer>;
+    ///Change the `signature` field of this object.
+    #[wasm_bindgen(method, setter = "signature")]
+    pub fn set_signature(this: &ReportSignatureDetails, val: &::js_sys::ArrayBuffer);
 }
 impl ReportSignatureDetails {
     ///Construct a new `ReportSignatureDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_error()` instead."]
@@ -257,14 +267,14 @@ impl ReportSignatureDetails {
         self.set_error(val);
         self
     }
-    #[deprecated = "Use `set_signature()` instead."]
-    pub fn signature(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_signature(val);
-        self
-    }
     #[deprecated = "Use `set_sign_request_id()` instead."]
     pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
         self.set_sign_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_signature()` instead."]
+    pub fn signature(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_signature(val);
         self
     }
 }
@@ -333,7 +343,9 @@ impl CertificateInfo {
     ///Construct a new `CertificateInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_certificate()` instead."]
@@ -358,46 +370,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SignRequest;
-    ///Get the `signRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "signRequestId")]
-    pub fn get_sign_request_id(this: &SignRequest) -> i32;
-    ///Change the `signRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "signRequestId")]
-    pub fn set_sign_request_id(this: &SignRequest, val: i32);
     ///Get the `certificate` field of this object.
     #[wasm_bindgen(method, getter = "certificate")]
     pub fn get_certificate(this: &SignRequest) -> ::js_sys::ArrayBuffer;
     ///Change the `certificate` field of this object.
     #[wasm_bindgen(method, setter = "certificate")]
     pub fn set_certificate(this: &SignRequest, val: &::js_sys::ArrayBuffer);
-    ///Get the `hash` field of this object.
-    #[wasm_bindgen(method, getter = "hash")]
-    pub fn get_hash(this: &SignRequest) -> Hash;
-    ///Change the `hash` field of this object.
-    #[wasm_bindgen(method, setter = "hash")]
-    pub fn set_hash(this: &SignRequest, val: Hash);
     ///Get the `digest` field of this object.
     #[wasm_bindgen(method, getter = "digest")]
     pub fn get_digest(this: &SignRequest) -> ::js_sys::ArrayBuffer;
     ///Change the `digest` field of this object.
     #[wasm_bindgen(method, setter = "digest")]
     pub fn set_digest(this: &SignRequest, val: &::js_sys::ArrayBuffer);
+    ///Get the `hash` field of this object.
+    #[wasm_bindgen(method, getter = "hash")]
+    pub fn get_hash(this: &SignRequest) -> Hash;
+    ///Change the `hash` field of this object.
+    #[wasm_bindgen(method, setter = "hash")]
+    pub fn set_hash(this: &SignRequest, val: Hash);
+    ///Get the `signRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "signRequestId")]
+    pub fn get_sign_request_id(this: &SignRequest) -> i32;
+    ///Change the `signRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "signRequestId")]
+    pub fn set_sign_request_id(this: &SignRequest, val: i32);
 }
 impl SignRequest {
     ///Construct a new `SignRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_sign_request_id()` instead."]
-    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_sign_request_id(val);
-        self
     }
     #[deprecated = "Use `set_certificate()` instead."]
     pub fn certificate(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
         self.set_certificate(val);
+        self
+    }
+    #[deprecated = "Use `set_digest()` instead."]
+    pub fn digest(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_digest(val);
         self
     }
     #[deprecated = "Use `set_hash()` instead."]
@@ -405,9 +419,9 @@ impl SignRequest {
         self.set_hash(val);
         self
     }
-    #[deprecated = "Use `set_digest()` instead."]
-    pub fn digest(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_digest(val);
+    #[deprecated = "Use `set_sign_request_id()` instead."]
+    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_sign_request_id(val);
         self
     }
 }
@@ -422,41 +436,43 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type RequestPinDetails;
-    ///Get the `signRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "signRequestId")]
-    pub fn get_sign_request_id(this: &RequestPinDetails) -> i32;
-    ///Change the `signRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "signRequestId")]
-    pub fn set_sign_request_id(this: &RequestPinDetails, val: i32);
-    ///Get the `errorType` field of this object.
-    #[wasm_bindgen(method, getter = "errorType")]
-    pub fn get_error_type(this: &RequestPinDetails) -> Option<PinRequestErrorType>;
-    ///Change the `errorType` field of this object.
-    #[wasm_bindgen(method, setter = "errorType")]
-    pub fn set_error_type(this: &RequestPinDetails, val: PinRequestErrorType);
     ///Get the `attemptsLeft` field of this object.
     #[wasm_bindgen(method, getter = "attemptsLeft")]
     pub fn get_attempts_left(this: &RequestPinDetails) -> Option<i32>;
     ///Change the `attemptsLeft` field of this object.
     #[wasm_bindgen(method, setter = "attemptsLeft")]
     pub fn set_attempts_left(this: &RequestPinDetails, val: i32);
+    ///Get the `errorType` field of this object.
+    #[wasm_bindgen(method, getter = "errorType")]
+    pub fn get_error_type(this: &RequestPinDetails) -> Option<PinRequestErrorType>;
+    ///Change the `errorType` field of this object.
+    #[wasm_bindgen(method, setter = "errorType")]
+    pub fn set_error_type(this: &RequestPinDetails, val: PinRequestErrorType);
     ///Get the `requestType` field of this object.
     #[wasm_bindgen(method, getter = "requestType")]
     pub fn get_request_type(this: &RequestPinDetails) -> Option<PinRequestType>;
     ///Change the `requestType` field of this object.
     #[wasm_bindgen(method, setter = "requestType")]
     pub fn set_request_type(this: &RequestPinDetails, val: PinRequestType);
+    ///Get the `signRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "signRequestId")]
+    pub fn get_sign_request_id(this: &RequestPinDetails) -> i32;
+    ///Change the `signRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "signRequestId")]
+    pub fn set_sign_request_id(this: &RequestPinDetails, val: i32);
 }
 impl RequestPinDetails {
     ///Construct a new `RequestPinDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_sign_request_id()` instead."]
-    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_sign_request_id(val);
+    #[deprecated = "Use `set_attempts_left()` instead."]
+    pub fn attempts_left(&mut self, val: i32) -> &mut Self {
+        self.set_attempts_left(val);
         self
     }
     #[deprecated = "Use `set_error_type()` instead."]
@@ -464,14 +480,14 @@ impl RequestPinDetails {
         self.set_error_type(val);
         self
     }
-    #[deprecated = "Use `set_attempts_left()` instead."]
-    pub fn attempts_left(&mut self, val: i32) -> &mut Self {
-        self.set_attempts_left(val);
-        self
-    }
     #[deprecated = "Use `set_request_type()` instead."]
     pub fn request_type(&mut self, val: PinRequestType) -> &mut Self {
         self.set_request_type(val);
+        self
+    }
+    #[deprecated = "Use `set_sign_request_id()` instead."]
+    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_sign_request_id(val);
         self
     }
 }
@@ -486,34 +502,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type StopPinRequestDetails;
-    ///Get the `signRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "signRequestId")]
-    pub fn get_sign_request_id(this: &StopPinRequestDetails) -> i32;
-    ///Change the `signRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "signRequestId")]
-    pub fn set_sign_request_id(this: &StopPinRequestDetails, val: i32);
     ///Get the `errorType` field of this object.
     #[wasm_bindgen(method, getter = "errorType")]
     pub fn get_error_type(this: &StopPinRequestDetails) -> Option<PinRequestErrorType>;
     ///Change the `errorType` field of this object.
     #[wasm_bindgen(method, setter = "errorType")]
     pub fn set_error_type(this: &StopPinRequestDetails, val: PinRequestErrorType);
+    ///Get the `signRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "signRequestId")]
+    pub fn get_sign_request_id(this: &StopPinRequestDetails) -> i32;
+    ///Change the `signRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "signRequestId")]
+    pub fn set_sign_request_id(this: &StopPinRequestDetails, val: i32);
 }
 impl StopPinRequestDetails {
     ///Construct a new `StopPinRequestDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_sign_request_id()` instead."]
-    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_sign_request_id(val);
-        self
     }
     #[deprecated = "Use `set_error_type()` instead."]
     pub fn error_type(&mut self, val: PinRequestErrorType) -> &mut Self {
         self.set_error_type(val);
+        self
+    }
+    #[deprecated = "Use `set_sign_request_id()` instead."]
+    pub fn sign_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_sign_request_id(val);
         self
     }
 }
@@ -539,7 +557,9 @@ impl PinResponseDetails {
     ///Construct a new `PinResponseDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_user_input()` instead."]

@@ -1,41 +1,43 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Permissions")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Permissions;
-    ///Get the `permissions` field of this object.
-    #[wasm_bindgen(method, getter = "permissions")]
-    pub fn get_permissions(this: &Permissions) -> Option<Array>;
-    ///Change the `permissions` field of this object.
-    #[wasm_bindgen(method, setter = "permissions")]
-    pub fn set_permissions(this: &Permissions, val: &Array);
     ///Get the `origins` field of this object.
     #[wasm_bindgen(method, getter = "origins")]
     pub fn get_origins(this: &Permissions) -> Option<Array>;
     ///Change the `origins` field of this object.
     #[wasm_bindgen(method, setter = "origins")]
     pub fn set_origins(this: &Permissions, val: &Array);
+    ///Get the `permissions` field of this object.
+    #[wasm_bindgen(method, getter = "permissions")]
+    pub fn get_permissions(this: &Permissions) -> Option<Array>;
+    ///Change the `permissions` field of this object.
+    #[wasm_bindgen(method, setter = "permissions")]
+    pub fn set_permissions(this: &Permissions, val: &Array);
 }
 impl Permissions {
     ///Construct a new `Permissions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_permissions()` instead."]
-    pub fn permissions(&mut self, val: &Array) -> &mut Self {
-        self.set_permissions(val);
-        self
     }
     #[deprecated = "Use `set_origins()` instead."]
     pub fn origins(&mut self, val: &Array) -> &mut Self {
         self.set_origins(val);
+        self
+    }
+    #[deprecated = "Use `set_permissions()` instead."]
+    pub fn permissions(&mut self, val: &Array) -> &mut Self {
+        self.set_permissions(val);
         self
     }
 }

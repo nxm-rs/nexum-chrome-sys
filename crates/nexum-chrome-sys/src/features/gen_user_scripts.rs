@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///The JavaScript world for a user script to execute within.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -34,7 +34,9 @@ impl ScriptSource {
     ///Construct a new `ScriptSource`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_code()` instead."]
@@ -59,44 +61,58 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type RegisteredUserScript;
-    ///Get the `matches` field of this object.
-    #[wasm_bindgen(method, getter = "matches")]
-    pub fn get_matches(this: &RegisteredUserScript) -> Option<Array>;
-    ///Change the `matches` field of this object.
-    #[wasm_bindgen(method, setter = "matches")]
-    pub fn set_matches(this: &RegisteredUserScript, val: &Array);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &RegisteredUserScript) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &RegisteredUserScript, val: String);
-    #[cfg(feature = "extension_types")]
-    ///Get the `runAt` field of this object.
-    #[wasm_bindgen(method, getter = "runAt")]
-    pub fn get_run_at(this: &RegisteredUserScript) -> Option<super::extension_types::RunAt>;
-    #[cfg(feature = "extension_types")]
-    ///Change the `runAt` field of this object.
-    #[wasm_bindgen(method, setter = "runAt")]
-    pub fn set_run_at(this: &RegisteredUserScript, val: super::extension_types::RunAt);
-    ///Get the `js` field of this object.
-    #[wasm_bindgen(method, getter = "js")]
-    pub fn get_js(this: &RegisteredUserScript) -> Option<Array>;
-    ///Change the `js` field of this object.
-    #[wasm_bindgen(method, setter = "js")]
-    pub fn set_js(this: &RegisteredUserScript, val: &Array);
     ///Get the `allFrames` field of this object.
     #[wasm_bindgen(method, getter = "allFrames")]
     pub fn get_all_frames(this: &RegisteredUserScript) -> Option<bool>;
     ///Change the `allFrames` field of this object.
     #[wasm_bindgen(method, setter = "allFrames")]
     pub fn set_all_frames(this: &RegisteredUserScript, val: bool);
+    ///Get the `excludeGlobs` field of this object.
+    #[wasm_bindgen(method, getter = "excludeGlobs")]
+    pub fn get_exclude_globs(this: &RegisteredUserScript) -> Option<Array>;
+    ///Change the `excludeGlobs` field of this object.
+    #[wasm_bindgen(method, setter = "excludeGlobs")]
+    pub fn set_exclude_globs(this: &RegisteredUserScript, val: &Array);
     ///Get the `excludeMatches` field of this object.
     #[wasm_bindgen(method, getter = "excludeMatches")]
     pub fn get_exclude_matches(this: &RegisteredUserScript) -> Option<Array>;
     ///Change the `excludeMatches` field of this object.
     #[wasm_bindgen(method, setter = "excludeMatches")]
     pub fn set_exclude_matches(this: &RegisteredUserScript, val: &Array);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &RegisteredUserScript) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &RegisteredUserScript, val: String);
+    ///Get the `includeGlobs` field of this object.
+    #[wasm_bindgen(method, getter = "includeGlobs")]
+    pub fn get_include_globs(this: &RegisteredUserScript) -> Option<Array>;
+    ///Change the `includeGlobs` field of this object.
+    #[wasm_bindgen(method, setter = "includeGlobs")]
+    pub fn set_include_globs(this: &RegisteredUserScript, val: &Array);
+    ///Get the `js` field of this object.
+    #[wasm_bindgen(method, getter = "js")]
+    pub fn get_js(this: &RegisteredUserScript) -> Option<Array>;
+    ///Change the `js` field of this object.
+    #[wasm_bindgen(method, setter = "js")]
+    pub fn set_js(this: &RegisteredUserScript, val: &Array);
+    ///Get the `matches` field of this object.
+    #[wasm_bindgen(method, getter = "matches")]
+    pub fn get_matches(this: &RegisteredUserScript) -> Option<Array>;
+    ///Change the `matches` field of this object.
+    #[wasm_bindgen(method, setter = "matches")]
+    pub fn set_matches(this: &RegisteredUserScript, val: &Array);
+    #[cfg(feature = "extension_types")]
+    ///Get the `runAt` field of this object.
+    #[wasm_bindgen(method, getter = "runAt")]
+    pub fn get_run_at(
+        this: &RegisteredUserScript,
+    ) -> Option<super::extension_types::RunAt>;
+    #[cfg(feature = "extension_types")]
+    ///Change the `runAt` field of this object.
+    #[wasm_bindgen(method, setter = "runAt")]
+    pub fn set_run_at(this: &RegisteredUserScript, val: super::extension_types::RunAt);
     ///Get the `world` field of this object.
     #[wasm_bindgen(method, getter = "world")]
     pub fn get_world(this: &RegisteredUserScript) -> Option<ExecutionWorld>;
@@ -109,29 +125,29 @@ extern "C" {
     ///Change the `worldId` field of this object.
     #[wasm_bindgen(method, setter = "worldId")]
     pub fn set_world_id(this: &RegisteredUserScript, val: String);
-    ///Get the `includeGlobs` field of this object.
-    #[wasm_bindgen(method, getter = "includeGlobs")]
-    pub fn get_include_globs(this: &RegisteredUserScript) -> Option<Array>;
-    ///Change the `includeGlobs` field of this object.
-    #[wasm_bindgen(method, setter = "includeGlobs")]
-    pub fn set_include_globs(this: &RegisteredUserScript, val: &Array);
-    ///Get the `excludeGlobs` field of this object.
-    #[wasm_bindgen(method, getter = "excludeGlobs")]
-    pub fn get_exclude_globs(this: &RegisteredUserScript) -> Option<Array>;
-    ///Change the `excludeGlobs` field of this object.
-    #[wasm_bindgen(method, setter = "excludeGlobs")]
-    pub fn set_exclude_globs(this: &RegisteredUserScript, val: &Array);
 }
 impl RegisteredUserScript {
     ///Construct a new `RegisteredUserScript`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_matches()` instead."]
-    pub fn matches(&mut self, val: &Array) -> &mut Self {
-        self.set_matches(val);
+    #[deprecated = "Use `set_all_frames()` instead."]
+    pub fn all_frames(&mut self, val: bool) -> &mut Self {
+        self.set_all_frames(val);
+        self
+    }
+    #[deprecated = "Use `set_exclude_globs()` instead."]
+    pub fn exclude_globs(&mut self, val: &Array) -> &mut Self {
+        self.set_exclude_globs(val);
+        self
+    }
+    #[deprecated = "Use `set_exclude_matches()` instead."]
+    pub fn exclude_matches(&mut self, val: &Array) -> &mut Self {
+        self.set_exclude_matches(val);
         self
     }
     #[deprecated = "Use `set_id()` instead."]
@@ -139,10 +155,9 @@ impl RegisteredUserScript {
         self.set_id(val);
         self
     }
-    #[cfg(feature = "extension_types")]
-    #[deprecated = "Use `set_run_at()` instead."]
-    pub fn run_at(&mut self, val: super::extension_types::RunAt) -> &mut Self {
-        self.set_run_at(val);
+    #[deprecated = "Use `set_include_globs()` instead."]
+    pub fn include_globs(&mut self, val: &Array) -> &mut Self {
+        self.set_include_globs(val);
         self
     }
     #[deprecated = "Use `set_js()` instead."]
@@ -150,14 +165,15 @@ impl RegisteredUserScript {
         self.set_js(val);
         self
     }
-    #[deprecated = "Use `set_all_frames()` instead."]
-    pub fn all_frames(&mut self, val: bool) -> &mut Self {
-        self.set_all_frames(val);
+    #[deprecated = "Use `set_matches()` instead."]
+    pub fn matches(&mut self, val: &Array) -> &mut Self {
+        self.set_matches(val);
         self
     }
-    #[deprecated = "Use `set_exclude_matches()` instead."]
-    pub fn exclude_matches(&mut self, val: &Array) -> &mut Self {
-        self.set_exclude_matches(val);
+    #[cfg(feature = "extension_types")]
+    #[deprecated = "Use `set_run_at()` instead."]
+    pub fn run_at(&mut self, val: super::extension_types::RunAt) -> &mut Self {
+        self.set_run_at(val);
         self
     }
     #[deprecated = "Use `set_world()` instead."]
@@ -168,16 +184,6 @@ impl RegisteredUserScript {
     #[deprecated = "Use `set_world_id()` instead."]
     pub fn world_id(&mut self, val: String) -> &mut Self {
         self.set_world_id(val);
-        self
-    }
-    #[deprecated = "Use `set_include_globs()` instead."]
-    pub fn include_globs(&mut self, val: &Array) -> &mut Self {
-        self.set_include_globs(val);
-        self
-    }
-    #[deprecated = "Use `set_exclude_globs()` instead."]
-    pub fn exclude_globs(&mut self, val: &Array) -> &mut Self {
-        self.set_exclude_globs(val);
         self
     }
 }
@@ -203,7 +209,9 @@ impl UserScriptFilter {
     ///Construct a new `UserScriptFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_ids()` instead."]
@@ -223,6 +231,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type InjectionTarget;
+    ///Get the `allFrames` field of this object.
+    #[wasm_bindgen(method, getter = "allFrames")]
+    pub fn get_all_frames(this: &InjectionTarget) -> Option<bool>;
+    ///Change the `allFrames` field of this object.
+    #[wasm_bindgen(method, setter = "allFrames")]
+    pub fn set_all_frames(this: &InjectionTarget, val: bool);
+    ///Get the `documentIds` field of this object.
+    #[wasm_bindgen(method, getter = "documentIds")]
+    pub fn get_document_ids(this: &InjectionTarget) -> Option<Array>;
+    ///Change the `documentIds` field of this object.
+    #[wasm_bindgen(method, setter = "documentIds")]
+    pub fn set_document_ids(this: &InjectionTarget, val: &Array);
     ///Get the `frameIds` field of this object.
     #[wasm_bindgen(method, getter = "frameIds")]
     pub fn get_frame_ids(this: &InjectionTarget) -> Option<Array>;
@@ -235,25 +255,25 @@ extern "C" {
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &InjectionTarget, val: i32);
-    ///Get the `documentIds` field of this object.
-    #[wasm_bindgen(method, getter = "documentIds")]
-    pub fn get_document_ids(this: &InjectionTarget) -> Option<Array>;
-    ///Change the `documentIds` field of this object.
-    #[wasm_bindgen(method, setter = "documentIds")]
-    pub fn set_document_ids(this: &InjectionTarget, val: &Array);
-    ///Get the `allFrames` field of this object.
-    #[wasm_bindgen(method, getter = "allFrames")]
-    pub fn get_all_frames(this: &InjectionTarget) -> Option<bool>;
-    ///Change the `allFrames` field of this object.
-    #[wasm_bindgen(method, setter = "allFrames")]
-    pub fn set_all_frames(this: &InjectionTarget, val: bool);
 }
 impl InjectionTarget {
     ///Construct a new `InjectionTarget`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_all_frames()` instead."]
+    pub fn all_frames(&mut self, val: bool) -> &mut Self {
+        self.set_all_frames(val);
+        self
+    }
+    #[deprecated = "Use `set_document_ids()` instead."]
+    pub fn document_ids(&mut self, val: &Array) -> &mut Self {
+        self.set_document_ids(val);
+        self
     }
     #[deprecated = "Use `set_frame_ids()` instead."]
     pub fn frame_ids(&mut self, val: &Array) -> &mut Self {
@@ -263,16 +283,6 @@ impl InjectionTarget {
     #[deprecated = "Use `set_tab_id()` instead."]
     pub fn tab_id(&mut self, val: i32) -> &mut Self {
         self.set_tab_id(val);
-        self
-    }
-    #[deprecated = "Use `set_document_ids()` instead."]
-    pub fn document_ids(&mut self, val: &Array) -> &mut Self {
-        self.set_document_ids(val);
-        self
-    }
-    #[deprecated = "Use `set_all_frames()` instead."]
-    pub fn all_frames(&mut self, val: bool) -> &mut Self {
-        self.set_all_frames(val);
         self
     }
 }
@@ -287,56 +297,58 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type InjectionResult;
-    ///Get the `frameId` field of this object.
-    #[wasm_bindgen(method, getter = "frameId")]
-    pub fn get_frame_id(this: &InjectionResult) -> i32;
-    ///Change the `frameId` field of this object.
-    #[wasm_bindgen(method, setter = "frameId")]
-    pub fn set_frame_id(this: &InjectionResult, val: i32);
     ///Get the `documentId` field of this object.
     #[wasm_bindgen(method, getter = "documentId")]
     pub fn get_document_id(this: &InjectionResult) -> String;
     ///Change the `documentId` field of this object.
     #[wasm_bindgen(method, setter = "documentId")]
     pub fn set_document_id(this: &InjectionResult, val: String);
-    ///Get the `result` field of this object.
-    #[wasm_bindgen(method, getter = "result")]
-    pub fn get_result(this: &InjectionResult) -> Option<JsValue>;
-    ///Change the `result` field of this object.
-    #[wasm_bindgen(method, setter = "result")]
-    pub fn set_result(this: &InjectionResult, val: &JsValue);
     ///Get the `error` field of this object.
     #[wasm_bindgen(method, getter = "error")]
     pub fn get_error(this: &InjectionResult) -> Option<String>;
     ///Change the `error` field of this object.
     #[wasm_bindgen(method, setter = "error")]
     pub fn set_error(this: &InjectionResult, val: String);
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &InjectionResult) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &InjectionResult, val: i32);
+    ///Get the `result` field of this object.
+    #[wasm_bindgen(method, getter = "result")]
+    pub fn get_result(this: &InjectionResult) -> Option<JsValue>;
+    ///Change the `result` field of this object.
+    #[wasm_bindgen(method, setter = "result")]
+    pub fn set_result(this: &InjectionResult, val: &JsValue);
 }
 impl InjectionResult {
     ///Construct a new `InjectionResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_frame_id()` instead."]
-    pub fn frame_id(&mut self, val: i32) -> &mut Self {
-        self.set_frame_id(val);
-        self
     }
     #[deprecated = "Use `set_document_id()` instead."]
     pub fn document_id(&mut self, val: String) -> &mut Self {
         self.set_document_id(val);
         self
     }
-    #[deprecated = "Use `set_result()` instead."]
-    pub fn result(&mut self, val: &JsValue) -> &mut Self {
-        self.set_result(val);
-        self
-    }
     #[deprecated = "Use `set_error()` instead."]
     pub fn error(&mut self, val: String) -> &mut Self {
         self.set_error(val);
+        self
+    }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
+    #[deprecated = "Use `set_result()` instead."]
+    pub fn result(&mut self, val: &JsValue) -> &mut Self {
+        self.set_result(val);
         self
     }
 }
@@ -351,24 +363,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type UserScriptInjection;
-    ///Get the `js` field of this object.
-    #[wasm_bindgen(method, getter = "js")]
-    pub fn get_js(this: &UserScriptInjection) -> Array;
-    ///Change the `js` field of this object.
-    #[wasm_bindgen(method, setter = "js")]
-    pub fn set_js(this: &UserScriptInjection, val: &Array);
-    ///Get the `worldId` field of this object.
-    #[wasm_bindgen(method, getter = "worldId")]
-    pub fn get_world_id(this: &UserScriptInjection) -> Option<String>;
-    ///Change the `worldId` field of this object.
-    #[wasm_bindgen(method, setter = "worldId")]
-    pub fn set_world_id(this: &UserScriptInjection, val: String);
     ///Get the `injectImmediately` field of this object.
     #[wasm_bindgen(method, getter = "injectImmediately")]
     pub fn get_inject_immediately(this: &UserScriptInjection) -> Option<bool>;
     ///Change the `injectImmediately` field of this object.
     #[wasm_bindgen(method, setter = "injectImmediately")]
     pub fn set_inject_immediately(this: &UserScriptInjection, val: bool);
+    ///Get the `js` field of this object.
+    #[wasm_bindgen(method, getter = "js")]
+    pub fn get_js(this: &UserScriptInjection) -> Array;
+    ///Change the `js` field of this object.
+    #[wasm_bindgen(method, setter = "js")]
+    pub fn set_js(this: &UserScriptInjection, val: &Array);
     ///Get the `target` field of this object.
     #[wasm_bindgen(method, getter = "target")]
     pub fn get_target(this: &UserScriptInjection) -> InjectionTarget;
@@ -381,27 +387,30 @@ extern "C" {
     ///Change the `world` field of this object.
     #[wasm_bindgen(method, setter = "world")]
     pub fn set_world(this: &UserScriptInjection, val: ExecutionWorld);
+    ///Get the `worldId` field of this object.
+    #[wasm_bindgen(method, getter = "worldId")]
+    pub fn get_world_id(this: &UserScriptInjection) -> Option<String>;
+    ///Change the `worldId` field of this object.
+    #[wasm_bindgen(method, setter = "worldId")]
+    pub fn set_world_id(this: &UserScriptInjection, val: String);
 }
 impl UserScriptInjection {
     ///Construct a new `UserScriptInjection`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_js()` instead."]
-    pub fn js(&mut self, val: &Array) -> &mut Self {
-        self.set_js(val);
-        self
-    }
-    #[deprecated = "Use `set_world_id()` instead."]
-    pub fn world_id(&mut self, val: String) -> &mut Self {
-        self.set_world_id(val);
-        self
     }
     #[deprecated = "Use `set_inject_immediately()` instead."]
     pub fn inject_immediately(&mut self, val: bool) -> &mut Self {
         self.set_inject_immediately(val);
+        self
+    }
+    #[deprecated = "Use `set_js()` instead."]
+    pub fn js(&mut self, val: &Array) -> &mut Self {
+        self.set_js(val);
         self
     }
     #[deprecated = "Use `set_target()` instead."]
@@ -412,6 +421,11 @@ impl UserScriptInjection {
     #[deprecated = "Use `set_world()` instead."]
     pub fn world(&mut self, val: ExecutionWorld) -> &mut Self {
         self.set_world(val);
+        self
+    }
+    #[deprecated = "Use `set_world_id()` instead."]
+    pub fn world_id(&mut self, val: String) -> &mut Self {
+        self.set_world_id(val);
         self
     }
 }
@@ -449,7 +463,9 @@ impl WorldProperties {
     ///Construct a new `WorldProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_csp()` instead."]

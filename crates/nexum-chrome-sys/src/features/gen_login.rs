@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SamlUserSessionProperties")]
@@ -14,18 +14,18 @@ extern "C" {
     ///Change the `email` field of this object.
     #[wasm_bindgen(method, setter = "email")]
     pub fn set_email(this: &SamlUserSessionProperties, val: String);
-    ///Get the `oauthCode` field of this object.
-    #[wasm_bindgen(method, getter = "oauthCode")]
-    pub fn get_oauth_code(this: &SamlUserSessionProperties) -> String;
-    ///Change the `oauthCode` field of this object.
-    #[wasm_bindgen(method, setter = "oauthCode")]
-    pub fn set_oauth_code(this: &SamlUserSessionProperties, val: String);
     ///Get the `gaiaId` field of this object.
     #[wasm_bindgen(method, getter = "gaiaId")]
     pub fn get_gaia_id(this: &SamlUserSessionProperties) -> String;
     ///Change the `gaiaId` field of this object.
     #[wasm_bindgen(method, setter = "gaiaId")]
     pub fn set_gaia_id(this: &SamlUserSessionProperties, val: String);
+    ///Get the `oauthCode` field of this object.
+    #[wasm_bindgen(method, getter = "oauthCode")]
+    pub fn get_oauth_code(this: &SamlUserSessionProperties) -> String;
+    ///Change the `oauthCode` field of this object.
+    #[wasm_bindgen(method, setter = "oauthCode")]
+    pub fn set_oauth_code(this: &SamlUserSessionProperties, val: String);
     ///Get the `password` field of this object.
     #[wasm_bindgen(method, getter = "password")]
     pub fn get_password(this: &SamlUserSessionProperties) -> String;
@@ -37,7 +37,9 @@ impl SamlUserSessionProperties {
     ///Construct a new `SamlUserSessionProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_email()` instead."]
@@ -45,14 +47,14 @@ impl SamlUserSessionProperties {
         self.set_email(val);
         self
     }
-    #[deprecated = "Use `set_oauth_code()` instead."]
-    pub fn oauth_code(&mut self, val: String) -> &mut Self {
-        self.set_oauth_code(val);
-        self
-    }
     #[deprecated = "Use `set_gaia_id()` instead."]
     pub fn gaia_id(&mut self, val: String) -> &mut Self {
         self.set_gaia_id(val);
+        self
+    }
+    #[deprecated = "Use `set_oauth_code()` instead."]
+    pub fn oauth_code(&mut self, val: String) -> &mut Self {
+        self.set_oauth_code(val);
         self
     }
     #[deprecated = "Use `set_password()` instead."]
@@ -134,7 +136,9 @@ extern "C" {
         "login"],
         js_name = "setDataForNextLoginAttempt"
     )]
-    pub fn set_data_for_next_login_attempt(data_for_next_login_attempt: String) -> Promise;
+    pub fn set_data_for_next_login_attempt(
+        data_for_next_login_attempt: String,
+    ) -> Promise;
     ///Dispatches a $(ref:onRequestExternalLogout) event. Called from the login screen extension on the lock screen.
     #[wasm_bindgen(
         js_namespace = ["chrome",

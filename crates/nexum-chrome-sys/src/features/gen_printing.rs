@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SubmitJobRequest")]
@@ -27,7 +27,9 @@ impl SubmitJobRequest {
     ///Construct a new `SubmitJobRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_document_blob_uuid()` instead."]
@@ -79,7 +81,9 @@ impl SubmitJobResponse {
     ///Construct a new `SubmitJobResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_job_id()` instead."]
@@ -113,74 +117,66 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Printer;
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &Printer) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &Printer, val: String);
     ///Get the `description` field of this object.
     #[wasm_bindgen(method, getter = "description")]
     pub fn get_description(this: &Printer) -> String;
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &Printer, val: String);
-    ///Get the `uri` field of this object.
-    #[wasm_bindgen(method, getter = "uri")]
-    pub fn get_uri(this: &Printer) -> String;
-    ///Change the `uri` field of this object.
-    #[wasm_bindgen(method, setter = "uri")]
-    pub fn set_uri(this: &Printer, val: String);
-    ///Get the `source` field of this object.
-    #[wasm_bindgen(method, getter = "source")]
-    pub fn get_source(this: &Printer) -> PrinterSource;
-    ///Change the `source` field of this object.
-    #[wasm_bindgen(method, setter = "source")]
-    pub fn set_source(this: &Printer, val: PrinterSource);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &Printer) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &Printer, val: String);
     ///Get the `isDefault` field of this object.
     #[wasm_bindgen(method, getter = "isDefault")]
     pub fn get_is_default(this: &Printer) -> bool;
     ///Change the `isDefault` field of this object.
     #[wasm_bindgen(method, setter = "isDefault")]
     pub fn set_is_default(this: &Printer, val: bool);
-    ///Get the `recentlyUsedRank` field of this object.
-    #[wasm_bindgen(method, getter = "recentlyUsedRank")]
-    pub fn get_recently_used_rank(this: &Printer) -> Option<i32>;
-    ///Change the `recentlyUsedRank` field of this object.
-    #[wasm_bindgen(method, setter = "recentlyUsedRank")]
-    pub fn set_recently_used_rank(this: &Printer, val: i32);
     ///Get the `name` field of this object.
     #[wasm_bindgen(method, getter = "name")]
     pub fn get_name(this: &Printer) -> String;
     ///Change the `name` field of this object.
     #[wasm_bindgen(method, setter = "name")]
     pub fn set_name(this: &Printer, val: String);
+    ///Get the `recentlyUsedRank` field of this object.
+    #[wasm_bindgen(method, getter = "recentlyUsedRank")]
+    pub fn get_recently_used_rank(this: &Printer) -> Option<i32>;
+    ///Change the `recentlyUsedRank` field of this object.
+    #[wasm_bindgen(method, setter = "recentlyUsedRank")]
+    pub fn set_recently_used_rank(this: &Printer, val: i32);
+    ///Get the `source` field of this object.
+    #[wasm_bindgen(method, getter = "source")]
+    pub fn get_source(this: &Printer) -> PrinterSource;
+    ///Change the `source` field of this object.
+    #[wasm_bindgen(method, setter = "source")]
+    pub fn set_source(this: &Printer, val: PrinterSource);
+    ///Get the `uri` field of this object.
+    #[wasm_bindgen(method, getter = "uri")]
+    pub fn get_uri(this: &Printer) -> String;
+    ///Change the `uri` field of this object.
+    #[wasm_bindgen(method, setter = "uri")]
+    pub fn set_uri(this: &Printer, val: String);
 }
 impl Printer {
     ///Construct a new `Printer`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: String) -> &mut Self {
-        self.set_id(val);
-        self
     }
     #[deprecated = "Use `set_description()` instead."]
     pub fn description(&mut self, val: String) -> &mut Self {
         self.set_description(val);
         self
     }
-    #[deprecated = "Use `set_uri()` instead."]
-    pub fn uri(&mut self, val: String) -> &mut Self {
-        self.set_uri(val);
-        self
-    }
-    #[deprecated = "Use `set_source()` instead."]
-    pub fn source(&mut self, val: PrinterSource) -> &mut Self {
-        self.set_source(val);
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
         self
     }
     #[deprecated = "Use `set_is_default()` instead."]
@@ -188,14 +184,24 @@ impl Printer {
         self.set_is_default(val);
         self
     }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
     #[deprecated = "Use `set_recently_used_rank()` instead."]
     pub fn recently_used_rank(&mut self, val: i32) -> &mut Self {
         self.set_recently_used_rank(val);
         self
     }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
+    #[deprecated = "Use `set_source()` instead."]
+    pub fn source(&mut self, val: PrinterSource) -> &mut Self {
+        self.set_source(val);
+        self
+    }
+    #[deprecated = "Use `set_uri()` instead."]
+    pub fn uri(&mut self, val: String) -> &mut Self {
+        self.set_uri(val);
         self
     }
 }
@@ -254,7 +260,9 @@ impl GetPrinterInfoResponse {
     ///Construct a new `GetPrinterInfoResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_capabilities()` instead."]

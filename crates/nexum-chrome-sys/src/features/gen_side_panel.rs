@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SidePanel")]
@@ -19,7 +19,9 @@ impl SidePanel {
     ///Construct a new `SidePanel`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_default_path()` instead."]
@@ -57,7 +59,9 @@ impl PanelLayout {
     ///Construct a new `PanelLayout`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_side()` instead."]
@@ -77,6 +81,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type PanelOptions;
+    ///Get the `enabled` field of this object.
+    #[wasm_bindgen(method, getter = "enabled")]
+    pub fn get_enabled(this: &PanelOptions) -> Option<bool>;
+    ///Change the `enabled` field of this object.
+    #[wasm_bindgen(method, setter = "enabled")]
+    pub fn set_enabled(this: &PanelOptions, val: bool);
     ///Get the `path` field of this object.
     #[wasm_bindgen(method, getter = "path")]
     pub fn get_path(this: &PanelOptions) -> Option<String>;
@@ -89,19 +99,20 @@ extern "C" {
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &PanelOptions, val: i32);
-    ///Get the `enabled` field of this object.
-    #[wasm_bindgen(method, getter = "enabled")]
-    pub fn get_enabled(this: &PanelOptions) -> Option<bool>;
-    ///Change the `enabled` field of this object.
-    #[wasm_bindgen(method, setter = "enabled")]
-    pub fn set_enabled(this: &PanelOptions, val: bool);
 }
 impl PanelOptions {
     ///Construct a new `PanelOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_enabled()` instead."]
+    pub fn enabled(&mut self, val: bool) -> &mut Self {
+        self.set_enabled(val);
+        self
     }
     #[deprecated = "Use `set_path()` instead."]
     pub fn path(&mut self, val: String) -> &mut Self {
@@ -111,11 +122,6 @@ impl PanelOptions {
     #[deprecated = "Use `set_tab_id()` instead."]
     pub fn tab_id(&mut self, val: i32) -> &mut Self {
         self.set_tab_id(val);
-        self
-    }
-    #[deprecated = "Use `set_enabled()` instead."]
-    pub fn enabled(&mut self, val: bool) -> &mut Self {
-        self.set_enabled(val);
         self
     }
 }
@@ -141,7 +147,9 @@ impl PanelBehavior {
     ///Construct a new `PanelBehavior`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_open_panel_on_action_click()` instead."]
@@ -172,7 +180,9 @@ impl GetPanelOptions {
     ///Construct a new `GetPanelOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_tab_id()` instead."]
@@ -209,7 +219,9 @@ impl OpenOptions {
     ///Construct a new `OpenOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_tab_id()` instead."]
@@ -234,34 +246,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CloseOptions;
-    ///Get the `windowId` field of this object.
-    #[wasm_bindgen(method, getter = "windowId")]
-    pub fn get_window_id(this: &CloseOptions) -> Option<i32>;
-    ///Change the `windowId` field of this object.
-    #[wasm_bindgen(method, setter = "windowId")]
-    pub fn set_window_id(this: &CloseOptions, val: i32);
     ///Get the `tabId` field of this object.
     #[wasm_bindgen(method, getter = "tabId")]
     pub fn get_tab_id(this: &CloseOptions) -> Option<i32>;
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &CloseOptions, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &CloseOptions) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &CloseOptions, val: i32);
 }
 impl CloseOptions {
     ///Construct a new `CloseOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_window_id()` instead."]
-    pub fn window_id(&mut self, val: i32) -> &mut Self {
-        self.set_window_id(val);
-        self
     }
     #[deprecated = "Use `set_tab_id()` instead."]
     pub fn tab_id(&mut self, val: i32) -> &mut Self {
         self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
         self
     }
 }
@@ -276,12 +290,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type PanelOpenedInfo;
-    ///Get the `windowId` field of this object.
-    #[wasm_bindgen(method, getter = "windowId")]
-    pub fn get_window_id(this: &PanelOpenedInfo) -> i32;
-    ///Change the `windowId` field of this object.
-    #[wasm_bindgen(method, setter = "windowId")]
-    pub fn set_window_id(this: &PanelOpenedInfo, val: i32);
     ///Get the `path` field of this object.
     #[wasm_bindgen(method, getter = "path")]
     pub fn get_path(this: &PanelOpenedInfo) -> String;
@@ -294,18 +302,21 @@ extern "C" {
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &PanelOpenedInfo, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &PanelOpenedInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &PanelOpenedInfo, val: i32);
 }
 impl PanelOpenedInfo {
     ///Construct a new `PanelOpenedInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_window_id()` instead."]
-    pub fn window_id(&mut self, val: i32) -> &mut Self {
-        self.set_window_id(val);
-        self
     }
     #[deprecated = "Use `set_path()` instead."]
     pub fn path(&mut self, val: String) -> &mut Self {
@@ -315,6 +326,11 @@ impl PanelOpenedInfo {
     #[deprecated = "Use `set_tab_id()` instead."]
     pub fn tab_id(&mut self, val: i32) -> &mut Self {
         self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
         self
     }
 }
@@ -335,24 +351,26 @@ extern "C" {
     ///Change the `path` field of this object.
     #[wasm_bindgen(method, setter = "path")]
     pub fn set_path(this: &PanelClosedInfo, val: String);
-    ///Get the `windowId` field of this object.
-    #[wasm_bindgen(method, getter = "windowId")]
-    pub fn get_window_id(this: &PanelClosedInfo) -> i32;
-    ///Change the `windowId` field of this object.
-    #[wasm_bindgen(method, setter = "windowId")]
-    pub fn set_window_id(this: &PanelClosedInfo, val: i32);
     ///Get the `tabId` field of this object.
     #[wasm_bindgen(method, getter = "tabId")]
     pub fn get_tab_id(this: &PanelClosedInfo) -> Option<i32>;
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &PanelClosedInfo, val: i32);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &PanelClosedInfo) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &PanelClosedInfo, val: i32);
 }
 impl PanelClosedInfo {
     ///Construct a new `PanelClosedInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_path()` instead."]
@@ -360,14 +378,14 @@ impl PanelClosedInfo {
         self.set_path(val);
         self
     }
-    #[deprecated = "Use `set_window_id()` instead."]
-    pub fn window_id(&mut self, val: i32) -> &mut Self {
-        self.set_window_id(val);
-        self
-    }
     #[deprecated = "Use `set_tab_id()` instead."]
     pub fn tab_id(&mut self, val: i32) -> &mut Self {
         self.set_tab_id(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
         self
     }
 }

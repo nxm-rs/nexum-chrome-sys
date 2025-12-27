@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MDnsService")]
@@ -14,6 +14,12 @@ extern "C" {
     ///Change the `ipAddress` field of this object.
     #[wasm_bindgen(method, setter = "ipAddress")]
     pub fn set_ip_address(this: &MDnsService, val: String);
+    ///Get the `serviceData` field of this object.
+    #[wasm_bindgen(method, getter = "serviceData")]
+    pub fn get_service_data(this: &MDnsService) -> Array;
+    ///Change the `serviceData` field of this object.
+    #[wasm_bindgen(method, setter = "serviceData")]
+    pub fn set_service_data(this: &MDnsService, val: &Array);
     ///Get the `serviceHostPort` field of this object.
     #[wasm_bindgen(method, getter = "serviceHostPort")]
     pub fn get_service_host_port(this: &MDnsService) -> String;
@@ -26,23 +32,24 @@ extern "C" {
     ///Change the `serviceName` field of this object.
     #[wasm_bindgen(method, setter = "serviceName")]
     pub fn set_service_name(this: &MDnsService, val: String);
-    ///Get the `serviceData` field of this object.
-    #[wasm_bindgen(method, getter = "serviceData")]
-    pub fn get_service_data(this: &MDnsService) -> Array;
-    ///Change the `serviceData` field of this object.
-    #[wasm_bindgen(method, setter = "serviceData")]
-    pub fn set_service_data(this: &MDnsService, val: &Array);
 }
 impl MDnsService {
     ///Construct a new `MDnsService`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_ip_address()` instead."]
     pub fn ip_address(&mut self, val: String) -> &mut Self {
         self.set_ip_address(val);
+        self
+    }
+    #[deprecated = "Use `set_service_data()` instead."]
+    pub fn service_data(&mut self, val: &Array) -> &mut Self {
+        self.set_service_data(val);
         self
     }
     #[deprecated = "Use `set_service_host_port()` instead."]
@@ -53,11 +60,6 @@ impl MDnsService {
     #[deprecated = "Use `set_service_name()` instead."]
     pub fn service_name(&mut self, val: String) -> &mut Self {
         self.set_service_name(val);
-        self
-    }
-    #[deprecated = "Use `set_service_data()` instead."]
-    pub fn service_data(&mut self, val: &Array) -> &mut Self {
-        self.set_service_data(val);
         self
     }
 }

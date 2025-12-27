@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Allocation authorities for Vendor IDs.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -55,12 +55,6 @@ extern "C" {
     ///Change the `address` field of this object.
     #[wasm_bindgen(method, setter = "address")]
     pub fn set_address(this: &AdapterState, val: String);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &AdapterState) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &AdapterState, val: String);
     ///Get the `available` field of this object.
     #[wasm_bindgen(method, getter = "available")]
     pub fn get_available(this: &AdapterState) -> bool;
@@ -73,6 +67,12 @@ extern "C" {
     ///Change the `discovering` field of this object.
     #[wasm_bindgen(method, setter = "discovering")]
     pub fn set_discovering(this: &AdapterState, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &AdapterState) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &AdapterState, val: String);
     ///Get the `powered` field of this object.
     #[wasm_bindgen(method, getter = "powered")]
     pub fn get_powered(this: &AdapterState) -> bool;
@@ -84,17 +84,14 @@ impl AdapterState {
     ///Construct a new `AdapterState`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_address()` instead."]
     pub fn address(&mut self, val: String) -> &mut Self {
         self.set_address(val);
-        self
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
         self
     }
     #[deprecated = "Use `set_available()` instead."]
@@ -105,6 +102,11 @@ impl AdapterState {
     #[deprecated = "Use `set_discovering()` instead."]
     pub fn discovering(&mut self, val: bool) -> &mut Self {
         self.set_discovering(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
         self
     }
     #[deprecated = "Use `set_powered()` instead."]
@@ -130,108 +132,110 @@ extern "C" {
     ///Change the `address` field of this object.
     #[wasm_bindgen(method, setter = "address")]
     pub fn set_address(this: &Device, val: String);
-    ///Get the `deviceClass` field of this object.
-    #[wasm_bindgen(method, getter = "deviceClass")]
-    pub fn get_device_class(this: &Device) -> Option<i32>;
-    ///Change the `deviceClass` field of this object.
-    #[wasm_bindgen(method, setter = "deviceClass")]
-    pub fn set_device_class(this: &Device, val: i32);
-    ///Get the `vendorId` field of this object.
-    #[wasm_bindgen(method, getter = "vendorId")]
-    pub fn get_vendor_id(this: &Device) -> Option<i32>;
-    ///Change the `vendorId` field of this object.
-    #[wasm_bindgen(method, setter = "vendorId")]
-    pub fn set_vendor_id(this: &Device, val: i32);
-    ///Get the `connectable` field of this object.
-    #[wasm_bindgen(method, getter = "connectable")]
-    pub fn get_connectable(this: &Device) -> Option<bool>;
-    ///Change the `connectable` field of this object.
-    #[wasm_bindgen(method, setter = "connectable")]
-    pub fn set_connectable(this: &Device, val: bool);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &Device) -> Option<String>;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &Device, val: String);
-    ///Get the `connecting` field of this object.
-    #[wasm_bindgen(method, getter = "connecting")]
-    pub fn get_connecting(this: &Device) -> Option<bool>;
-    ///Change the `connecting` field of this object.
-    #[wasm_bindgen(method, setter = "connecting")]
-    pub fn set_connecting(this: &Device, val: bool);
-    ///Get the `connected` field of this object.
-    #[wasm_bindgen(method, getter = "connected")]
-    pub fn get_connected(this: &Device) -> Option<bool>;
-    ///Change the `connected` field of this object.
-    #[wasm_bindgen(method, setter = "connected")]
-    pub fn set_connected(this: &Device, val: bool);
-    ///Get the `deviceId` field of this object.
-    #[wasm_bindgen(method, getter = "deviceId")]
-    pub fn get_device_id(this: &Device) -> Option<i32>;
-    ///Change the `deviceId` field of this object.
-    #[wasm_bindgen(method, setter = "deviceId")]
-    pub fn set_device_id(this: &Device, val: i32);
-    ///Get the `uuids` field of this object.
-    #[wasm_bindgen(method, getter = "uuids")]
-    pub fn get_uuids(this: &Device) -> Option<Array>;
-    ///Change the `uuids` field of this object.
-    #[wasm_bindgen(method, setter = "uuids")]
-    pub fn set_uuids(this: &Device, val: &Array);
-    ///Get the `transport` field of this object.
-    #[wasm_bindgen(method, getter = "transport")]
-    pub fn get_transport(this: &Device) -> Option<Transport>;
-    ///Change the `transport` field of this object.
-    #[wasm_bindgen(method, setter = "transport")]
-    pub fn set_transport(this: &Device, val: Transport);
-    ///Get the `productId` field of this object.
-    #[wasm_bindgen(method, getter = "productId")]
-    pub fn get_product_id(this: &Device) -> Option<i32>;
-    ///Change the `productId` field of this object.
-    #[wasm_bindgen(method, setter = "productId")]
-    pub fn set_product_id(this: &Device, val: i32);
-    ///Get the `vendorIdSource` field of this object.
-    #[wasm_bindgen(method, getter = "vendorIdSource")]
-    pub fn get_vendor_id_source(this: &Device) -> Option<VendorIdSource>;
-    ///Change the `vendorIdSource` field of this object.
-    #[wasm_bindgen(method, setter = "vendorIdSource")]
-    pub fn set_vendor_id_source(this: &Device, val: VendorIdSource);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &Device) -> Option<DeviceType>;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &Device, val: DeviceType);
-    ///Get the `inquiryTxPower` field of this object.
-    #[wasm_bindgen(method, getter = "inquiryTxPower")]
-    pub fn get_inquiry_tx_power(this: &Device) -> Option<i32>;
-    ///Change the `inquiryTxPower` field of this object.
-    #[wasm_bindgen(method, setter = "inquiryTxPower")]
-    pub fn set_inquiry_tx_power(this: &Device, val: i32);
     ///Get the `batteryPercentage` field of this object.
     #[wasm_bindgen(method, getter = "batteryPercentage")]
     pub fn get_battery_percentage(this: &Device) -> Option<i32>;
     ///Change the `batteryPercentage` field of this object.
     #[wasm_bindgen(method, setter = "batteryPercentage")]
     pub fn set_battery_percentage(this: &Device, val: i32);
+    ///Get the `connectable` field of this object.
+    #[wasm_bindgen(method, getter = "connectable")]
+    pub fn get_connectable(this: &Device) -> Option<bool>;
+    ///Change the `connectable` field of this object.
+    #[wasm_bindgen(method, setter = "connectable")]
+    pub fn set_connectable(this: &Device, val: bool);
+    ///Get the `connected` field of this object.
+    #[wasm_bindgen(method, getter = "connected")]
+    pub fn get_connected(this: &Device) -> Option<bool>;
+    ///Change the `connected` field of this object.
+    #[wasm_bindgen(method, setter = "connected")]
+    pub fn set_connected(this: &Device, val: bool);
+    ///Get the `connecting` field of this object.
+    #[wasm_bindgen(method, getter = "connecting")]
+    pub fn get_connecting(this: &Device) -> Option<bool>;
+    ///Change the `connecting` field of this object.
+    #[wasm_bindgen(method, setter = "connecting")]
+    pub fn set_connecting(this: &Device, val: bool);
+    ///Get the `deviceClass` field of this object.
+    #[wasm_bindgen(method, getter = "deviceClass")]
+    pub fn get_device_class(this: &Device) -> Option<i32>;
+    ///Change the `deviceClass` field of this object.
+    #[wasm_bindgen(method, setter = "deviceClass")]
+    pub fn set_device_class(this: &Device, val: i32);
+    ///Get the `deviceId` field of this object.
+    #[wasm_bindgen(method, getter = "deviceId")]
+    pub fn get_device_id(this: &Device) -> Option<i32>;
+    ///Change the `deviceId` field of this object.
+    #[wasm_bindgen(method, setter = "deviceId")]
+    pub fn set_device_id(this: &Device, val: i32);
     ///Get the `inquiryRssi` field of this object.
     #[wasm_bindgen(method, getter = "inquiryRssi")]
     pub fn get_inquiry_rssi(this: &Device) -> Option<i32>;
     ///Change the `inquiryRssi` field of this object.
     #[wasm_bindgen(method, setter = "inquiryRssi")]
     pub fn set_inquiry_rssi(this: &Device, val: i32);
+    ///Get the `inquiryTxPower` field of this object.
+    #[wasm_bindgen(method, getter = "inquiryTxPower")]
+    pub fn get_inquiry_tx_power(this: &Device) -> Option<i32>;
+    ///Change the `inquiryTxPower` field of this object.
+    #[wasm_bindgen(method, setter = "inquiryTxPower")]
+    pub fn set_inquiry_tx_power(this: &Device, val: i32);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &Device) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &Device, val: String);
     ///Get the `paired` field of this object.
     #[wasm_bindgen(method, getter = "paired")]
     pub fn get_paired(this: &Device) -> Option<bool>;
     ///Change the `paired` field of this object.
     #[wasm_bindgen(method, setter = "paired")]
     pub fn set_paired(this: &Device, val: bool);
+    ///Get the `productId` field of this object.
+    #[wasm_bindgen(method, getter = "productId")]
+    pub fn get_product_id(this: &Device) -> Option<i32>;
+    ///Change the `productId` field of this object.
+    #[wasm_bindgen(method, setter = "productId")]
+    pub fn set_product_id(this: &Device, val: i32);
+    ///Get the `transport` field of this object.
+    #[wasm_bindgen(method, getter = "transport")]
+    pub fn get_transport(this: &Device) -> Option<Transport>;
+    ///Change the `transport` field of this object.
+    #[wasm_bindgen(method, setter = "transport")]
+    pub fn set_transport(this: &Device, val: Transport);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &Device) -> Option<DeviceType>;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &Device, val: DeviceType);
+    ///Get the `uuids` field of this object.
+    #[wasm_bindgen(method, getter = "uuids")]
+    pub fn get_uuids(this: &Device) -> Option<Array>;
+    ///Change the `uuids` field of this object.
+    #[wasm_bindgen(method, setter = "uuids")]
+    pub fn set_uuids(this: &Device, val: &Array);
+    ///Get the `vendorId` field of this object.
+    #[wasm_bindgen(method, getter = "vendorId")]
+    pub fn get_vendor_id(this: &Device) -> Option<i32>;
+    ///Change the `vendorId` field of this object.
+    #[wasm_bindgen(method, setter = "vendorId")]
+    pub fn set_vendor_id(this: &Device, val: i32);
+    ///Get the `vendorIdSource` field of this object.
+    #[wasm_bindgen(method, getter = "vendorIdSource")]
+    pub fn get_vendor_id_source(this: &Device) -> Option<VendorIdSource>;
+    ///Change the `vendorIdSource` field of this object.
+    #[wasm_bindgen(method, setter = "vendorIdSource")]
+    pub fn set_vendor_id_source(this: &Device, val: VendorIdSource);
 }
 impl Device {
     ///Construct a new `Device`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_address()` instead."]
@@ -239,14 +243,9 @@ impl Device {
         self.set_address(val);
         self
     }
-    #[deprecated = "Use `set_device_class()` instead."]
-    pub fn device_class(&mut self, val: i32) -> &mut Self {
-        self.set_device_class(val);
-        self
-    }
-    #[deprecated = "Use `set_vendor_id()` instead."]
-    pub fn vendor_id(&mut self, val: i32) -> &mut Self {
-        self.set_vendor_id(val);
+    #[deprecated = "Use `set_battery_percentage()` instead."]
+    pub fn battery_percentage(&mut self, val: i32) -> &mut Self {
+        self.set_battery_percentage(val);
         self
     }
     #[deprecated = "Use `set_connectable()` instead."]
@@ -254,9 +253,9 @@ impl Device {
         self.set_connectable(val);
         self
     }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
+    #[deprecated = "Use `set_connected()` instead."]
+    pub fn connected(&mut self, val: bool) -> &mut Self {
+        self.set_connected(val);
         self
     }
     #[deprecated = "Use `set_connecting()` instead."]
@@ -264,9 +263,9 @@ impl Device {
         self.set_connecting(val);
         self
     }
-    #[deprecated = "Use `set_connected()` instead."]
-    pub fn connected(&mut self, val: bool) -> &mut Self {
-        self.set_connected(val);
+    #[deprecated = "Use `set_device_class()` instead."]
+    pub fn device_class(&mut self, val: i32) -> &mut Self {
+        self.set_device_class(val);
         self
     }
     #[deprecated = "Use `set_device_id()` instead."]
@@ -274,29 +273,9 @@ impl Device {
         self.set_device_id(val);
         self
     }
-    #[deprecated = "Use `set_uuids()` instead."]
-    pub fn uuids(&mut self, val: &Array) -> &mut Self {
-        self.set_uuids(val);
-        self
-    }
-    #[deprecated = "Use `set_transport()` instead."]
-    pub fn transport(&mut self, val: Transport) -> &mut Self {
-        self.set_transport(val);
-        self
-    }
-    #[deprecated = "Use `set_product_id()` instead."]
-    pub fn product_id(&mut self, val: i32) -> &mut Self {
-        self.set_product_id(val);
-        self
-    }
-    #[deprecated = "Use `set_vendor_id_source()` instead."]
-    pub fn vendor_id_source(&mut self, val: VendorIdSource) -> &mut Self {
-        self.set_vendor_id_source(val);
-        self
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: DeviceType) -> &mut Self {
-        self.set_type(val);
+    #[deprecated = "Use `set_inquiry_rssi()` instead."]
+    pub fn inquiry_rssi(&mut self, val: i32) -> &mut Self {
+        self.set_inquiry_rssi(val);
         self
     }
     #[deprecated = "Use `set_inquiry_tx_power()` instead."]
@@ -304,19 +283,44 @@ impl Device {
         self.set_inquiry_tx_power(val);
         self
     }
-    #[deprecated = "Use `set_battery_percentage()` instead."]
-    pub fn battery_percentage(&mut self, val: i32) -> &mut Self {
-        self.set_battery_percentage(val);
-        self
-    }
-    #[deprecated = "Use `set_inquiry_rssi()` instead."]
-    pub fn inquiry_rssi(&mut self, val: i32) -> &mut Self {
-        self.set_inquiry_rssi(val);
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
         self
     }
     #[deprecated = "Use `set_paired()` instead."]
     pub fn paired(&mut self, val: bool) -> &mut Self {
         self.set_paired(val);
+        self
+    }
+    #[deprecated = "Use `set_product_id()` instead."]
+    pub fn product_id(&mut self, val: i32) -> &mut Self {
+        self.set_product_id(val);
+        self
+    }
+    #[deprecated = "Use `set_transport()` instead."]
+    pub fn transport(&mut self, val: Transport) -> &mut Self {
+        self.set_transport(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: DeviceType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_uuids()` instead."]
+    pub fn uuids(&mut self, val: &Array) -> &mut Self {
+        self.set_uuids(val);
+        self
+    }
+    #[deprecated = "Use `set_vendor_id()` instead."]
+    pub fn vendor_id(&mut self, val: i32) -> &mut Self {
+        self.set_vendor_id(val);
+        self
+    }
+    #[deprecated = "Use `set_vendor_id_source()` instead."]
+    pub fn vendor_id_source(&mut self, val: VendorIdSource) -> &mut Self {
+        self.set_vendor_id_source(val);
         self
     }
 }
@@ -331,34 +335,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type BluetoothFilter;
-    ///Get the `limit` field of this object.
-    #[wasm_bindgen(method, getter = "limit")]
-    pub fn get_limit(this: &BluetoothFilter) -> Option<i32>;
-    ///Change the `limit` field of this object.
-    #[wasm_bindgen(method, setter = "limit")]
-    pub fn set_limit(this: &BluetoothFilter, val: i32);
     ///Get the `filterType` field of this object.
     #[wasm_bindgen(method, getter = "filterType")]
     pub fn get_filter_type(this: &BluetoothFilter) -> Option<FilterType>;
     ///Change the `filterType` field of this object.
     #[wasm_bindgen(method, setter = "filterType")]
     pub fn set_filter_type(this: &BluetoothFilter, val: FilterType);
+    ///Get the `limit` field of this object.
+    #[wasm_bindgen(method, getter = "limit")]
+    pub fn get_limit(this: &BluetoothFilter) -> Option<i32>;
+    ///Change the `limit` field of this object.
+    #[wasm_bindgen(method, setter = "limit")]
+    pub fn set_limit(this: &BluetoothFilter, val: i32);
 }
 impl BluetoothFilter {
     ///Construct a new `BluetoothFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_limit()` instead."]
-    pub fn limit(&mut self, val: i32) -> &mut Self {
-        self.set_limit(val);
-        self
     }
     #[deprecated = "Use `set_filter_type()` instead."]
     pub fn filter_type(&mut self, val: FilterType) -> &mut Self {
         self.set_filter_type(val);
+        self
+    }
+    #[deprecated = "Use `set_limit()` instead."]
+    pub fn limit(&mut self, val: i32) -> &mut Self {
+        self.set_limit(val);
         self
     }
 }

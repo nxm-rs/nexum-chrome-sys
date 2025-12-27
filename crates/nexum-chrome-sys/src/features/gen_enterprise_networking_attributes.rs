@@ -1,19 +1,13 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "NetworkDetails")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type NetworkDetails;
-    ///Get the `macAddress` field of this object.
-    #[wasm_bindgen(method, getter = "macAddress")]
-    pub fn get_mac_address(this: &NetworkDetails) -> String;
-    ///Change the `macAddress` field of this object.
-    #[wasm_bindgen(method, setter = "macAddress")]
-    pub fn set_mac_address(this: &NetworkDetails, val: String);
     ///Get the `ipv4` field of this object.
     #[wasm_bindgen(method, getter = "ipv4")]
     pub fn get_ipv4(this: &NetworkDetails) -> Option<String>;
@@ -26,18 +20,21 @@ extern "C" {
     ///Change the `ipv6` field of this object.
     #[wasm_bindgen(method, setter = "ipv6")]
     pub fn set_ipv6(this: &NetworkDetails, val: String);
+    ///Get the `macAddress` field of this object.
+    #[wasm_bindgen(method, getter = "macAddress")]
+    pub fn get_mac_address(this: &NetworkDetails) -> String;
+    ///Change the `macAddress` field of this object.
+    #[wasm_bindgen(method, setter = "macAddress")]
+    pub fn set_mac_address(this: &NetworkDetails, val: String);
 }
 impl NetworkDetails {
     ///Construct a new `NetworkDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_mac_address()` instead."]
-    pub fn mac_address(&mut self, val: String) -> &mut Self {
-        self.set_mac_address(val);
-        self
     }
     #[deprecated = "Use `set_ipv4()` instead."]
     pub fn ipv4(&mut self, val: String) -> &mut Self {
@@ -47,6 +44,11 @@ impl NetworkDetails {
     #[deprecated = "Use `set_ipv6()` instead."]
     pub fn ipv6(&mut self, val: String) -> &mut Self {
         self.set_ipv6(val);
+        self
+    }
+    #[deprecated = "Use `set_mac_address()` instead."]
+    pub fn mac_address(&mut self, val: String) -> &mut Self {
+        self.set_mac_address(val);
         self
     }
 }

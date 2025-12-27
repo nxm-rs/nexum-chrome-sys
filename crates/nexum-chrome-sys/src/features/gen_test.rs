@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     ///Gives configuration options set by the test.
@@ -48,10 +48,18 @@ extern "C" {
     pub fn check_deep_eq(expected: Option<JsValue>, actual: Option<JsValue>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertEq")]
-    pub fn assert_eq(expected: Option<JsValue>, actual: Option<JsValue>, message: Option<String>);
+    pub fn assert_eq(
+        expected: Option<JsValue>,
+        actual: Option<JsValue>,
+        message: Option<String>,
+    );
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertNe")]
-    pub fn assert_ne(expected: Option<JsValue>, actual: Option<JsValue>, message: Option<String>);
+    pub fn assert_ne(
+        expected: Option<JsValue>,
+        actual: Option<JsValue>,
+        message: Option<String>,
+    );
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertNoLastError")]
     pub fn assert_no_last_error();

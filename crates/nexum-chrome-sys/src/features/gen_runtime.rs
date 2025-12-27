@@ -1,63 +1,65 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Port")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object which allows two way communication with other pages. See Long-lived connections for more information.
     pub type Port;
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &Port) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &Port, val: String);
-    ///Get the `sender` field of this object.
-    #[wasm_bindgen(method, getter = "sender")]
-    pub fn get_sender(this: &Port) -> Option<MessageSender>;
-    ///Change the `sender` field of this object.
-    #[wasm_bindgen(method, setter = "sender")]
-    pub fn set_sender(this: &Port, val: &MessageSender);
     ///Get the `disconnect` field of this object.
     #[wasm_bindgen(method, getter = "disconnect")]
     pub fn get_disconnect(this: &Port) -> Function;
     ///Change the `disconnect` field of this object.
     #[wasm_bindgen(method, setter = "disconnect")]
     pub fn set_disconnect(this: &Port, val: &Function);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &Port) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &Port, val: String);
     ///Get the `postMessage` field of this object.
     #[wasm_bindgen(method, getter = "postMessage")]
     pub fn get_post_message(this: &Port) -> Function;
     ///Change the `postMessage` field of this object.
     #[wasm_bindgen(method, setter = "postMessage")]
     pub fn set_post_message(this: &Port, val: &Function);
+    ///Get the `sender` field of this object.
+    #[wasm_bindgen(method, getter = "sender")]
+    pub fn get_sender(this: &Port) -> Option<MessageSender>;
+    ///Change the `sender` field of this object.
+    #[wasm_bindgen(method, setter = "sender")]
+    pub fn set_sender(this: &Port, val: &MessageSender);
 }
 impl Port {
     ///Construct a new `Port`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
-        self
-    }
-    #[deprecated = "Use `set_sender()` instead."]
-    pub fn sender(&mut self, val: &MessageSender) -> &mut Self {
-        self.set_sender(val);
-        self
     }
     #[deprecated = "Use `set_disconnect()` instead."]
     pub fn disconnect(&mut self, val: &Function) -> &mut Self {
         self.set_disconnect(val);
         self
     }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
     #[deprecated = "Use `set_post_message()` instead."]
     pub fn post_message(&mut self, val: &Function) -> &mut Self {
         self.set_post_message(val);
+        self
+    }
+    #[deprecated = "Use `set_sender()` instead."]
+    pub fn sender(&mut self, val: &MessageSender) -> &mut Self {
+        self.set_sender(val);
         self
     }
 }
@@ -72,66 +74,54 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object containing information about the script context that sent a message or request.
     pub type MessageSender;
-    ///Get the `origin` field of this object.
-    #[wasm_bindgen(method, getter = "origin")]
-    pub fn get_origin(this: &MessageSender) -> Option<String>;
-    ///Change the `origin` field of this object.
-    #[wasm_bindgen(method, setter = "origin")]
-    pub fn set_origin(this: &MessageSender, val: String);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &MessageSender) -> Option<String>;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &MessageSender, val: String);
-    ///Get the `tlsChannelId` field of this object.
-    #[wasm_bindgen(method, getter = "tlsChannelId")]
-    pub fn get_tls_channel_id(this: &MessageSender) -> Option<String>;
-    ///Change the `tlsChannelId` field of this object.
-    #[wasm_bindgen(method, setter = "tlsChannelId")]
-    pub fn set_tls_channel_id(this: &MessageSender, val: String);
-    ///Get the `frameId` field of this object.
-    #[wasm_bindgen(method, getter = "frameId")]
-    pub fn get_frame_id(this: &MessageSender) -> Option<i32>;
-    ///Change the `frameId` field of this object.
-    #[wasm_bindgen(method, setter = "frameId")]
-    pub fn set_frame_id(this: &MessageSender, val: i32);
     ///Get the `documentId` field of this object.
     #[wasm_bindgen(method, getter = "documentId")]
     pub fn get_document_id(this: &MessageSender) -> Option<String>;
     ///Change the `documentId` field of this object.
     #[wasm_bindgen(method, setter = "documentId")]
     pub fn set_document_id(this: &MessageSender, val: String);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &MessageSender) -> Option<String>;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &MessageSender, val: String);
-    ///Get the `guestRenderFrameRoutingId` field of this object.
-    #[wasm_bindgen(method, getter = "guestRenderFrameRoutingId")]
-    pub fn get_guest_render_frame_routing_id(this: &MessageSender) -> Option<i32>;
-    ///Change the `guestRenderFrameRoutingId` field of this object.
-    #[wasm_bindgen(method, setter = "guestRenderFrameRoutingId")]
-    pub fn set_guest_render_frame_routing_id(this: &MessageSender, val: i32);
     ///Get the `documentLifecycle` field of this object.
     #[wasm_bindgen(method, getter = "documentLifecycle")]
     pub fn get_document_lifecycle(this: &MessageSender) -> Option<String>;
     ///Change the `documentLifecycle` field of this object.
     #[wasm_bindgen(method, setter = "documentLifecycle")]
     pub fn set_document_lifecycle(this: &MessageSender, val: String);
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &MessageSender) -> Option<i32>;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &MessageSender, val: i32);
     ///Get the `guestProcessId` field of this object.
     #[wasm_bindgen(method, getter = "guestProcessId")]
     pub fn get_guest_process_id(this: &MessageSender) -> Option<i32>;
     ///Change the `guestProcessId` field of this object.
     #[wasm_bindgen(method, setter = "guestProcessId")]
     pub fn set_guest_process_id(this: &MessageSender, val: i32);
+    ///Get the `guestRenderFrameRoutingId` field of this object.
+    #[wasm_bindgen(method, getter = "guestRenderFrameRoutingId")]
+    pub fn get_guest_render_frame_routing_id(this: &MessageSender) -> Option<i32>;
+    ///Change the `guestRenderFrameRoutingId` field of this object.
+    #[wasm_bindgen(method, setter = "guestRenderFrameRoutingId")]
+    pub fn set_guest_render_frame_routing_id(this: &MessageSender, val: i32);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &MessageSender) -> Option<String>;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &MessageSender, val: String);
     ///Get the `nativeApplication` field of this object.
     #[wasm_bindgen(method, getter = "nativeApplication")]
     pub fn get_native_application(this: &MessageSender) -> Option<String>;
     ///Change the `nativeApplication` field of this object.
     #[wasm_bindgen(method, setter = "nativeApplication")]
     pub fn set_native_application(this: &MessageSender, val: String);
+    ///Get the `origin` field of this object.
+    #[wasm_bindgen(method, getter = "origin")]
+    pub fn get_origin(this: &MessageSender) -> Option<String>;
+    ///Change the `origin` field of this object.
+    #[wasm_bindgen(method, setter = "origin")]
+    pub fn set_origin(this: &MessageSender, val: String);
     #[cfg(feature = "tabs")]
     ///Get the `tab` field of this object.
     #[wasm_bindgen(method, getter = "tab")]
@@ -140,47 +130,31 @@ extern "C" {
     ///Change the `tab` field of this object.
     #[wasm_bindgen(method, setter = "tab")]
     pub fn set_tab(this: &MessageSender, val: super::tabs::Tab);
+    ///Get the `tlsChannelId` field of this object.
+    #[wasm_bindgen(method, getter = "tlsChannelId")]
+    pub fn get_tls_channel_id(this: &MessageSender) -> Option<String>;
+    ///Change the `tlsChannelId` field of this object.
+    #[wasm_bindgen(method, setter = "tlsChannelId")]
+    pub fn set_tls_channel_id(this: &MessageSender, val: String);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &MessageSender) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &MessageSender, val: String);
 }
 impl MessageSender {
     ///Construct a new `MessageSender`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_origin()` instead."]
-    pub fn origin(&mut self, val: String) -> &mut Self {
-        self.set_origin(val);
-        self
-    }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_tls_channel_id()` instead."]
-    pub fn tls_channel_id(&mut self, val: String) -> &mut Self {
-        self.set_tls_channel_id(val);
-        self
-    }
-    #[deprecated = "Use `set_frame_id()` instead."]
-    pub fn frame_id(&mut self, val: i32) -> &mut Self {
-        self.set_frame_id(val);
-        self
     }
     #[deprecated = "Use `set_document_id()` instead."]
     pub fn document_id(&mut self, val: String) -> &mut Self {
         self.set_document_id(val);
-        self
-    }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: String) -> &mut Self {
-        self.set_id(val);
-        self
-    }
-    #[deprecated = "Use `set_guest_render_frame_routing_id()` instead."]
-    pub fn guest_render_frame_routing_id(&mut self, val: i32) -> &mut Self {
-        self.set_guest_render_frame_routing_id(val);
         self
     }
     #[deprecated = "Use `set_document_lifecycle()` instead."]
@@ -188,9 +162,24 @@ impl MessageSender {
         self.set_document_lifecycle(val);
         self
     }
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
+        self
+    }
     #[deprecated = "Use `set_guest_process_id()` instead."]
     pub fn guest_process_id(&mut self, val: i32) -> &mut Self {
         self.set_guest_process_id(val);
+        self
+    }
+    #[deprecated = "Use `set_guest_render_frame_routing_id()` instead."]
+    pub fn guest_render_frame_routing_id(&mut self, val: i32) -> &mut Self {
+        self.set_guest_render_frame_routing_id(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
         self
     }
     #[deprecated = "Use `set_native_application()` instead."]
@@ -198,10 +187,25 @@ impl MessageSender {
         self.set_native_application(val);
         self
     }
+    #[deprecated = "Use `set_origin()` instead."]
+    pub fn origin(&mut self, val: String) -> &mut Self {
+        self.set_origin(val);
+        self
+    }
     #[cfg(feature = "tabs")]
     #[deprecated = "Use `set_tab()` instead."]
     pub fn tab(&mut self, val: super::tabs::Tab) -> &mut Self {
         self.set_tab(val);
+        self
+    }
+    #[deprecated = "Use `set_tls_channel_id()` instead."]
+    pub fn tls_channel_id(&mut self, val: String) -> &mut Self {
+        self.set_tls_channel_id(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -290,7 +294,9 @@ impl PlatformInfo {
     ///Construct a new `PlatformInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_arch()` instead."]
@@ -372,30 +378,42 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///A context hosting extension content.
     pub type ExtensionContext;
-    ///Get the `windowId` field of this object.
-    #[wasm_bindgen(method, getter = "windowId")]
-    pub fn get_window_id(this: &ExtensionContext) -> i32;
-    ///Change the `windowId` field of this object.
-    #[wasm_bindgen(method, setter = "windowId")]
-    pub fn set_window_id(this: &ExtensionContext, val: i32);
-    ///Get the `documentUrl` field of this object.
-    #[wasm_bindgen(method, getter = "documentUrl")]
-    pub fn get_document_url(this: &ExtensionContext) -> Option<String>;
-    ///Change the `documentUrl` field of this object.
-    #[wasm_bindgen(method, setter = "documentUrl")]
-    pub fn set_document_url(this: &ExtensionContext, val: String);
     ///Get the `contextId` field of this object.
     #[wasm_bindgen(method, getter = "contextId")]
     pub fn get_context_id(this: &ExtensionContext) -> String;
     ///Change the `contextId` field of this object.
     #[wasm_bindgen(method, setter = "contextId")]
     pub fn set_context_id(this: &ExtensionContext, val: String);
+    ///Get the `contextType` field of this object.
+    #[wasm_bindgen(method, getter = "contextType")]
+    pub fn get_context_type(this: &ExtensionContext) -> ContextType;
+    ///Change the `contextType` field of this object.
+    #[wasm_bindgen(method, setter = "contextType")]
+    pub fn set_context_type(this: &ExtensionContext, val: ContextType);
+    ///Get the `documentId` field of this object.
+    #[wasm_bindgen(method, getter = "documentId")]
+    pub fn get_document_id(this: &ExtensionContext) -> Option<String>;
+    ///Change the `documentId` field of this object.
+    #[wasm_bindgen(method, setter = "documentId")]
+    pub fn set_document_id(this: &ExtensionContext, val: String);
     ///Get the `documentOrigin` field of this object.
     #[wasm_bindgen(method, getter = "documentOrigin")]
     pub fn get_document_origin(this: &ExtensionContext) -> Option<String>;
     ///Change the `documentOrigin` field of this object.
     #[wasm_bindgen(method, setter = "documentOrigin")]
     pub fn set_document_origin(this: &ExtensionContext, val: String);
+    ///Get the `documentUrl` field of this object.
+    #[wasm_bindgen(method, getter = "documentUrl")]
+    pub fn get_document_url(this: &ExtensionContext) -> Option<String>;
+    ///Change the `documentUrl` field of this object.
+    #[wasm_bindgen(method, setter = "documentUrl")]
+    pub fn set_document_url(this: &ExtensionContext, val: String);
+    ///Get the `frameId` field of this object.
+    #[wasm_bindgen(method, getter = "frameId")]
+    pub fn get_frame_id(this: &ExtensionContext) -> i32;
+    ///Change the `frameId` field of this object.
+    #[wasm_bindgen(method, setter = "frameId")]
+    pub fn set_frame_id(this: &ExtensionContext, val: i32);
     ///Get the `incognito` field of this object.
     #[wasm_bindgen(method, getter = "incognito")]
     pub fn get_incognito(this: &ExtensionContext) -> bool;
@@ -408,35 +426,40 @@ extern "C" {
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &ExtensionContext, val: i32);
-    ///Get the `contextType` field of this object.
-    #[wasm_bindgen(method, getter = "contextType")]
-    pub fn get_context_type(this: &ExtensionContext) -> ContextType;
-    ///Change the `contextType` field of this object.
-    #[wasm_bindgen(method, setter = "contextType")]
-    pub fn set_context_type(this: &ExtensionContext, val: ContextType);
-    ///Get the `frameId` field of this object.
-    #[wasm_bindgen(method, getter = "frameId")]
-    pub fn get_frame_id(this: &ExtensionContext) -> i32;
-    ///Change the `frameId` field of this object.
-    #[wasm_bindgen(method, setter = "frameId")]
-    pub fn set_frame_id(this: &ExtensionContext, val: i32);
-    ///Get the `documentId` field of this object.
-    #[wasm_bindgen(method, getter = "documentId")]
-    pub fn get_document_id(this: &ExtensionContext) -> Option<String>;
-    ///Change the `documentId` field of this object.
-    #[wasm_bindgen(method, setter = "documentId")]
-    pub fn set_document_id(this: &ExtensionContext, val: String);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &ExtensionContext) -> i32;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &ExtensionContext, val: i32);
 }
 impl ExtensionContext {
     ///Construct a new `ExtensionContext`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_window_id()` instead."]
-    pub fn window_id(&mut self, val: i32) -> &mut Self {
-        self.set_window_id(val);
+    #[deprecated = "Use `set_context_id()` instead."]
+    pub fn context_id(&mut self, val: String) -> &mut Self {
+        self.set_context_id(val);
+        self
+    }
+    #[deprecated = "Use `set_context_type()` instead."]
+    pub fn context_type(&mut self, val: ContextType) -> &mut Self {
+        self.set_context_type(val);
+        self
+    }
+    #[deprecated = "Use `set_document_id()` instead."]
+    pub fn document_id(&mut self, val: String) -> &mut Self {
+        self.set_document_id(val);
+        self
+    }
+    #[deprecated = "Use `set_document_origin()` instead."]
+    pub fn document_origin(&mut self, val: String) -> &mut Self {
+        self.set_document_origin(val);
         self
     }
     #[deprecated = "Use `set_document_url()` instead."]
@@ -444,14 +467,9 @@ impl ExtensionContext {
         self.set_document_url(val);
         self
     }
-    #[deprecated = "Use `set_context_id()` instead."]
-    pub fn context_id(&mut self, val: String) -> &mut Self {
-        self.set_context_id(val);
-        self
-    }
-    #[deprecated = "Use `set_document_origin()` instead."]
-    pub fn document_origin(&mut self, val: String) -> &mut Self {
-        self.set_document_origin(val);
+    #[deprecated = "Use `set_frame_id()` instead."]
+    pub fn frame_id(&mut self, val: i32) -> &mut Self {
+        self.set_frame_id(val);
         self
     }
     #[deprecated = "Use `set_incognito()` instead."]
@@ -464,19 +482,9 @@ impl ExtensionContext {
         self.set_tab_id(val);
         self
     }
-    #[deprecated = "Use `set_context_type()` instead."]
-    pub fn context_type(&mut self, val: ContextType) -> &mut Self {
-        self.set_context_type(val);
-        self
-    }
-    #[deprecated = "Use `set_frame_id()` instead."]
-    pub fn frame_id(&mut self, val: i32) -> &mut Self {
-        self.set_frame_id(val);
-        self
-    }
-    #[deprecated = "Use `set_document_id()` instead."]
-    pub fn document_id(&mut self, val: String) -> &mut Self {
-        self.set_document_id(val);
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
         self
     }
 }
@@ -491,6 +499,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///A filter to match against certain extension contexts. Matching contexts must match all specified filters; any filter that is not specified matches all available contexts. Thus, a filter of `{}` will match all available contexts.
     pub type ContextFilter;
+    ///Get the `contextIds` field of this object.
+    #[wasm_bindgen(method, getter = "contextIds")]
+    pub fn get_context_ids(this: &ContextFilter) -> Option<Array>;
+    ///Change the `contextIds` field of this object.
+    #[wasm_bindgen(method, setter = "contextIds")]
+    pub fn set_context_ids(this: &ContextFilter, val: &Array);
+    ///Get the `contextTypes` field of this object.
+    #[wasm_bindgen(method, getter = "contextTypes")]
+    pub fn get_context_types(this: &ContextFilter) -> Option<Array>;
+    ///Change the `contextTypes` field of this object.
+    #[wasm_bindgen(method, setter = "contextTypes")]
+    pub fn set_context_types(this: &ContextFilter, val: &Array);
     ///Get the `documentIds` field of this object.
     #[wasm_bindgen(method, getter = "documentIds")]
     pub fn get_document_ids(this: &ContextFilter) -> Option<Array>;
@@ -503,55 +523,55 @@ extern "C" {
     ///Change the `documentOrigins` field of this object.
     #[wasm_bindgen(method, setter = "documentOrigins")]
     pub fn set_document_origins(this: &ContextFilter, val: &Array);
-    ///Get the `tabIds` field of this object.
-    #[wasm_bindgen(method, getter = "tabIds")]
-    pub fn get_tab_ids(this: &ContextFilter) -> Option<Array>;
-    ///Change the `tabIds` field of this object.
-    #[wasm_bindgen(method, setter = "tabIds")]
-    pub fn set_tab_ids(this: &ContextFilter, val: &Array);
-    ///Get the `contextTypes` field of this object.
-    #[wasm_bindgen(method, getter = "contextTypes")]
-    pub fn get_context_types(this: &ContextFilter) -> Option<Array>;
-    ///Change the `contextTypes` field of this object.
-    #[wasm_bindgen(method, setter = "contextTypes")]
-    pub fn set_context_types(this: &ContextFilter, val: &Array);
-    ///Get the `frameIds` field of this object.
-    #[wasm_bindgen(method, getter = "frameIds")]
-    pub fn get_frame_ids(this: &ContextFilter) -> Option<Array>;
-    ///Change the `frameIds` field of this object.
-    #[wasm_bindgen(method, setter = "frameIds")]
-    pub fn set_frame_ids(this: &ContextFilter, val: &Array);
     ///Get the `documentUrls` field of this object.
     #[wasm_bindgen(method, getter = "documentUrls")]
     pub fn get_document_urls(this: &ContextFilter) -> Option<Array>;
     ///Change the `documentUrls` field of this object.
     #[wasm_bindgen(method, setter = "documentUrls")]
     pub fn set_document_urls(this: &ContextFilter, val: &Array);
+    ///Get the `frameIds` field of this object.
+    #[wasm_bindgen(method, getter = "frameIds")]
+    pub fn get_frame_ids(this: &ContextFilter) -> Option<Array>;
+    ///Change the `frameIds` field of this object.
+    #[wasm_bindgen(method, setter = "frameIds")]
+    pub fn set_frame_ids(this: &ContextFilter, val: &Array);
     ///Get the `incognito` field of this object.
     #[wasm_bindgen(method, getter = "incognito")]
     pub fn get_incognito(this: &ContextFilter) -> Option<bool>;
     ///Change the `incognito` field of this object.
     #[wasm_bindgen(method, setter = "incognito")]
     pub fn set_incognito(this: &ContextFilter, val: bool);
+    ///Get the `tabIds` field of this object.
+    #[wasm_bindgen(method, getter = "tabIds")]
+    pub fn get_tab_ids(this: &ContextFilter) -> Option<Array>;
+    ///Change the `tabIds` field of this object.
+    #[wasm_bindgen(method, setter = "tabIds")]
+    pub fn set_tab_ids(this: &ContextFilter, val: &Array);
     ///Get the `windowIds` field of this object.
     #[wasm_bindgen(method, getter = "windowIds")]
     pub fn get_window_ids(this: &ContextFilter) -> Option<Array>;
     ///Change the `windowIds` field of this object.
     #[wasm_bindgen(method, setter = "windowIds")]
     pub fn set_window_ids(this: &ContextFilter, val: &Array);
-    ///Get the `contextIds` field of this object.
-    #[wasm_bindgen(method, getter = "contextIds")]
-    pub fn get_context_ids(this: &ContextFilter) -> Option<Array>;
-    ///Change the `contextIds` field of this object.
-    #[wasm_bindgen(method, setter = "contextIds")]
-    pub fn set_context_ids(this: &ContextFilter, val: &Array);
 }
 impl ContextFilter {
     ///Construct a new `ContextFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_context_ids()` instead."]
+    pub fn context_ids(&mut self, val: &Array) -> &mut Self {
+        self.set_context_ids(val);
+        self
+    }
+    #[deprecated = "Use `set_context_types()` instead."]
+    pub fn context_types(&mut self, val: &Array) -> &mut Self {
+        self.set_context_types(val);
+        self
     }
     #[deprecated = "Use `set_document_ids()` instead."]
     pub fn document_ids(&mut self, val: &Array) -> &mut Self {
@@ -563,14 +583,9 @@ impl ContextFilter {
         self.set_document_origins(val);
         self
     }
-    #[deprecated = "Use `set_tab_ids()` instead."]
-    pub fn tab_ids(&mut self, val: &Array) -> &mut Self {
-        self.set_tab_ids(val);
-        self
-    }
-    #[deprecated = "Use `set_context_types()` instead."]
-    pub fn context_types(&mut self, val: &Array) -> &mut Self {
-        self.set_context_types(val);
+    #[deprecated = "Use `set_document_urls()` instead."]
+    pub fn document_urls(&mut self, val: &Array) -> &mut Self {
+        self.set_document_urls(val);
         self
     }
     #[deprecated = "Use `set_frame_ids()` instead."]
@@ -578,24 +593,19 @@ impl ContextFilter {
         self.set_frame_ids(val);
         self
     }
-    #[deprecated = "Use `set_document_urls()` instead."]
-    pub fn document_urls(&mut self, val: &Array) -> &mut Self {
-        self.set_document_urls(val);
-        self
-    }
     #[deprecated = "Use `set_incognito()` instead."]
     pub fn incognito(&mut self, val: bool) -> &mut Self {
         self.set_incognito(val);
         self
     }
+    #[deprecated = "Use `set_tab_ids()` instead."]
+    pub fn tab_ids(&mut self, val: &Array) -> &mut Self {
+        self.set_tab_ids(val);
+        self
+    }
     #[deprecated = "Use `set_window_ids()` instead."]
     pub fn window_ids(&mut self, val: &Array) -> &mut Self {
         self.set_window_ids(val);
-        self
-    }
-    #[deprecated = "Use `set_context_ids()` instead."]
-    pub fn context_ids(&mut self, val: &Array) -> &mut Self {
-        self.set_context_ids(val);
         self
     }
 }

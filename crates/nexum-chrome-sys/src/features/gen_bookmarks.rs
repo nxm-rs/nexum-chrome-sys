@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Indicates the type of folder.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -27,60 +27,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder.
     pub type BookmarkTreeNode;
-    ///Get the `parentId` field of this object.
-    #[wasm_bindgen(method, getter = "parentId")]
-    pub fn get_parent_id(this: &BookmarkTreeNode) -> Option<String>;
-    ///Change the `parentId` field of this object.
-    #[wasm_bindgen(method, setter = "parentId")]
-    pub fn set_parent_id(this: &BookmarkTreeNode, val: String);
-    ///Get the `dateLastUsed` field of this object.
-    #[wasm_bindgen(method, getter = "dateLastUsed")]
-    pub fn get_date_last_used(this: &BookmarkTreeNode) -> Option<f64>;
-    ///Change the `dateLastUsed` field of this object.
-    #[wasm_bindgen(method, setter = "dateLastUsed")]
-    pub fn set_date_last_used(this: &BookmarkTreeNode, val: f64);
-    ///Get the `folderType` field of this object.
-    #[wasm_bindgen(method, getter = "folderType")]
-    pub fn get_folder_type(this: &BookmarkTreeNode) -> Option<FolderType>;
-    ///Change the `folderType` field of this object.
-    #[wasm_bindgen(method, setter = "folderType")]
-    pub fn set_folder_type(this: &BookmarkTreeNode, val: FolderType);
-    ///Get the `syncing` field of this object.
-    #[wasm_bindgen(method, getter = "syncing")]
-    pub fn get_syncing(this: &BookmarkTreeNode) -> bool;
-    ///Change the `syncing` field of this object.
-    #[wasm_bindgen(method, setter = "syncing")]
-    pub fn set_syncing(this: &BookmarkTreeNode, val: bool);
     ///Get the `children` field of this object.
     #[wasm_bindgen(method, getter = "children")]
     pub fn get_children(this: &BookmarkTreeNode) -> Option<Array>;
     ///Change the `children` field of this object.
     #[wasm_bindgen(method, setter = "children")]
     pub fn set_children(this: &BookmarkTreeNode, val: &Array);
-    ///Get the `unmodifiable` field of this object.
-    #[wasm_bindgen(method, getter = "unmodifiable")]
-    pub fn get_unmodifiable(this: &BookmarkTreeNode) -> Option<BookmarkTreeNodeUnmodifiable>;
-    ///Change the `unmodifiable` field of this object.
-    #[wasm_bindgen(method, setter = "unmodifiable")]
-    pub fn set_unmodifiable(this: &BookmarkTreeNode, val: BookmarkTreeNodeUnmodifiable);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &BookmarkTreeNode) -> Option<String>;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &BookmarkTreeNode, val: String);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &BookmarkTreeNode) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &BookmarkTreeNode, val: String);
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &BookmarkTreeNode) -> String;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &BookmarkTreeNode, val: String);
     ///Get the `dateAdded` field of this object.
     #[wasm_bindgen(method, getter = "dateAdded")]
     pub fn get_date_added(this: &BookmarkTreeNode) -> Option<f64>;
@@ -93,63 +45,75 @@ extern "C" {
     ///Change the `dateGroupModified` field of this object.
     #[wasm_bindgen(method, setter = "dateGroupModified")]
     pub fn set_date_group_modified(this: &BookmarkTreeNode, val: f64);
+    ///Get the `dateLastUsed` field of this object.
+    #[wasm_bindgen(method, getter = "dateLastUsed")]
+    pub fn get_date_last_used(this: &BookmarkTreeNode) -> Option<f64>;
+    ///Change the `dateLastUsed` field of this object.
+    #[wasm_bindgen(method, setter = "dateLastUsed")]
+    pub fn set_date_last_used(this: &BookmarkTreeNode, val: f64);
+    ///Get the `folderType` field of this object.
+    #[wasm_bindgen(method, getter = "folderType")]
+    pub fn get_folder_type(this: &BookmarkTreeNode) -> Option<FolderType>;
+    ///Change the `folderType` field of this object.
+    #[wasm_bindgen(method, setter = "folderType")]
+    pub fn set_folder_type(this: &BookmarkTreeNode, val: FolderType);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &BookmarkTreeNode) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &BookmarkTreeNode, val: String);
     ///Get the `index` field of this object.
     #[wasm_bindgen(method, getter = "index")]
     pub fn get_index(this: &BookmarkTreeNode) -> Option<i32>;
     ///Change the `index` field of this object.
     #[wasm_bindgen(method, setter = "index")]
     pub fn set_index(this: &BookmarkTreeNode, val: i32);
+    ///Get the `parentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentId")]
+    pub fn get_parent_id(this: &BookmarkTreeNode) -> Option<String>;
+    ///Change the `parentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentId")]
+    pub fn set_parent_id(this: &BookmarkTreeNode, val: String);
+    ///Get the `syncing` field of this object.
+    #[wasm_bindgen(method, getter = "syncing")]
+    pub fn get_syncing(this: &BookmarkTreeNode) -> bool;
+    ///Change the `syncing` field of this object.
+    #[wasm_bindgen(method, setter = "syncing")]
+    pub fn set_syncing(this: &BookmarkTreeNode, val: bool);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &BookmarkTreeNode) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &BookmarkTreeNode, val: String);
+    ///Get the `unmodifiable` field of this object.
+    #[wasm_bindgen(method, getter = "unmodifiable")]
+    pub fn get_unmodifiable(
+        this: &BookmarkTreeNode,
+    ) -> Option<BookmarkTreeNodeUnmodifiable>;
+    ///Change the `unmodifiable` field of this object.
+    #[wasm_bindgen(method, setter = "unmodifiable")]
+    pub fn set_unmodifiable(this: &BookmarkTreeNode, val: BookmarkTreeNodeUnmodifiable);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &BookmarkTreeNode) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &BookmarkTreeNode, val: String);
 }
 impl BookmarkTreeNode {
     ///Construct a new `BookmarkTreeNode`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_parent_id()` instead."]
-    pub fn parent_id(&mut self, val: String) -> &mut Self {
-        self.set_parent_id(val);
-        self
-    }
-    #[deprecated = "Use `set_date_last_used()` instead."]
-    pub fn date_last_used(&mut self, val: f64) -> &mut Self {
-        self.set_date_last_used(val);
-        self
-    }
-    #[deprecated = "Use `set_folder_type()` instead."]
-    pub fn folder_type(&mut self, val: FolderType) -> &mut Self {
-        self.set_folder_type(val);
-        self
-    }
-    #[deprecated = "Use `set_syncing()` instead."]
-    pub fn syncing(&mut self, val: bool) -> &mut Self {
-        self.set_syncing(val);
-        self
     }
     #[deprecated = "Use `set_children()` instead."]
     pub fn children(&mut self, val: &Array) -> &mut Self {
         self.set_children(val);
-        self
-    }
-    #[deprecated = "Use `set_unmodifiable()` instead."]
-    pub fn unmodifiable(&mut self, val: BookmarkTreeNodeUnmodifiable) -> &mut Self {
-        self.set_unmodifiable(val);
-        self
-    }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: String) -> &mut Self {
-        self.set_id(val);
-        self
-    }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
         self
     }
     #[deprecated = "Use `set_date_added()` instead."]
@@ -162,9 +126,49 @@ impl BookmarkTreeNode {
         self.set_date_group_modified(val);
         self
     }
+    #[deprecated = "Use `set_date_last_used()` instead."]
+    pub fn date_last_used(&mut self, val: f64) -> &mut Self {
+        self.set_date_last_used(val);
+        self
+    }
+    #[deprecated = "Use `set_folder_type()` instead."]
+    pub fn folder_type(&mut self, val: FolderType) -> &mut Self {
+        self.set_folder_type(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
+        self
+    }
     #[deprecated = "Use `set_index()` instead."]
     pub fn index(&mut self, val: i32) -> &mut Self {
         self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_id()` instead."]
+    pub fn parent_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_id(val);
+        self
+    }
+    #[deprecated = "Use `set_syncing()` instead."]
+    pub fn syncing(&mut self, val: bool) -> &mut Self {
+        self.set_syncing(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
+        self
+    }
+    #[deprecated = "Use `set_unmodifiable()` instead."]
+    pub fn unmodifiable(&mut self, val: BookmarkTreeNodeUnmodifiable) -> &mut Self {
+        self.set_unmodifiable(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -185,6 +189,12 @@ extern "C" {
     ///Change the `index` field of this object.
     #[wasm_bindgen(method, setter = "index")]
     pub fn set_index(this: &CreateDetails, val: i32);
+    ///Get the `parentId` field of this object.
+    #[wasm_bindgen(method, getter = "parentId")]
+    pub fn get_parent_id(this: &CreateDetails) -> Option<String>;
+    ///Change the `parentId` field of this object.
+    #[wasm_bindgen(method, setter = "parentId")]
+    pub fn set_parent_id(this: &CreateDetails, val: String);
     ///Get the `title` field of this object.
     #[wasm_bindgen(method, getter = "title")]
     pub fn get_title(this: &CreateDetails) -> Option<String>;
@@ -197,23 +207,24 @@ extern "C" {
     ///Change the `url` field of this object.
     #[wasm_bindgen(method, setter = "url")]
     pub fn set_url(this: &CreateDetails, val: String);
-    ///Get the `parentId` field of this object.
-    #[wasm_bindgen(method, getter = "parentId")]
-    pub fn get_parent_id(this: &CreateDetails) -> Option<String>;
-    ///Change the `parentId` field of this object.
-    #[wasm_bindgen(method, setter = "parentId")]
-    pub fn set_parent_id(this: &CreateDetails, val: String);
 }
 impl CreateDetails {
     ///Construct a new `CreateDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_index()` instead."]
     pub fn index(&mut self, val: i32) -> &mut Self {
         self.set_index(val);
+        self
+    }
+    #[deprecated = "Use `set_parent_id()` instead."]
+    pub fn parent_id(&mut self, val: String) -> &mut Self {
+        self.set_parent_id(val);
         self
     }
     #[deprecated = "Use `set_title()` instead."]
@@ -224,11 +235,6 @@ impl CreateDetails {
     #[deprecated = "Use `set_url()` instead."]
     pub fn url(&mut self, val: String) -> &mut Self {
         self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_parent_id()` instead."]
-    pub fn parent_id(&mut self, val: String) -> &mut Self {
-        self.set_parent_id(val);
         self
     }
 }

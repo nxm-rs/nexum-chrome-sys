@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///The source of the print job.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -61,12 +61,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type MediaSize;
-    ///Get the `width` field of this object.
-    #[wasm_bindgen(method, getter = "width")]
-    pub fn get_width(this: &MediaSize) -> i32;
-    ///Change the `width` field of this object.
-    #[wasm_bindgen(method, setter = "width")]
-    pub fn set_width(this: &MediaSize, val: i32);
     ///Get the `height` field of this object.
     #[wasm_bindgen(method, getter = "height")]
     pub fn get_height(this: &MediaSize) -> i32;
@@ -79,18 +73,21 @@ extern "C" {
     ///Change the `vendorId` field of this object.
     #[wasm_bindgen(method, setter = "vendorId")]
     pub fn set_vendor_id(this: &MediaSize, val: String);
+    ///Get the `width` field of this object.
+    #[wasm_bindgen(method, getter = "width")]
+    pub fn get_width(this: &MediaSize) -> i32;
+    ///Change the `width` field of this object.
+    #[wasm_bindgen(method, setter = "width")]
+    pub fn set_width(this: &MediaSize, val: i32);
 }
 impl MediaSize {
     ///Construct a new `MediaSize`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_width()` instead."]
-    pub fn width(&mut self, val: i32) -> &mut Self {
-        self.set_width(val);
-        self
     }
     #[deprecated = "Use `set_height()` instead."]
     pub fn height(&mut self, val: i32) -> &mut Self {
@@ -100,6 +97,11 @@ impl MediaSize {
     #[deprecated = "Use `set_vendor_id()` instead."]
     pub fn vendor_id(&mut self, val: String) -> &mut Self {
         self.set_vendor_id(val);
+        self
+    }
+    #[deprecated = "Use `set_width()` instead."]
+    pub fn width(&mut self, val: i32) -> &mut Self {
+        self.set_width(val);
         self
     }
 }
@@ -120,30 +122,32 @@ extern "C" {
     ///Change the `color` field of this object.
     #[wasm_bindgen(method, setter = "color")]
     pub fn set_color(this: &PrintSettings, val: ColorMode);
-    ///Get the `mediaSize` field of this object.
-    #[wasm_bindgen(method, getter = "mediaSize")]
-    pub fn get_media_size(this: &PrintSettings) -> MediaSize;
-    ///Change the `mediaSize` field of this object.
-    #[wasm_bindgen(method, setter = "mediaSize")]
-    pub fn set_media_size(this: &PrintSettings, val: &MediaSize);
-    ///Get the `duplex` field of this object.
-    #[wasm_bindgen(method, getter = "duplex")]
-    pub fn get_duplex(this: &PrintSettings) -> DuplexMode;
-    ///Change the `duplex` field of this object.
-    #[wasm_bindgen(method, setter = "duplex")]
-    pub fn set_duplex(this: &PrintSettings, val: DuplexMode);
     ///Get the `copies` field of this object.
     #[wasm_bindgen(method, getter = "copies")]
     pub fn get_copies(this: &PrintSettings) -> i32;
     ///Change the `copies` field of this object.
     #[wasm_bindgen(method, setter = "copies")]
     pub fn set_copies(this: &PrintSettings, val: i32);
+    ///Get the `duplex` field of this object.
+    #[wasm_bindgen(method, getter = "duplex")]
+    pub fn get_duplex(this: &PrintSettings) -> DuplexMode;
+    ///Change the `duplex` field of this object.
+    #[wasm_bindgen(method, setter = "duplex")]
+    pub fn set_duplex(this: &PrintSettings, val: DuplexMode);
+    ///Get the `mediaSize` field of this object.
+    #[wasm_bindgen(method, getter = "mediaSize")]
+    pub fn get_media_size(this: &PrintSettings) -> MediaSize;
+    ///Change the `mediaSize` field of this object.
+    #[wasm_bindgen(method, setter = "mediaSize")]
+    pub fn set_media_size(this: &PrintSettings, val: &MediaSize);
 }
 impl PrintSettings {
     ///Construct a new `PrintSettings`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_color()` instead."]
@@ -151,9 +155,9 @@ impl PrintSettings {
         self.set_color(val);
         self
     }
-    #[deprecated = "Use `set_media_size()` instead."]
-    pub fn media_size(&mut self, val: &MediaSize) -> &mut Self {
-        self.set_media_size(val);
+    #[deprecated = "Use `set_copies()` instead."]
+    pub fn copies(&mut self, val: i32) -> &mut Self {
+        self.set_copies(val);
         self
     }
     #[deprecated = "Use `set_duplex()` instead."]
@@ -161,9 +165,9 @@ impl PrintSettings {
         self.set_duplex(val);
         self
     }
-    #[deprecated = "Use `set_copies()` instead."]
-    pub fn copies(&mut self, val: i32) -> &mut Self {
-        self.set_copies(val);
+    #[deprecated = "Use `set_media_size()` instead."]
+    pub fn media_size(&mut self, val: &MediaSize) -> &mut Self {
+        self.set_media_size(val);
         self
     }
 }
@@ -178,18 +182,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Printer;
-    ///Get the `source` field of this object.
-    #[wasm_bindgen(method, getter = "source")]
-    pub fn get_source(this: &Printer) -> PrinterSource;
-    ///Change the `source` field of this object.
-    #[wasm_bindgen(method, setter = "source")]
-    pub fn set_source(this: &Printer, val: PrinterSource);
     ///Get the `name` field of this object.
     #[wasm_bindgen(method, getter = "name")]
     pub fn get_name(this: &Printer) -> String;
     ///Change the `name` field of this object.
     #[wasm_bindgen(method, setter = "name")]
     pub fn set_name(this: &Printer, val: String);
+    ///Get the `source` field of this object.
+    #[wasm_bindgen(method, getter = "source")]
+    pub fn get_source(this: &Printer) -> PrinterSource;
+    ///Change the `source` field of this object.
+    #[wasm_bindgen(method, setter = "source")]
+    pub fn set_source(this: &Printer, val: PrinterSource);
     ///Get the `uri` field of this object.
     #[wasm_bindgen(method, getter = "uri")]
     pub fn get_uri(this: &Printer) -> String;
@@ -201,17 +205,19 @@ impl Printer {
     ///Construct a new `Printer`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_source()` instead."]
-    pub fn source(&mut self, val: PrinterSource) -> &mut Self {
-        self.set_source(val);
-        self
     }
     #[deprecated = "Use `set_name()` instead."]
     pub fn name(&mut self, val: String) -> &mut Self {
         self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_source()` instead."]
+    pub fn source(&mut self, val: PrinterSource) -> &mut Self {
+        self.set_source(val);
         self
     }
     #[deprecated = "Use `set_uri()` instead."]
@@ -231,36 +237,30 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type PrintJobInfo;
-    ///Get the `status` field of this object.
-    #[wasm_bindgen(method, getter = "status")]
-    pub fn get_status(this: &PrintJobInfo) -> PrintJobStatus;
-    ///Change the `status` field of this object.
-    #[wasm_bindgen(method, setter = "status")]
-    pub fn set_status(this: &PrintJobInfo, val: PrintJobStatus);
-    ///Get the `source` field of this object.
-    #[wasm_bindgen(method, getter = "source")]
-    pub fn get_source(this: &PrintJobInfo) -> PrintJobSource;
-    ///Change the `source` field of this object.
-    #[wasm_bindgen(method, setter = "source")]
-    pub fn set_source(this: &PrintJobInfo, val: PrintJobSource);
-    ///Get the `settings` field of this object.
-    #[wasm_bindgen(method, getter = "settings")]
-    pub fn get_settings(this: &PrintJobInfo) -> PrintSettings;
-    ///Change the `settings` field of this object.
-    #[wasm_bindgen(method, setter = "settings")]
-    pub fn set_settings(this: &PrintJobInfo, val: &PrintSettings);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &PrintJobInfo) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &PrintJobInfo, val: String);
+    ///Get the `completionTime` field of this object.
+    #[wasm_bindgen(method, getter = "completionTime")]
+    pub fn get_completion_time(this: &PrintJobInfo) -> f64;
+    ///Change the `completionTime` field of this object.
+    #[wasm_bindgen(method, setter = "completionTime")]
+    pub fn set_completion_time(this: &PrintJobInfo, val: f64);
     ///Get the `creationTime` field of this object.
     #[wasm_bindgen(method, getter = "creationTime")]
     pub fn get_creation_time(this: &PrintJobInfo) -> f64;
     ///Change the `creationTime` field of this object.
     #[wasm_bindgen(method, setter = "creationTime")]
     pub fn set_creation_time(this: &PrintJobInfo, val: f64);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &PrintJobInfo) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &PrintJobInfo, val: String);
+    ///Get the `numberOfPages` field of this object.
+    #[wasm_bindgen(method, getter = "numberOfPages")]
+    pub fn get_number_of_pages(this: &PrintJobInfo) -> i32;
+    ///Change the `numberOfPages` field of this object.
+    #[wasm_bindgen(method, setter = "numberOfPages")]
+    pub fn set_number_of_pages(this: &PrintJobInfo, val: i32);
     ///Get the `printer` field of this object.
     #[wasm_bindgen(method, getter = "printer")]
     pub fn get_printer(this: &PrintJobInfo) -> Printer;
@@ -275,51 +275,54 @@ extern "C" {
     ///Change the `printer_status` field of this object.
     #[wasm_bindgen(method, setter = "printer_status")]
     pub fn set_printer_status(this: &PrintJobInfo, val: super::printing::PrinterStatus);
+    ///Get the `settings` field of this object.
+    #[wasm_bindgen(method, getter = "settings")]
+    pub fn get_settings(this: &PrintJobInfo) -> PrintSettings;
+    ///Change the `settings` field of this object.
+    #[wasm_bindgen(method, setter = "settings")]
+    pub fn set_settings(this: &PrintJobInfo, val: &PrintSettings);
+    ///Get the `source` field of this object.
+    #[wasm_bindgen(method, getter = "source")]
+    pub fn get_source(this: &PrintJobInfo) -> PrintJobSource;
+    ///Change the `source` field of this object.
+    #[wasm_bindgen(method, setter = "source")]
+    pub fn set_source(this: &PrintJobInfo, val: PrintJobSource);
     ///Get the `sourceId` field of this object.
     #[wasm_bindgen(method, getter = "sourceId")]
     pub fn get_source_id(this: &PrintJobInfo) -> Option<String>;
     ///Change the `sourceId` field of this object.
     #[wasm_bindgen(method, setter = "sourceId")]
     pub fn set_source_id(this: &PrintJobInfo, val: String);
-    ///Get the `numberOfPages` field of this object.
-    #[wasm_bindgen(method, getter = "numberOfPages")]
-    pub fn get_number_of_pages(this: &PrintJobInfo) -> i32;
-    ///Change the `numberOfPages` field of this object.
-    #[wasm_bindgen(method, setter = "numberOfPages")]
-    pub fn set_number_of_pages(this: &PrintJobInfo, val: i32);
+    ///Get the `status` field of this object.
+    #[wasm_bindgen(method, getter = "status")]
+    pub fn get_status(this: &PrintJobInfo) -> PrintJobStatus;
+    ///Change the `status` field of this object.
+    #[wasm_bindgen(method, setter = "status")]
+    pub fn set_status(this: &PrintJobInfo, val: PrintJobStatus);
     ///Get the `title` field of this object.
     #[wasm_bindgen(method, getter = "title")]
     pub fn get_title(this: &PrintJobInfo) -> String;
     ///Change the `title` field of this object.
     #[wasm_bindgen(method, setter = "title")]
     pub fn set_title(this: &PrintJobInfo, val: String);
-    ///Get the `completionTime` field of this object.
-    #[wasm_bindgen(method, getter = "completionTime")]
-    pub fn get_completion_time(this: &PrintJobInfo) -> f64;
-    ///Change the `completionTime` field of this object.
-    #[wasm_bindgen(method, setter = "completionTime")]
-    pub fn set_completion_time(this: &PrintJobInfo, val: f64);
 }
 impl PrintJobInfo {
     ///Construct a new `PrintJobInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_status()` instead."]
-    pub fn status(&mut self, val: PrintJobStatus) -> &mut Self {
-        self.set_status(val);
+    #[deprecated = "Use `set_completion_time()` instead."]
+    pub fn completion_time(&mut self, val: f64) -> &mut Self {
+        self.set_completion_time(val);
         self
     }
-    #[deprecated = "Use `set_source()` instead."]
-    pub fn source(&mut self, val: PrintJobSource) -> &mut Self {
-        self.set_source(val);
-        self
-    }
-    #[deprecated = "Use `set_settings()` instead."]
-    pub fn settings(&mut self, val: &PrintSettings) -> &mut Self {
-        self.set_settings(val);
+    #[deprecated = "Use `set_creation_time()` instead."]
+    pub fn creation_time(&mut self, val: f64) -> &mut Self {
+        self.set_creation_time(val);
         self
     }
     #[deprecated = "Use `set_id()` instead."]
@@ -327,9 +330,9 @@ impl PrintJobInfo {
         self.set_id(val);
         self
     }
-    #[deprecated = "Use `set_creation_time()` instead."]
-    pub fn creation_time(&mut self, val: f64) -> &mut Self {
-        self.set_creation_time(val);
+    #[deprecated = "Use `set_number_of_pages()` instead."]
+    pub fn number_of_pages(&mut self, val: i32) -> &mut Self {
+        self.set_number_of_pages(val);
         self
     }
     #[deprecated = "Use `set_printer()` instead."]
@@ -343,24 +346,29 @@ impl PrintJobInfo {
         self.set_printer_status(val);
         self
     }
+    #[deprecated = "Use `set_settings()` instead."]
+    pub fn settings(&mut self, val: &PrintSettings) -> &mut Self {
+        self.set_settings(val);
+        self
+    }
+    #[deprecated = "Use `set_source()` instead."]
+    pub fn source(&mut self, val: PrintJobSource) -> &mut Self {
+        self.set_source(val);
+        self
+    }
     #[deprecated = "Use `set_source_id()` instead."]
     pub fn source_id(&mut self, val: String) -> &mut Self {
         self.set_source_id(val);
         self
     }
-    #[deprecated = "Use `set_number_of_pages()` instead."]
-    pub fn number_of_pages(&mut self, val: i32) -> &mut Self {
-        self.set_number_of_pages(val);
+    #[deprecated = "Use `set_status()` instead."]
+    pub fn status(&mut self, val: PrintJobStatus) -> &mut Self {
+        self.set_status(val);
         self
     }
     #[deprecated = "Use `set_title()` instead."]
     pub fn title(&mut self, val: String) -> &mut Self {
         self.set_title(val);
-        self
-    }
-    #[deprecated = "Use `set_completion_time()` instead."]
-    pub fn completion_time(&mut self, val: f64) -> &mut Self {
-        self.set_completion_time(val);
         self
     }
 }

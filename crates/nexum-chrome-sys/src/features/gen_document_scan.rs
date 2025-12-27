@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ScanOptions")]
@@ -25,7 +25,9 @@ impl ScanOptions {
     ///Construct a new `ScanOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_max_images()` instead."]
@@ -67,7 +69,9 @@ impl ScanResults {
     ///Construct a new `ScanResults`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_data_urls()` instead."]
@@ -139,91 +143,73 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ScannerInfo;
-    ///Get the `secure` field of this object.
-    #[wasm_bindgen(method, getter = "secure")]
-    pub fn get_secure(this: &ScannerInfo) -> bool;
-    ///Change the `secure` field of this object.
-    #[wasm_bindgen(method, setter = "secure")]
-    pub fn set_secure(this: &ScannerInfo, val: bool);
-    ///Get the `protocolType` field of this object.
-    #[wasm_bindgen(method, getter = "protocolType")]
-    pub fn get_protocol_type(this: &ScannerInfo) -> String;
-    ///Change the `protocolType` field of this object.
-    #[wasm_bindgen(method, setter = "protocolType")]
-    pub fn set_protocol_type(this: &ScannerInfo, val: String);
     ///Get the `connectionType` field of this object.
     #[wasm_bindgen(method, getter = "connectionType")]
     pub fn get_connection_type(this: &ScannerInfo) -> ConnectionType;
     ///Change the `connectionType` field of this object.
     #[wasm_bindgen(method, setter = "connectionType")]
     pub fn set_connection_type(this: &ScannerInfo, val: ConnectionType);
-    ///Get the `manufacturer` field of this object.
-    #[wasm_bindgen(method, getter = "manufacturer")]
-    pub fn get_manufacturer(this: &ScannerInfo) -> String;
-    ///Change the `manufacturer` field of this object.
-    #[wasm_bindgen(method, setter = "manufacturer")]
-    pub fn set_manufacturer(this: &ScannerInfo, val: String);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &ScannerInfo) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &ScannerInfo, val: String);
     ///Get the `deviceUuid` field of this object.
     #[wasm_bindgen(method, getter = "deviceUuid")]
     pub fn get_device_uuid(this: &ScannerInfo) -> String;
     ///Change the `deviceUuid` field of this object.
     #[wasm_bindgen(method, setter = "deviceUuid")]
     pub fn set_device_uuid(this: &ScannerInfo, val: String);
-    ///Get the `model` field of this object.
-    #[wasm_bindgen(method, getter = "model")]
-    pub fn get_model(this: &ScannerInfo) -> String;
-    ///Change the `model` field of this object.
-    #[wasm_bindgen(method, setter = "model")]
-    pub fn set_model(this: &ScannerInfo, val: String);
     ///Get the `imageFormats` field of this object.
     #[wasm_bindgen(method, getter = "imageFormats")]
     pub fn get_image_formats(this: &ScannerInfo) -> Array;
     ///Change the `imageFormats` field of this object.
     #[wasm_bindgen(method, setter = "imageFormats")]
     pub fn set_image_formats(this: &ScannerInfo, val: &Array);
+    ///Get the `manufacturer` field of this object.
+    #[wasm_bindgen(method, getter = "manufacturer")]
+    pub fn get_manufacturer(this: &ScannerInfo) -> String;
+    ///Change the `manufacturer` field of this object.
+    #[wasm_bindgen(method, setter = "manufacturer")]
+    pub fn set_manufacturer(this: &ScannerInfo, val: String);
+    ///Get the `model` field of this object.
+    #[wasm_bindgen(method, getter = "model")]
+    pub fn get_model(this: &ScannerInfo) -> String;
+    ///Change the `model` field of this object.
+    #[wasm_bindgen(method, setter = "model")]
+    pub fn set_model(this: &ScannerInfo, val: String);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &ScannerInfo) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &ScannerInfo, val: String);
+    ///Get the `protocolType` field of this object.
+    #[wasm_bindgen(method, getter = "protocolType")]
+    pub fn get_protocol_type(this: &ScannerInfo) -> String;
+    ///Change the `protocolType` field of this object.
+    #[wasm_bindgen(method, setter = "protocolType")]
+    pub fn set_protocol_type(this: &ScannerInfo, val: String);
     ///Get the `scannerId` field of this object.
     #[wasm_bindgen(method, getter = "scannerId")]
     pub fn get_scanner_id(this: &ScannerInfo) -> String;
     ///Change the `scannerId` field of this object.
     #[wasm_bindgen(method, setter = "scannerId")]
     pub fn set_scanner_id(this: &ScannerInfo, val: String);
+    ///Get the `secure` field of this object.
+    #[wasm_bindgen(method, getter = "secure")]
+    pub fn get_secure(this: &ScannerInfo) -> bool;
+    ///Change the `secure` field of this object.
+    #[wasm_bindgen(method, setter = "secure")]
+    pub fn set_secure(this: &ScannerInfo, val: bool);
 }
 impl ScannerInfo {
     ///Construct a new `ScannerInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_secure()` instead."]
-    pub fn secure(&mut self, val: bool) -> &mut Self {
-        self.set_secure(val);
-        self
-    }
-    #[deprecated = "Use `set_protocol_type()` instead."]
-    pub fn protocol_type(&mut self, val: String) -> &mut Self {
-        self.set_protocol_type(val);
-        self
     }
     #[deprecated = "Use `set_connection_type()` instead."]
     pub fn connection_type(&mut self, val: ConnectionType) -> &mut Self {
         self.set_connection_type(val);
-        self
-    }
-    #[deprecated = "Use `set_manufacturer()` instead."]
-    pub fn manufacturer(&mut self, val: String) -> &mut Self {
-        self.set_manufacturer(val);
-        self
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
         self
     }
     #[deprecated = "Use `set_device_uuid()` instead."]
@@ -231,19 +217,39 @@ impl ScannerInfo {
         self.set_device_uuid(val);
         self
     }
-    #[deprecated = "Use `set_model()` instead."]
-    pub fn model(&mut self, val: String) -> &mut Self {
-        self.set_model(val);
-        self
-    }
     #[deprecated = "Use `set_image_formats()` instead."]
     pub fn image_formats(&mut self, val: &Array) -> &mut Self {
         self.set_image_formats(val);
         self
     }
+    #[deprecated = "Use `set_manufacturer()` instead."]
+    pub fn manufacturer(&mut self, val: String) -> &mut Self {
+        self.set_manufacturer(val);
+        self
+    }
+    #[deprecated = "Use `set_model()` instead."]
+    pub fn model(&mut self, val: String) -> &mut Self {
+        self.set_model(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_protocol_type()` instead."]
+    pub fn protocol_type(&mut self, val: String) -> &mut Self {
+        self.set_protocol_type(val);
+        self
+    }
     #[deprecated = "Use `set_scanner_id()` instead."]
     pub fn scanner_id(&mut self, val: String) -> &mut Self {
         self.set_scanner_id(val);
+        self
+    }
+    #[deprecated = "Use `set_secure()` instead."]
+    pub fn secure(&mut self, val: bool) -> &mut Self {
+        self.set_secure(val);
         self
     }
 }
@@ -311,57 +317,59 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type OptionConstraint;
-    ///Get the `min` field of this object.
-    #[wasm_bindgen(method, getter = "min")]
-    pub fn get_min(this: &OptionConstraint) -> Option<JsValue>;
-    ///Change the `min` field of this object.
-    #[wasm_bindgen(method, setter = "min")]
-    pub fn set_min(this: &OptionConstraint, val: &JsValue);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &OptionConstraint) -> ConstraintType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &OptionConstraint, val: ConstraintType);
     ///Get the `list` field of this object.
     #[wasm_bindgen(method, getter = "list")]
     pub fn get_list(this: &OptionConstraint) -> Option<JsValue>;
     ///Change the `list` field of this object.
     #[wasm_bindgen(method, setter = "list")]
     pub fn set_list(this: &OptionConstraint, val: &JsValue);
-    ///Get the `quant` field of this object.
-    #[wasm_bindgen(method, getter = "quant")]
-    pub fn get_quant(this: &OptionConstraint) -> Option<JsValue>;
-    ///Change the `quant` field of this object.
-    #[wasm_bindgen(method, setter = "quant")]
-    pub fn set_quant(this: &OptionConstraint, val: &JsValue);
     ///Get the `max` field of this object.
     #[wasm_bindgen(method, getter = "max")]
     pub fn get_max(this: &OptionConstraint) -> Option<JsValue>;
     ///Change the `max` field of this object.
     #[wasm_bindgen(method, setter = "max")]
     pub fn set_max(this: &OptionConstraint, val: &JsValue);
+    ///Get the `min` field of this object.
+    #[wasm_bindgen(method, getter = "min")]
+    pub fn get_min(this: &OptionConstraint) -> Option<JsValue>;
+    ///Change the `min` field of this object.
+    #[wasm_bindgen(method, setter = "min")]
+    pub fn set_min(this: &OptionConstraint, val: &JsValue);
+    ///Get the `quant` field of this object.
+    #[wasm_bindgen(method, getter = "quant")]
+    pub fn get_quant(this: &OptionConstraint) -> Option<JsValue>;
+    ///Change the `quant` field of this object.
+    #[wasm_bindgen(method, setter = "quant")]
+    pub fn set_quant(this: &OptionConstraint, val: &JsValue);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &OptionConstraint) -> ConstraintType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &OptionConstraint, val: ConstraintType);
 }
 impl OptionConstraint {
     ///Construct a new `OptionConstraint`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_min()` instead."]
-    pub fn min(&mut self, val: &JsValue) -> &mut Self {
-        self.set_min(val);
-        self
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: ConstraintType) -> &mut Self {
-        self.set_type(val);
-        self
     }
     #[deprecated = "Use `set_list()` instead."]
     pub fn list(&mut self, val: &JsValue) -> &mut Self {
         self.set_list(val);
+        self
+    }
+    #[deprecated = "Use `set_max()` instead."]
+    pub fn max(&mut self, val: &JsValue) -> &mut Self {
+        self.set_max(val);
+        self
+    }
+    #[deprecated = "Use `set_min()` instead."]
+    pub fn min(&mut self, val: &JsValue) -> &mut Self {
+        self.set_min(val);
         self
     }
     #[deprecated = "Use `set_quant()` instead."]
@@ -369,9 +377,9 @@ impl OptionConstraint {
         self.set_quant(val);
         self
     }
-    #[deprecated = "Use `set_max()` instead."]
-    pub fn max(&mut self, val: &JsValue) -> &mut Self {
-        self.set_max(val);
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ConstraintType) -> &mut Self {
+        self.set_type(val);
         self
     }
 }
@@ -397,60 +405,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ScannerOption;
-    ///Get the `isActive` field of this object.
-    #[wasm_bindgen(method, getter = "isActive")]
-    pub fn get_is_active(this: &ScannerOption) -> bool;
-    ///Change the `isActive` field of this object.
-    #[wasm_bindgen(method, setter = "isActive")]
-    pub fn set_is_active(this: &ScannerOption, val: bool);
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &ScannerOption) -> String;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &ScannerOption, val: String);
+    ///Get the `configurability` field of this object.
+    #[wasm_bindgen(method, getter = "configurability")]
+    pub fn get_configurability(this: &ScannerOption) -> Configurability;
+    ///Change the `configurability` field of this object.
+    #[wasm_bindgen(method, setter = "configurability")]
+    pub fn set_configurability(this: &ScannerOption, val: Configurability);
+    ///Get the `constraint` field of this object.
+    #[wasm_bindgen(method, getter = "constraint")]
+    pub fn get_constraint(this: &ScannerOption) -> Option<OptionConstraint>;
+    ///Change the `constraint` field of this object.
+    #[wasm_bindgen(method, setter = "constraint")]
+    pub fn set_constraint(this: &ScannerOption, val: &OptionConstraint);
     ///Get the `description` field of this object.
     #[wasm_bindgen(method, getter = "description")]
     pub fn get_description(this: &ScannerOption) -> String;
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &ScannerOption, val: String);
-    ///Get the `value` field of this object.
-    #[wasm_bindgen(method, getter = "value")]
-    pub fn get_value(this: &ScannerOption) -> Option<JsValue>;
-    ///Change the `value` field of this object.
-    #[wasm_bindgen(method, setter = "value")]
-    pub fn set_value(this: &ScannerOption, val: &JsValue);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &ScannerOption) -> OptionType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &ScannerOption, val: OptionType);
-    ///Get the `unit` field of this object.
-    #[wasm_bindgen(method, getter = "unit")]
-    pub fn get_unit(this: &ScannerOption) -> OptionUnit;
-    ///Change the `unit` field of this object.
-    #[wasm_bindgen(method, setter = "unit")]
-    pub fn set_unit(this: &ScannerOption, val: OptionUnit);
-    ///Get the `isDetectable` field of this object.
-    #[wasm_bindgen(method, getter = "isDetectable")]
-    pub fn get_is_detectable(this: &ScannerOption) -> bool;
-    ///Change the `isDetectable` field of this object.
-    #[wasm_bindgen(method, setter = "isDetectable")]
-    pub fn set_is_detectable(this: &ScannerOption, val: bool);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &ScannerOption) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &ScannerOption, val: String);
+    ///Get the `isActive` field of this object.
+    #[wasm_bindgen(method, getter = "isActive")]
+    pub fn get_is_active(this: &ScannerOption) -> bool;
+    ///Change the `isActive` field of this object.
+    #[wasm_bindgen(method, setter = "isActive")]
+    pub fn set_is_active(this: &ScannerOption, val: bool);
+    ///Get the `isAdvanced` field of this object.
+    #[wasm_bindgen(method, getter = "isAdvanced")]
+    pub fn get_is_advanced(this: &ScannerOption) -> bool;
+    ///Change the `isAdvanced` field of this object.
+    #[wasm_bindgen(method, setter = "isAdvanced")]
+    pub fn set_is_advanced(this: &ScannerOption, val: bool);
     ///Get the `isAutoSettable` field of this object.
     #[wasm_bindgen(method, getter = "isAutoSettable")]
     pub fn get_is_auto_settable(this: &ScannerOption) -> bool;
     ///Change the `isAutoSettable` field of this object.
     #[wasm_bindgen(method, setter = "isAutoSettable")]
     pub fn set_is_auto_settable(this: &ScannerOption, val: bool);
+    ///Get the `isDetectable` field of this object.
+    #[wasm_bindgen(method, getter = "isDetectable")]
+    pub fn get_is_detectable(this: &ScannerOption) -> bool;
+    ///Change the `isDetectable` field of this object.
+    #[wasm_bindgen(method, setter = "isDetectable")]
+    pub fn set_is_detectable(this: &ScannerOption, val: bool);
     ///Get the `isEmulated` field of this object.
     #[wasm_bindgen(method, getter = "isEmulated")]
     pub fn get_is_emulated(this: &ScannerOption) -> bool;
@@ -463,40 +459,54 @@ extern "C" {
     ///Change the `isInternal` field of this object.
     #[wasm_bindgen(method, setter = "isInternal")]
     pub fn set_is_internal(this: &ScannerOption, val: bool);
-    ///Get the `constraint` field of this object.
-    #[wasm_bindgen(method, getter = "constraint")]
-    pub fn get_constraint(this: &ScannerOption) -> Option<OptionConstraint>;
-    ///Change the `constraint` field of this object.
-    #[wasm_bindgen(method, setter = "constraint")]
-    pub fn set_constraint(this: &ScannerOption, val: &OptionConstraint);
-    ///Get the `isAdvanced` field of this object.
-    #[wasm_bindgen(method, getter = "isAdvanced")]
-    pub fn get_is_advanced(this: &ScannerOption) -> bool;
-    ///Change the `isAdvanced` field of this object.
-    #[wasm_bindgen(method, setter = "isAdvanced")]
-    pub fn set_is_advanced(this: &ScannerOption, val: bool);
-    ///Get the `configurability` field of this object.
-    #[wasm_bindgen(method, getter = "configurability")]
-    pub fn get_configurability(this: &ScannerOption) -> Configurability;
-    ///Change the `configurability` field of this object.
-    #[wasm_bindgen(method, setter = "configurability")]
-    pub fn set_configurability(this: &ScannerOption, val: Configurability);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &ScannerOption) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &ScannerOption, val: String);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &ScannerOption) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &ScannerOption, val: String);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &ScannerOption) -> OptionType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &ScannerOption, val: OptionType);
+    ///Get the `unit` field of this object.
+    #[wasm_bindgen(method, getter = "unit")]
+    pub fn get_unit(this: &ScannerOption) -> OptionUnit;
+    ///Change the `unit` field of this object.
+    #[wasm_bindgen(method, setter = "unit")]
+    pub fn set_unit(this: &ScannerOption, val: OptionUnit);
+    ///Get the `value` field of this object.
+    #[wasm_bindgen(method, getter = "value")]
+    pub fn get_value(this: &ScannerOption) -> Option<JsValue>;
+    ///Change the `value` field of this object.
+    #[wasm_bindgen(method, setter = "value")]
+    pub fn set_value(this: &ScannerOption, val: &JsValue);
 }
 impl ScannerOption {
     ///Construct a new `ScannerOption`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_is_active()` instead."]
-    pub fn is_active(&mut self, val: bool) -> &mut Self {
-        self.set_is_active(val);
+    #[deprecated = "Use `set_configurability()` instead."]
+    pub fn configurability(&mut self, val: Configurability) -> &mut Self {
+        self.set_configurability(val);
         self
     }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
+    #[deprecated = "Use `set_constraint()` instead."]
+    pub fn constraint(&mut self, val: &OptionConstraint) -> &mut Self {
+        self.set_constraint(val);
         self
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -504,34 +514,24 @@ impl ScannerOption {
         self.set_description(val);
         self
     }
-    #[deprecated = "Use `set_value()` instead."]
-    pub fn value(&mut self, val: &JsValue) -> &mut Self {
-        self.set_value(val);
+    #[deprecated = "Use `set_is_active()` instead."]
+    pub fn is_active(&mut self, val: bool) -> &mut Self {
+        self.set_is_active(val);
         self
     }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: OptionType) -> &mut Self {
-        self.set_type(val);
-        self
-    }
-    #[deprecated = "Use `set_unit()` instead."]
-    pub fn unit(&mut self, val: OptionUnit) -> &mut Self {
-        self.set_unit(val);
-        self
-    }
-    #[deprecated = "Use `set_is_detectable()` instead."]
-    pub fn is_detectable(&mut self, val: bool) -> &mut Self {
-        self.set_is_detectable(val);
-        self
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
+    #[deprecated = "Use `set_is_advanced()` instead."]
+    pub fn is_advanced(&mut self, val: bool) -> &mut Self {
+        self.set_is_advanced(val);
         self
     }
     #[deprecated = "Use `set_is_auto_settable()` instead."]
     pub fn is_auto_settable(&mut self, val: bool) -> &mut Self {
         self.set_is_auto_settable(val);
+        self
+    }
+    #[deprecated = "Use `set_is_detectable()` instead."]
+    pub fn is_detectable(&mut self, val: bool) -> &mut Self {
+        self.set_is_detectable(val);
         self
     }
     #[deprecated = "Use `set_is_emulated()` instead."]
@@ -544,19 +544,29 @@ impl ScannerOption {
         self.set_is_internal(val);
         self
     }
-    #[deprecated = "Use `set_constraint()` instead."]
-    pub fn constraint(&mut self, val: &OptionConstraint) -> &mut Self {
-        self.set_constraint(val);
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
         self
     }
-    #[deprecated = "Use `set_is_advanced()` instead."]
-    pub fn is_advanced(&mut self, val: bool) -> &mut Self {
-        self.set_is_advanced(val);
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
         self
     }
-    #[deprecated = "Use `set_configurability()` instead."]
-    pub fn configurability(&mut self, val: Configurability) -> &mut Self {
-        self.set_configurability(val);
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: OptionType) -> &mut Self {
+        self.set_type(val);
+        self
+    }
+    #[deprecated = "Use `set_unit()` instead."]
+    pub fn unit(&mut self, val: OptionUnit) -> &mut Self {
+        self.set_unit(val);
+        self
+    }
+    #[deprecated = "Use `set_value()` instead."]
+    pub fn value(&mut self, val: &JsValue) -> &mut Self {
+        self.set_value(val);
         self
     }
 }
@@ -588,7 +598,9 @@ impl DeviceFilter {
     ///Construct a new `DeviceFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_local()` instead."]
@@ -613,34 +625,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type OptionGroup;
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &OptionGroup) -> String;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &OptionGroup, val: String);
     ///Get the `members` field of this object.
     #[wasm_bindgen(method, getter = "members")]
     pub fn get_members(this: &OptionGroup) -> Array;
     ///Change the `members` field of this object.
     #[wasm_bindgen(method, setter = "members")]
     pub fn set_members(this: &OptionGroup, val: &Array);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &OptionGroup) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &OptionGroup, val: String);
 }
 impl OptionGroup {
     ///Construct a new `OptionGroup`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
-        self
     }
     #[deprecated = "Use `set_members()` instead."]
     pub fn members(&mut self, val: &Array) -> &mut Self {
         self.set_members(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
         self
     }
 }
@@ -672,7 +686,9 @@ impl GetScannerListResponse {
     ///Construct a new `GetScannerListResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_result()` instead."]
@@ -697,12 +713,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type OpenScannerResponse;
-    ///Get the `scannerId` field of this object.
-    #[wasm_bindgen(method, getter = "scannerId")]
-    pub fn get_scanner_id(this: &OpenScannerResponse) -> String;
-    ///Change the `scannerId` field of this object.
-    #[wasm_bindgen(method, setter = "scannerId")]
-    pub fn set_scanner_id(this: &OpenScannerResponse, val: String);
+    ///Get the `options` field of this object.
+    #[wasm_bindgen(method, getter = "options")]
+    pub fn get_options(this: &OpenScannerResponse) -> Option<Object>;
+    ///Change the `options` field of this object.
+    #[wasm_bindgen(method, setter = "options")]
+    pub fn set_options(this: &OpenScannerResponse, val: &Object);
     ///Get the `result` field of this object.
     #[wasm_bindgen(method, getter = "result")]
     pub fn get_result(this: &OpenScannerResponse) -> OperationResult;
@@ -715,23 +731,25 @@ extern "C" {
     ///Change the `scannerHandle` field of this object.
     #[wasm_bindgen(method, setter = "scannerHandle")]
     pub fn set_scanner_handle(this: &OpenScannerResponse, val: String);
-    ///Get the `options` field of this object.
-    #[wasm_bindgen(method, getter = "options")]
-    pub fn get_options(this: &OpenScannerResponse) -> Option<Object>;
-    ///Change the `options` field of this object.
-    #[wasm_bindgen(method, setter = "options")]
-    pub fn set_options(this: &OpenScannerResponse, val: &Object);
+    ///Get the `scannerId` field of this object.
+    #[wasm_bindgen(method, getter = "scannerId")]
+    pub fn get_scanner_id(this: &OpenScannerResponse) -> String;
+    ///Change the `scannerId` field of this object.
+    #[wasm_bindgen(method, setter = "scannerId")]
+    pub fn set_scanner_id(this: &OpenScannerResponse, val: String);
 }
 impl OpenScannerResponse {
     ///Construct a new `OpenScannerResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_scanner_id()` instead."]
-    pub fn scanner_id(&mut self, val: String) -> &mut Self {
-        self.set_scanner_id(val);
+    #[deprecated = "Use `set_options()` instead."]
+    pub fn options(&mut self, val: &Object) -> &mut Self {
+        self.set_options(val);
         self
     }
     #[deprecated = "Use `set_result()` instead."]
@@ -744,9 +762,9 @@ impl OpenScannerResponse {
         self.set_scanner_handle(val);
         self
     }
-    #[deprecated = "Use `set_options()` instead."]
-    pub fn options(&mut self, val: &Object) -> &mut Self {
-        self.set_options(val);
+    #[deprecated = "Use `set_scanner_id()` instead."]
+    pub fn scanner_id(&mut self, val: String) -> &mut Self {
+        self.set_scanner_id(val);
         self
     }
 }
@@ -761,35 +779,37 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type GetOptionGroupsResponse;
-    ///Get the `scannerHandle` field of this object.
-    #[wasm_bindgen(method, getter = "scannerHandle")]
-    pub fn get_scanner_handle(this: &GetOptionGroupsResponse) -> String;
-    ///Change the `scannerHandle` field of this object.
-    #[wasm_bindgen(method, setter = "scannerHandle")]
-    pub fn set_scanner_handle(this: &GetOptionGroupsResponse, val: String);
-    ///Get the `result` field of this object.
-    #[wasm_bindgen(method, getter = "result")]
-    pub fn get_result(this: &GetOptionGroupsResponse) -> OperationResult;
-    ///Change the `result` field of this object.
-    #[wasm_bindgen(method, setter = "result")]
-    pub fn set_result(this: &GetOptionGroupsResponse, val: OperationResult);
     ///Get the `groups` field of this object.
     #[wasm_bindgen(method, getter = "groups")]
     pub fn get_groups(this: &GetOptionGroupsResponse) -> Option<Array>;
     ///Change the `groups` field of this object.
     #[wasm_bindgen(method, setter = "groups")]
     pub fn set_groups(this: &GetOptionGroupsResponse, val: &Array);
+    ///Get the `result` field of this object.
+    #[wasm_bindgen(method, getter = "result")]
+    pub fn get_result(this: &GetOptionGroupsResponse) -> OperationResult;
+    ///Change the `result` field of this object.
+    #[wasm_bindgen(method, setter = "result")]
+    pub fn set_result(this: &GetOptionGroupsResponse, val: OperationResult);
+    ///Get the `scannerHandle` field of this object.
+    #[wasm_bindgen(method, getter = "scannerHandle")]
+    pub fn get_scanner_handle(this: &GetOptionGroupsResponse) -> String;
+    ///Change the `scannerHandle` field of this object.
+    #[wasm_bindgen(method, setter = "scannerHandle")]
+    pub fn set_scanner_handle(this: &GetOptionGroupsResponse, val: String);
 }
 impl GetOptionGroupsResponse {
     ///Construct a new `GetOptionGroupsResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_scanner_handle()` instead."]
-    pub fn scanner_handle(&mut self, val: String) -> &mut Self {
-        self.set_scanner_handle(val);
+    #[deprecated = "Use `set_groups()` instead."]
+    pub fn groups(&mut self, val: &Array) -> &mut Self {
+        self.set_groups(val);
         self
     }
     #[deprecated = "Use `set_result()` instead."]
@@ -797,9 +817,9 @@ impl GetOptionGroupsResponse {
         self.set_result(val);
         self
     }
-    #[deprecated = "Use `set_groups()` instead."]
-    pub fn groups(&mut self, val: &Array) -> &mut Self {
-        self.set_groups(val);
+    #[deprecated = "Use `set_scanner_handle()` instead."]
+    pub fn scanner_handle(&mut self, val: String) -> &mut Self {
+        self.set_scanner_handle(val);
         self
     }
 }
@@ -814,34 +834,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CloseScannerResponse;
-    ///Get the `scannerHandle` field of this object.
-    #[wasm_bindgen(method, getter = "scannerHandle")]
-    pub fn get_scanner_handle(this: &CloseScannerResponse) -> String;
-    ///Change the `scannerHandle` field of this object.
-    #[wasm_bindgen(method, setter = "scannerHandle")]
-    pub fn set_scanner_handle(this: &CloseScannerResponse, val: String);
     ///Get the `result` field of this object.
     #[wasm_bindgen(method, getter = "result")]
     pub fn get_result(this: &CloseScannerResponse) -> OperationResult;
     ///Change the `result` field of this object.
     #[wasm_bindgen(method, setter = "result")]
     pub fn set_result(this: &CloseScannerResponse, val: OperationResult);
+    ///Get the `scannerHandle` field of this object.
+    #[wasm_bindgen(method, getter = "scannerHandle")]
+    pub fn get_scanner_handle(this: &CloseScannerResponse) -> String;
+    ///Change the `scannerHandle` field of this object.
+    #[wasm_bindgen(method, setter = "scannerHandle")]
+    pub fn set_scanner_handle(this: &CloseScannerResponse, val: String);
 }
 impl CloseScannerResponse {
     ///Construct a new `CloseScannerResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_scanner_handle()` instead."]
-    pub fn scanner_handle(&mut self, val: String) -> &mut Self {
-        self.set_scanner_handle(val);
-        self
     }
     #[deprecated = "Use `set_result()` instead."]
     pub fn result(&mut self, val: OperationResult) -> &mut Self {
         self.set_result(val);
+        self
+    }
+    #[deprecated = "Use `set_scanner_handle()` instead."]
+    pub fn scanner_handle(&mut self, val: String) -> &mut Self {
+        self.set_scanner_handle(val);
         self
     }
 }
@@ -856,6 +878,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type OptionSetting;
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &OptionSetting) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &OptionSetting, val: String);
     ///Get the `type` field of this object.
     #[wasm_bindgen(method, getter = "type")]
     pub fn get_type(this: &OptionSetting) -> OptionType;
@@ -868,19 +896,20 @@ extern "C" {
     ///Change the `value` field of this object.
     #[wasm_bindgen(method, setter = "value")]
     pub fn set_value(this: &OptionSetting, val: &JsValue);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &OptionSetting) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &OptionSetting, val: String);
 }
 impl OptionSetting {
     ///Construct a new `OptionSetting`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
     }
     #[deprecated = "Use `set_type()` instead."]
     pub fn r#type(&mut self, val: OptionType) -> &mut Self {
@@ -890,11 +919,6 @@ impl OptionSetting {
     #[deprecated = "Use `set_value()` instead."]
     pub fn value(&mut self, val: &JsValue) -> &mut Self {
         self.set_value(val);
-        self
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
         self
     }
 }
@@ -909,34 +933,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SetOptionResult;
-    ///Get the `result` field of this object.
-    #[wasm_bindgen(method, getter = "result")]
-    pub fn get_result(this: &SetOptionResult) -> OperationResult;
-    ///Change the `result` field of this object.
-    #[wasm_bindgen(method, setter = "result")]
-    pub fn set_result(this: &SetOptionResult, val: OperationResult);
     ///Get the `name` field of this object.
     #[wasm_bindgen(method, getter = "name")]
     pub fn get_name(this: &SetOptionResult) -> String;
     ///Change the `name` field of this object.
     #[wasm_bindgen(method, setter = "name")]
     pub fn set_name(this: &SetOptionResult, val: String);
+    ///Get the `result` field of this object.
+    #[wasm_bindgen(method, getter = "result")]
+    pub fn get_result(this: &SetOptionResult) -> OperationResult;
+    ///Change the `result` field of this object.
+    #[wasm_bindgen(method, setter = "result")]
+    pub fn set_result(this: &SetOptionResult, val: OperationResult);
 }
 impl SetOptionResult {
     ///Construct a new `SetOptionResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_result()` instead."]
-    pub fn result(&mut self, val: OperationResult) -> &mut Self {
-        self.set_result(val);
-        self
     }
     #[deprecated = "Use `set_name()` instead."]
     pub fn name(&mut self, val: String) -> &mut Self {
         self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_result()` instead."]
+    pub fn result(&mut self, val: OperationResult) -> &mut Self {
+        self.set_result(val);
         self
     }
 }
@@ -957,24 +983,26 @@ extern "C" {
     ///Change the `options` field of this object.
     #[wasm_bindgen(method, setter = "options")]
     pub fn set_options(this: &SetOptionsResponse, val: &Object);
-    ///Get the `scannerHandle` field of this object.
-    #[wasm_bindgen(method, getter = "scannerHandle")]
-    pub fn get_scanner_handle(this: &SetOptionsResponse) -> String;
-    ///Change the `scannerHandle` field of this object.
-    #[wasm_bindgen(method, setter = "scannerHandle")]
-    pub fn set_scanner_handle(this: &SetOptionsResponse, val: String);
     ///Get the `results` field of this object.
     #[wasm_bindgen(method, getter = "results")]
     pub fn get_results(this: &SetOptionsResponse) -> Array;
     ///Change the `results` field of this object.
     #[wasm_bindgen(method, setter = "results")]
     pub fn set_results(this: &SetOptionsResponse, val: &Array);
+    ///Get the `scannerHandle` field of this object.
+    #[wasm_bindgen(method, getter = "scannerHandle")]
+    pub fn get_scanner_handle(this: &SetOptionsResponse) -> String;
+    ///Change the `scannerHandle` field of this object.
+    #[wasm_bindgen(method, setter = "scannerHandle")]
+    pub fn set_scanner_handle(this: &SetOptionsResponse, val: String);
 }
 impl SetOptionsResponse {
     ///Construct a new `SetOptionsResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_options()` instead."]
@@ -982,14 +1010,14 @@ impl SetOptionsResponse {
         self.set_options(val);
         self
     }
-    #[deprecated = "Use `set_scanner_handle()` instead."]
-    pub fn scanner_handle(&mut self, val: String) -> &mut Self {
-        self.set_scanner_handle(val);
-        self
-    }
     #[deprecated = "Use `set_results()` instead."]
     pub fn results(&mut self, val: &Array) -> &mut Self {
         self.set_results(val);
+        self
+    }
+    #[deprecated = "Use `set_scanner_handle()` instead."]
+    pub fn scanner_handle(&mut self, val: String) -> &mut Self {
+        self.set_scanner_handle(val);
         self
     }
 }
@@ -1004,34 +1032,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type StartScanOptions;
-    ///Get the `maxReadSize` field of this object.
-    #[wasm_bindgen(method, getter = "maxReadSize")]
-    pub fn get_max_read_size(this: &StartScanOptions) -> Option<i32>;
-    ///Change the `maxReadSize` field of this object.
-    #[wasm_bindgen(method, setter = "maxReadSize")]
-    pub fn set_max_read_size(this: &StartScanOptions, val: i32);
     ///Get the `format` field of this object.
     #[wasm_bindgen(method, getter = "format")]
     pub fn get_format(this: &StartScanOptions) -> String;
     ///Change the `format` field of this object.
     #[wasm_bindgen(method, setter = "format")]
     pub fn set_format(this: &StartScanOptions, val: String);
+    ///Get the `maxReadSize` field of this object.
+    #[wasm_bindgen(method, getter = "maxReadSize")]
+    pub fn get_max_read_size(this: &StartScanOptions) -> Option<i32>;
+    ///Change the `maxReadSize` field of this object.
+    #[wasm_bindgen(method, setter = "maxReadSize")]
+    pub fn set_max_read_size(this: &StartScanOptions, val: i32);
 }
 impl StartScanOptions {
     ///Construct a new `StartScanOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_max_read_size()` instead."]
-    pub fn max_read_size(&mut self, val: i32) -> &mut Self {
-        self.set_max_read_size(val);
-        self
     }
     #[deprecated = "Use `set_format()` instead."]
     pub fn format(&mut self, val: String) -> &mut Self {
         self.set_format(val);
+        self
+    }
+    #[deprecated = "Use `set_max_read_size()` instead."]
+    pub fn max_read_size(&mut self, val: i32) -> &mut Self {
+        self.set_max_read_size(val);
         self
     }
 }
@@ -1046,18 +1076,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type StartScanResponse;
-    ///Get the `result` field of this object.
-    #[wasm_bindgen(method, getter = "result")]
-    pub fn get_result(this: &StartScanResponse) -> OperationResult;
-    ///Change the `result` field of this object.
-    #[wasm_bindgen(method, setter = "result")]
-    pub fn set_result(this: &StartScanResponse, val: OperationResult);
     ///Get the `job` field of this object.
     #[wasm_bindgen(method, getter = "job")]
     pub fn get_job(this: &StartScanResponse) -> Option<String>;
     ///Change the `job` field of this object.
     #[wasm_bindgen(method, setter = "job")]
     pub fn set_job(this: &StartScanResponse, val: String);
+    ///Get the `result` field of this object.
+    #[wasm_bindgen(method, getter = "result")]
+    pub fn get_result(this: &StartScanResponse) -> OperationResult;
+    ///Change the `result` field of this object.
+    #[wasm_bindgen(method, setter = "result")]
+    pub fn set_result(this: &StartScanResponse, val: OperationResult);
     ///Get the `scannerHandle` field of this object.
     #[wasm_bindgen(method, getter = "scannerHandle")]
     pub fn get_scanner_handle(this: &StartScanResponse) -> String;
@@ -1069,17 +1099,19 @@ impl StartScanResponse {
     ///Construct a new `StartScanResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_result()` instead."]
-    pub fn result(&mut self, val: OperationResult) -> &mut Self {
-        self.set_result(val);
-        self
     }
     #[deprecated = "Use `set_job()` instead."]
     pub fn job(&mut self, val: String) -> &mut Self {
         self.set_job(val);
+        self
+    }
+    #[deprecated = "Use `set_result()` instead."]
+    pub fn result(&mut self, val: OperationResult) -> &mut Self {
+        self.set_result(val);
         self
     }
     #[deprecated = "Use `set_scanner_handle()` instead."]
@@ -1099,34 +1131,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CancelScanResponse;
-    ///Get the `result` field of this object.
-    #[wasm_bindgen(method, getter = "result")]
-    pub fn get_result(this: &CancelScanResponse) -> OperationResult;
-    ///Change the `result` field of this object.
-    #[wasm_bindgen(method, setter = "result")]
-    pub fn set_result(this: &CancelScanResponse, val: OperationResult);
     ///Get the `job` field of this object.
     #[wasm_bindgen(method, getter = "job")]
     pub fn get_job(this: &CancelScanResponse) -> String;
     ///Change the `job` field of this object.
     #[wasm_bindgen(method, setter = "job")]
     pub fn set_job(this: &CancelScanResponse, val: String);
+    ///Get the `result` field of this object.
+    #[wasm_bindgen(method, getter = "result")]
+    pub fn get_result(this: &CancelScanResponse) -> OperationResult;
+    ///Change the `result` field of this object.
+    #[wasm_bindgen(method, setter = "result")]
+    pub fn set_result(this: &CancelScanResponse, val: OperationResult);
 }
 impl CancelScanResponse {
     ///Construct a new `CancelScanResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_result()` instead."]
-    pub fn result(&mut self, val: OperationResult) -> &mut Self {
-        self.set_result(val);
-        self
     }
     #[deprecated = "Use `set_job()` instead."]
     pub fn job(&mut self, val: String) -> &mut Self {
         self.set_job(val);
+        self
+    }
+    #[deprecated = "Use `set_result()` instead."]
+    pub fn result(&mut self, val: OperationResult) -> &mut Self {
+        self.set_result(val);
         self
     }
 }
@@ -1141,6 +1175,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ReadScanDataResponse;
+    ///Get the `data` field of this object.
+    #[wasm_bindgen(method, getter = "data")]
+    pub fn get_data(this: &ReadScanDataResponse) -> Option<::js_sys::ArrayBuffer>;
+    ///Change the `data` field of this object.
+    #[wasm_bindgen(method, setter = "data")]
+    pub fn set_data(this: &ReadScanDataResponse, val: &::js_sys::ArrayBuffer);
     ///Get the `estimatedCompletion` field of this object.
     #[wasm_bindgen(method, getter = "estimatedCompletion")]
     pub fn get_estimated_completion(this: &ReadScanDataResponse) -> Option<i32>;
@@ -1153,12 +1193,6 @@ extern "C" {
     ///Change the `job` field of this object.
     #[wasm_bindgen(method, setter = "job")]
     pub fn set_job(this: &ReadScanDataResponse, val: String);
-    ///Get the `data` field of this object.
-    #[wasm_bindgen(method, getter = "data")]
-    pub fn get_data(this: &ReadScanDataResponse) -> Option<::js_sys::ArrayBuffer>;
-    ///Change the `data` field of this object.
-    #[wasm_bindgen(method, setter = "data")]
-    pub fn set_data(this: &ReadScanDataResponse, val: &::js_sys::ArrayBuffer);
     ///Get the `result` field of this object.
     #[wasm_bindgen(method, getter = "result")]
     pub fn get_result(this: &ReadScanDataResponse) -> OperationResult;
@@ -1170,8 +1204,15 @@ impl ReadScanDataResponse {
     ///Construct a new `ReadScanDataResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_data()` instead."]
+    pub fn data(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
+        self.set_data(val);
+        self
     }
     #[deprecated = "Use `set_estimated_completion()` instead."]
     pub fn estimated_completion(&mut self, val: i32) -> &mut Self {
@@ -1181,11 +1222,6 @@ impl ReadScanDataResponse {
     #[deprecated = "Use `set_job()` instead."]
     pub fn job(&mut self, val: String) -> &mut Self {
         self.set_job(val);
-        self
-    }
-    #[deprecated = "Use `set_data()` instead."]
-    pub fn data(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
-        self.set_data(val);
         self
     }
     #[deprecated = "Use `set_result()` instead."]

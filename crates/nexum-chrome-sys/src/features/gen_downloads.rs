@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HeaderNameValuePair")]
@@ -25,7 +25,9 @@ impl HeaderNameValuePair {
     ///Construct a new `HeaderNameValuePair`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -60,7 +62,9 @@ extern "C" {
     pub type FilenameSuggestion;
     ///Get the `conflictAction` field of this object.
     #[wasm_bindgen(method, getter = "conflictAction")]
-    pub fn get_conflict_action(this: &FilenameSuggestion) -> Option<FilenameConflictAction>;
+    pub fn get_conflict_action(
+        this: &FilenameSuggestion,
+    ) -> Option<FilenameConflictAction>;
     ///Change the `conflictAction` field of this object.
     #[wasm_bindgen(method, setter = "conflictAction")]
     pub fn set_conflict_action(this: &FilenameSuggestion, val: FilenameConflictAction);
@@ -75,7 +79,9 @@ impl FilenameSuggestion {
     ///Construct a new `FilenameSuggestion`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_conflict_action()` instead."]
@@ -141,36 +147,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DownloadOptions;
-    ///Get the `saveAs` field of this object.
-    #[wasm_bindgen(method, getter = "saveAs")]
-    pub fn get_save_as(this: &DownloadOptions) -> Option<bool>;
-    ///Change the `saveAs` field of this object.
-    #[wasm_bindgen(method, setter = "saveAs")]
-    pub fn set_save_as(this: &DownloadOptions, val: bool);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &DownloadOptions) -> String;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &DownloadOptions, val: String);
-    ///Get the `filename` field of this object.
-    #[wasm_bindgen(method, getter = "filename")]
-    pub fn get_filename(this: &DownloadOptions) -> Option<String>;
-    ///Change the `filename` field of this object.
-    #[wasm_bindgen(method, setter = "filename")]
-    pub fn set_filename(this: &DownloadOptions, val: String);
-    ///Get the `method` field of this object.
-    #[wasm_bindgen(method, getter = "method")]
-    pub fn get_method(this: &DownloadOptions) -> Option<HttpMethod>;
-    ///Change the `method` field of this object.
-    #[wasm_bindgen(method, setter = "method")]
-    pub fn set_method(this: &DownloadOptions, val: HttpMethod);
-    ///Get the `headers` field of this object.
-    #[wasm_bindgen(method, getter = "headers")]
-    pub fn get_headers(this: &DownloadOptions) -> Option<Array>;
-    ///Change the `headers` field of this object.
-    #[wasm_bindgen(method, setter = "headers")]
-    pub fn set_headers(this: &DownloadOptions, val: &Array);
     ///Get the `body` field of this object.
     #[wasm_bindgen(method, getter = "body")]
     pub fn get_body(this: &DownloadOptions) -> Option<String>;
@@ -183,38 +159,45 @@ extern "C" {
     ///Change the `conflictAction` field of this object.
     #[wasm_bindgen(method, setter = "conflictAction")]
     pub fn set_conflict_action(this: &DownloadOptions, val: FilenameConflictAction);
+    ///Get the `filename` field of this object.
+    #[wasm_bindgen(method, getter = "filename")]
+    pub fn get_filename(this: &DownloadOptions) -> Option<String>;
+    ///Change the `filename` field of this object.
+    #[wasm_bindgen(method, setter = "filename")]
+    pub fn set_filename(this: &DownloadOptions, val: String);
+    ///Get the `headers` field of this object.
+    #[wasm_bindgen(method, getter = "headers")]
+    pub fn get_headers(this: &DownloadOptions) -> Option<Array>;
+    ///Change the `headers` field of this object.
+    #[wasm_bindgen(method, setter = "headers")]
+    pub fn set_headers(this: &DownloadOptions, val: &Array);
+    ///Get the `method` field of this object.
+    #[wasm_bindgen(method, getter = "method")]
+    pub fn get_method(this: &DownloadOptions) -> Option<HttpMethod>;
+    ///Change the `method` field of this object.
+    #[wasm_bindgen(method, setter = "method")]
+    pub fn set_method(this: &DownloadOptions, val: HttpMethod);
+    ///Get the `saveAs` field of this object.
+    #[wasm_bindgen(method, getter = "saveAs")]
+    pub fn get_save_as(this: &DownloadOptions) -> Option<bool>;
+    ///Change the `saveAs` field of this object.
+    #[wasm_bindgen(method, setter = "saveAs")]
+    pub fn set_save_as(this: &DownloadOptions, val: bool);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &DownloadOptions) -> String;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &DownloadOptions, val: String);
 }
 impl DownloadOptions {
     ///Construct a new `DownloadOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_save_as()` instead."]
-    pub fn save_as(&mut self, val: bool) -> &mut Self {
-        self.set_save_as(val);
-        self
-    }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_filename()` instead."]
-    pub fn filename(&mut self, val: String) -> &mut Self {
-        self.set_filename(val);
-        self
-    }
-    #[deprecated = "Use `set_method()` instead."]
-    pub fn method(&mut self, val: HttpMethod) -> &mut Self {
-        self.set_method(val);
-        self
-    }
-    #[deprecated = "Use `set_headers()` instead."]
-    pub fn headers(&mut self, val: &Array) -> &mut Self {
-        self.set_headers(val);
-        self
     }
     #[deprecated = "Use `set_body()` instead."]
     pub fn body(&mut self, val: String) -> &mut Self {
@@ -224,6 +207,31 @@ impl DownloadOptions {
     #[deprecated = "Use `set_conflict_action()` instead."]
     pub fn conflict_action(&mut self, val: FilenameConflictAction) -> &mut Self {
         self.set_conflict_action(val);
+        self
+    }
+    #[deprecated = "Use `set_filename()` instead."]
+    pub fn filename(&mut self, val: String) -> &mut Self {
+        self.set_filename(val);
+        self
+    }
+    #[deprecated = "Use `set_headers()` instead."]
+    pub fn headers(&mut self, val: &Array) -> &mut Self {
+        self.set_headers(val);
+        self
+    }
+    #[deprecated = "Use `set_method()` instead."]
+    pub fn method(&mut self, val: HttpMethod) -> &mut Self {
+        self.set_method(val);
+        self
+    }
+    #[deprecated = "Use `set_save_as()` instead."]
+    pub fn save_as(&mut self, val: bool) -> &mut Self {
+        self.set_save_as(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -284,42 +292,114 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DownloadItem;
+    ///Get the `byExtensionId` field of this object.
+    #[wasm_bindgen(method, getter = "byExtensionId")]
+    pub fn get_by_extension_id(this: &DownloadItem) -> Option<String>;
+    ///Change the `byExtensionId` field of this object.
+    #[wasm_bindgen(method, setter = "byExtensionId")]
+    pub fn set_by_extension_id(this: &DownloadItem, val: String);
+    ///Get the `byExtensionName` field of this object.
+    #[wasm_bindgen(method, getter = "byExtensionName")]
+    pub fn get_by_extension_name(this: &DownloadItem) -> Option<String>;
+    ///Change the `byExtensionName` field of this object.
+    #[wasm_bindgen(method, setter = "byExtensionName")]
+    pub fn set_by_extension_name(this: &DownloadItem, val: String);
     ///Get the `bytesReceived` field of this object.
     #[wasm_bindgen(method, getter = "bytesReceived")]
     pub fn get_bytes_received(this: &DownloadItem) -> f64;
     ///Change the `bytesReceived` field of this object.
     #[wasm_bindgen(method, setter = "bytesReceived")]
     pub fn set_bytes_received(this: &DownloadItem, val: f64);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &DownloadItem) -> i32;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &DownloadItem, val: i32);
+    ///Get the `canResume` field of this object.
+    #[wasm_bindgen(method, getter = "canResume")]
+    pub fn get_can_resume(this: &DownloadItem) -> bool;
+    ///Change the `canResume` field of this object.
+    #[wasm_bindgen(method, setter = "canResume")]
+    pub fn set_can_resume(this: &DownloadItem, val: bool);
+    ///Get the `danger` field of this object.
+    #[wasm_bindgen(method, getter = "danger")]
+    pub fn get_danger(this: &DownloadItem) -> DangerType;
+    ///Change the `danger` field of this object.
+    #[wasm_bindgen(method, setter = "danger")]
+    pub fn set_danger(this: &DownloadItem, val: DangerType);
+    ///Get the `endTime` field of this object.
+    #[wasm_bindgen(method, getter = "endTime")]
+    pub fn get_end_time(this: &DownloadItem) -> Option<String>;
+    ///Change the `endTime` field of this object.
+    #[wasm_bindgen(method, setter = "endTime")]
+    pub fn set_end_time(this: &DownloadItem, val: String);
+    ///Get the `error` field of this object.
+    #[wasm_bindgen(method, getter = "error")]
+    pub fn get_error(this: &DownloadItem) -> Option<InterruptReason>;
+    ///Change the `error` field of this object.
+    #[wasm_bindgen(method, setter = "error")]
+    pub fn set_error(this: &DownloadItem, val: InterruptReason);
+    ///Get the `estimatedEndTime` field of this object.
+    #[wasm_bindgen(method, getter = "estimatedEndTime")]
+    pub fn get_estimated_end_time(this: &DownloadItem) -> Option<String>;
+    ///Change the `estimatedEndTime` field of this object.
+    #[wasm_bindgen(method, setter = "estimatedEndTime")]
+    pub fn set_estimated_end_time(this: &DownloadItem, val: String);
     ///Get the `exists` field of this object.
     #[wasm_bindgen(method, getter = "exists")]
     pub fn get_exists(this: &DownloadItem) -> bool;
     ///Change the `exists` field of this object.
     #[wasm_bindgen(method, setter = "exists")]
     pub fn set_exists(this: &DownloadItem, val: bool);
-    ///Get the `finalUrl` field of this object.
-    #[wasm_bindgen(method, getter = "finalUrl")]
-    pub fn get_final_url(this: &DownloadItem) -> String;
-    ///Change the `finalUrl` field of this object.
-    #[wasm_bindgen(method, setter = "finalUrl")]
-    pub fn set_final_url(this: &DownloadItem, val: String);
-    ///Get the `referrer` field of this object.
-    #[wasm_bindgen(method, getter = "referrer")]
-    pub fn get_referrer(this: &DownloadItem) -> String;
-    ///Change the `referrer` field of this object.
-    #[wasm_bindgen(method, setter = "referrer")]
-    pub fn set_referrer(this: &DownloadItem, val: String);
     ///Get the `fileSize` field of this object.
     #[wasm_bindgen(method, getter = "fileSize")]
     pub fn get_file_size(this: &DownloadItem) -> f64;
     ///Change the `fileSize` field of this object.
     #[wasm_bindgen(method, setter = "fileSize")]
     pub fn set_file_size(this: &DownloadItem, val: f64);
+    ///Get the `filename` field of this object.
+    #[wasm_bindgen(method, getter = "filename")]
+    pub fn get_filename(this: &DownloadItem) -> String;
+    ///Change the `filename` field of this object.
+    #[wasm_bindgen(method, setter = "filename")]
+    pub fn set_filename(this: &DownloadItem, val: String);
+    ///Get the `finalUrl` field of this object.
+    #[wasm_bindgen(method, getter = "finalUrl")]
+    pub fn get_final_url(this: &DownloadItem) -> String;
+    ///Change the `finalUrl` field of this object.
+    #[wasm_bindgen(method, setter = "finalUrl")]
+    pub fn set_final_url(this: &DownloadItem, val: String);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &DownloadItem) -> i32;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &DownloadItem, val: i32);
+    ///Get the `incognito` field of this object.
+    #[wasm_bindgen(method, getter = "incognito")]
+    pub fn get_incognito(this: &DownloadItem) -> bool;
+    ///Change the `incognito` field of this object.
+    #[wasm_bindgen(method, setter = "incognito")]
+    pub fn set_incognito(this: &DownloadItem, val: bool);
+    ///Get the `mime` field of this object.
+    #[wasm_bindgen(method, getter = "mime")]
+    pub fn get_mime(this: &DownloadItem) -> String;
+    ///Change the `mime` field of this object.
+    #[wasm_bindgen(method, setter = "mime")]
+    pub fn set_mime(this: &DownloadItem, val: String);
+    ///Get the `paused` field of this object.
+    #[wasm_bindgen(method, getter = "paused")]
+    pub fn get_paused(this: &DownloadItem) -> bool;
+    ///Change the `paused` field of this object.
+    #[wasm_bindgen(method, setter = "paused")]
+    pub fn set_paused(this: &DownloadItem, val: bool);
+    ///Get the `referrer` field of this object.
+    #[wasm_bindgen(method, getter = "referrer")]
+    pub fn get_referrer(this: &DownloadItem) -> String;
+    ///Change the `referrer` field of this object.
+    #[wasm_bindgen(method, setter = "referrer")]
+    pub fn set_referrer(this: &DownloadItem, val: String);
+    ///Get the `startTime` field of this object.
+    #[wasm_bindgen(method, getter = "startTime")]
+    pub fn get_start_time(this: &DownloadItem) -> String;
+    ///Change the `startTime` field of this object.
+    #[wasm_bindgen(method, setter = "startTime")]
+    pub fn set_start_time(this: &DownloadItem, val: String);
     ///Get the `state` field of this object.
     #[wasm_bindgen(method, getter = "state")]
     pub fn get_state(this: &DownloadItem) -> State;
@@ -332,100 +412,60 @@ extern "C" {
     ///Change the `totalBytes` field of this object.
     #[wasm_bindgen(method, setter = "totalBytes")]
     pub fn set_total_bytes(this: &DownloadItem, val: f64);
-    ///Get the `paused` field of this object.
-    #[wasm_bindgen(method, getter = "paused")]
-    pub fn get_paused(this: &DownloadItem) -> bool;
-    ///Change the `paused` field of this object.
-    #[wasm_bindgen(method, setter = "paused")]
-    pub fn set_paused(this: &DownloadItem, val: bool);
-    ///Get the `danger` field of this object.
-    #[wasm_bindgen(method, getter = "danger")]
-    pub fn get_danger(this: &DownloadItem) -> DangerType;
-    ///Change the `danger` field of this object.
-    #[wasm_bindgen(method, setter = "danger")]
-    pub fn set_danger(this: &DownloadItem, val: DangerType);
-    ///Get the `incognito` field of this object.
-    #[wasm_bindgen(method, getter = "incognito")]
-    pub fn get_incognito(this: &DownloadItem) -> bool;
-    ///Change the `incognito` field of this object.
-    #[wasm_bindgen(method, setter = "incognito")]
-    pub fn set_incognito(this: &DownloadItem, val: bool);
     ///Get the `url` field of this object.
     #[wasm_bindgen(method, getter = "url")]
     pub fn get_url(this: &DownloadItem) -> String;
     ///Change the `url` field of this object.
     #[wasm_bindgen(method, setter = "url")]
     pub fn set_url(this: &DownloadItem, val: String);
-    ///Get the `filename` field of this object.
-    #[wasm_bindgen(method, getter = "filename")]
-    pub fn get_filename(this: &DownloadItem) -> String;
-    ///Change the `filename` field of this object.
-    #[wasm_bindgen(method, setter = "filename")]
-    pub fn set_filename(this: &DownloadItem, val: String);
-    ///Get the `canResume` field of this object.
-    #[wasm_bindgen(method, getter = "canResume")]
-    pub fn get_can_resume(this: &DownloadItem) -> bool;
-    ///Change the `canResume` field of this object.
-    #[wasm_bindgen(method, setter = "canResume")]
-    pub fn set_can_resume(this: &DownloadItem, val: bool);
-    ///Get the `error` field of this object.
-    #[wasm_bindgen(method, getter = "error")]
-    pub fn get_error(this: &DownloadItem) -> Option<InterruptReason>;
-    ///Change the `error` field of this object.
-    #[wasm_bindgen(method, setter = "error")]
-    pub fn set_error(this: &DownloadItem, val: InterruptReason);
-    ///Get the `mime` field of this object.
-    #[wasm_bindgen(method, getter = "mime")]
-    pub fn get_mime(this: &DownloadItem) -> String;
-    ///Change the `mime` field of this object.
-    #[wasm_bindgen(method, setter = "mime")]
-    pub fn set_mime(this: &DownloadItem, val: String);
-    ///Get the `byExtensionId` field of this object.
-    #[wasm_bindgen(method, getter = "byExtensionId")]
-    pub fn get_by_extension_id(this: &DownloadItem) -> Option<String>;
-    ///Change the `byExtensionId` field of this object.
-    #[wasm_bindgen(method, setter = "byExtensionId")]
-    pub fn set_by_extension_id(this: &DownloadItem, val: String);
-    ///Get the `estimatedEndTime` field of this object.
-    #[wasm_bindgen(method, getter = "estimatedEndTime")]
-    pub fn get_estimated_end_time(this: &DownloadItem) -> Option<String>;
-    ///Change the `estimatedEndTime` field of this object.
-    #[wasm_bindgen(method, setter = "estimatedEndTime")]
-    pub fn set_estimated_end_time(this: &DownloadItem, val: String);
-    ///Get the `byExtensionName` field of this object.
-    #[wasm_bindgen(method, getter = "byExtensionName")]
-    pub fn get_by_extension_name(this: &DownloadItem) -> Option<String>;
-    ///Change the `byExtensionName` field of this object.
-    #[wasm_bindgen(method, setter = "byExtensionName")]
-    pub fn set_by_extension_name(this: &DownloadItem, val: String);
-    ///Get the `startTime` field of this object.
-    #[wasm_bindgen(method, getter = "startTime")]
-    pub fn get_start_time(this: &DownloadItem) -> String;
-    ///Change the `startTime` field of this object.
-    #[wasm_bindgen(method, setter = "startTime")]
-    pub fn set_start_time(this: &DownloadItem, val: String);
-    ///Get the `endTime` field of this object.
-    #[wasm_bindgen(method, getter = "endTime")]
-    pub fn get_end_time(this: &DownloadItem) -> Option<String>;
-    ///Change the `endTime` field of this object.
-    #[wasm_bindgen(method, setter = "endTime")]
-    pub fn set_end_time(this: &DownloadItem, val: String);
 }
 impl DownloadItem {
     ///Construct a new `DownloadItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_by_extension_id()` instead."]
+    pub fn by_extension_id(&mut self, val: String) -> &mut Self {
+        self.set_by_extension_id(val);
+        self
+    }
+    #[deprecated = "Use `set_by_extension_name()` instead."]
+    pub fn by_extension_name(&mut self, val: String) -> &mut Self {
+        self.set_by_extension_name(val);
+        self
     }
     #[deprecated = "Use `set_bytes_received()` instead."]
     pub fn bytes_received(&mut self, val: f64) -> &mut Self {
         self.set_bytes_received(val);
         self
     }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: i32) -> &mut Self {
-        self.set_id(val);
+    #[deprecated = "Use `set_can_resume()` instead."]
+    pub fn can_resume(&mut self, val: bool) -> &mut Self {
+        self.set_can_resume(val);
+        self
+    }
+    #[deprecated = "Use `set_danger()` instead."]
+    pub fn danger(&mut self, val: DangerType) -> &mut Self {
+        self.set_danger(val);
+        self
+    }
+    #[deprecated = "Use `set_end_time()` instead."]
+    pub fn end_time(&mut self, val: String) -> &mut Self {
+        self.set_end_time(val);
+        self
+    }
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: InterruptReason) -> &mut Self {
+        self.set_error(val);
+        self
+    }
+    #[deprecated = "Use `set_estimated_end_time()` instead."]
+    pub fn estimated_end_time(&mut self, val: String) -> &mut Self {
+        self.set_estimated_end_time(val);
         self
     }
     #[deprecated = "Use `set_exists()` instead."]
@@ -433,9 +473,39 @@ impl DownloadItem {
         self.set_exists(val);
         self
     }
+    #[deprecated = "Use `set_file_size()` instead."]
+    pub fn file_size(&mut self, val: f64) -> &mut Self {
+        self.set_file_size(val);
+        self
+    }
+    #[deprecated = "Use `set_filename()` instead."]
+    pub fn filename(&mut self, val: String) -> &mut Self {
+        self.set_filename(val);
+        self
+    }
     #[deprecated = "Use `set_final_url()` instead."]
     pub fn final_url(&mut self, val: String) -> &mut Self {
         self.set_final_url(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: i32) -> &mut Self {
+        self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_incognito()` instead."]
+    pub fn incognito(&mut self, val: bool) -> &mut Self {
+        self.set_incognito(val);
+        self
+    }
+    #[deprecated = "Use `set_mime()` instead."]
+    pub fn mime(&mut self, val: String) -> &mut Self {
+        self.set_mime(val);
+        self
+    }
+    #[deprecated = "Use `set_paused()` instead."]
+    pub fn paused(&mut self, val: bool) -> &mut Self {
+        self.set_paused(val);
         self
     }
     #[deprecated = "Use `set_referrer()` instead."]
@@ -443,9 +513,9 @@ impl DownloadItem {
         self.set_referrer(val);
         self
     }
-    #[deprecated = "Use `set_file_size()` instead."]
-    pub fn file_size(&mut self, val: f64) -> &mut Self {
-        self.set_file_size(val);
+    #[deprecated = "Use `set_start_time()` instead."]
+    pub fn start_time(&mut self, val: String) -> &mut Self {
+        self.set_start_time(val);
         self
     }
     #[deprecated = "Use `set_state()` instead."]
@@ -458,69 +528,9 @@ impl DownloadItem {
         self.set_total_bytes(val);
         self
     }
-    #[deprecated = "Use `set_paused()` instead."]
-    pub fn paused(&mut self, val: bool) -> &mut Self {
-        self.set_paused(val);
-        self
-    }
-    #[deprecated = "Use `set_danger()` instead."]
-    pub fn danger(&mut self, val: DangerType) -> &mut Self {
-        self.set_danger(val);
-        self
-    }
-    #[deprecated = "Use `set_incognito()` instead."]
-    pub fn incognito(&mut self, val: bool) -> &mut Self {
-        self.set_incognito(val);
-        self
-    }
     #[deprecated = "Use `set_url()` instead."]
     pub fn url(&mut self, val: String) -> &mut Self {
         self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_filename()` instead."]
-    pub fn filename(&mut self, val: String) -> &mut Self {
-        self.set_filename(val);
-        self
-    }
-    #[deprecated = "Use `set_can_resume()` instead."]
-    pub fn can_resume(&mut self, val: bool) -> &mut Self {
-        self.set_can_resume(val);
-        self
-    }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: InterruptReason) -> &mut Self {
-        self.set_error(val);
-        self
-    }
-    #[deprecated = "Use `set_mime()` instead."]
-    pub fn mime(&mut self, val: String) -> &mut Self {
-        self.set_mime(val);
-        self
-    }
-    #[deprecated = "Use `set_by_extension_id()` instead."]
-    pub fn by_extension_id(&mut self, val: String) -> &mut Self {
-        self.set_by_extension_id(val);
-        self
-    }
-    #[deprecated = "Use `set_estimated_end_time()` instead."]
-    pub fn estimated_end_time(&mut self, val: String) -> &mut Self {
-        self.set_estimated_end_time(val);
-        self
-    }
-    #[deprecated = "Use `set_by_extension_name()` instead."]
-    pub fn by_extension_name(&mut self, val: String) -> &mut Self {
-        self.set_by_extension_name(val);
-        self
-    }
-    #[deprecated = "Use `set_start_time()` instead."]
-    pub fn start_time(&mut self, val: String) -> &mut Self {
-        self.set_start_time(val);
-        self
-    }
-    #[deprecated = "Use `set_end_time()` instead."]
-    pub fn end_time(&mut self, val: String) -> &mut Self {
-        self.set_end_time(val);
         self
     }
 }
@@ -535,234 +545,181 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DownloadQuery;
-    ///Get the `endedBefore` field of this object.
-    #[wasm_bindgen(method, getter = "endedBefore")]
-    pub fn get_ended_before(this: &DownloadQuery) -> Option<String>;
-    ///Change the `endedBefore` field of this object.
-    #[wasm_bindgen(method, setter = "endedBefore")]
-    pub fn set_ended_before(this: &DownloadQuery, val: String);
-    ///Get the `paused` field of this object.
-    #[wasm_bindgen(method, getter = "paused")]
-    pub fn get_paused(this: &DownloadQuery) -> Option<bool>;
-    ///Change the `paused` field of this object.
-    #[wasm_bindgen(method, setter = "paused")]
-    pub fn set_paused(this: &DownloadQuery, val: bool);
-    ///Get the `totalBytes` field of this object.
-    #[wasm_bindgen(method, getter = "totalBytes")]
-    pub fn get_total_bytes(this: &DownloadQuery) -> Option<f64>;
-    ///Change the `totalBytes` field of this object.
-    #[wasm_bindgen(method, setter = "totalBytes")]
-    pub fn set_total_bytes(this: &DownloadQuery, val: f64);
-    ///Get the `startedAfter` field of this object.
-    #[wasm_bindgen(method, getter = "startedAfter")]
-    pub fn get_started_after(this: &DownloadQuery) -> Option<String>;
-    ///Change the `startedAfter` field of this object.
-    #[wasm_bindgen(method, setter = "startedAfter")]
-    pub fn set_started_after(this: &DownloadQuery, val: String);
-    ///Get the `query` field of this object.
-    #[wasm_bindgen(method, getter = "query")]
-    pub fn get_query(this: &DownloadQuery) -> Option<Array>;
-    ///Change the `query` field of this object.
-    #[wasm_bindgen(method, setter = "query")]
-    pub fn set_query(this: &DownloadQuery, val: &Array);
-    ///Get the `startedBefore` field of this object.
-    #[wasm_bindgen(method, getter = "startedBefore")]
-    pub fn get_started_before(this: &DownloadQuery) -> Option<String>;
-    ///Change the `startedBefore` field of this object.
-    #[wasm_bindgen(method, setter = "startedBefore")]
-    pub fn set_started_before(this: &DownloadQuery, val: String);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &DownloadQuery) -> Option<String>;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &DownloadQuery, val: String);
-    ///Get the `finalUrl` field of this object.
-    #[wasm_bindgen(method, getter = "finalUrl")]
-    pub fn get_final_url(this: &DownloadQuery) -> Option<String>;
-    ///Change the `finalUrl` field of this object.
-    #[wasm_bindgen(method, setter = "finalUrl")]
-    pub fn set_final_url(this: &DownloadQuery, val: String);
-    ///Get the `filename` field of this object.
-    #[wasm_bindgen(method, getter = "filename")]
-    pub fn get_filename(this: &DownloadQuery) -> Option<String>;
-    ///Change the `filename` field of this object.
-    #[wasm_bindgen(method, setter = "filename")]
-    pub fn set_filename(this: &DownloadQuery, val: String);
-    ///Get the `finalUrlRegex` field of this object.
-    #[wasm_bindgen(method, getter = "finalUrlRegex")]
-    pub fn get_final_url_regex(this: &DownloadQuery) -> Option<String>;
-    ///Change the `finalUrlRegex` field of this object.
-    #[wasm_bindgen(method, setter = "finalUrlRegex")]
-    pub fn set_final_url_regex(this: &DownloadQuery, val: String);
-    ///Get the `endedAfter` field of this object.
-    #[wasm_bindgen(method, getter = "endedAfter")]
-    pub fn get_ended_after(this: &DownloadQuery) -> Option<String>;
-    ///Change the `endedAfter` field of this object.
-    #[wasm_bindgen(method, setter = "endedAfter")]
-    pub fn set_ended_after(this: &DownloadQuery, val: String);
-    ///Get the `orderBy` field of this object.
-    #[wasm_bindgen(method, getter = "orderBy")]
-    pub fn get_order_by(this: &DownloadQuery) -> Option<Array>;
-    ///Change the `orderBy` field of this object.
-    #[wasm_bindgen(method, setter = "orderBy")]
-    pub fn set_order_by(this: &DownloadQuery, val: &Array);
-    ///Get the `danger` field of this object.
-    #[wasm_bindgen(method, getter = "danger")]
-    pub fn get_danger(this: &DownloadQuery) -> Option<DangerType>;
-    ///Change the `danger` field of this object.
-    #[wasm_bindgen(method, setter = "danger")]
-    pub fn set_danger(this: &DownloadQuery, val: DangerType);
-    ///Get the `totalBytesLess` field of this object.
-    #[wasm_bindgen(method, getter = "totalBytesLess")]
-    pub fn get_total_bytes_less(this: &DownloadQuery) -> Option<f64>;
-    ///Change the `totalBytesLess` field of this object.
-    #[wasm_bindgen(method, setter = "totalBytesLess")]
-    pub fn set_total_bytes_less(this: &DownloadQuery, val: f64);
-    ///Get the `mime` field of this object.
-    #[wasm_bindgen(method, getter = "mime")]
-    pub fn get_mime(this: &DownloadQuery) -> Option<String>;
-    ///Change the `mime` field of this object.
-    #[wasm_bindgen(method, setter = "mime")]
-    pub fn set_mime(this: &DownloadQuery, val: String);
-    ///Get the `endTime` field of this object.
-    #[wasm_bindgen(method, getter = "endTime")]
-    pub fn get_end_time(this: &DownloadQuery) -> Option<String>;
-    ///Change the `endTime` field of this object.
-    #[wasm_bindgen(method, setter = "endTime")]
-    pub fn set_end_time(this: &DownloadQuery, val: String);
-    ///Get the `startTime` field of this object.
-    #[wasm_bindgen(method, getter = "startTime")]
-    pub fn get_start_time(this: &DownloadQuery) -> Option<String>;
-    ///Change the `startTime` field of this object.
-    #[wasm_bindgen(method, setter = "startTime")]
-    pub fn set_start_time(this: &DownloadQuery, val: String);
-    ///Get the `state` field of this object.
-    #[wasm_bindgen(method, getter = "state")]
-    pub fn get_state(this: &DownloadQuery) -> Option<State>;
-    ///Change the `state` field of this object.
-    #[wasm_bindgen(method, setter = "state")]
-    pub fn set_state(this: &DownloadQuery, val: State);
     ///Get the `bytesReceived` field of this object.
     #[wasm_bindgen(method, getter = "bytesReceived")]
     pub fn get_bytes_received(this: &DownloadQuery) -> Option<f64>;
     ///Change the `bytesReceived` field of this object.
     #[wasm_bindgen(method, setter = "bytesReceived")]
     pub fn set_bytes_received(this: &DownloadQuery, val: f64);
-    ///Get the `limit` field of this object.
-    #[wasm_bindgen(method, getter = "limit")]
-    pub fn get_limit(this: &DownloadQuery) -> Option<i32>;
-    ///Change the `limit` field of this object.
-    #[wasm_bindgen(method, setter = "limit")]
-    pub fn set_limit(this: &DownloadQuery, val: i32);
-    ///Get the `fileSize` field of this object.
-    #[wasm_bindgen(method, getter = "fileSize")]
-    pub fn get_file_size(this: &DownloadQuery) -> Option<f64>;
-    ///Change the `fileSize` field of this object.
-    #[wasm_bindgen(method, setter = "fileSize")]
-    pub fn set_file_size(this: &DownloadQuery, val: f64);
-    ///Get the `exists` field of this object.
-    #[wasm_bindgen(method, getter = "exists")]
-    pub fn get_exists(this: &DownloadQuery) -> Option<bool>;
-    ///Change the `exists` field of this object.
-    #[wasm_bindgen(method, setter = "exists")]
-    pub fn set_exists(this: &DownloadQuery, val: bool);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &DownloadQuery) -> Option<i32>;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &DownloadQuery, val: i32);
-    ///Get the `totalBytesGreater` field of this object.
-    #[wasm_bindgen(method, getter = "totalBytesGreater")]
-    pub fn get_total_bytes_greater(this: &DownloadQuery) -> Option<f64>;
-    ///Change the `totalBytesGreater` field of this object.
-    #[wasm_bindgen(method, setter = "totalBytesGreater")]
-    pub fn set_total_bytes_greater(this: &DownloadQuery, val: f64);
-    ///Get the `urlRegex` field of this object.
-    #[wasm_bindgen(method, getter = "urlRegex")]
-    pub fn get_url_regex(this: &DownloadQuery) -> Option<String>;
-    ///Change the `urlRegex` field of this object.
-    #[wasm_bindgen(method, setter = "urlRegex")]
-    pub fn set_url_regex(this: &DownloadQuery, val: String);
-    ///Get the `filenameRegex` field of this object.
-    #[wasm_bindgen(method, getter = "filenameRegex")]
-    pub fn get_filename_regex(this: &DownloadQuery) -> Option<String>;
-    ///Change the `filenameRegex` field of this object.
-    #[wasm_bindgen(method, setter = "filenameRegex")]
-    pub fn set_filename_regex(this: &DownloadQuery, val: String);
+    ///Get the `danger` field of this object.
+    #[wasm_bindgen(method, getter = "danger")]
+    pub fn get_danger(this: &DownloadQuery) -> Option<DangerType>;
+    ///Change the `danger` field of this object.
+    #[wasm_bindgen(method, setter = "danger")]
+    pub fn set_danger(this: &DownloadQuery, val: DangerType);
+    ///Get the `endTime` field of this object.
+    #[wasm_bindgen(method, getter = "endTime")]
+    pub fn get_end_time(this: &DownloadQuery) -> Option<String>;
+    ///Change the `endTime` field of this object.
+    #[wasm_bindgen(method, setter = "endTime")]
+    pub fn set_end_time(this: &DownloadQuery, val: String);
+    ///Get the `endedAfter` field of this object.
+    #[wasm_bindgen(method, getter = "endedAfter")]
+    pub fn get_ended_after(this: &DownloadQuery) -> Option<String>;
+    ///Change the `endedAfter` field of this object.
+    #[wasm_bindgen(method, setter = "endedAfter")]
+    pub fn set_ended_after(this: &DownloadQuery, val: String);
+    ///Get the `endedBefore` field of this object.
+    #[wasm_bindgen(method, getter = "endedBefore")]
+    pub fn get_ended_before(this: &DownloadQuery) -> Option<String>;
+    ///Change the `endedBefore` field of this object.
+    #[wasm_bindgen(method, setter = "endedBefore")]
+    pub fn set_ended_before(this: &DownloadQuery, val: String);
     ///Get the `error` field of this object.
     #[wasm_bindgen(method, getter = "error")]
     pub fn get_error(this: &DownloadQuery) -> Option<InterruptReason>;
     ///Change the `error` field of this object.
     #[wasm_bindgen(method, setter = "error")]
     pub fn set_error(this: &DownloadQuery, val: InterruptReason);
+    ///Get the `exists` field of this object.
+    #[wasm_bindgen(method, getter = "exists")]
+    pub fn get_exists(this: &DownloadQuery) -> Option<bool>;
+    ///Change the `exists` field of this object.
+    #[wasm_bindgen(method, setter = "exists")]
+    pub fn set_exists(this: &DownloadQuery, val: bool);
+    ///Get the `fileSize` field of this object.
+    #[wasm_bindgen(method, getter = "fileSize")]
+    pub fn get_file_size(this: &DownloadQuery) -> Option<f64>;
+    ///Change the `fileSize` field of this object.
+    #[wasm_bindgen(method, setter = "fileSize")]
+    pub fn set_file_size(this: &DownloadQuery, val: f64);
+    ///Get the `filename` field of this object.
+    #[wasm_bindgen(method, getter = "filename")]
+    pub fn get_filename(this: &DownloadQuery) -> Option<String>;
+    ///Change the `filename` field of this object.
+    #[wasm_bindgen(method, setter = "filename")]
+    pub fn set_filename(this: &DownloadQuery, val: String);
+    ///Get the `filenameRegex` field of this object.
+    #[wasm_bindgen(method, getter = "filenameRegex")]
+    pub fn get_filename_regex(this: &DownloadQuery) -> Option<String>;
+    ///Change the `filenameRegex` field of this object.
+    #[wasm_bindgen(method, setter = "filenameRegex")]
+    pub fn set_filename_regex(this: &DownloadQuery, val: String);
+    ///Get the `finalUrl` field of this object.
+    #[wasm_bindgen(method, getter = "finalUrl")]
+    pub fn get_final_url(this: &DownloadQuery) -> Option<String>;
+    ///Change the `finalUrl` field of this object.
+    #[wasm_bindgen(method, setter = "finalUrl")]
+    pub fn set_final_url(this: &DownloadQuery, val: String);
+    ///Get the `finalUrlRegex` field of this object.
+    #[wasm_bindgen(method, getter = "finalUrlRegex")]
+    pub fn get_final_url_regex(this: &DownloadQuery) -> Option<String>;
+    ///Change the `finalUrlRegex` field of this object.
+    #[wasm_bindgen(method, setter = "finalUrlRegex")]
+    pub fn set_final_url_regex(this: &DownloadQuery, val: String);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &DownloadQuery) -> Option<i32>;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &DownloadQuery, val: i32);
+    ///Get the `limit` field of this object.
+    #[wasm_bindgen(method, getter = "limit")]
+    pub fn get_limit(this: &DownloadQuery) -> Option<i32>;
+    ///Change the `limit` field of this object.
+    #[wasm_bindgen(method, setter = "limit")]
+    pub fn set_limit(this: &DownloadQuery, val: i32);
+    ///Get the `mime` field of this object.
+    #[wasm_bindgen(method, getter = "mime")]
+    pub fn get_mime(this: &DownloadQuery) -> Option<String>;
+    ///Change the `mime` field of this object.
+    #[wasm_bindgen(method, setter = "mime")]
+    pub fn set_mime(this: &DownloadQuery, val: String);
+    ///Get the `orderBy` field of this object.
+    #[wasm_bindgen(method, getter = "orderBy")]
+    pub fn get_order_by(this: &DownloadQuery) -> Option<Array>;
+    ///Change the `orderBy` field of this object.
+    #[wasm_bindgen(method, setter = "orderBy")]
+    pub fn set_order_by(this: &DownloadQuery, val: &Array);
+    ///Get the `paused` field of this object.
+    #[wasm_bindgen(method, getter = "paused")]
+    pub fn get_paused(this: &DownloadQuery) -> Option<bool>;
+    ///Change the `paused` field of this object.
+    #[wasm_bindgen(method, setter = "paused")]
+    pub fn set_paused(this: &DownloadQuery, val: bool);
+    ///Get the `query` field of this object.
+    #[wasm_bindgen(method, getter = "query")]
+    pub fn get_query(this: &DownloadQuery) -> Option<Array>;
+    ///Change the `query` field of this object.
+    #[wasm_bindgen(method, setter = "query")]
+    pub fn set_query(this: &DownloadQuery, val: &Array);
+    ///Get the `startTime` field of this object.
+    #[wasm_bindgen(method, getter = "startTime")]
+    pub fn get_start_time(this: &DownloadQuery) -> Option<String>;
+    ///Change the `startTime` field of this object.
+    #[wasm_bindgen(method, setter = "startTime")]
+    pub fn set_start_time(this: &DownloadQuery, val: String);
+    ///Get the `startedAfter` field of this object.
+    #[wasm_bindgen(method, getter = "startedAfter")]
+    pub fn get_started_after(this: &DownloadQuery) -> Option<String>;
+    ///Change the `startedAfter` field of this object.
+    #[wasm_bindgen(method, setter = "startedAfter")]
+    pub fn set_started_after(this: &DownloadQuery, val: String);
+    ///Get the `startedBefore` field of this object.
+    #[wasm_bindgen(method, getter = "startedBefore")]
+    pub fn get_started_before(this: &DownloadQuery) -> Option<String>;
+    ///Change the `startedBefore` field of this object.
+    #[wasm_bindgen(method, setter = "startedBefore")]
+    pub fn set_started_before(this: &DownloadQuery, val: String);
+    ///Get the `state` field of this object.
+    #[wasm_bindgen(method, getter = "state")]
+    pub fn get_state(this: &DownloadQuery) -> Option<State>;
+    ///Change the `state` field of this object.
+    #[wasm_bindgen(method, setter = "state")]
+    pub fn set_state(this: &DownloadQuery, val: State);
+    ///Get the `totalBytes` field of this object.
+    #[wasm_bindgen(method, getter = "totalBytes")]
+    pub fn get_total_bytes(this: &DownloadQuery) -> Option<f64>;
+    ///Change the `totalBytes` field of this object.
+    #[wasm_bindgen(method, setter = "totalBytes")]
+    pub fn set_total_bytes(this: &DownloadQuery, val: f64);
+    ///Get the `totalBytesGreater` field of this object.
+    #[wasm_bindgen(method, getter = "totalBytesGreater")]
+    pub fn get_total_bytes_greater(this: &DownloadQuery) -> Option<f64>;
+    ///Change the `totalBytesGreater` field of this object.
+    #[wasm_bindgen(method, setter = "totalBytesGreater")]
+    pub fn set_total_bytes_greater(this: &DownloadQuery, val: f64);
+    ///Get the `totalBytesLess` field of this object.
+    #[wasm_bindgen(method, getter = "totalBytesLess")]
+    pub fn get_total_bytes_less(this: &DownloadQuery) -> Option<f64>;
+    ///Change the `totalBytesLess` field of this object.
+    #[wasm_bindgen(method, setter = "totalBytesLess")]
+    pub fn set_total_bytes_less(this: &DownloadQuery, val: f64);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &DownloadQuery) -> Option<String>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &DownloadQuery, val: String);
+    ///Get the `urlRegex` field of this object.
+    #[wasm_bindgen(method, getter = "urlRegex")]
+    pub fn get_url_regex(this: &DownloadQuery) -> Option<String>;
+    ///Change the `urlRegex` field of this object.
+    #[wasm_bindgen(method, setter = "urlRegex")]
+    pub fn set_url_regex(this: &DownloadQuery, val: String);
 }
 impl DownloadQuery {
     ///Construct a new `DownloadQuery`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_ended_before()` instead."]
-    pub fn ended_before(&mut self, val: String) -> &mut Self {
-        self.set_ended_before(val);
-        self
-    }
-    #[deprecated = "Use `set_paused()` instead."]
-    pub fn paused(&mut self, val: bool) -> &mut Self {
-        self.set_paused(val);
-        self
-    }
-    #[deprecated = "Use `set_total_bytes()` instead."]
-    pub fn total_bytes(&mut self, val: f64) -> &mut Self {
-        self.set_total_bytes(val);
-        self
-    }
-    #[deprecated = "Use `set_started_after()` instead."]
-    pub fn started_after(&mut self, val: String) -> &mut Self {
-        self.set_started_after(val);
-        self
-    }
-    #[deprecated = "Use `set_query()` instead."]
-    pub fn query(&mut self, val: &Array) -> &mut Self {
-        self.set_query(val);
-        self
-    }
-    #[deprecated = "Use `set_started_before()` instead."]
-    pub fn started_before(&mut self, val: String) -> &mut Self {
-        self.set_started_before(val);
-        self
-    }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: String) -> &mut Self {
-        self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_final_url()` instead."]
-    pub fn final_url(&mut self, val: String) -> &mut Self {
-        self.set_final_url(val);
-        self
-    }
-    #[deprecated = "Use `set_filename()` instead."]
-    pub fn filename(&mut self, val: String) -> &mut Self {
-        self.set_filename(val);
-        self
-    }
-    #[deprecated = "Use `set_final_url_regex()` instead."]
-    pub fn final_url_regex(&mut self, val: String) -> &mut Self {
-        self.set_final_url_regex(val);
-        self
-    }
-    #[deprecated = "Use `set_ended_after()` instead."]
-    pub fn ended_after(&mut self, val: String) -> &mut Self {
-        self.set_ended_after(val);
-        self
-    }
-    #[deprecated = "Use `set_order_by()` instead."]
-    pub fn order_by(&mut self, val: &Array) -> &mut Self {
-        self.set_order_by(val);
+    #[deprecated = "Use `set_bytes_received()` instead."]
+    pub fn bytes_received(&mut self, val: f64) -> &mut Self {
+        self.set_bytes_received(val);
         self
     }
     #[deprecated = "Use `set_danger()` instead."]
@@ -770,44 +727,24 @@ impl DownloadQuery {
         self.set_danger(val);
         self
     }
-    #[deprecated = "Use `set_total_bytes_less()` instead."]
-    pub fn total_bytes_less(&mut self, val: f64) -> &mut Self {
-        self.set_total_bytes_less(val);
-        self
-    }
-    #[deprecated = "Use `set_mime()` instead."]
-    pub fn mime(&mut self, val: String) -> &mut Self {
-        self.set_mime(val);
-        self
-    }
     #[deprecated = "Use `set_end_time()` instead."]
     pub fn end_time(&mut self, val: String) -> &mut Self {
         self.set_end_time(val);
         self
     }
-    #[deprecated = "Use `set_start_time()` instead."]
-    pub fn start_time(&mut self, val: String) -> &mut Self {
-        self.set_start_time(val);
+    #[deprecated = "Use `set_ended_after()` instead."]
+    pub fn ended_after(&mut self, val: String) -> &mut Self {
+        self.set_ended_after(val);
         self
     }
-    #[deprecated = "Use `set_state()` instead."]
-    pub fn state(&mut self, val: State) -> &mut Self {
-        self.set_state(val);
+    #[deprecated = "Use `set_ended_before()` instead."]
+    pub fn ended_before(&mut self, val: String) -> &mut Self {
+        self.set_ended_before(val);
         self
     }
-    #[deprecated = "Use `set_bytes_received()` instead."]
-    pub fn bytes_received(&mut self, val: f64) -> &mut Self {
-        self.set_bytes_received(val);
-        self
-    }
-    #[deprecated = "Use `set_limit()` instead."]
-    pub fn limit(&mut self, val: i32) -> &mut Self {
-        self.set_limit(val);
-        self
-    }
-    #[deprecated = "Use `set_file_size()` instead."]
-    pub fn file_size(&mut self, val: f64) -> &mut Self {
-        self.set_file_size(val);
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: InterruptReason) -> &mut Self {
+        self.set_error(val);
         self
     }
     #[deprecated = "Use `set_exists()` instead."]
@@ -815,19 +752,14 @@ impl DownloadQuery {
         self.set_exists(val);
         self
     }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: i32) -> &mut Self {
-        self.set_id(val);
+    #[deprecated = "Use `set_file_size()` instead."]
+    pub fn file_size(&mut self, val: f64) -> &mut Self {
+        self.set_file_size(val);
         self
     }
-    #[deprecated = "Use `set_total_bytes_greater()` instead."]
-    pub fn total_bytes_greater(&mut self, val: f64) -> &mut Self {
-        self.set_total_bytes_greater(val);
-        self
-    }
-    #[deprecated = "Use `set_url_regex()` instead."]
-    pub fn url_regex(&mut self, val: String) -> &mut Self {
-        self.set_url_regex(val);
+    #[deprecated = "Use `set_filename()` instead."]
+    pub fn filename(&mut self, val: String) -> &mut Self {
+        self.set_filename(val);
         self
     }
     #[deprecated = "Use `set_filename_regex()` instead."]
@@ -835,9 +767,89 @@ impl DownloadQuery {
         self.set_filename_regex(val);
         self
     }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: InterruptReason) -> &mut Self {
-        self.set_error(val);
+    #[deprecated = "Use `set_final_url()` instead."]
+    pub fn final_url(&mut self, val: String) -> &mut Self {
+        self.set_final_url(val);
+        self
+    }
+    #[deprecated = "Use `set_final_url_regex()` instead."]
+    pub fn final_url_regex(&mut self, val: String) -> &mut Self {
+        self.set_final_url_regex(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: i32) -> &mut Self {
+        self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_limit()` instead."]
+    pub fn limit(&mut self, val: i32) -> &mut Self {
+        self.set_limit(val);
+        self
+    }
+    #[deprecated = "Use `set_mime()` instead."]
+    pub fn mime(&mut self, val: String) -> &mut Self {
+        self.set_mime(val);
+        self
+    }
+    #[deprecated = "Use `set_order_by()` instead."]
+    pub fn order_by(&mut self, val: &Array) -> &mut Self {
+        self.set_order_by(val);
+        self
+    }
+    #[deprecated = "Use `set_paused()` instead."]
+    pub fn paused(&mut self, val: bool) -> &mut Self {
+        self.set_paused(val);
+        self
+    }
+    #[deprecated = "Use `set_query()` instead."]
+    pub fn query(&mut self, val: &Array) -> &mut Self {
+        self.set_query(val);
+        self
+    }
+    #[deprecated = "Use `set_start_time()` instead."]
+    pub fn start_time(&mut self, val: String) -> &mut Self {
+        self.set_start_time(val);
+        self
+    }
+    #[deprecated = "Use `set_started_after()` instead."]
+    pub fn started_after(&mut self, val: String) -> &mut Self {
+        self.set_started_after(val);
+        self
+    }
+    #[deprecated = "Use `set_started_before()` instead."]
+    pub fn started_before(&mut self, val: String) -> &mut Self {
+        self.set_started_before(val);
+        self
+    }
+    #[deprecated = "Use `set_state()` instead."]
+    pub fn state(&mut self, val: State) -> &mut Self {
+        self.set_state(val);
+        self
+    }
+    #[deprecated = "Use `set_total_bytes()` instead."]
+    pub fn total_bytes(&mut self, val: f64) -> &mut Self {
+        self.set_total_bytes(val);
+        self
+    }
+    #[deprecated = "Use `set_total_bytes_greater()` instead."]
+    pub fn total_bytes_greater(&mut self, val: f64) -> &mut Self {
+        self.set_total_bytes_greater(val);
+        self
+    }
+    #[deprecated = "Use `set_total_bytes_less()` instead."]
+    pub fn total_bytes_less(&mut self, val: f64) -> &mut Self {
+        self.set_total_bytes_less(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: String) -> &mut Self {
+        self.set_url(val);
+        self
+    }
+    #[deprecated = "Use `set_url_regex()` instead."]
+    pub fn url_regex(&mut self, val: String) -> &mut Self {
+        self.set_url_regex(val);
         self
     }
 }
@@ -869,7 +881,9 @@ impl StringDelta {
     ///Construct a new `StringDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_current()` instead."]
@@ -911,7 +925,9 @@ impl DoubleDelta {
     ///Construct a new `DoubleDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_current()` instead."]
@@ -953,7 +969,9 @@ impl BooleanDelta {
     ///Construct a new `BooleanDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_current()` instead."]
@@ -978,122 +996,109 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DownloadDelta;
-    ///Get the `mime` field of this object.
-    #[wasm_bindgen(method, getter = "mime")]
-    pub fn get_mime(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `mime` field of this object.
-    #[wasm_bindgen(method, setter = "mime")]
-    pub fn set_mime(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &DownloadDelta) -> i32;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &DownloadDelta, val: i32);
-    ///Get the `paused` field of this object.
-    #[wasm_bindgen(method, getter = "paused")]
-    pub fn get_paused(this: &DownloadDelta) -> Option<BooleanDelta>;
-    ///Change the `paused` field of this object.
-    #[wasm_bindgen(method, setter = "paused")]
-    pub fn set_paused(this: &DownloadDelta, val: &BooleanDelta);
-    ///Get the `error` field of this object.
-    #[wasm_bindgen(method, getter = "error")]
-    pub fn get_error(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `error` field of this object.
-    #[wasm_bindgen(method, setter = "error")]
-    pub fn set_error(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `danger` field of this object.
-    #[wasm_bindgen(method, getter = "danger")]
-    pub fn get_danger(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `danger` field of this object.
-    #[wasm_bindgen(method, setter = "danger")]
-    pub fn set_danger(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `filename` field of this object.
-    #[wasm_bindgen(method, getter = "filename")]
-    pub fn get_filename(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `filename` field of this object.
-    #[wasm_bindgen(method, setter = "filename")]
-    pub fn set_filename(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `startTime` field of this object.
-    #[wasm_bindgen(method, getter = "startTime")]
-    pub fn get_start_time(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `startTime` field of this object.
-    #[wasm_bindgen(method, setter = "startTime")]
-    pub fn set_start_time(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `finalUrl` field of this object.
-    #[wasm_bindgen(method, getter = "finalUrl")]
-    pub fn get_final_url(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `finalUrl` field of this object.
-    #[wasm_bindgen(method, setter = "finalUrl")]
-    pub fn set_final_url(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `endTime` field of this object.
-    #[wasm_bindgen(method, getter = "endTime")]
-    pub fn get_end_time(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `endTime` field of this object.
-    #[wasm_bindgen(method, setter = "endTime")]
-    pub fn set_end_time(this: &DownloadDelta, val: &StringDelta);
     ///Get the `canResume` field of this object.
     #[wasm_bindgen(method, getter = "canResume")]
     pub fn get_can_resume(this: &DownloadDelta) -> Option<BooleanDelta>;
     ///Change the `canResume` field of this object.
     #[wasm_bindgen(method, setter = "canResume")]
     pub fn set_can_resume(this: &DownloadDelta, val: &BooleanDelta);
-    ///Get the `url` field of this object.
-    #[wasm_bindgen(method, getter = "url")]
-    pub fn get_url(this: &DownloadDelta) -> Option<StringDelta>;
-    ///Change the `url` field of this object.
-    #[wasm_bindgen(method, setter = "url")]
-    pub fn set_url(this: &DownloadDelta, val: &StringDelta);
-    ///Get the `totalBytes` field of this object.
-    #[wasm_bindgen(method, getter = "totalBytes")]
-    pub fn get_total_bytes(this: &DownloadDelta) -> Option<DoubleDelta>;
-    ///Change the `totalBytes` field of this object.
-    #[wasm_bindgen(method, setter = "totalBytes")]
-    pub fn set_total_bytes(this: &DownloadDelta, val: &DoubleDelta);
-    ///Get the `fileSize` field of this object.
-    #[wasm_bindgen(method, getter = "fileSize")]
-    pub fn get_file_size(this: &DownloadDelta) -> Option<DoubleDelta>;
-    ///Change the `fileSize` field of this object.
-    #[wasm_bindgen(method, setter = "fileSize")]
-    pub fn set_file_size(this: &DownloadDelta, val: &DoubleDelta);
+    ///Get the `danger` field of this object.
+    #[wasm_bindgen(method, getter = "danger")]
+    pub fn get_danger(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `danger` field of this object.
+    #[wasm_bindgen(method, setter = "danger")]
+    pub fn set_danger(this: &DownloadDelta, val: &StringDelta);
+    ///Get the `endTime` field of this object.
+    #[wasm_bindgen(method, getter = "endTime")]
+    pub fn get_end_time(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `endTime` field of this object.
+    #[wasm_bindgen(method, setter = "endTime")]
+    pub fn set_end_time(this: &DownloadDelta, val: &StringDelta);
+    ///Get the `error` field of this object.
+    #[wasm_bindgen(method, getter = "error")]
+    pub fn get_error(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `error` field of this object.
+    #[wasm_bindgen(method, setter = "error")]
+    pub fn set_error(this: &DownloadDelta, val: &StringDelta);
     ///Get the `exists` field of this object.
     #[wasm_bindgen(method, getter = "exists")]
     pub fn get_exists(this: &DownloadDelta) -> Option<BooleanDelta>;
     ///Change the `exists` field of this object.
     #[wasm_bindgen(method, setter = "exists")]
     pub fn set_exists(this: &DownloadDelta, val: &BooleanDelta);
+    ///Get the `fileSize` field of this object.
+    #[wasm_bindgen(method, getter = "fileSize")]
+    pub fn get_file_size(this: &DownloadDelta) -> Option<DoubleDelta>;
+    ///Change the `fileSize` field of this object.
+    #[wasm_bindgen(method, setter = "fileSize")]
+    pub fn set_file_size(this: &DownloadDelta, val: &DoubleDelta);
+    ///Get the `filename` field of this object.
+    #[wasm_bindgen(method, getter = "filename")]
+    pub fn get_filename(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `filename` field of this object.
+    #[wasm_bindgen(method, setter = "filename")]
+    pub fn set_filename(this: &DownloadDelta, val: &StringDelta);
+    ///Get the `finalUrl` field of this object.
+    #[wasm_bindgen(method, getter = "finalUrl")]
+    pub fn get_final_url(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `finalUrl` field of this object.
+    #[wasm_bindgen(method, setter = "finalUrl")]
+    pub fn set_final_url(this: &DownloadDelta, val: &StringDelta);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &DownloadDelta) -> i32;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &DownloadDelta, val: i32);
+    ///Get the `mime` field of this object.
+    #[wasm_bindgen(method, getter = "mime")]
+    pub fn get_mime(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `mime` field of this object.
+    #[wasm_bindgen(method, setter = "mime")]
+    pub fn set_mime(this: &DownloadDelta, val: &StringDelta);
+    ///Get the `paused` field of this object.
+    #[wasm_bindgen(method, getter = "paused")]
+    pub fn get_paused(this: &DownloadDelta) -> Option<BooleanDelta>;
+    ///Change the `paused` field of this object.
+    #[wasm_bindgen(method, setter = "paused")]
+    pub fn set_paused(this: &DownloadDelta, val: &BooleanDelta);
+    ///Get the `startTime` field of this object.
+    #[wasm_bindgen(method, getter = "startTime")]
+    pub fn get_start_time(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `startTime` field of this object.
+    #[wasm_bindgen(method, setter = "startTime")]
+    pub fn set_start_time(this: &DownloadDelta, val: &StringDelta);
     ///Get the `state` field of this object.
     #[wasm_bindgen(method, getter = "state")]
     pub fn get_state(this: &DownloadDelta) -> Option<StringDelta>;
     ///Change the `state` field of this object.
     #[wasm_bindgen(method, setter = "state")]
     pub fn set_state(this: &DownloadDelta, val: &StringDelta);
+    ///Get the `totalBytes` field of this object.
+    #[wasm_bindgen(method, getter = "totalBytes")]
+    pub fn get_total_bytes(this: &DownloadDelta) -> Option<DoubleDelta>;
+    ///Change the `totalBytes` field of this object.
+    #[wasm_bindgen(method, setter = "totalBytes")]
+    pub fn set_total_bytes(this: &DownloadDelta, val: &DoubleDelta);
+    ///Get the `url` field of this object.
+    #[wasm_bindgen(method, getter = "url")]
+    pub fn get_url(this: &DownloadDelta) -> Option<StringDelta>;
+    ///Change the `url` field of this object.
+    #[wasm_bindgen(method, setter = "url")]
+    pub fn set_url(this: &DownloadDelta, val: &StringDelta);
 }
 impl DownloadDelta {
     ///Construct a new `DownloadDelta`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_mime()` instead."]
-    pub fn mime(&mut self, val: &StringDelta) -> &mut Self {
-        self.set_mime(val);
-        self
-    }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: i32) -> &mut Self {
-        self.set_id(val);
-        self
-    }
-    #[deprecated = "Use `set_paused()` instead."]
-    pub fn paused(&mut self, val: &BooleanDelta) -> &mut Self {
-        self.set_paused(val);
-        self
-    }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: &StringDelta) -> &mut Self {
-        self.set_error(val);
+    #[deprecated = "Use `set_can_resume()` instead."]
+    pub fn can_resume(&mut self, val: &BooleanDelta) -> &mut Self {
+        self.set_can_resume(val);
         self
     }
     #[deprecated = "Use `set_danger()` instead."]
@@ -1101,44 +1106,14 @@ impl DownloadDelta {
         self.set_danger(val);
         self
     }
-    #[deprecated = "Use `set_filename()` instead."]
-    pub fn filename(&mut self, val: &StringDelta) -> &mut Self {
-        self.set_filename(val);
-        self
-    }
-    #[deprecated = "Use `set_start_time()` instead."]
-    pub fn start_time(&mut self, val: &StringDelta) -> &mut Self {
-        self.set_start_time(val);
-        self
-    }
-    #[deprecated = "Use `set_final_url()` instead."]
-    pub fn final_url(&mut self, val: &StringDelta) -> &mut Self {
-        self.set_final_url(val);
-        self
-    }
     #[deprecated = "Use `set_end_time()` instead."]
     pub fn end_time(&mut self, val: &StringDelta) -> &mut Self {
         self.set_end_time(val);
         self
     }
-    #[deprecated = "Use `set_can_resume()` instead."]
-    pub fn can_resume(&mut self, val: &BooleanDelta) -> &mut Self {
-        self.set_can_resume(val);
-        self
-    }
-    #[deprecated = "Use `set_url()` instead."]
-    pub fn url(&mut self, val: &StringDelta) -> &mut Self {
-        self.set_url(val);
-        self
-    }
-    #[deprecated = "Use `set_total_bytes()` instead."]
-    pub fn total_bytes(&mut self, val: &DoubleDelta) -> &mut Self {
-        self.set_total_bytes(val);
-        self
-    }
-    #[deprecated = "Use `set_file_size()` instead."]
-    pub fn file_size(&mut self, val: &DoubleDelta) -> &mut Self {
-        self.set_file_size(val);
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: &StringDelta) -> &mut Self {
+        self.set_error(val);
         self
     }
     #[deprecated = "Use `set_exists()` instead."]
@@ -1146,9 +1121,54 @@ impl DownloadDelta {
         self.set_exists(val);
         self
     }
+    #[deprecated = "Use `set_file_size()` instead."]
+    pub fn file_size(&mut self, val: &DoubleDelta) -> &mut Self {
+        self.set_file_size(val);
+        self
+    }
+    #[deprecated = "Use `set_filename()` instead."]
+    pub fn filename(&mut self, val: &StringDelta) -> &mut Self {
+        self.set_filename(val);
+        self
+    }
+    #[deprecated = "Use `set_final_url()` instead."]
+    pub fn final_url(&mut self, val: &StringDelta) -> &mut Self {
+        self.set_final_url(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: i32) -> &mut Self {
+        self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_mime()` instead."]
+    pub fn mime(&mut self, val: &StringDelta) -> &mut Self {
+        self.set_mime(val);
+        self
+    }
+    #[deprecated = "Use `set_paused()` instead."]
+    pub fn paused(&mut self, val: &BooleanDelta) -> &mut Self {
+        self.set_paused(val);
+        self
+    }
+    #[deprecated = "Use `set_start_time()` instead."]
+    pub fn start_time(&mut self, val: &StringDelta) -> &mut Self {
+        self.set_start_time(val);
+        self
+    }
     #[deprecated = "Use `set_state()` instead."]
     pub fn state(&mut self, val: &StringDelta) -> &mut Self {
         self.set_state(val);
+        self
+    }
+    #[deprecated = "Use `set_total_bytes()` instead."]
+    pub fn total_bytes(&mut self, val: &DoubleDelta) -> &mut Self {
+        self.set_total_bytes(val);
+        self
+    }
+    #[deprecated = "Use `set_url()` instead."]
+    pub fn url(&mut self, val: &StringDelta) -> &mut Self {
+        self.set_url(val);
         self
     }
 }
@@ -1174,7 +1194,9 @@ impl GetFileIconOptions {
     ///Construct a new `GetFileIconOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_size()` instead."]
@@ -1205,7 +1227,9 @@ impl UiOptions {
     ///Construct a new `UiOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_enabled()` instead."]
@@ -1238,7 +1262,10 @@ extern "C" {
     pub fn cancel(download_id: i32) -> Promise;
     ///Retrieve an icon for the specified download. For new downloads, file icons are available after the $(ref:onCreated) event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, $(ref:runtime.lastError) will contain an error message.
     #[wasm_bindgen(js_namespace = ["chrome", "downloads"], js_name = "getFileIcon")]
-    pub fn get_file_icon(download_id: i32, options: Option<GetFileIconOptions>) -> Promise;
+    pub fn get_file_icon(
+        download_id: i32,
+        options: Option<GetFileIconOptions>,
+    ) -> Promise;
     ///Opens the downloaded file now if the $(ref:DownloadItem) is complete; otherwise returns an error through $(ref:runtime.lastError). This method requires the "downloads.open" permission in addition to the "downloads" permission. An $(ref:onChanged) event fires when the item is opened for the first time. This method can only be called in response to a user gesture.
     #[wasm_bindgen(js_namespace = ["chrome", "downloads"], js_name = "open")]
     pub fn open(download_id: i32) -> Promise;

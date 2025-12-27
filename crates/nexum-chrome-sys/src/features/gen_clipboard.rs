@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Supported image types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -22,34 +22,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type AdditionalDataItem;
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &AdditionalDataItem) -> DataItemType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &AdditionalDataItem, val: DataItemType);
     ///Get the `data` field of this object.
     #[wasm_bindgen(method, getter = "data")]
     pub fn get_data(this: &AdditionalDataItem) -> String;
     ///Change the `data` field of this object.
     #[wasm_bindgen(method, setter = "data")]
     pub fn set_data(this: &AdditionalDataItem, val: String);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &AdditionalDataItem) -> DataItemType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &AdditionalDataItem, val: DataItemType);
 }
 impl AdditionalDataItem {
     ///Construct a new `AdditionalDataItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: DataItemType) -> &mut Self {
-        self.set_type(val);
-        self
     }
     #[deprecated = "Use `set_data()` instead."]
     pub fn data(&mut self, val: String) -> &mut Self {
         self.set_data(val);
+        self
+    }
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: DataItemType) -> &mut Self {
+        self.set_type(val);
         self
     }
 }

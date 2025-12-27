@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -56,56 +56,58 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type FileInfo;
-    ///Get the `fileEntry` field of this object.
-    #[wasm_bindgen(method, getter = "fileEntry")]
-    pub fn get_file_entry(this: &FileInfo) -> Object;
-    ///Change the `fileEntry` field of this object.
-    #[wasm_bindgen(method, setter = "fileEntry")]
-    pub fn set_file_entry(this: &FileInfo, val: &Object);
     ///Get the `action` field of this object.
     #[wasm_bindgen(method, getter = "action")]
     pub fn get_action(this: &FileInfo) -> Option<SyncAction>;
     ///Change the `action` field of this object.
     #[wasm_bindgen(method, setter = "action")]
     pub fn set_action(this: &FileInfo, val: SyncAction);
-    ///Get the `status` field of this object.
-    #[wasm_bindgen(method, getter = "status")]
-    pub fn get_status(this: &FileInfo) -> FileStatus;
-    ///Change the `status` field of this object.
-    #[wasm_bindgen(method, setter = "status")]
-    pub fn set_status(this: &FileInfo, val: FileStatus);
     ///Get the `direction` field of this object.
     #[wasm_bindgen(method, getter = "direction")]
     pub fn get_direction(this: &FileInfo) -> Option<SyncDirection>;
     ///Change the `direction` field of this object.
     #[wasm_bindgen(method, setter = "direction")]
     pub fn set_direction(this: &FileInfo, val: SyncDirection);
+    ///Get the `fileEntry` field of this object.
+    #[wasm_bindgen(method, getter = "fileEntry")]
+    pub fn get_file_entry(this: &FileInfo) -> Object;
+    ///Change the `fileEntry` field of this object.
+    #[wasm_bindgen(method, setter = "fileEntry")]
+    pub fn set_file_entry(this: &FileInfo, val: &Object);
+    ///Get the `status` field of this object.
+    #[wasm_bindgen(method, getter = "status")]
+    pub fn get_status(this: &FileInfo) -> FileStatus;
+    ///Change the `status` field of this object.
+    #[wasm_bindgen(method, setter = "status")]
+    pub fn set_status(this: &FileInfo, val: FileStatus);
 }
 impl FileInfo {
     ///Construct a new `FileInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_file_entry()` instead."]
-    pub fn file_entry(&mut self, val: &Object) -> &mut Self {
-        self.set_file_entry(val);
-        self
     }
     #[deprecated = "Use `set_action()` instead."]
     pub fn action(&mut self, val: SyncAction) -> &mut Self {
         self.set_action(val);
         self
     }
-    #[deprecated = "Use `set_status()` instead."]
-    pub fn status(&mut self, val: FileStatus) -> &mut Self {
-        self.set_status(val);
-        self
-    }
     #[deprecated = "Use `set_direction()` instead."]
     pub fn direction(&mut self, val: SyncDirection) -> &mut Self {
         self.set_direction(val);
+        self
+    }
+    #[deprecated = "Use `set_file_entry()` instead."]
+    pub fn file_entry(&mut self, val: &Object) -> &mut Self {
+        self.set_file_entry(val);
+        self
+    }
+    #[deprecated = "Use `set_status()` instead."]
+    pub fn status(&mut self, val: FileStatus) -> &mut Self {
+        self.set_status(val);
         self
     }
 }
@@ -120,6 +122,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type FileStatusInfo;
+    ///Get the `error` field of this object.
+    #[wasm_bindgen(method, getter = "error")]
+    pub fn get_error(this: &FileStatusInfo) -> Option<String>;
+    ///Change the `error` field of this object.
+    #[wasm_bindgen(method, setter = "error")]
+    pub fn set_error(this: &FileStatusInfo, val: String);
     ///Get the `fileEntry` field of this object.
     #[wasm_bindgen(method, getter = "fileEntry")]
     pub fn get_file_entry(this: &FileStatusInfo) -> Object;
@@ -132,19 +140,20 @@ extern "C" {
     ///Change the `status` field of this object.
     #[wasm_bindgen(method, setter = "status")]
     pub fn set_status(this: &FileStatusInfo, val: FileStatus);
-    ///Get the `error` field of this object.
-    #[wasm_bindgen(method, getter = "error")]
-    pub fn get_error(this: &FileStatusInfo) -> Option<String>;
-    ///Change the `error` field of this object.
-    #[wasm_bindgen(method, setter = "error")]
-    pub fn set_error(this: &FileStatusInfo, val: String);
 }
 impl FileStatusInfo {
     ///Construct a new `FileStatusInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: String) -> &mut Self {
+        self.set_error(val);
+        self
     }
     #[deprecated = "Use `set_file_entry()` instead."]
     pub fn file_entry(&mut self, val: &Object) -> &mut Self {
@@ -154,11 +163,6 @@ impl FileStatusInfo {
     #[deprecated = "Use `set_status()` instead."]
     pub fn status(&mut self, val: FileStatus) -> &mut Self {
         self.set_status(val);
-        self
-    }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: String) -> &mut Self {
-        self.set_error(val);
         self
     }
 }
@@ -173,34 +177,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type StorageInfo;
-    ///Get the `usageBytes` field of this object.
-    #[wasm_bindgen(method, getter = "usageBytes")]
-    pub fn get_usage_bytes(this: &StorageInfo) -> i32;
-    ///Change the `usageBytes` field of this object.
-    #[wasm_bindgen(method, setter = "usageBytes")]
-    pub fn set_usage_bytes(this: &StorageInfo, val: i32);
     ///Get the `quotaBytes` field of this object.
     #[wasm_bindgen(method, getter = "quotaBytes")]
     pub fn get_quota_bytes(this: &StorageInfo) -> i32;
     ///Change the `quotaBytes` field of this object.
     #[wasm_bindgen(method, setter = "quotaBytes")]
     pub fn set_quota_bytes(this: &StorageInfo, val: i32);
+    ///Get the `usageBytes` field of this object.
+    #[wasm_bindgen(method, getter = "usageBytes")]
+    pub fn get_usage_bytes(this: &StorageInfo) -> i32;
+    ///Change the `usageBytes` field of this object.
+    #[wasm_bindgen(method, setter = "usageBytes")]
+    pub fn set_usage_bytes(this: &StorageInfo, val: i32);
 }
 impl StorageInfo {
     ///Construct a new `StorageInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_usage_bytes()` instead."]
-    pub fn usage_bytes(&mut self, val: i32) -> &mut Self {
-        self.set_usage_bytes(val);
-        self
     }
     #[deprecated = "Use `set_quota_bytes()` instead."]
     pub fn quota_bytes(&mut self, val: i32) -> &mut Self {
         self.set_quota_bytes(val);
+        self
+    }
+    #[deprecated = "Use `set_usage_bytes()` instead."]
+    pub fn usage_bytes(&mut self, val: i32) -> &mut Self {
+        self.set_usage_bytes(val);
         self
     }
 }
@@ -215,34 +221,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ServiceInfo;
-    ///Get the `state` field of this object.
-    #[wasm_bindgen(method, getter = "state")]
-    pub fn get_state(this: &ServiceInfo) -> ServiceStatus;
-    ///Change the `state` field of this object.
-    #[wasm_bindgen(method, setter = "state")]
-    pub fn set_state(this: &ServiceInfo, val: ServiceStatus);
     ///Get the `description` field of this object.
     #[wasm_bindgen(method, getter = "description")]
     pub fn get_description(this: &ServiceInfo) -> String;
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &ServiceInfo, val: String);
+    ///Get the `state` field of this object.
+    #[wasm_bindgen(method, getter = "state")]
+    pub fn get_state(this: &ServiceInfo) -> ServiceStatus;
+    ///Change the `state` field of this object.
+    #[wasm_bindgen(method, setter = "state")]
+    pub fn set_state(this: &ServiceInfo, val: ServiceStatus);
 }
 impl ServiceInfo {
     ///Construct a new `ServiceInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_state()` instead."]
-    pub fn state(&mut self, val: ServiceStatus) -> &mut Self {
-        self.set_state(val);
-        self
     }
     #[deprecated = "Use `set_description()` instead."]
     pub fn description(&mut self, val: String) -> &mut Self {
         self.set_description(val);
+        self
+    }
+    #[deprecated = "Use `set_state()` instead."]
+    pub fn state(&mut self, val: ServiceStatus) -> &mut Self {
+        self.set_state(val);
         self
     }
 }

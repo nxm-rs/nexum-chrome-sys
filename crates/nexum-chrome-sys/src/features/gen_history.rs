@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///The transition type for this visit from its referrer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -35,6 +35,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object encapsulating one result of a history query.
     pub type HistoryItem;
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &HistoryItem) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &HistoryItem, val: String);
     ///Get the `lastVisitTime` field of this object.
     #[wasm_bindgen(method, getter = "lastVisitTime")]
     pub fn get_last_visit_time(this: &HistoryItem) -> Option<f64>;
@@ -47,6 +53,12 @@ extern "C" {
     ///Change the `title` field of this object.
     #[wasm_bindgen(method, setter = "title")]
     pub fn set_title(this: &HistoryItem, val: String);
+    ///Get the `typedCount` field of this object.
+    #[wasm_bindgen(method, getter = "typedCount")]
+    pub fn get_typed_count(this: &HistoryItem) -> Option<i32>;
+    ///Change the `typedCount` field of this object.
+    #[wasm_bindgen(method, setter = "typedCount")]
+    pub fn set_typed_count(this: &HistoryItem, val: i32);
     ///Get the `url` field of this object.
     #[wasm_bindgen(method, getter = "url")]
     pub fn get_url(this: &HistoryItem) -> Option<String>;
@@ -59,25 +71,20 @@ extern "C" {
     ///Change the `visitCount` field of this object.
     #[wasm_bindgen(method, setter = "visitCount")]
     pub fn set_visit_count(this: &HistoryItem, val: i32);
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &HistoryItem) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &HistoryItem, val: String);
-    ///Get the `typedCount` field of this object.
-    #[wasm_bindgen(method, getter = "typedCount")]
-    pub fn get_typed_count(this: &HistoryItem) -> Option<i32>;
-    ///Change the `typedCount` field of this object.
-    #[wasm_bindgen(method, setter = "typedCount")]
-    pub fn set_typed_count(this: &HistoryItem, val: i32);
 }
 impl HistoryItem {
     ///Construct a new `HistoryItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
+        self
     }
     #[deprecated = "Use `set_last_visit_time()` instead."]
     pub fn last_visit_time(&mut self, val: f64) -> &mut Self {
@@ -89,6 +96,11 @@ impl HistoryItem {
         self.set_title(val);
         self
     }
+    #[deprecated = "Use `set_typed_count()` instead."]
+    pub fn typed_count(&mut self, val: i32) -> &mut Self {
+        self.set_typed_count(val);
+        self
+    }
     #[deprecated = "Use `set_url()` instead."]
     pub fn url(&mut self, val: String) -> &mut Self {
         self.set_url(val);
@@ -97,16 +109,6 @@ impl HistoryItem {
     #[deprecated = "Use `set_visit_count()` instead."]
     pub fn visit_count(&mut self, val: i32) -> &mut Self {
         self.set_visit_count(val);
-        self
-    }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: String) -> &mut Self {
-        self.set_id(val);
-        self
-    }
-    #[deprecated = "Use `set_typed_count()` instead."]
-    pub fn typed_count(&mut self, val: i32) -> &mut Self {
-        self.set_typed_count(val);
         self
     }
 }
@@ -127,12 +129,6 @@ extern "C" {
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &VisitItem, val: String);
-    ///Get the `transition` field of this object.
-    #[wasm_bindgen(method, getter = "transition")]
-    pub fn get_transition(this: &VisitItem) -> TransitionType;
-    ///Change the `transition` field of this object.
-    #[wasm_bindgen(method, setter = "transition")]
-    pub fn set_transition(this: &VisitItem, val: TransitionType);
     ///Get the `isLocal` field of this object.
     #[wasm_bindgen(method, getter = "isLocal")]
     pub fn get_is_local(this: &VisitItem) -> bool;
@@ -145,34 +141,37 @@ extern "C" {
     ///Change the `referringVisitId` field of this object.
     #[wasm_bindgen(method, setter = "referringVisitId")]
     pub fn set_referring_visit_id(this: &VisitItem, val: String);
-    ///Get the `visitTime` field of this object.
-    #[wasm_bindgen(method, getter = "visitTime")]
-    pub fn get_visit_time(this: &VisitItem) -> Option<f64>;
-    ///Change the `visitTime` field of this object.
-    #[wasm_bindgen(method, setter = "visitTime")]
-    pub fn set_visit_time(this: &VisitItem, val: f64);
+    ///Get the `transition` field of this object.
+    #[wasm_bindgen(method, getter = "transition")]
+    pub fn get_transition(this: &VisitItem) -> TransitionType;
+    ///Change the `transition` field of this object.
+    #[wasm_bindgen(method, setter = "transition")]
+    pub fn set_transition(this: &VisitItem, val: TransitionType);
     ///Get the `visitId` field of this object.
     #[wasm_bindgen(method, getter = "visitId")]
     pub fn get_visit_id(this: &VisitItem) -> String;
     ///Change the `visitId` field of this object.
     #[wasm_bindgen(method, setter = "visitId")]
     pub fn set_visit_id(this: &VisitItem, val: String);
+    ///Get the `visitTime` field of this object.
+    #[wasm_bindgen(method, getter = "visitTime")]
+    pub fn get_visit_time(this: &VisitItem) -> Option<f64>;
+    ///Change the `visitTime` field of this object.
+    #[wasm_bindgen(method, setter = "visitTime")]
+    pub fn set_visit_time(this: &VisitItem, val: f64);
 }
 impl VisitItem {
     ///Construct a new `VisitItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_id()` instead."]
     pub fn id(&mut self, val: String) -> &mut Self {
         self.set_id(val);
-        self
-    }
-    #[deprecated = "Use `set_transition()` instead."]
-    pub fn transition(&mut self, val: TransitionType) -> &mut Self {
-        self.set_transition(val);
         self
     }
     #[deprecated = "Use `set_is_local()` instead."]
@@ -185,14 +184,19 @@ impl VisitItem {
         self.set_referring_visit_id(val);
         self
     }
-    #[deprecated = "Use `set_visit_time()` instead."]
-    pub fn visit_time(&mut self, val: f64) -> &mut Self {
-        self.set_visit_time(val);
+    #[deprecated = "Use `set_transition()` instead."]
+    pub fn transition(&mut self, val: TransitionType) -> &mut Self {
+        self.set_transition(val);
         self
     }
     #[deprecated = "Use `set_visit_id()` instead."]
     pub fn visit_id(&mut self, val: String) -> &mut Self {
         self.set_visit_id(val);
+        self
+    }
+    #[deprecated = "Use `set_visit_time()` instead."]
+    pub fn visit_time(&mut self, val: f64) -> &mut Self {
+        self.set_visit_time(val);
         self
     }
 }
@@ -218,7 +222,9 @@ impl UrlDetails {
     ///Construct a new `UrlDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_url()` instead."]

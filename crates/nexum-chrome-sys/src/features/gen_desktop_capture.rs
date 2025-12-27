@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Enum used to define set of desktop media sources used in chooseDesktopMedia().
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

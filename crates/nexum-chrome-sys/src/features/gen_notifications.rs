@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -30,34 +30,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type NotificationItem;
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &NotificationItem) -> String;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &NotificationItem, val: String);
     ///Get the `message` field of this object.
     #[wasm_bindgen(method, getter = "message")]
     pub fn get_message(this: &NotificationItem) -> String;
     ///Change the `message` field of this object.
     #[wasm_bindgen(method, setter = "message")]
     pub fn set_message(this: &NotificationItem, val: String);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &NotificationItem) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &NotificationItem, val: String);
 }
 impl NotificationItem {
     ///Construct a new `NotificationItem`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
-        self
     }
     #[deprecated = "Use `set_message()` instead."]
     pub fn message(&mut self, val: String) -> &mut Self {
         self.set_message(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
         self
     }
 }
@@ -95,7 +97,9 @@ impl NotificationBitmap {
     ///Construct a new `NotificationBitmap`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_data()` instead."]
@@ -125,18 +129,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type NotificationButton;
-    ///Get the `iconUrl` field of this object.
-    #[wasm_bindgen(method, getter = "iconUrl")]
-    pub fn get_icon_url(this: &NotificationButton) -> Option<String>;
-    ///Change the `iconUrl` field of this object.
-    #[wasm_bindgen(method, setter = "iconUrl")]
-    pub fn set_icon_url(this: &NotificationButton, val: String);
     ///Get the `iconBitmap` field of this object.
     #[wasm_bindgen(method, getter = "iconBitmap")]
     pub fn get_icon_bitmap(this: &NotificationButton) -> Option<NotificationBitmap>;
     ///Change the `iconBitmap` field of this object.
     #[wasm_bindgen(method, setter = "iconBitmap")]
     pub fn set_icon_bitmap(this: &NotificationButton, val: &NotificationBitmap);
+    ///Get the `iconUrl` field of this object.
+    #[wasm_bindgen(method, getter = "iconUrl")]
+    pub fn get_icon_url(this: &NotificationButton) -> Option<String>;
+    ///Change the `iconUrl` field of this object.
+    #[wasm_bindgen(method, setter = "iconUrl")]
+    pub fn set_icon_url(this: &NotificationButton, val: String);
     ///Get the `title` field of this object.
     #[wasm_bindgen(method, getter = "title")]
     pub fn get_title(this: &NotificationButton) -> String;
@@ -148,17 +152,19 @@ impl NotificationButton {
     ///Construct a new `NotificationButton`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_icon_url()` instead."]
-    pub fn icon_url(&mut self, val: String) -> &mut Self {
-        self.set_icon_url(val);
-        self
     }
     #[deprecated = "Use `set_icon_bitmap()` instead."]
     pub fn icon_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
         self.set_icon_bitmap(val);
+        self
+    }
+    #[deprecated = "Use `set_icon_url()` instead."]
+    pub fn icon_url(&mut self, val: String) -> &mut Self {
+        self.set_icon_url(val);
         self
     }
     #[deprecated = "Use `set_title()` instead."]
@@ -178,60 +184,95 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type NotificationOptions;
+    ///Get the `appIconMaskBitmap` field of this object.
+    #[wasm_bindgen(method, getter = "appIconMaskBitmap")]
+    pub fn get_app_icon_mask_bitmap(
+        this: &NotificationOptions,
+    ) -> Option<NotificationBitmap>;
+    ///Change the `appIconMaskBitmap` field of this object.
+    #[wasm_bindgen(method, setter = "appIconMaskBitmap")]
+    pub fn set_app_icon_mask_bitmap(
+        this: &NotificationOptions,
+        val: &NotificationBitmap,
+    );
     ///Get the `appIconMaskUrl` field of this object.
     #[wasm_bindgen(method, getter = "appIconMaskUrl")]
     pub fn get_app_icon_mask_url(this: &NotificationOptions) -> Option<String>;
     ///Change the `appIconMaskUrl` field of this object.
     #[wasm_bindgen(method, setter = "appIconMaskUrl")]
     pub fn set_app_icon_mask_url(this: &NotificationOptions, val: String);
-    ///Get the `imageUrl` field of this object.
-    #[wasm_bindgen(method, getter = "imageUrl")]
-    pub fn get_image_url(this: &NotificationOptions) -> Option<String>;
-    ///Change the `imageUrl` field of this object.
-    #[wasm_bindgen(method, setter = "imageUrl")]
-    pub fn set_image_url(this: &NotificationOptions, val: String);
-    ///Get the `contextMessage` field of this object.
-    #[wasm_bindgen(method, getter = "contextMessage")]
-    pub fn get_context_message(this: &NotificationOptions) -> Option<String>;
-    ///Change the `contextMessage` field of this object.
-    #[wasm_bindgen(method, setter = "contextMessage")]
-    pub fn set_context_message(this: &NotificationOptions, val: String);
-    ///Get the `items` field of this object.
-    #[wasm_bindgen(method, getter = "items")]
-    pub fn get_items(this: &NotificationOptions) -> Option<Array>;
-    ///Change the `items` field of this object.
-    #[wasm_bindgen(method, setter = "items")]
-    pub fn set_items(this: &NotificationOptions, val: &Array);
-    ///Get the `imageBitmap` field of this object.
-    #[wasm_bindgen(method, getter = "imageBitmap")]
-    pub fn get_image_bitmap(this: &NotificationOptions) -> Option<NotificationBitmap>;
-    ///Change the `imageBitmap` field of this object.
-    #[wasm_bindgen(method, setter = "imageBitmap")]
-    pub fn set_image_bitmap(this: &NotificationOptions, val: &NotificationBitmap);
-    ///Get the `iconBitmap` field of this object.
-    #[wasm_bindgen(method, getter = "iconBitmap")]
-    pub fn get_icon_bitmap(this: &NotificationOptions) -> Option<NotificationBitmap>;
-    ///Change the `iconBitmap` field of this object.
-    #[wasm_bindgen(method, setter = "iconBitmap")]
-    pub fn set_icon_bitmap(this: &NotificationOptions, val: &NotificationBitmap);
-    ///Get the `message` field of this object.
-    #[wasm_bindgen(method, getter = "message")]
-    pub fn get_message(this: &NotificationOptions) -> Option<String>;
-    ///Change the `message` field of this object.
-    #[wasm_bindgen(method, setter = "message")]
-    pub fn set_message(this: &NotificationOptions, val: String);
     ///Get the `buttons` field of this object.
     #[wasm_bindgen(method, getter = "buttons")]
     pub fn get_buttons(this: &NotificationOptions) -> Option<Array>;
     ///Change the `buttons` field of this object.
     #[wasm_bindgen(method, setter = "buttons")]
     pub fn set_buttons(this: &NotificationOptions, val: &Array);
+    ///Get the `contextMessage` field of this object.
+    #[wasm_bindgen(method, getter = "contextMessage")]
+    pub fn get_context_message(this: &NotificationOptions) -> Option<String>;
+    ///Change the `contextMessage` field of this object.
+    #[wasm_bindgen(method, setter = "contextMessage")]
+    pub fn set_context_message(this: &NotificationOptions, val: String);
+    ///Get the `eventTime` field of this object.
+    #[wasm_bindgen(method, getter = "eventTime")]
+    pub fn get_event_time(this: &NotificationOptions) -> Option<f64>;
+    ///Change the `eventTime` field of this object.
+    #[wasm_bindgen(method, setter = "eventTime")]
+    pub fn set_event_time(this: &NotificationOptions, val: f64);
     ///Get the `expandedMessage` field of this object.
     #[wasm_bindgen(method, getter = "expandedMessage")]
     pub fn get_expanded_message(this: &NotificationOptions) -> Option<String>;
     ///Change the `expandedMessage` field of this object.
     #[wasm_bindgen(method, setter = "expandedMessage")]
     pub fn set_expanded_message(this: &NotificationOptions, val: String);
+    ///Get the `iconBitmap` field of this object.
+    #[wasm_bindgen(method, getter = "iconBitmap")]
+    pub fn get_icon_bitmap(this: &NotificationOptions) -> Option<NotificationBitmap>;
+    ///Change the `iconBitmap` field of this object.
+    #[wasm_bindgen(method, setter = "iconBitmap")]
+    pub fn set_icon_bitmap(this: &NotificationOptions, val: &NotificationBitmap);
+    ///Get the `iconUrl` field of this object.
+    #[wasm_bindgen(method, getter = "iconUrl")]
+    pub fn get_icon_url(this: &NotificationOptions) -> Option<String>;
+    ///Change the `iconUrl` field of this object.
+    #[wasm_bindgen(method, setter = "iconUrl")]
+    pub fn set_icon_url(this: &NotificationOptions, val: String);
+    ///Get the `imageBitmap` field of this object.
+    #[wasm_bindgen(method, getter = "imageBitmap")]
+    pub fn get_image_bitmap(this: &NotificationOptions) -> Option<NotificationBitmap>;
+    ///Change the `imageBitmap` field of this object.
+    #[wasm_bindgen(method, setter = "imageBitmap")]
+    pub fn set_image_bitmap(this: &NotificationOptions, val: &NotificationBitmap);
+    ///Get the `imageUrl` field of this object.
+    #[wasm_bindgen(method, getter = "imageUrl")]
+    pub fn get_image_url(this: &NotificationOptions) -> Option<String>;
+    ///Change the `imageUrl` field of this object.
+    #[wasm_bindgen(method, setter = "imageUrl")]
+    pub fn set_image_url(this: &NotificationOptions, val: String);
+    ///Get the `isClickable` field of this object.
+    #[wasm_bindgen(method, getter = "isClickable")]
+    pub fn get_is_clickable(this: &NotificationOptions) -> Option<bool>;
+    ///Change the `isClickable` field of this object.
+    #[wasm_bindgen(method, setter = "isClickable")]
+    pub fn set_is_clickable(this: &NotificationOptions, val: bool);
+    ///Get the `items` field of this object.
+    #[wasm_bindgen(method, getter = "items")]
+    pub fn get_items(this: &NotificationOptions) -> Option<Array>;
+    ///Change the `items` field of this object.
+    #[wasm_bindgen(method, setter = "items")]
+    pub fn set_items(this: &NotificationOptions, val: &Array);
+    ///Get the `message` field of this object.
+    #[wasm_bindgen(method, getter = "message")]
+    pub fn get_message(this: &NotificationOptions) -> Option<String>;
+    ///Change the `message` field of this object.
+    #[wasm_bindgen(method, setter = "message")]
+    pub fn set_message(this: &NotificationOptions, val: String);
+    ///Get the `priority` field of this object.
+    #[wasm_bindgen(method, getter = "priority")]
+    pub fn get_priority(this: &NotificationOptions) -> Option<i32>;
+    ///Change the `priority` field of this object.
+    #[wasm_bindgen(method, setter = "priority")]
+    pub fn set_priority(this: &NotificationOptions, val: i32);
     ///Get the `progress` field of this object.
     #[wasm_bindgen(method, getter = "progress")]
     pub fn get_progress(this: &NotificationOptions) -> Option<i32>;
@@ -244,24 +285,6 @@ extern "C" {
     ///Change the `requireInteraction` field of this object.
     #[wasm_bindgen(method, setter = "requireInteraction")]
     pub fn set_require_interaction(this: &NotificationOptions, val: bool);
-    ///Get the `iconUrl` field of this object.
-    #[wasm_bindgen(method, getter = "iconUrl")]
-    pub fn get_icon_url(this: &NotificationOptions) -> Option<String>;
-    ///Change the `iconUrl` field of this object.
-    #[wasm_bindgen(method, setter = "iconUrl")]
-    pub fn set_icon_url(this: &NotificationOptions, val: String);
-    ///Get the `isClickable` field of this object.
-    #[wasm_bindgen(method, getter = "isClickable")]
-    pub fn get_is_clickable(this: &NotificationOptions) -> Option<bool>;
-    ///Change the `isClickable` field of this object.
-    #[wasm_bindgen(method, setter = "isClickable")]
-    pub fn set_is_clickable(this: &NotificationOptions, val: bool);
-    ///Get the `priority` field of this object.
-    #[wasm_bindgen(method, getter = "priority")]
-    pub fn get_priority(this: &NotificationOptions) -> Option<i32>;
-    ///Change the `priority` field of this object.
-    #[wasm_bindgen(method, setter = "priority")]
-    pub fn set_priority(this: &NotificationOptions, val: i32);
     ///Get the `silent` field of this object.
     #[wasm_bindgen(method, getter = "silent")]
     pub fn get_silent(this: &NotificationOptions) -> Option<bool>;
@@ -280,59 +303,24 @@ extern "C" {
     ///Change the `type` field of this object.
     #[wasm_bindgen(method, setter = "type")]
     pub fn set_type(this: &NotificationOptions, val: TemplateType);
-    ///Get the `eventTime` field of this object.
-    #[wasm_bindgen(method, getter = "eventTime")]
-    pub fn get_event_time(this: &NotificationOptions) -> Option<f64>;
-    ///Change the `eventTime` field of this object.
-    #[wasm_bindgen(method, setter = "eventTime")]
-    pub fn set_event_time(this: &NotificationOptions, val: f64);
-    ///Get the `appIconMaskBitmap` field of this object.
-    #[wasm_bindgen(method, getter = "appIconMaskBitmap")]
-    pub fn get_app_icon_mask_bitmap(this: &NotificationOptions) -> Option<NotificationBitmap>;
-    ///Change the `appIconMaskBitmap` field of this object.
-    #[wasm_bindgen(method, setter = "appIconMaskBitmap")]
-    pub fn set_app_icon_mask_bitmap(this: &NotificationOptions, val: &NotificationBitmap);
 }
 impl NotificationOptions {
     ///Construct a new `NotificationOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_app_icon_mask_bitmap()` instead."]
+    pub fn app_icon_mask_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
+        self.set_app_icon_mask_bitmap(val);
+        self
     }
     #[deprecated = "Use `set_app_icon_mask_url()` instead."]
     pub fn app_icon_mask_url(&mut self, val: String) -> &mut Self {
         self.set_app_icon_mask_url(val);
-        self
-    }
-    #[deprecated = "Use `set_image_url()` instead."]
-    pub fn image_url(&mut self, val: String) -> &mut Self {
-        self.set_image_url(val);
-        self
-    }
-    #[deprecated = "Use `set_context_message()` instead."]
-    pub fn context_message(&mut self, val: String) -> &mut Self {
-        self.set_context_message(val);
-        self
-    }
-    #[deprecated = "Use `set_items()` instead."]
-    pub fn items(&mut self, val: &Array) -> &mut Self {
-        self.set_items(val);
-        self
-    }
-    #[deprecated = "Use `set_image_bitmap()` instead."]
-    pub fn image_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
-        self.set_image_bitmap(val);
-        self
-    }
-    #[deprecated = "Use `set_icon_bitmap()` instead."]
-    pub fn icon_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
-        self.set_icon_bitmap(val);
-        self
-    }
-    #[deprecated = "Use `set_message()` instead."]
-    pub fn message(&mut self, val: String) -> &mut Self {
-        self.set_message(val);
         self
     }
     #[deprecated = "Use `set_buttons()` instead."]
@@ -340,9 +328,59 @@ impl NotificationOptions {
         self.set_buttons(val);
         self
     }
+    #[deprecated = "Use `set_context_message()` instead."]
+    pub fn context_message(&mut self, val: String) -> &mut Self {
+        self.set_context_message(val);
+        self
+    }
+    #[deprecated = "Use `set_event_time()` instead."]
+    pub fn event_time(&mut self, val: f64) -> &mut Self {
+        self.set_event_time(val);
+        self
+    }
     #[deprecated = "Use `set_expanded_message()` instead."]
     pub fn expanded_message(&mut self, val: String) -> &mut Self {
         self.set_expanded_message(val);
+        self
+    }
+    #[deprecated = "Use `set_icon_bitmap()` instead."]
+    pub fn icon_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
+        self.set_icon_bitmap(val);
+        self
+    }
+    #[deprecated = "Use `set_icon_url()` instead."]
+    pub fn icon_url(&mut self, val: String) -> &mut Self {
+        self.set_icon_url(val);
+        self
+    }
+    #[deprecated = "Use `set_image_bitmap()` instead."]
+    pub fn image_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
+        self.set_image_bitmap(val);
+        self
+    }
+    #[deprecated = "Use `set_image_url()` instead."]
+    pub fn image_url(&mut self, val: String) -> &mut Self {
+        self.set_image_url(val);
+        self
+    }
+    #[deprecated = "Use `set_is_clickable()` instead."]
+    pub fn is_clickable(&mut self, val: bool) -> &mut Self {
+        self.set_is_clickable(val);
+        self
+    }
+    #[deprecated = "Use `set_items()` instead."]
+    pub fn items(&mut self, val: &Array) -> &mut Self {
+        self.set_items(val);
+        self
+    }
+    #[deprecated = "Use `set_message()` instead."]
+    pub fn message(&mut self, val: String) -> &mut Self {
+        self.set_message(val);
+        self
+    }
+    #[deprecated = "Use `set_priority()` instead."]
+    pub fn priority(&mut self, val: i32) -> &mut Self {
+        self.set_priority(val);
         self
     }
     #[deprecated = "Use `set_progress()` instead."]
@@ -353,21 +391,6 @@ impl NotificationOptions {
     #[deprecated = "Use `set_require_interaction()` instead."]
     pub fn require_interaction(&mut self, val: bool) -> &mut Self {
         self.set_require_interaction(val);
-        self
-    }
-    #[deprecated = "Use `set_icon_url()` instead."]
-    pub fn icon_url(&mut self, val: String) -> &mut Self {
-        self.set_icon_url(val);
-        self
-    }
-    #[deprecated = "Use `set_is_clickable()` instead."]
-    pub fn is_clickable(&mut self, val: bool) -> &mut Self {
-        self.set_is_clickable(val);
-        self
-    }
-    #[deprecated = "Use `set_priority()` instead."]
-    pub fn priority(&mut self, val: i32) -> &mut Self {
-        self.set_priority(val);
         self
     }
     #[deprecated = "Use `set_silent()` instead."]
@@ -385,16 +408,6 @@ impl NotificationOptions {
         self.set_type(val);
         self
     }
-    #[deprecated = "Use `set_event_time()` instead."]
-    pub fn event_time(&mut self, val: f64) -> &mut Self {
-        self.set_event_time(val);
-        self
-    }
-    #[deprecated = "Use `set_app_icon_mask_bitmap()` instead."]
-    pub fn app_icon_mask_bitmap(&mut self, val: &NotificationBitmap) -> &mut Self {
-        self.set_app_icon_mask_bitmap(val);
-        self
-    }
 }
 impl Default for NotificationOptions {
     fn default() -> Self {
@@ -405,7 +418,10 @@ impl Default for NotificationOptions {
 extern "C" {
     ///Creates and displays a notification.
     #[wasm_bindgen(js_namespace = ["chrome", "notifications"], js_name = "create")]
-    pub fn create(notification_id: Option<String>, options: NotificationOptions) -> Promise;
+    pub fn create(
+        notification_id: Option<String>,
+        options: NotificationOptions,
+    ) -> Promise;
     ///Updates an existing notification.
     #[wasm_bindgen(js_namespace = ["chrome", "notifications"], js_name = "update")]
     pub fn update(notification_id: String, options: NotificationOptions) -> Promise;

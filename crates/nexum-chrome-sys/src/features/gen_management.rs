@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "IconInfo")]
@@ -25,7 +25,9 @@ impl IconInfo {
     ///Construct a new `IconInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_size()` instead."]
@@ -87,90 +89,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Information about an installed extension, app, or theme.
     pub type ExtensionInfo;
-    ///Get the `versionName` field of this object.
-    #[wasm_bindgen(method, getter = "versionName")]
-    pub fn get_version_name(this: &ExtensionInfo) -> Option<String>;
-    ///Change the `versionName` field of this object.
-    #[wasm_bindgen(method, setter = "versionName")]
-    pub fn set_version_name(this: &ExtensionInfo, val: String);
-    ///Get the `enabled` field of this object.
-    #[wasm_bindgen(method, getter = "enabled")]
-    pub fn get_enabled(this: &ExtensionInfo) -> bool;
-    ///Change the `enabled` field of this object.
-    #[wasm_bindgen(method, setter = "enabled")]
-    pub fn set_enabled(this: &ExtensionInfo, val: bool);
-    ///Get the `disabledReason` field of this object.
-    #[wasm_bindgen(method, getter = "disabledReason")]
-    pub fn get_disabled_reason(this: &ExtensionInfo) -> Option<ExtensionDisabledReason>;
-    ///Change the `disabledReason` field of this object.
-    #[wasm_bindgen(method, setter = "disabledReason")]
-    pub fn set_disabled_reason(this: &ExtensionInfo, val: ExtensionDisabledReason);
-    ///Get the `isApp` field of this object.
-    #[wasm_bindgen(method, getter = "isApp")]
-    pub fn get_is_app(this: &ExtensionInfo) -> bool;
-    ///Change the `isApp` field of this object.
-    #[wasm_bindgen(method, setter = "isApp")]
-    pub fn set_is_app(this: &ExtensionInfo, val: bool);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &ExtensionInfo) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &ExtensionInfo, val: String);
     ///Get the `appLaunchUrl` field of this object.
     #[wasm_bindgen(method, getter = "appLaunchUrl")]
     pub fn get_app_launch_url(this: &ExtensionInfo) -> Option<String>;
     ///Change the `appLaunchUrl` field of this object.
     #[wasm_bindgen(method, setter = "appLaunchUrl")]
     pub fn set_app_launch_url(this: &ExtensionInfo, val: String);
-    ///Get the `launchType` field of this object.
-    #[wasm_bindgen(method, getter = "launchType")]
-    pub fn get_launch_type(this: &ExtensionInfo) -> Option<LaunchType>;
-    ///Change the `launchType` field of this object.
-    #[wasm_bindgen(method, setter = "launchType")]
-    pub fn set_launch_type(this: &ExtensionInfo, val: LaunchType);
+    ///Get the `availableLaunchTypes` field of this object.
+    #[wasm_bindgen(method, getter = "availableLaunchTypes")]
+    pub fn get_available_launch_types(this: &ExtensionInfo) -> Option<Array>;
+    ///Change the `availableLaunchTypes` field of this object.
+    #[wasm_bindgen(method, setter = "availableLaunchTypes")]
+    pub fn set_available_launch_types(this: &ExtensionInfo, val: &Array);
     ///Get the `description` field of this object.
     #[wasm_bindgen(method, getter = "description")]
     pub fn get_description(this: &ExtensionInfo) -> String;
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &ExtensionInfo, val: String);
+    ///Get the `disabledReason` field of this object.
+    #[wasm_bindgen(method, getter = "disabledReason")]
+    pub fn get_disabled_reason(this: &ExtensionInfo) -> Option<ExtensionDisabledReason>;
+    ///Change the `disabledReason` field of this object.
+    #[wasm_bindgen(method, setter = "disabledReason")]
+    pub fn set_disabled_reason(this: &ExtensionInfo, val: ExtensionDisabledReason);
+    ///Get the `enabled` field of this object.
+    #[wasm_bindgen(method, getter = "enabled")]
+    pub fn get_enabled(this: &ExtensionInfo) -> bool;
+    ///Change the `enabled` field of this object.
+    #[wasm_bindgen(method, setter = "enabled")]
+    pub fn set_enabled(this: &ExtensionInfo, val: bool);
     ///Get the `homepageUrl` field of this object.
     #[wasm_bindgen(method, getter = "homepageUrl")]
     pub fn get_homepage_url(this: &ExtensionInfo) -> Option<String>;
     ///Change the `homepageUrl` field of this object.
     #[wasm_bindgen(method, setter = "homepageUrl")]
     pub fn set_homepage_url(this: &ExtensionInfo, val: String);
-    ///Get the `permissions` field of this object.
-    #[wasm_bindgen(method, getter = "permissions")]
-    pub fn get_permissions(this: &ExtensionInfo) -> Array;
-    ///Change the `permissions` field of this object.
-    #[wasm_bindgen(method, setter = "permissions")]
-    pub fn set_permissions(this: &ExtensionInfo, val: &Array);
-    ///Get the `offlineEnabled` field of this object.
-    #[wasm_bindgen(method, getter = "offlineEnabled")]
-    pub fn get_offline_enabled(this: &ExtensionInfo) -> bool;
-    ///Change the `offlineEnabled` field of this object.
-    #[wasm_bindgen(method, setter = "offlineEnabled")]
-    pub fn set_offline_enabled(this: &ExtensionInfo, val: bool);
     ///Get the `hostPermissions` field of this object.
     #[wasm_bindgen(method, getter = "hostPermissions")]
     pub fn get_host_permissions(this: &ExtensionInfo) -> Array;
     ///Change the `hostPermissions` field of this object.
     #[wasm_bindgen(method, setter = "hostPermissions")]
     pub fn set_host_permissions(this: &ExtensionInfo, val: &Array);
-    ///Get the `mayDisable` field of this object.
-    #[wasm_bindgen(method, getter = "mayDisable")]
-    pub fn get_may_disable(this: &ExtensionInfo) -> bool;
-    ///Change the `mayDisable` field of this object.
-    #[wasm_bindgen(method, setter = "mayDisable")]
-    pub fn set_may_disable(this: &ExtensionInfo, val: bool);
-    ///Get the `type` field of this object.
-    #[wasm_bindgen(method, getter = "type")]
-    pub fn get_type(this: &ExtensionInfo) -> ExtensionType;
-    ///Change the `type` field of this object.
-    #[wasm_bindgen(method, setter = "type")]
-    pub fn set_type(this: &ExtensionInfo, val: ExtensionType);
     ///Get the `icons` field of this object.
     #[wasm_bindgen(method, getter = "icons")]
     pub fn get_icons(this: &ExtensionInfo) -> Option<Array>;
@@ -183,89 +143,108 @@ extern "C" {
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &ExtensionInfo, val: String);
-    ///Get the `updateUrl` field of this object.
-    #[wasm_bindgen(method, getter = "updateUrl")]
-    pub fn get_update_url(this: &ExtensionInfo) -> Option<String>;
-    ///Change the `updateUrl` field of this object.
-    #[wasm_bindgen(method, setter = "updateUrl")]
-    pub fn set_update_url(this: &ExtensionInfo, val: String);
-    ///Get the `mayEnable` field of this object.
-    #[wasm_bindgen(method, getter = "mayEnable")]
-    pub fn get_may_enable(this: &ExtensionInfo) -> Option<bool>;
-    ///Change the `mayEnable` field of this object.
-    #[wasm_bindgen(method, setter = "mayEnable")]
-    pub fn set_may_enable(this: &ExtensionInfo, val: bool);
-    ///Get the `version` field of this object.
-    #[wasm_bindgen(method, getter = "version")]
-    pub fn get_version(this: &ExtensionInfo) -> String;
-    ///Change the `version` field of this object.
-    #[wasm_bindgen(method, setter = "version")]
-    pub fn set_version(this: &ExtensionInfo, val: String);
-    ///Get the `optionsUrl` field of this object.
-    #[wasm_bindgen(method, getter = "optionsUrl")]
-    pub fn get_options_url(this: &ExtensionInfo) -> String;
-    ///Change the `optionsUrl` field of this object.
-    #[wasm_bindgen(method, setter = "optionsUrl")]
-    pub fn set_options_url(this: &ExtensionInfo, val: String);
-    ///Get the `shortName` field of this object.
-    #[wasm_bindgen(method, getter = "shortName")]
-    pub fn get_short_name(this: &ExtensionInfo) -> String;
-    ///Change the `shortName` field of this object.
-    #[wasm_bindgen(method, setter = "shortName")]
-    pub fn set_short_name(this: &ExtensionInfo, val: String);
     ///Get the `installType` field of this object.
     #[wasm_bindgen(method, getter = "installType")]
     pub fn get_install_type(this: &ExtensionInfo) -> ExtensionInstallType;
     ///Change the `installType` field of this object.
     #[wasm_bindgen(method, setter = "installType")]
     pub fn set_install_type(this: &ExtensionInfo, val: ExtensionInstallType);
-    ///Get the `availableLaunchTypes` field of this object.
-    #[wasm_bindgen(method, getter = "availableLaunchTypes")]
-    pub fn get_available_launch_types(this: &ExtensionInfo) -> Option<Array>;
-    ///Change the `availableLaunchTypes` field of this object.
-    #[wasm_bindgen(method, setter = "availableLaunchTypes")]
-    pub fn set_available_launch_types(this: &ExtensionInfo, val: &Array);
+    ///Get the `isApp` field of this object.
+    #[wasm_bindgen(method, getter = "isApp")]
+    pub fn get_is_app(this: &ExtensionInfo) -> bool;
+    ///Change the `isApp` field of this object.
+    #[wasm_bindgen(method, setter = "isApp")]
+    pub fn set_is_app(this: &ExtensionInfo, val: bool);
+    ///Get the `launchType` field of this object.
+    #[wasm_bindgen(method, getter = "launchType")]
+    pub fn get_launch_type(this: &ExtensionInfo) -> Option<LaunchType>;
+    ///Change the `launchType` field of this object.
+    #[wasm_bindgen(method, setter = "launchType")]
+    pub fn set_launch_type(this: &ExtensionInfo, val: LaunchType);
+    ///Get the `mayDisable` field of this object.
+    #[wasm_bindgen(method, getter = "mayDisable")]
+    pub fn get_may_disable(this: &ExtensionInfo) -> bool;
+    ///Change the `mayDisable` field of this object.
+    #[wasm_bindgen(method, setter = "mayDisable")]
+    pub fn set_may_disable(this: &ExtensionInfo, val: bool);
+    ///Get the `mayEnable` field of this object.
+    #[wasm_bindgen(method, getter = "mayEnable")]
+    pub fn get_may_enable(this: &ExtensionInfo) -> Option<bool>;
+    ///Change the `mayEnable` field of this object.
+    #[wasm_bindgen(method, setter = "mayEnable")]
+    pub fn set_may_enable(this: &ExtensionInfo, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &ExtensionInfo) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &ExtensionInfo, val: String);
+    ///Get the `offlineEnabled` field of this object.
+    #[wasm_bindgen(method, getter = "offlineEnabled")]
+    pub fn get_offline_enabled(this: &ExtensionInfo) -> bool;
+    ///Change the `offlineEnabled` field of this object.
+    #[wasm_bindgen(method, setter = "offlineEnabled")]
+    pub fn set_offline_enabled(this: &ExtensionInfo, val: bool);
+    ///Get the `optionsUrl` field of this object.
+    #[wasm_bindgen(method, getter = "optionsUrl")]
+    pub fn get_options_url(this: &ExtensionInfo) -> String;
+    ///Change the `optionsUrl` field of this object.
+    #[wasm_bindgen(method, setter = "optionsUrl")]
+    pub fn set_options_url(this: &ExtensionInfo, val: String);
+    ///Get the `permissions` field of this object.
+    #[wasm_bindgen(method, getter = "permissions")]
+    pub fn get_permissions(this: &ExtensionInfo) -> Array;
+    ///Change the `permissions` field of this object.
+    #[wasm_bindgen(method, setter = "permissions")]
+    pub fn set_permissions(this: &ExtensionInfo, val: &Array);
+    ///Get the `shortName` field of this object.
+    #[wasm_bindgen(method, getter = "shortName")]
+    pub fn get_short_name(this: &ExtensionInfo) -> String;
+    ///Change the `shortName` field of this object.
+    #[wasm_bindgen(method, setter = "shortName")]
+    pub fn set_short_name(this: &ExtensionInfo, val: String);
+    ///Get the `type` field of this object.
+    #[wasm_bindgen(method, getter = "type")]
+    pub fn get_type(this: &ExtensionInfo) -> ExtensionType;
+    ///Change the `type` field of this object.
+    #[wasm_bindgen(method, setter = "type")]
+    pub fn set_type(this: &ExtensionInfo, val: ExtensionType);
+    ///Get the `updateUrl` field of this object.
+    #[wasm_bindgen(method, getter = "updateUrl")]
+    pub fn get_update_url(this: &ExtensionInfo) -> Option<String>;
+    ///Change the `updateUrl` field of this object.
+    #[wasm_bindgen(method, setter = "updateUrl")]
+    pub fn set_update_url(this: &ExtensionInfo, val: String);
+    ///Get the `version` field of this object.
+    #[wasm_bindgen(method, getter = "version")]
+    pub fn get_version(this: &ExtensionInfo) -> String;
+    ///Change the `version` field of this object.
+    #[wasm_bindgen(method, setter = "version")]
+    pub fn set_version(this: &ExtensionInfo, val: String);
+    ///Get the `versionName` field of this object.
+    #[wasm_bindgen(method, getter = "versionName")]
+    pub fn get_version_name(this: &ExtensionInfo) -> Option<String>;
+    ///Change the `versionName` field of this object.
+    #[wasm_bindgen(method, setter = "versionName")]
+    pub fn set_version_name(this: &ExtensionInfo, val: String);
 }
 impl ExtensionInfo {
     ///Construct a new `ExtensionInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_version_name()` instead."]
-    pub fn version_name(&mut self, val: String) -> &mut Self {
-        self.set_version_name(val);
-        self
-    }
-    #[deprecated = "Use `set_enabled()` instead."]
-    pub fn enabled(&mut self, val: bool) -> &mut Self {
-        self.set_enabled(val);
-        self
-    }
-    #[deprecated = "Use `set_disabled_reason()` instead."]
-    pub fn disabled_reason(&mut self, val: ExtensionDisabledReason) -> &mut Self {
-        self.set_disabled_reason(val);
-        self
-    }
-    #[deprecated = "Use `set_is_app()` instead."]
-    pub fn is_app(&mut self, val: bool) -> &mut Self {
-        self.set_is_app(val);
-        self
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
-        self
     }
     #[deprecated = "Use `set_app_launch_url()` instead."]
     pub fn app_launch_url(&mut self, val: String) -> &mut Self {
         self.set_app_launch_url(val);
         self
     }
-    #[deprecated = "Use `set_launch_type()` instead."]
-    pub fn launch_type(&mut self, val: LaunchType) -> &mut Self {
-        self.set_launch_type(val);
+    #[deprecated = "Use `set_available_launch_types()` instead."]
+    pub fn available_launch_types(&mut self, val: &Array) -> &mut Self {
+        self.set_available_launch_types(val);
         self
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -273,34 +252,24 @@ impl ExtensionInfo {
         self.set_description(val);
         self
     }
+    #[deprecated = "Use `set_disabled_reason()` instead."]
+    pub fn disabled_reason(&mut self, val: ExtensionDisabledReason) -> &mut Self {
+        self.set_disabled_reason(val);
+        self
+    }
+    #[deprecated = "Use `set_enabled()` instead."]
+    pub fn enabled(&mut self, val: bool) -> &mut Self {
+        self.set_enabled(val);
+        self
+    }
     #[deprecated = "Use `set_homepage_url()` instead."]
     pub fn homepage_url(&mut self, val: String) -> &mut Self {
         self.set_homepage_url(val);
         self
     }
-    #[deprecated = "Use `set_permissions()` instead."]
-    pub fn permissions(&mut self, val: &Array) -> &mut Self {
-        self.set_permissions(val);
-        self
-    }
-    #[deprecated = "Use `set_offline_enabled()` instead."]
-    pub fn offline_enabled(&mut self, val: bool) -> &mut Self {
-        self.set_offline_enabled(val);
-        self
-    }
     #[deprecated = "Use `set_host_permissions()` instead."]
     pub fn host_permissions(&mut self, val: &Array) -> &mut Self {
         self.set_host_permissions(val);
-        self
-    }
-    #[deprecated = "Use `set_may_disable()` instead."]
-    pub fn may_disable(&mut self, val: bool) -> &mut Self {
-        self.set_may_disable(val);
-        self
-    }
-    #[deprecated = "Use `set_type()` instead."]
-    pub fn r#type(&mut self, val: ExtensionType) -> &mut Self {
-        self.set_type(val);
         self
     }
     #[deprecated = "Use `set_icons()` instead."]
@@ -313,9 +282,24 @@ impl ExtensionInfo {
         self.set_id(val);
         self
     }
-    #[deprecated = "Use `set_update_url()` instead."]
-    pub fn update_url(&mut self, val: String) -> &mut Self {
-        self.set_update_url(val);
+    #[deprecated = "Use `set_install_type()` instead."]
+    pub fn install_type(&mut self, val: ExtensionInstallType) -> &mut Self {
+        self.set_install_type(val);
+        self
+    }
+    #[deprecated = "Use `set_is_app()` instead."]
+    pub fn is_app(&mut self, val: bool) -> &mut Self {
+        self.set_is_app(val);
+        self
+    }
+    #[deprecated = "Use `set_launch_type()` instead."]
+    pub fn launch_type(&mut self, val: LaunchType) -> &mut Self {
+        self.set_launch_type(val);
+        self
+    }
+    #[deprecated = "Use `set_may_disable()` instead."]
+    pub fn may_disable(&mut self, val: bool) -> &mut Self {
+        self.set_may_disable(val);
         self
     }
     #[deprecated = "Use `set_may_enable()` instead."]
@@ -323,9 +307,14 @@ impl ExtensionInfo {
         self.set_may_enable(val);
         self
     }
-    #[deprecated = "Use `set_version()` instead."]
-    pub fn version(&mut self, val: String) -> &mut Self {
-        self.set_version(val);
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_offline_enabled()` instead."]
+    pub fn offline_enabled(&mut self, val: bool) -> &mut Self {
+        self.set_offline_enabled(val);
         self
     }
     #[deprecated = "Use `set_options_url()` instead."]
@@ -333,19 +322,34 @@ impl ExtensionInfo {
         self.set_options_url(val);
         self
     }
+    #[deprecated = "Use `set_permissions()` instead."]
+    pub fn permissions(&mut self, val: &Array) -> &mut Self {
+        self.set_permissions(val);
+        self
+    }
     #[deprecated = "Use `set_short_name()` instead."]
     pub fn short_name(&mut self, val: String) -> &mut Self {
         self.set_short_name(val);
         self
     }
-    #[deprecated = "Use `set_install_type()` instead."]
-    pub fn install_type(&mut self, val: ExtensionInstallType) -> &mut Self {
-        self.set_install_type(val);
+    #[deprecated = "Use `set_type()` instead."]
+    pub fn r#type(&mut self, val: ExtensionType) -> &mut Self {
+        self.set_type(val);
         self
     }
-    #[deprecated = "Use `set_available_launch_types()` instead."]
-    pub fn available_launch_types(&mut self, val: &Array) -> &mut Self {
-        self.set_available_launch_types(val);
+    #[deprecated = "Use `set_update_url()` instead."]
+    pub fn update_url(&mut self, val: String) -> &mut Self {
+        self.set_update_url(val);
+        self
+    }
+    #[deprecated = "Use `set_version()` instead."]
+    pub fn version(&mut self, val: String) -> &mut Self {
+        self.set_version(val);
+        self
+    }
+    #[deprecated = "Use `set_version_name()` instead."]
+    pub fn version_name(&mut self, val: String) -> &mut Self {
+        self.set_version_name(val);
         self
     }
 }
@@ -371,7 +375,9 @@ impl UninstallOptions {
     ///Construct a new `UninstallOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_show_confirm_dialog()` instead."]

@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Type of requestor.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -15,34 +15,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Identifier for the client requesting status.
     pub type TtsClient;
-    ///Get the `source` field of this object.
-    #[wasm_bindgen(method, getter = "source")]
-    pub fn get_source(this: &TtsClient) -> TtsClientSource;
-    ///Change the `source` field of this object.
-    #[wasm_bindgen(method, setter = "source")]
-    pub fn set_source(this: &TtsClient, val: TtsClientSource);
     ///Get the `id` field of this object.
     #[wasm_bindgen(method, getter = "id")]
     pub fn get_id(this: &TtsClient) -> String;
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &TtsClient, val: String);
+    ///Get the `source` field of this object.
+    #[wasm_bindgen(method, getter = "source")]
+    pub fn get_source(this: &TtsClient) -> TtsClientSource;
+    ///Change the `source` field of this object.
+    #[wasm_bindgen(method, setter = "source")]
+    pub fn set_source(this: &TtsClient, val: TtsClientSource);
 }
 impl TtsClient {
     ///Construct a new `TtsClient`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_source()` instead."]
-    pub fn source(&mut self, val: TtsClientSource) -> &mut Self {
-        self.set_source(val);
-        self
     }
     #[deprecated = "Use `set_id()` instead."]
     pub fn id(&mut self, val: String) -> &mut Self {
         self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_source()` instead."]
+    pub fn source(&mut self, val: TtsClientSource) -> &mut Self {
+        self.set_source(val);
         self
     }
 }
@@ -75,7 +77,9 @@ impl LanguageUninstallOptions {
     ///Construct a new `LanguageUninstallOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_uninstall_immediately()` instead."]
@@ -110,24 +114,26 @@ extern "C" {
     ///Change the `error` field of this object.
     #[wasm_bindgen(method, setter = "error")]
     pub fn set_error(this: &LanguageStatus, val: String);
-    ///Get the `lang` field of this object.
-    #[wasm_bindgen(method, getter = "lang")]
-    pub fn get_lang(this: &LanguageStatus) -> String;
-    ///Change the `lang` field of this object.
-    #[wasm_bindgen(method, setter = "lang")]
-    pub fn set_lang(this: &LanguageStatus, val: String);
     ///Get the `installStatus` field of this object.
     #[wasm_bindgen(method, getter = "installStatus")]
     pub fn get_install_status(this: &LanguageStatus) -> LanguageInstallStatus;
     ///Change the `installStatus` field of this object.
     #[wasm_bindgen(method, setter = "installStatus")]
     pub fn set_install_status(this: &LanguageStatus, val: LanguageInstallStatus);
+    ///Get the `lang` field of this object.
+    #[wasm_bindgen(method, getter = "lang")]
+    pub fn get_lang(this: &LanguageStatus) -> String;
+    ///Change the `lang` field of this object.
+    #[wasm_bindgen(method, setter = "lang")]
+    pub fn set_lang(this: &LanguageStatus, val: String);
 }
 impl LanguageStatus {
     ///Construct a new `LanguageStatus`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_error()` instead."]
@@ -135,14 +141,14 @@ impl LanguageStatus {
         self.set_error(val);
         self
     }
-    #[deprecated = "Use `set_lang()` instead."]
-    pub fn lang(&mut self, val: String) -> &mut Self {
-        self.set_lang(val);
-        self
-    }
     #[deprecated = "Use `set_install_status()` instead."]
     pub fn install_status(&mut self, val: LanguageInstallStatus) -> &mut Self {
         self.set_install_status(val);
+        self
+    }
+    #[deprecated = "Use `set_lang()` instead."]
+    pub fn lang(&mut self, val: String) -> &mut Self {
+        self.set_lang(val);
         self
     }
 }
@@ -157,36 +163,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Options specified to the tts.speak() method.
     pub type SpeakOptions;
-    ///Get the `voiceName` field of this object.
-    #[wasm_bindgen(method, getter = "voiceName")]
-    pub fn get_voice_name(this: &SpeakOptions) -> Option<String>;
-    ///Change the `voiceName` field of this object.
-    #[wasm_bindgen(method, setter = "voiceName")]
-    pub fn set_voice_name(this: &SpeakOptions, val: String);
-    ///Get the `pitch` field of this object.
-    #[wasm_bindgen(method, getter = "pitch")]
-    pub fn get_pitch(this: &SpeakOptions) -> Option<f64>;
-    ///Change the `pitch` field of this object.
-    #[wasm_bindgen(method, setter = "pitch")]
-    pub fn set_pitch(this: &SpeakOptions, val: f64);
-    ///Get the `lang` field of this object.
-    #[wasm_bindgen(method, getter = "lang")]
-    pub fn get_lang(this: &SpeakOptions) -> Option<String>;
-    ///Change the `lang` field of this object.
-    #[wasm_bindgen(method, setter = "lang")]
-    pub fn set_lang(this: &SpeakOptions, val: String);
     ///Get the `gender` field of this object.
     #[wasm_bindgen(method, getter = "gender")]
     pub fn get_gender(this: &SpeakOptions) -> Option<VoiceGender>;
     ///Change the `gender` field of this object.
     #[wasm_bindgen(method, setter = "gender")]
     pub fn set_gender(this: &SpeakOptions, val: VoiceGender);
+    ///Get the `lang` field of this object.
+    #[wasm_bindgen(method, getter = "lang")]
+    pub fn get_lang(this: &SpeakOptions) -> Option<String>;
+    ///Change the `lang` field of this object.
+    #[wasm_bindgen(method, setter = "lang")]
+    pub fn set_lang(this: &SpeakOptions, val: String);
+    ///Get the `pitch` field of this object.
+    #[wasm_bindgen(method, getter = "pitch")]
+    pub fn get_pitch(this: &SpeakOptions) -> Option<f64>;
+    ///Change the `pitch` field of this object.
+    #[wasm_bindgen(method, setter = "pitch")]
+    pub fn set_pitch(this: &SpeakOptions, val: f64);
     ///Get the `rate` field of this object.
     #[wasm_bindgen(method, getter = "rate")]
     pub fn get_rate(this: &SpeakOptions) -> Option<f64>;
     ///Change the `rate` field of this object.
     #[wasm_bindgen(method, setter = "rate")]
     pub fn set_rate(this: &SpeakOptions, val: f64);
+    ///Get the `voiceName` field of this object.
+    #[wasm_bindgen(method, getter = "voiceName")]
+    pub fn get_voice_name(this: &SpeakOptions) -> Option<String>;
+    ///Change the `voiceName` field of this object.
+    #[wasm_bindgen(method, setter = "voiceName")]
+    pub fn set_voice_name(this: &SpeakOptions, val: String);
     ///Get the `volume` field of this object.
     #[wasm_bindgen(method, getter = "volume")]
     pub fn get_volume(this: &SpeakOptions) -> Option<f64>;
@@ -198,17 +204,14 @@ impl SpeakOptions {
     ///Construct a new `SpeakOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_voice_name()` instead."]
-    pub fn voice_name(&mut self, val: String) -> &mut Self {
-        self.set_voice_name(val);
-        self
-    }
-    #[deprecated = "Use `set_pitch()` instead."]
-    pub fn pitch(&mut self, val: f64) -> &mut Self {
-        self.set_pitch(val);
+    #[deprecated = "Use `set_gender()` instead."]
+    pub fn gender(&mut self, val: VoiceGender) -> &mut Self {
+        self.set_gender(val);
         self
     }
     #[deprecated = "Use `set_lang()` instead."]
@@ -216,14 +219,19 @@ impl SpeakOptions {
         self.set_lang(val);
         self
     }
-    #[deprecated = "Use `set_gender()` instead."]
-    pub fn gender(&mut self, val: VoiceGender) -> &mut Self {
-        self.set_gender(val);
+    #[deprecated = "Use `set_pitch()` instead."]
+    pub fn pitch(&mut self, val: f64) -> &mut Self {
+        self.set_pitch(val);
         self
     }
     #[deprecated = "Use `set_rate()` instead."]
     pub fn rate(&mut self, val: f64) -> &mut Self {
         self.set_rate(val);
+        self
+    }
+    #[deprecated = "Use `set_voice_name()` instead."]
+    pub fn voice_name(&mut self, val: String) -> &mut Self {
+        self.set_voice_name(val);
         self
     }
     #[deprecated = "Use `set_volume()` instead."]
@@ -243,34 +251,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Contains the audio stream format expected to be produced by an engine.
     pub type AudioStreamOptions;
-    ///Get the `sampleRate` field of this object.
-    #[wasm_bindgen(method, getter = "sampleRate")]
-    pub fn get_sample_rate(this: &AudioStreamOptions) -> i32;
-    ///Change the `sampleRate` field of this object.
-    #[wasm_bindgen(method, setter = "sampleRate")]
-    pub fn set_sample_rate(this: &AudioStreamOptions, val: i32);
     ///Get the `bufferSize` field of this object.
     #[wasm_bindgen(method, getter = "bufferSize")]
     pub fn get_buffer_size(this: &AudioStreamOptions) -> i32;
     ///Change the `bufferSize` field of this object.
     #[wasm_bindgen(method, setter = "bufferSize")]
     pub fn set_buffer_size(this: &AudioStreamOptions, val: i32);
+    ///Get the `sampleRate` field of this object.
+    #[wasm_bindgen(method, getter = "sampleRate")]
+    pub fn get_sample_rate(this: &AudioStreamOptions) -> i32;
+    ///Change the `sampleRate` field of this object.
+    #[wasm_bindgen(method, setter = "sampleRate")]
+    pub fn set_sample_rate(this: &AudioStreamOptions, val: i32);
 }
 impl AudioStreamOptions {
     ///Construct a new `AudioStreamOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_sample_rate()` instead."]
-    pub fn sample_rate(&mut self, val: i32) -> &mut Self {
-        self.set_sample_rate(val);
-        self
     }
     #[deprecated = "Use `set_buffer_size()` instead."]
     pub fn buffer_size(&mut self, val: i32) -> &mut Self {
         self.set_buffer_size(val);
+        self
+    }
+    #[deprecated = "Use `set_sample_rate()` instead."]
+    pub fn sample_rate(&mut self, val: i32) -> &mut Self {
+        self.set_sample_rate(val);
         self
     }
 }
@@ -308,7 +318,9 @@ impl AudioBuffer {
     ///Construct a new `AudioBuffer`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_audio_buffer()` instead."]

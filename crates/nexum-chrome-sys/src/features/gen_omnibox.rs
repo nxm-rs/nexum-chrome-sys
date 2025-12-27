@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///The style type.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -47,7 +47,9 @@ impl MatchClassification {
     ///Construct a new `MatchClassification`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_length()` instead."]
@@ -77,46 +79,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An action button attached to a suggest result.
     pub type Action;
-    ///Get the `label` field of this object.
-    #[wasm_bindgen(method, getter = "label")]
-    pub fn get_label(this: &Action) -> String;
-    ///Change the `label` field of this object.
-    #[wasm_bindgen(method, setter = "label")]
-    pub fn set_label(this: &Action, val: String);
-    ///Get the `tooltipText` field of this object.
-    #[wasm_bindgen(method, getter = "tooltipText")]
-    pub fn get_tooltip_text(this: &Action) -> String;
-    ///Change the `tooltipText` field of this object.
-    #[wasm_bindgen(method, setter = "tooltipText")]
-    pub fn set_tooltip_text(this: &Action, val: String);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &Action) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &Action, val: String);
     ///Get the `icon` field of this object.
     #[wasm_bindgen(method, getter = "icon")]
     pub fn get_icon(this: &Action) -> Option<Object>;
     ///Change the `icon` field of this object.
     #[wasm_bindgen(method, setter = "icon")]
     pub fn set_icon(this: &Action, val: &Object);
+    ///Get the `label` field of this object.
+    #[wasm_bindgen(method, getter = "label")]
+    pub fn get_label(this: &Action) -> String;
+    ///Change the `label` field of this object.
+    #[wasm_bindgen(method, setter = "label")]
+    pub fn set_label(this: &Action, val: String);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &Action) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &Action, val: String);
+    ///Get the `tooltipText` field of this object.
+    #[wasm_bindgen(method, getter = "tooltipText")]
+    pub fn get_tooltip_text(this: &Action) -> String;
+    ///Change the `tooltipText` field of this object.
+    #[wasm_bindgen(method, setter = "tooltipText")]
+    pub fn set_tooltip_text(this: &Action, val: String);
 }
 impl Action {
     ///Construct a new `Action`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_icon()` instead."]
+    pub fn icon(&mut self, val: &Object) -> &mut Self {
+        self.set_icon(val);
+        self
     }
     #[deprecated = "Use `set_label()` instead."]
     pub fn label(&mut self, val: String) -> &mut Self {
         self.set_label(val);
-        self
-    }
-    #[deprecated = "Use `set_tooltip_text()` instead."]
-    pub fn tooltip_text(&mut self, val: String) -> &mut Self {
-        self.set_tooltip_text(val);
         self
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -124,9 +128,9 @@ impl Action {
         self.set_name(val);
         self
     }
-    #[deprecated = "Use `set_icon()` instead."]
-    pub fn icon(&mut self, val: &Object) -> &mut Self {
-        self.set_icon(val);
+    #[deprecated = "Use `set_tooltip_text()` instead."]
+    pub fn tooltip_text(&mut self, val: String) -> &mut Self {
+        self.set_tooltip_text(val);
         self
     }
 }
@@ -141,68 +145,55 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///A suggest result.
     pub type SuggestResult;
-    ///Get the `deletable` field of this object.
-    #[wasm_bindgen(method, getter = "deletable")]
-    pub fn get_deletable(this: &SuggestResult) -> Option<bool>;
-    ///Change the `deletable` field of this object.
-    #[wasm_bindgen(method, setter = "deletable")]
-    pub fn set_deletable(this: &SuggestResult, val: bool);
     ///Get the `actions` field of this object.
     #[wasm_bindgen(method, getter = "actions")]
     pub fn get_actions(this: &SuggestResult) -> Option<Array>;
     ///Change the `actions` field of this object.
     #[wasm_bindgen(method, setter = "actions")]
     pub fn set_actions(this: &SuggestResult, val: &Array);
-    ///Get the `iconUrl` field of this object.
-    #[wasm_bindgen(method, getter = "iconUrl")]
-    pub fn get_icon_url(this: &SuggestResult) -> Option<String>;
-    ///Change the `iconUrl` field of this object.
-    #[wasm_bindgen(method, setter = "iconUrl")]
-    pub fn set_icon_url(this: &SuggestResult, val: String);
-    ///Get the `descriptionStyles` field of this object.
-    #[wasm_bindgen(method, getter = "descriptionStyles")]
-    pub fn get_description_styles(this: &SuggestResult) -> Option<Array>;
-    ///Change the `descriptionStyles` field of this object.
-    #[wasm_bindgen(method, setter = "descriptionStyles")]
-    pub fn set_description_styles(this: &SuggestResult, val: &Array);
     ///Get the `content` field of this object.
     #[wasm_bindgen(method, getter = "content")]
     pub fn get_content(this: &SuggestResult) -> String;
     ///Change the `content` field of this object.
     #[wasm_bindgen(method, setter = "content")]
     pub fn set_content(this: &SuggestResult, val: String);
+    ///Get the `deletable` field of this object.
+    #[wasm_bindgen(method, getter = "deletable")]
+    pub fn get_deletable(this: &SuggestResult) -> Option<bool>;
+    ///Change the `deletable` field of this object.
+    #[wasm_bindgen(method, setter = "deletable")]
+    pub fn set_deletable(this: &SuggestResult, val: bool);
     ///Get the `description` field of this object.
     #[wasm_bindgen(method, getter = "description")]
     pub fn get_description(this: &SuggestResult) -> String;
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &SuggestResult, val: String);
+    ///Get the `descriptionStyles` field of this object.
+    #[wasm_bindgen(method, getter = "descriptionStyles")]
+    pub fn get_description_styles(this: &SuggestResult) -> Option<Array>;
+    ///Change the `descriptionStyles` field of this object.
+    #[wasm_bindgen(method, setter = "descriptionStyles")]
+    pub fn set_description_styles(this: &SuggestResult, val: &Array);
+    ///Get the `iconUrl` field of this object.
+    #[wasm_bindgen(method, getter = "iconUrl")]
+    pub fn get_icon_url(this: &SuggestResult) -> Option<String>;
+    ///Change the `iconUrl` field of this object.
+    #[wasm_bindgen(method, setter = "iconUrl")]
+    pub fn set_icon_url(this: &SuggestResult, val: String);
 }
 impl SuggestResult {
     ///Construct a new `SuggestResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_deletable()` instead."]
-    pub fn deletable(&mut self, val: bool) -> &mut Self {
-        self.set_deletable(val);
-        self
     }
     #[deprecated = "Use `set_actions()` instead."]
     pub fn actions(&mut self, val: &Array) -> &mut Self {
         self.set_actions(val);
-        self
-    }
-    #[deprecated = "Use `set_icon_url()` instead."]
-    pub fn icon_url(&mut self, val: String) -> &mut Self {
-        self.set_icon_url(val);
-        self
-    }
-    #[deprecated = "Use `set_description_styles()` instead."]
-    pub fn description_styles(&mut self, val: &Array) -> &mut Self {
-        self.set_description_styles(val);
         self
     }
     #[deprecated = "Use `set_content()` instead."]
@@ -210,9 +201,24 @@ impl SuggestResult {
         self.set_content(val);
         self
     }
+    #[deprecated = "Use `set_deletable()` instead."]
+    pub fn deletable(&mut self, val: bool) -> &mut Self {
+        self.set_deletable(val);
+        self
+    }
     #[deprecated = "Use `set_description()` instead."]
     pub fn description(&mut self, val: String) -> &mut Self {
         self.set_description(val);
+        self
+    }
+    #[deprecated = "Use `set_description_styles()` instead."]
+    pub fn description_styles(&mut self, val: &Array) -> &mut Self {
+        self.set_description_styles(val);
+        self
+    }
+    #[deprecated = "Use `set_icon_url()` instead."]
+    pub fn icon_url(&mut self, val: String) -> &mut Self {
+        self.set_icon_url(val);
         self
     }
 }
@@ -244,7 +250,9 @@ impl DefaultSuggestResult {
     ///Construct a new `DefaultSuggestResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -269,34 +277,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Details about an action executed by the user sent in the listener of `onActionExecuted`.
     pub type ActionExecution;
-    ///Get the `content` field of this object.
-    #[wasm_bindgen(method, getter = "content")]
-    pub fn get_content(this: &ActionExecution) -> String;
-    ///Change the `content` field of this object.
-    #[wasm_bindgen(method, setter = "content")]
-    pub fn set_content(this: &ActionExecution, val: String);
     ///Get the `actionName` field of this object.
     #[wasm_bindgen(method, getter = "actionName")]
     pub fn get_action_name(this: &ActionExecution) -> String;
     ///Change the `actionName` field of this object.
     #[wasm_bindgen(method, setter = "actionName")]
     pub fn set_action_name(this: &ActionExecution, val: String);
+    ///Get the `content` field of this object.
+    #[wasm_bindgen(method, getter = "content")]
+    pub fn get_content(this: &ActionExecution) -> String;
+    ///Change the `content` field of this object.
+    #[wasm_bindgen(method, setter = "content")]
+    pub fn set_content(this: &ActionExecution, val: String);
 }
 impl ActionExecution {
     ///Construct a new `ActionExecution`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_content()` instead."]
-    pub fn content(&mut self, val: String) -> &mut Self {
-        self.set_content(val);
-        self
     }
     #[deprecated = "Use `set_action_name()` instead."]
     pub fn action_name(&mut self, val: String) -> &mut Self {
         self.set_action_name(val);
+        self
+    }
+    #[deprecated = "Use `set_content()` instead."]
+    pub fn content(&mut self, val: String) -> &mut Self {
+        self.set_content(val);
         self
     }
 }

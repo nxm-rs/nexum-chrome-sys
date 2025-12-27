@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Type of stream an audio device provides.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -36,65 +36,67 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type AudioDeviceInfo;
-    ///Get the `id` field of this object.
-    #[wasm_bindgen(method, getter = "id")]
-    pub fn get_id(this: &AudioDeviceInfo) -> String;
-    ///Change the `id` field of this object.
-    #[wasm_bindgen(method, setter = "id")]
-    pub fn set_id(this: &AudioDeviceInfo, val: String);
-    ///Get the `deviceType` field of this object.
-    #[wasm_bindgen(method, getter = "deviceType")]
-    pub fn get_device_type(this: &AudioDeviceInfo) -> DeviceType;
-    ///Change the `deviceType` field of this object.
-    #[wasm_bindgen(method, setter = "deviceType")]
-    pub fn set_device_type(this: &AudioDeviceInfo, val: DeviceType);
     ///Get the `deviceName` field of this object.
     #[wasm_bindgen(method, getter = "deviceName")]
     pub fn get_device_name(this: &AudioDeviceInfo) -> String;
     ///Change the `deviceName` field of this object.
     #[wasm_bindgen(method, setter = "deviceName")]
     pub fn set_device_name(this: &AudioDeviceInfo, val: String);
-    ///Get the `isActive` field of this object.
-    #[wasm_bindgen(method, getter = "isActive")]
-    pub fn get_is_active(this: &AudioDeviceInfo) -> bool;
-    ///Change the `isActive` field of this object.
-    #[wasm_bindgen(method, setter = "isActive")]
-    pub fn set_is_active(this: &AudioDeviceInfo, val: bool);
-    ///Get the `streamType` field of this object.
-    #[wasm_bindgen(method, getter = "streamType")]
-    pub fn get_stream_type(this: &AudioDeviceInfo) -> StreamType;
-    ///Change the `streamType` field of this object.
-    #[wasm_bindgen(method, setter = "streamType")]
-    pub fn set_stream_type(this: &AudioDeviceInfo, val: StreamType);
-    ///Get the `stableDeviceId` field of this object.
-    #[wasm_bindgen(method, getter = "stableDeviceId")]
-    pub fn get_stable_device_id(this: &AudioDeviceInfo) -> Option<String>;
-    ///Change the `stableDeviceId` field of this object.
-    #[wasm_bindgen(method, setter = "stableDeviceId")]
-    pub fn set_stable_device_id(this: &AudioDeviceInfo, val: String);
+    ///Get the `deviceType` field of this object.
+    #[wasm_bindgen(method, getter = "deviceType")]
+    pub fn get_device_type(this: &AudioDeviceInfo) -> DeviceType;
+    ///Change the `deviceType` field of this object.
+    #[wasm_bindgen(method, setter = "deviceType")]
+    pub fn set_device_type(this: &AudioDeviceInfo, val: DeviceType);
     ///Get the `displayName` field of this object.
     #[wasm_bindgen(method, getter = "displayName")]
     pub fn get_display_name(this: &AudioDeviceInfo) -> String;
     ///Change the `displayName` field of this object.
     #[wasm_bindgen(method, setter = "displayName")]
     pub fn set_display_name(this: &AudioDeviceInfo, val: String);
+    ///Get the `id` field of this object.
+    #[wasm_bindgen(method, getter = "id")]
+    pub fn get_id(this: &AudioDeviceInfo) -> String;
+    ///Change the `id` field of this object.
+    #[wasm_bindgen(method, setter = "id")]
+    pub fn set_id(this: &AudioDeviceInfo, val: String);
+    ///Get the `isActive` field of this object.
+    #[wasm_bindgen(method, getter = "isActive")]
+    pub fn get_is_active(this: &AudioDeviceInfo) -> bool;
+    ///Change the `isActive` field of this object.
+    #[wasm_bindgen(method, setter = "isActive")]
+    pub fn set_is_active(this: &AudioDeviceInfo, val: bool);
     ///Get the `level` field of this object.
     #[wasm_bindgen(method, getter = "level")]
     pub fn get_level(this: &AudioDeviceInfo) -> i32;
     ///Change the `level` field of this object.
     #[wasm_bindgen(method, setter = "level")]
     pub fn set_level(this: &AudioDeviceInfo, val: i32);
+    ///Get the `stableDeviceId` field of this object.
+    #[wasm_bindgen(method, getter = "stableDeviceId")]
+    pub fn get_stable_device_id(this: &AudioDeviceInfo) -> Option<String>;
+    ///Change the `stableDeviceId` field of this object.
+    #[wasm_bindgen(method, setter = "stableDeviceId")]
+    pub fn set_stable_device_id(this: &AudioDeviceInfo, val: String);
+    ///Get the `streamType` field of this object.
+    #[wasm_bindgen(method, getter = "streamType")]
+    pub fn get_stream_type(this: &AudioDeviceInfo) -> StreamType;
+    ///Change the `streamType` field of this object.
+    #[wasm_bindgen(method, setter = "streamType")]
+    pub fn set_stream_type(this: &AudioDeviceInfo, val: StreamType);
 }
 impl AudioDeviceInfo {
     ///Construct a new `AudioDeviceInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_id()` instead."]
-    pub fn id(&mut self, val: String) -> &mut Self {
-        self.set_id(val);
+    #[deprecated = "Use `set_device_name()` instead."]
+    pub fn device_name(&mut self, val: String) -> &mut Self {
+        self.set_device_name(val);
         self
     }
     #[deprecated = "Use `set_device_type()` instead."]
@@ -102,9 +104,14 @@ impl AudioDeviceInfo {
         self.set_device_type(val);
         self
     }
-    #[deprecated = "Use `set_device_name()` instead."]
-    pub fn device_name(&mut self, val: String) -> &mut Self {
-        self.set_device_name(val);
+    #[deprecated = "Use `set_display_name()` instead."]
+    pub fn display_name(&mut self, val: String) -> &mut Self {
+        self.set_display_name(val);
+        self
+    }
+    #[deprecated = "Use `set_id()` instead."]
+    pub fn id(&mut self, val: String) -> &mut Self {
+        self.set_id(val);
         self
     }
     #[deprecated = "Use `set_is_active()` instead."]
@@ -112,9 +119,9 @@ impl AudioDeviceInfo {
         self.set_is_active(val);
         self
     }
-    #[deprecated = "Use `set_stream_type()` instead."]
-    pub fn stream_type(&mut self, val: StreamType) -> &mut Self {
-        self.set_stream_type(val);
+    #[deprecated = "Use `set_level()` instead."]
+    pub fn level(&mut self, val: i32) -> &mut Self {
+        self.set_level(val);
         self
     }
     #[deprecated = "Use `set_stable_device_id()` instead."]
@@ -122,14 +129,9 @@ impl AudioDeviceInfo {
         self.set_stable_device_id(val);
         self
     }
-    #[deprecated = "Use `set_display_name()` instead."]
-    pub fn display_name(&mut self, val: String) -> &mut Self {
-        self.set_display_name(val);
-        self
-    }
-    #[deprecated = "Use `set_level()` instead."]
-    pub fn level(&mut self, val: i32) -> &mut Self {
-        self.set_level(val);
+    #[deprecated = "Use `set_stream_type()` instead."]
+    pub fn stream_type(&mut self, val: StreamType) -> &mut Self {
+        self.set_stream_type(val);
         self
     }
 }
@@ -144,34 +146,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DeviceFilter;
-    ///Get the `streamTypes` field of this object.
-    #[wasm_bindgen(method, getter = "streamTypes")]
-    pub fn get_stream_types(this: &DeviceFilter) -> Option<Array>;
-    ///Change the `streamTypes` field of this object.
-    #[wasm_bindgen(method, setter = "streamTypes")]
-    pub fn set_stream_types(this: &DeviceFilter, val: &Array);
     ///Get the `isActive` field of this object.
     #[wasm_bindgen(method, getter = "isActive")]
     pub fn get_is_active(this: &DeviceFilter) -> Option<bool>;
     ///Change the `isActive` field of this object.
     #[wasm_bindgen(method, setter = "isActive")]
     pub fn set_is_active(this: &DeviceFilter, val: bool);
+    ///Get the `streamTypes` field of this object.
+    #[wasm_bindgen(method, getter = "streamTypes")]
+    pub fn get_stream_types(this: &DeviceFilter) -> Option<Array>;
+    ///Change the `streamTypes` field of this object.
+    #[wasm_bindgen(method, setter = "streamTypes")]
+    pub fn set_stream_types(this: &DeviceFilter, val: &Array);
 }
 impl DeviceFilter {
     ///Construct a new `DeviceFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_stream_types()` instead."]
-    pub fn stream_types(&mut self, val: &Array) -> &mut Self {
-        self.set_stream_types(val);
-        self
     }
     #[deprecated = "Use `set_is_active()` instead."]
     pub fn is_active(&mut self, val: bool) -> &mut Self {
         self.set_is_active(val);
+        self
+    }
+    #[deprecated = "Use `set_stream_types()` instead."]
+    pub fn stream_types(&mut self, val: &Array) -> &mut Self {
+        self.set_stream_types(val);
         self
     }
 }
@@ -197,7 +201,9 @@ impl DeviceProperties {
     ///Construct a new `DeviceProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_level()` instead."]
@@ -217,34 +223,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DeviceIdLists;
-    ///Get the `output` field of this object.
-    #[wasm_bindgen(method, getter = "output")]
-    pub fn get_output(this: &DeviceIdLists) -> Option<Array>;
-    ///Change the `output` field of this object.
-    #[wasm_bindgen(method, setter = "output")]
-    pub fn set_output(this: &DeviceIdLists, val: &Array);
     ///Get the `input` field of this object.
     #[wasm_bindgen(method, getter = "input")]
     pub fn get_input(this: &DeviceIdLists) -> Option<Array>;
     ///Change the `input` field of this object.
     #[wasm_bindgen(method, setter = "input")]
     pub fn set_input(this: &DeviceIdLists, val: &Array);
+    ///Get the `output` field of this object.
+    #[wasm_bindgen(method, getter = "output")]
+    pub fn get_output(this: &DeviceIdLists) -> Option<Array>;
+    ///Change the `output` field of this object.
+    #[wasm_bindgen(method, setter = "output")]
+    pub fn set_output(this: &DeviceIdLists, val: &Array);
 }
 impl DeviceIdLists {
     ///Construct a new `DeviceIdLists`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_output()` instead."]
-    pub fn output(&mut self, val: &Array) -> &mut Self {
-        self.set_output(val);
-        self
     }
     #[deprecated = "Use `set_input()` instead."]
     pub fn input(&mut self, val: &Array) -> &mut Self {
         self.set_input(val);
+        self
+    }
+    #[deprecated = "Use `set_output()` instead."]
+    pub fn output(&mut self, val: &Array) -> &mut Self {
+        self.set_output(val);
         self
     }
 }
@@ -259,34 +267,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type MuteChangedEvent;
-    ///Get the `streamType` field of this object.
-    #[wasm_bindgen(method, getter = "streamType")]
-    pub fn get_stream_type(this: &MuteChangedEvent) -> StreamType;
-    ///Change the `streamType` field of this object.
-    #[wasm_bindgen(method, setter = "streamType")]
-    pub fn set_stream_type(this: &MuteChangedEvent, val: StreamType);
     ///Get the `isMuted` field of this object.
     #[wasm_bindgen(method, getter = "isMuted")]
     pub fn get_is_muted(this: &MuteChangedEvent) -> bool;
     ///Change the `isMuted` field of this object.
     #[wasm_bindgen(method, setter = "isMuted")]
     pub fn set_is_muted(this: &MuteChangedEvent, val: bool);
+    ///Get the `streamType` field of this object.
+    #[wasm_bindgen(method, getter = "streamType")]
+    pub fn get_stream_type(this: &MuteChangedEvent) -> StreamType;
+    ///Change the `streamType` field of this object.
+    #[wasm_bindgen(method, setter = "streamType")]
+    pub fn set_stream_type(this: &MuteChangedEvent, val: StreamType);
 }
 impl MuteChangedEvent {
     ///Construct a new `MuteChangedEvent`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_stream_type()` instead."]
-    pub fn stream_type(&mut self, val: StreamType) -> &mut Self {
-        self.set_stream_type(val);
-        self
     }
     #[deprecated = "Use `set_is_muted()` instead."]
     pub fn is_muted(&mut self, val: bool) -> &mut Self {
         self.set_is_muted(val);
+        self
+    }
+    #[deprecated = "Use `set_stream_type()` instead."]
+    pub fn stream_type(&mut self, val: StreamType) -> &mut Self {
+        self.set_stream_type(val);
         self
     }
 }
@@ -318,7 +328,9 @@ impl LevelChangedEvent {
     ///Construct a new `LevelChangedEvent`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_device_id()` instead."]

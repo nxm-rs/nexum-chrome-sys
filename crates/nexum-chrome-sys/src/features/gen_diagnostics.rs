@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendPacketOptions")]
@@ -14,30 +14,32 @@ extern "C" {
     ///Change the `ip` field of this object.
     #[wasm_bindgen(method, setter = "ip")]
     pub fn set_ip(this: &SendPacketOptions, val: String);
-    ///Get the `ttl` field of this object.
-    #[wasm_bindgen(method, getter = "ttl")]
-    pub fn get_ttl(this: &SendPacketOptions) -> Option<i32>;
-    ///Change the `ttl` field of this object.
-    #[wasm_bindgen(method, setter = "ttl")]
-    pub fn set_ttl(this: &SendPacketOptions, val: i32);
-    ///Get the `timeout` field of this object.
-    #[wasm_bindgen(method, getter = "timeout")]
-    pub fn get_timeout(this: &SendPacketOptions) -> Option<i32>;
-    ///Change the `timeout` field of this object.
-    #[wasm_bindgen(method, setter = "timeout")]
-    pub fn set_timeout(this: &SendPacketOptions, val: i32);
     ///Get the `size` field of this object.
     #[wasm_bindgen(method, getter = "size")]
     pub fn get_size(this: &SendPacketOptions) -> Option<i32>;
     ///Change the `size` field of this object.
     #[wasm_bindgen(method, setter = "size")]
     pub fn set_size(this: &SendPacketOptions, val: i32);
+    ///Get the `timeout` field of this object.
+    #[wasm_bindgen(method, getter = "timeout")]
+    pub fn get_timeout(this: &SendPacketOptions) -> Option<i32>;
+    ///Change the `timeout` field of this object.
+    #[wasm_bindgen(method, setter = "timeout")]
+    pub fn set_timeout(this: &SendPacketOptions, val: i32);
+    ///Get the `ttl` field of this object.
+    #[wasm_bindgen(method, getter = "ttl")]
+    pub fn get_ttl(this: &SendPacketOptions) -> Option<i32>;
+    ///Change the `ttl` field of this object.
+    #[wasm_bindgen(method, setter = "ttl")]
+    pub fn set_ttl(this: &SendPacketOptions, val: i32);
 }
 impl SendPacketOptions {
     ///Construct a new `SendPacketOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_ip()` instead."]
@@ -45,9 +47,9 @@ impl SendPacketOptions {
         self.set_ip(val);
         self
     }
-    #[deprecated = "Use `set_ttl()` instead."]
-    pub fn ttl(&mut self, val: i32) -> &mut Self {
-        self.set_ttl(val);
+    #[deprecated = "Use `set_size()` instead."]
+    pub fn size(&mut self, val: i32) -> &mut Self {
+        self.set_size(val);
         self
     }
     #[deprecated = "Use `set_timeout()` instead."]
@@ -55,9 +57,9 @@ impl SendPacketOptions {
         self.set_timeout(val);
         self
     }
-    #[deprecated = "Use `set_size()` instead."]
-    pub fn size(&mut self, val: i32) -> &mut Self {
-        self.set_size(val);
+    #[deprecated = "Use `set_ttl()` instead."]
+    pub fn ttl(&mut self, val: i32) -> &mut Self {
+        self.set_ttl(val);
         self
     }
 }
@@ -89,7 +91,9 @@ impl SendPacketResult {
     ///Construct a new `SendPacketResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_ip()` instead."]

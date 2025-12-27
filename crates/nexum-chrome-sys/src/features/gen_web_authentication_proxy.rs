@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "IsUvpaaRequest")]
@@ -19,7 +19,9 @@ impl IsUvpaaRequest {
     ///Construct a new `IsUvpaaRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -56,7 +58,9 @@ impl CreateRequest {
     ///Construct a new `CreateRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_request_details_json()` instead."]
@@ -98,7 +102,9 @@ impl GetRequest {
     ///Construct a new `GetRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_request_details_json()` instead."]
@@ -140,7 +146,9 @@ impl DomExceptionDetails {
     ///Construct a new `DomExceptionDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_message()` instead."]
@@ -165,35 +173,37 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CreateResponseDetails;
-    ///Get the `responseJson` field of this object.
-    #[wasm_bindgen(method, getter = "responseJson")]
-    pub fn get_response_json(this: &CreateResponseDetails) -> Option<String>;
-    ///Change the `responseJson` field of this object.
-    #[wasm_bindgen(method, setter = "responseJson")]
-    pub fn set_response_json(this: &CreateResponseDetails, val: String);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &CreateResponseDetails) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &CreateResponseDetails, val: i32);
     ///Get the `error` field of this object.
     #[wasm_bindgen(method, getter = "error")]
     pub fn get_error(this: &CreateResponseDetails) -> Option<DomExceptionDetails>;
     ///Change the `error` field of this object.
     #[wasm_bindgen(method, setter = "error")]
     pub fn set_error(this: &CreateResponseDetails, val: &DomExceptionDetails);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &CreateResponseDetails) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &CreateResponseDetails, val: i32);
+    ///Get the `responseJson` field of this object.
+    #[wasm_bindgen(method, getter = "responseJson")]
+    pub fn get_response_json(this: &CreateResponseDetails) -> Option<String>;
+    ///Change the `responseJson` field of this object.
+    #[wasm_bindgen(method, setter = "responseJson")]
+    pub fn set_response_json(this: &CreateResponseDetails, val: String);
 }
 impl CreateResponseDetails {
     ///Construct a new `CreateResponseDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_response_json()` instead."]
-    pub fn response_json(&mut self, val: String) -> &mut Self {
-        self.set_response_json(val);
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: &DomExceptionDetails) -> &mut Self {
+        self.set_error(val);
         self
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -201,9 +211,9 @@ impl CreateResponseDetails {
         self.set_request_id(val);
         self
     }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: &DomExceptionDetails) -> &mut Self {
-        self.set_error(val);
+    #[deprecated = "Use `set_response_json()` instead."]
+    pub fn response_json(&mut self, val: String) -> &mut Self {
+        self.set_response_json(val);
         self
     }
 }
@@ -218,35 +228,37 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type GetResponseDetails;
-    ///Get the `responseJson` field of this object.
-    #[wasm_bindgen(method, getter = "responseJson")]
-    pub fn get_response_json(this: &GetResponseDetails) -> Option<String>;
-    ///Change the `responseJson` field of this object.
-    #[wasm_bindgen(method, setter = "responseJson")]
-    pub fn set_response_json(this: &GetResponseDetails, val: String);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &GetResponseDetails) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &GetResponseDetails, val: i32);
     ///Get the `error` field of this object.
     #[wasm_bindgen(method, getter = "error")]
     pub fn get_error(this: &GetResponseDetails) -> Option<DomExceptionDetails>;
     ///Change the `error` field of this object.
     #[wasm_bindgen(method, setter = "error")]
     pub fn set_error(this: &GetResponseDetails, val: &DomExceptionDetails);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &GetResponseDetails) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &GetResponseDetails, val: i32);
+    ///Get the `responseJson` field of this object.
+    #[wasm_bindgen(method, getter = "responseJson")]
+    pub fn get_response_json(this: &GetResponseDetails) -> Option<String>;
+    ///Change the `responseJson` field of this object.
+    #[wasm_bindgen(method, setter = "responseJson")]
+    pub fn set_response_json(this: &GetResponseDetails, val: String);
 }
 impl GetResponseDetails {
     ///Construct a new `GetResponseDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_response_json()` instead."]
-    pub fn response_json(&mut self, val: String) -> &mut Self {
-        self.set_response_json(val);
+    #[deprecated = "Use `set_error()` instead."]
+    pub fn error(&mut self, val: &DomExceptionDetails) -> &mut Self {
+        self.set_error(val);
         self
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -254,9 +266,9 @@ impl GetResponseDetails {
         self.set_request_id(val);
         self
     }
-    #[deprecated = "Use `set_error()` instead."]
-    pub fn error(&mut self, val: &DomExceptionDetails) -> &mut Self {
-        self.set_error(val);
+    #[deprecated = "Use `set_response_json()` instead."]
+    pub fn response_json(&mut self, val: String) -> &mut Self {
+        self.set_response_json(val);
         self
     }
 }
@@ -288,7 +300,9 @@ impl IsUvpaaResponseDetails {
     ///Construct a new `IsUvpaaResponseDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_is_uvpaa()` instead."]

@@ -1,41 +1,43 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AddFolderOptions")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type AddFolderOptions;
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &AddFolderOptions) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &AddFolderOptions, val: String);
     ///Get the `addToFront` field of this object.
     #[wasm_bindgen(method, getter = "addToFront")]
     pub fn get_add_to_front(this: &AddFolderOptions) -> Option<bool>;
     ///Change the `addToFront` field of this object.
     #[wasm_bindgen(method, setter = "addToFront")]
     pub fn set_add_to_front(this: &AddFolderOptions, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &AddFolderOptions) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &AddFolderOptions, val: String);
 }
 impl AddFolderOptions {
     ///Construct a new `AddFolderOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
-        self
     }
     #[deprecated = "Use `set_add_to_front()` instead."]
     pub fn add_to_front(&mut self, val: bool) -> &mut Self {
         self.set_add_to_front(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
         self
     }
 }
@@ -50,46 +52,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type AddAppOptions;
-    ///Get the `folderId` field of this object.
-    #[wasm_bindgen(method, getter = "folderId")]
-    pub fn get_folder_id(this: &AddAppOptions) -> Option<String>;
-    ///Change the `folderId` field of this object.
-    #[wasm_bindgen(method, setter = "folderId")]
-    pub fn set_folder_id(this: &AddAppOptions, val: String);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &AddAppOptions) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &AddAppOptions, val: String);
-    ///Get the `iconUrl` field of this object.
-    #[wasm_bindgen(method, getter = "iconUrl")]
-    pub fn get_icon_url(this: &AddAppOptions) -> Option<String>;
-    ///Change the `iconUrl` field of this object.
-    #[wasm_bindgen(method, setter = "iconUrl")]
-    pub fn set_icon_url(this: &AddAppOptions, val: String);
     ///Get the `addToFront` field of this object.
     #[wasm_bindgen(method, getter = "addToFront")]
     pub fn get_add_to_front(this: &AddAppOptions) -> Option<bool>;
     ///Change the `addToFront` field of this object.
     #[wasm_bindgen(method, setter = "addToFront")]
     pub fn set_add_to_front(this: &AddAppOptions, val: bool);
+    ///Get the `folderId` field of this object.
+    #[wasm_bindgen(method, getter = "folderId")]
+    pub fn get_folder_id(this: &AddAppOptions) -> Option<String>;
+    ///Change the `folderId` field of this object.
+    #[wasm_bindgen(method, setter = "folderId")]
+    pub fn set_folder_id(this: &AddAppOptions, val: String);
+    ///Get the `iconUrl` field of this object.
+    #[wasm_bindgen(method, getter = "iconUrl")]
+    pub fn get_icon_url(this: &AddAppOptions) -> Option<String>;
+    ///Change the `iconUrl` field of this object.
+    #[wasm_bindgen(method, setter = "iconUrl")]
+    pub fn set_icon_url(this: &AddAppOptions, val: String);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &AddAppOptions) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &AddAppOptions, val: String);
 }
 impl AddAppOptions {
     ///Construct a new `AddAppOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_add_to_front()` instead."]
+    pub fn add_to_front(&mut self, val: bool) -> &mut Self {
+        self.set_add_to_front(val);
+        self
     }
     #[deprecated = "Use `set_folder_id()` instead."]
     pub fn folder_id(&mut self, val: String) -> &mut Self {
         self.set_folder_id(val);
-        self
-    }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
         self
     }
     #[deprecated = "Use `set_icon_url()` instead."]
@@ -97,9 +101,9 @@ impl AddAppOptions {
         self.set_icon_url(val);
         self
     }
-    #[deprecated = "Use `set_add_to_front()` instead."]
-    pub fn add_to_front(&mut self, val: bool) -> &mut Self {
-        self.set_add_to_front(val);
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
         self
     }
 }
@@ -132,7 +136,9 @@ impl SortLauncherOptions {
     ///Construct a new `SortLauncherOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_position()` instead."]

@@ -1,41 +1,43 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Match")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Match;
-    ///Get the `keyAlgorithm` field of this object.
-    #[wasm_bindgen(method, getter = "keyAlgorithm")]
-    pub fn get_key_algorithm(this: &Match) -> Object;
-    ///Change the `keyAlgorithm` field of this object.
-    #[wasm_bindgen(method, setter = "keyAlgorithm")]
-    pub fn set_key_algorithm(this: &Match, val: &Object);
     ///Get the `certificate` field of this object.
     #[wasm_bindgen(method, getter = "certificate")]
     pub fn get_certificate(this: &Match) -> ::js_sys::ArrayBuffer;
     ///Change the `certificate` field of this object.
     #[wasm_bindgen(method, setter = "certificate")]
     pub fn set_certificate(this: &Match, val: &::js_sys::ArrayBuffer);
+    ///Get the `keyAlgorithm` field of this object.
+    #[wasm_bindgen(method, getter = "keyAlgorithm")]
+    pub fn get_key_algorithm(this: &Match) -> Object;
+    ///Change the `keyAlgorithm` field of this object.
+    #[wasm_bindgen(method, setter = "keyAlgorithm")]
+    pub fn set_key_algorithm(this: &Match, val: &Object);
 }
 impl Match {
     ///Construct a new `Match`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_key_algorithm()` instead."]
-    pub fn key_algorithm(&mut self, val: &Object) -> &mut Self {
-        self.set_key_algorithm(val);
-        self
     }
     #[deprecated = "Use `set_certificate()` instead."]
     pub fn certificate(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
         self.set_certificate(val);
+        self
+    }
+    #[deprecated = "Use `set_key_algorithm()` instead."]
+    pub fn key_algorithm(&mut self, val: &Object) -> &mut Self {
+        self.set_key_algorithm(val);
         self
     }
 }
@@ -74,7 +76,9 @@ impl ClientCertificateRequest {
     ///Construct a new `ClientCertificateRequest`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_certificate_authorities()` instead."]
@@ -99,6 +103,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SelectDetails;
+    ///Get the `clientCerts` field of this object.
+    #[wasm_bindgen(method, getter = "clientCerts")]
+    pub fn get_client_certs(this: &SelectDetails) -> Option<Array>;
+    ///Change the `clientCerts` field of this object.
+    #[wasm_bindgen(method, setter = "clientCerts")]
+    pub fn set_client_certs(this: &SelectDetails, val: &Array);
     ///Get the `interactive` field of this object.
     #[wasm_bindgen(method, getter = "interactive")]
     pub fn get_interactive(this: &SelectDetails) -> bool;
@@ -111,19 +121,20 @@ extern "C" {
     ///Change the `request` field of this object.
     #[wasm_bindgen(method, setter = "request")]
     pub fn set_request(this: &SelectDetails, val: &ClientCertificateRequest);
-    ///Get the `clientCerts` field of this object.
-    #[wasm_bindgen(method, getter = "clientCerts")]
-    pub fn get_client_certs(this: &SelectDetails) -> Option<Array>;
-    ///Change the `clientCerts` field of this object.
-    #[wasm_bindgen(method, setter = "clientCerts")]
-    pub fn set_client_certs(this: &SelectDetails, val: &Array);
 }
 impl SelectDetails {
     ///Construct a new `SelectDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_client_certs()` instead."]
+    pub fn client_certs(&mut self, val: &Array) -> &mut Self {
+        self.set_client_certs(val);
+        self
     }
     #[deprecated = "Use `set_interactive()` instead."]
     pub fn interactive(&mut self, val: bool) -> &mut Self {
@@ -133,11 +144,6 @@ impl SelectDetails {
     #[deprecated = "Use `set_request()` instead."]
     pub fn request(&mut self, val: &ClientCertificateRequest) -> &mut Self {
         self.set_request(val);
-        self
-    }
-    #[deprecated = "Use `set_client_certs()` instead."]
-    pub fn client_certs(&mut self, val: &Array) -> &mut Self {
-        self.set_client_certs(val);
         self
     }
 }
@@ -169,7 +175,9 @@ impl VerificationDetails {
     ///Construct a new `VerificationDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_hostname()` instead."]
@@ -194,34 +202,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type VerificationResult;
-    ///Get the `trusted` field of this object.
-    #[wasm_bindgen(method, getter = "trusted")]
-    pub fn get_trusted(this: &VerificationResult) -> bool;
-    ///Change the `trusted` field of this object.
-    #[wasm_bindgen(method, setter = "trusted")]
-    pub fn set_trusted(this: &VerificationResult, val: bool);
     ///Get the `debug_errors` field of this object.
     #[wasm_bindgen(method, getter = "debug_errors")]
     pub fn get_debug_errors(this: &VerificationResult) -> Array;
     ///Change the `debug_errors` field of this object.
     #[wasm_bindgen(method, setter = "debug_errors")]
     pub fn set_debug_errors(this: &VerificationResult, val: &Array);
+    ///Get the `trusted` field of this object.
+    #[wasm_bindgen(method, getter = "trusted")]
+    pub fn get_trusted(this: &VerificationResult) -> bool;
+    ///Change the `trusted` field of this object.
+    #[wasm_bindgen(method, setter = "trusted")]
+    pub fn set_trusted(this: &VerificationResult, val: bool);
 }
 impl VerificationResult {
     ///Construct a new `VerificationResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_trusted()` instead."]
-    pub fn trusted(&mut self, val: bool) -> &mut Self {
-        self.set_trusted(val);
-        self
     }
     #[deprecated = "Use `set_debug_errors()` instead."]
     pub fn debug_errors(&mut self, val: &Array) -> &mut Self {
         self.set_debug_errors(val);
+        self
+    }
+    #[deprecated = "Use `set_trusted()` instead."]
+    pub fn trusted(&mut self, val: bool) -> &mut Self {
+        self.set_trusted(val);
         self
     }
 }
@@ -241,7 +251,10 @@ extern "C" {
     pub fn select_client_certificates(details: SelectDetails) -> Promise;
     ///Passes the key pair of certificate for usage with $(ref:platformKeys.subtleCrypto) to callback.
     #[wasm_bindgen(js_namespace = ["chrome", "platformKeys"], js_name = "getKeyPair")]
-    pub fn get_key_pair(certificate: ::js_sys::ArrayBuffer, parameters: Object) -> Promise;
+    pub fn get_key_pair(
+        certificate: ::js_sys::ArrayBuffer,
+        parameters: Object,
+    ) -> Promise;
     ///Passes the key pair identified by publicKeySpkiDer for usage with $(ref:platformKeys.subtleCrypto) to callback.
     #[wasm_bindgen(
         js_namespace = ["chrome",

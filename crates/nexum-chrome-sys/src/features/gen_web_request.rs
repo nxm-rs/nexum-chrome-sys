@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -134,46 +134,43 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///An object describing filters to apply to webRequest events.
     pub type RequestFilter;
-    ///Get the `windowId` field of this object.
-    #[wasm_bindgen(method, getter = "windowId")]
-    pub fn get_window_id(this: &RequestFilter) -> Option<i32>;
-    ///Change the `windowId` field of this object.
-    #[wasm_bindgen(method, setter = "windowId")]
-    pub fn set_window_id(this: &RequestFilter, val: i32);
-    ///Get the `urls` field of this object.
-    #[wasm_bindgen(method, getter = "urls")]
-    pub fn get_urls(this: &RequestFilter) -> Array;
-    ///Change the `urls` field of this object.
-    #[wasm_bindgen(method, setter = "urls")]
-    pub fn set_urls(this: &RequestFilter, val: &Array);
-    ///Get the `types` field of this object.
-    #[wasm_bindgen(method, getter = "types")]
-    pub fn get_types(this: &RequestFilter) -> Option<Array>;
-    ///Change the `types` field of this object.
-    #[wasm_bindgen(method, setter = "types")]
-    pub fn set_types(this: &RequestFilter, val: &Array);
     ///Get the `tabId` field of this object.
     #[wasm_bindgen(method, getter = "tabId")]
     pub fn get_tab_id(this: &RequestFilter) -> Option<i32>;
     ///Change the `tabId` field of this object.
     #[wasm_bindgen(method, setter = "tabId")]
     pub fn set_tab_id(this: &RequestFilter, val: i32);
+    ///Get the `types` field of this object.
+    #[wasm_bindgen(method, getter = "types")]
+    pub fn get_types(this: &RequestFilter) -> Option<Array>;
+    ///Change the `types` field of this object.
+    #[wasm_bindgen(method, setter = "types")]
+    pub fn set_types(this: &RequestFilter, val: &Array);
+    ///Get the `urls` field of this object.
+    #[wasm_bindgen(method, getter = "urls")]
+    pub fn get_urls(this: &RequestFilter) -> Array;
+    ///Change the `urls` field of this object.
+    #[wasm_bindgen(method, setter = "urls")]
+    pub fn set_urls(this: &RequestFilter, val: &Array);
+    ///Get the `windowId` field of this object.
+    #[wasm_bindgen(method, getter = "windowId")]
+    pub fn get_window_id(this: &RequestFilter) -> Option<i32>;
+    ///Change the `windowId` field of this object.
+    #[wasm_bindgen(method, setter = "windowId")]
+    pub fn set_window_id(this: &RequestFilter, val: i32);
 }
 impl RequestFilter {
     ///Construct a new `RequestFilter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_window_id()` instead."]
-    pub fn window_id(&mut self, val: i32) -> &mut Self {
-        self.set_window_id(val);
-        self
-    }
-    #[deprecated = "Use `set_urls()` instead."]
-    pub fn urls(&mut self, val: &Array) -> &mut Self {
-        self.set_urls(val);
+    #[deprecated = "Use `set_tab_id()` instead."]
+    pub fn tab_id(&mut self, val: i32) -> &mut Self {
+        self.set_tab_id(val);
         self
     }
     #[deprecated = "Use `set_types()` instead."]
@@ -181,9 +178,14 @@ impl RequestFilter {
         self.set_types(val);
         self
     }
-    #[deprecated = "Use `set_tab_id()` instead."]
-    pub fn tab_id(&mut self, val: i32) -> &mut Self {
-        self.set_tab_id(val);
+    #[deprecated = "Use `set_urls()` instead."]
+    pub fn urls(&mut self, val: &Array) -> &mut Self {
+        self.set_urls(val);
+        self
+    }
+    #[deprecated = "Use `set_window_id()` instead."]
+    pub fn window_id(&mut self, val: i32) -> &mut Self {
+        self.set_window_id(val);
         self
     }
 }
@@ -200,12 +202,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests.
     pub type BlockingResponse;
-    ///Get the `requestHeaders` field of this object.
-    #[wasm_bindgen(method, getter = "requestHeaders")]
-    pub fn get_request_headers(this: &BlockingResponse) -> Option<HttpHeaders>;
-    ///Change the `requestHeaders` field of this object.
-    #[wasm_bindgen(method, setter = "requestHeaders")]
-    pub fn set_request_headers(this: &BlockingResponse, val: &HttpHeaders);
+    ///Get the `authCredentials` field of this object.
+    #[wasm_bindgen(method, getter = "authCredentials")]
+    pub fn get_auth_credentials(this: &BlockingResponse) -> Option<Object>;
+    ///Change the `authCredentials` field of this object.
+    #[wasm_bindgen(method, setter = "authCredentials")]
+    pub fn set_auth_credentials(this: &BlockingResponse, val: &Object);
     ///Get the `cancel` field of this object.
     #[wasm_bindgen(method, getter = "cancel")]
     pub fn get_cancel(this: &BlockingResponse) -> Option<bool>;
@@ -218,29 +220,31 @@ extern "C" {
     ///Change the `redirectUrl` field of this object.
     #[wasm_bindgen(method, setter = "redirectUrl")]
     pub fn set_redirect_url(this: &BlockingResponse, val: String);
+    ///Get the `requestHeaders` field of this object.
+    #[wasm_bindgen(method, getter = "requestHeaders")]
+    pub fn get_request_headers(this: &BlockingResponse) -> Option<HttpHeaders>;
+    ///Change the `requestHeaders` field of this object.
+    #[wasm_bindgen(method, setter = "requestHeaders")]
+    pub fn set_request_headers(this: &BlockingResponse, val: &HttpHeaders);
     ///Get the `responseHeaders` field of this object.
     #[wasm_bindgen(method, getter = "responseHeaders")]
     pub fn get_response_headers(this: &BlockingResponse) -> Option<HttpHeaders>;
     ///Change the `responseHeaders` field of this object.
     #[wasm_bindgen(method, setter = "responseHeaders")]
     pub fn set_response_headers(this: &BlockingResponse, val: &HttpHeaders);
-    ///Get the `authCredentials` field of this object.
-    #[wasm_bindgen(method, getter = "authCredentials")]
-    pub fn get_auth_credentials(this: &BlockingResponse) -> Option<Object>;
-    ///Change the `authCredentials` field of this object.
-    #[wasm_bindgen(method, setter = "authCredentials")]
-    pub fn set_auth_credentials(this: &BlockingResponse, val: &Object);
 }
 impl BlockingResponse {
     ///Construct a new `BlockingResponse`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_request_headers()` instead."]
-    pub fn request_headers(&mut self, val: &HttpHeaders) -> &mut Self {
-        self.set_request_headers(val);
+    #[deprecated = "Use `set_auth_credentials()` instead."]
+    pub fn auth_credentials(&mut self, val: &Object) -> &mut Self {
+        self.set_auth_credentials(val);
         self
     }
     #[deprecated = "Use `set_cancel()` instead."]
@@ -253,14 +257,14 @@ impl BlockingResponse {
         self.set_redirect_url(val);
         self
     }
+    #[deprecated = "Use `set_request_headers()` instead."]
+    pub fn request_headers(&mut self, val: &HttpHeaders) -> &mut Self {
+        self.set_request_headers(val);
+        self
+    }
     #[deprecated = "Use `set_response_headers()` instead."]
     pub fn response_headers(&mut self, val: &HttpHeaders) -> &mut Self {
         self.set_response_headers(val);
-        self
-    }
-    #[deprecated = "Use `set_auth_credentials()` instead."]
-    pub fn auth_credentials(&mut self, val: &Object) -> &mut Self {
-        self.set_auth_credentials(val);
         self
     }
 }
@@ -275,34 +279,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///Contains data uploaded in a URL request.
     pub type UploadData;
-    ///Get the `file` field of this object.
-    #[wasm_bindgen(method, getter = "file")]
-    pub fn get_file(this: &UploadData) -> Option<String>;
-    ///Change the `file` field of this object.
-    #[wasm_bindgen(method, setter = "file")]
-    pub fn set_file(this: &UploadData, val: String);
     ///Get the `bytes` field of this object.
     #[wasm_bindgen(method, getter = "bytes")]
     pub fn get_bytes(this: &UploadData) -> Option<JsValue>;
     ///Change the `bytes` field of this object.
     #[wasm_bindgen(method, setter = "bytes")]
     pub fn set_bytes(this: &UploadData, val: &JsValue);
+    ///Get the `file` field of this object.
+    #[wasm_bindgen(method, getter = "file")]
+    pub fn get_file(this: &UploadData) -> Option<String>;
+    ///Change the `file` field of this object.
+    #[wasm_bindgen(method, setter = "file")]
+    pub fn set_file(this: &UploadData, val: String);
 }
 impl UploadData {
     ///Construct a new `UploadData`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_file()` instead."]
-    pub fn file(&mut self, val: String) -> &mut Self {
-        self.set_file(val);
-        self
     }
     #[deprecated = "Use `set_bytes()` instead."]
     pub fn bytes(&mut self, val: &JsValue) -> &mut Self {
         self.set_bytes(val);
+        self
+    }
+    #[deprecated = "Use `set_file()` instead."]
+    pub fn file(&mut self, val: String) -> &mut Self {
+        self.set_file(val);
         self
     }
 }
@@ -334,7 +340,9 @@ impl SecurityInfo {
     ///Construct a new `SecurityInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_certificates()` instead."]

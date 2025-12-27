@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, "OK" must be used.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -52,34 +52,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CloudIdentifier;
-    ///Get the `providerName` field of this object.
-    #[wasm_bindgen(method, getter = "providerName")]
-    pub fn get_provider_name(this: &CloudIdentifier) -> String;
-    ///Change the `providerName` field of this object.
-    #[wasm_bindgen(method, setter = "providerName")]
-    pub fn set_provider_name(this: &CloudIdentifier, val: String);
     ///Get the `id` field of this object.
     #[wasm_bindgen(method, getter = "id")]
     pub fn get_id(this: &CloudIdentifier) -> String;
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &CloudIdentifier, val: String);
+    ///Get the `providerName` field of this object.
+    #[wasm_bindgen(method, getter = "providerName")]
+    pub fn get_provider_name(this: &CloudIdentifier) -> String;
+    ///Change the `providerName` field of this object.
+    #[wasm_bindgen(method, setter = "providerName")]
+    pub fn set_provider_name(this: &CloudIdentifier, val: String);
 }
 impl CloudIdentifier {
     ///Construct a new `CloudIdentifier`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_provider_name()` instead."]
-    pub fn provider_name(&mut self, val: String) -> &mut Self {
-        self.set_provider_name(val);
-        self
     }
     #[deprecated = "Use `set_id()` instead."]
     pub fn id(&mut self, val: String) -> &mut Self {
         self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_provider_name()` instead."]
+    pub fn provider_name(&mut self, val: String) -> &mut Self {
+        self.set_provider_name(val);
         self
     }
 }
@@ -105,7 +107,9 @@ impl CloudFileInfo {
     ///Construct a new `CloudFileInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_version_tag()` instead."]
@@ -125,90 +129,67 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type EntryMetadata;
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &EntryMetadata) -> Option<String>;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &EntryMetadata, val: String);
-    ///Get the `isDirectory` field of this object.
-    #[wasm_bindgen(method, getter = "isDirectory")]
-    pub fn get_is_directory(this: &EntryMetadata) -> Option<bool>;
-    ///Change the `isDirectory` field of this object.
-    #[wasm_bindgen(method, setter = "isDirectory")]
-    pub fn set_is_directory(this: &EntryMetadata, val: bool);
-    ///Get the `modificationTime` field of this object.
-    #[wasm_bindgen(method, getter = "modificationTime")]
-    pub fn get_modification_time(this: &EntryMetadata) -> Option<Object>;
-    ///Change the `modificationTime` field of this object.
-    #[wasm_bindgen(method, setter = "modificationTime")]
-    pub fn set_modification_time(this: &EntryMetadata, val: &Object);
-    ///Get the `mimeType` field of this object.
-    #[wasm_bindgen(method, getter = "mimeType")]
-    pub fn get_mime_type(this: &EntryMetadata) -> Option<String>;
-    ///Change the `mimeType` field of this object.
-    #[wasm_bindgen(method, setter = "mimeType")]
-    pub fn set_mime_type(this: &EntryMetadata, val: String);
-    ///Get the `thumbnail` field of this object.
-    #[wasm_bindgen(method, getter = "thumbnail")]
-    pub fn get_thumbnail(this: &EntryMetadata) -> Option<String>;
-    ///Change the `thumbnail` field of this object.
-    #[wasm_bindgen(method, setter = "thumbnail")]
-    pub fn set_thumbnail(this: &EntryMetadata, val: String);
-    ///Get the `size` field of this object.
-    #[wasm_bindgen(method, getter = "size")]
-    pub fn get_size(this: &EntryMetadata) -> Option<f64>;
-    ///Change the `size` field of this object.
-    #[wasm_bindgen(method, setter = "size")]
-    pub fn set_size(this: &EntryMetadata, val: f64);
-    ///Get the `cloudIdentifier` field of this object.
-    #[wasm_bindgen(method, getter = "cloudIdentifier")]
-    pub fn get_cloud_identifier(this: &EntryMetadata) -> Option<CloudIdentifier>;
-    ///Change the `cloudIdentifier` field of this object.
-    #[wasm_bindgen(method, setter = "cloudIdentifier")]
-    pub fn set_cloud_identifier(this: &EntryMetadata, val: &CloudIdentifier);
     ///Get the `cloudFileInfo` field of this object.
     #[wasm_bindgen(method, getter = "cloudFileInfo")]
     pub fn get_cloud_file_info(this: &EntryMetadata) -> Option<CloudFileInfo>;
     ///Change the `cloudFileInfo` field of this object.
     #[wasm_bindgen(method, setter = "cloudFileInfo")]
     pub fn set_cloud_file_info(this: &EntryMetadata, val: &CloudFileInfo);
+    ///Get the `cloudIdentifier` field of this object.
+    #[wasm_bindgen(method, getter = "cloudIdentifier")]
+    pub fn get_cloud_identifier(this: &EntryMetadata) -> Option<CloudIdentifier>;
+    ///Change the `cloudIdentifier` field of this object.
+    #[wasm_bindgen(method, setter = "cloudIdentifier")]
+    pub fn set_cloud_identifier(this: &EntryMetadata, val: &CloudIdentifier);
+    ///Get the `isDirectory` field of this object.
+    #[wasm_bindgen(method, getter = "isDirectory")]
+    pub fn get_is_directory(this: &EntryMetadata) -> Option<bool>;
+    ///Change the `isDirectory` field of this object.
+    #[wasm_bindgen(method, setter = "isDirectory")]
+    pub fn set_is_directory(this: &EntryMetadata, val: bool);
+    ///Get the `mimeType` field of this object.
+    #[wasm_bindgen(method, getter = "mimeType")]
+    pub fn get_mime_type(this: &EntryMetadata) -> Option<String>;
+    ///Change the `mimeType` field of this object.
+    #[wasm_bindgen(method, setter = "mimeType")]
+    pub fn set_mime_type(this: &EntryMetadata, val: String);
+    ///Get the `modificationTime` field of this object.
+    #[wasm_bindgen(method, getter = "modificationTime")]
+    pub fn get_modification_time(this: &EntryMetadata) -> Option<Object>;
+    ///Change the `modificationTime` field of this object.
+    #[wasm_bindgen(method, setter = "modificationTime")]
+    pub fn set_modification_time(this: &EntryMetadata, val: &Object);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &EntryMetadata) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &EntryMetadata, val: String);
+    ///Get the `size` field of this object.
+    #[wasm_bindgen(method, getter = "size")]
+    pub fn get_size(this: &EntryMetadata) -> Option<f64>;
+    ///Change the `size` field of this object.
+    #[wasm_bindgen(method, setter = "size")]
+    pub fn set_size(this: &EntryMetadata, val: f64);
+    ///Get the `thumbnail` field of this object.
+    #[wasm_bindgen(method, getter = "thumbnail")]
+    pub fn get_thumbnail(this: &EntryMetadata) -> Option<String>;
+    ///Change the `thumbnail` field of this object.
+    #[wasm_bindgen(method, setter = "thumbnail")]
+    pub fn set_thumbnail(this: &EntryMetadata, val: String);
 }
 impl EntryMetadata {
     ///Construct a new `EntryMetadata`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
-        self
-    }
-    #[deprecated = "Use `set_is_directory()` instead."]
-    pub fn is_directory(&mut self, val: bool) -> &mut Self {
-        self.set_is_directory(val);
-        self
-    }
-    #[deprecated = "Use `set_modification_time()` instead."]
-    pub fn modification_time(&mut self, val: &Object) -> &mut Self {
-        self.set_modification_time(val);
-        self
-    }
-    #[deprecated = "Use `set_mime_type()` instead."]
-    pub fn mime_type(&mut self, val: String) -> &mut Self {
-        self.set_mime_type(val);
-        self
-    }
-    #[deprecated = "Use `set_thumbnail()` instead."]
-    pub fn thumbnail(&mut self, val: String) -> &mut Self {
-        self.set_thumbnail(val);
-        self
-    }
-    #[deprecated = "Use `set_size()` instead."]
-    pub fn size(&mut self, val: f64) -> &mut Self {
-        self.set_size(val);
+    #[deprecated = "Use `set_cloud_file_info()` instead."]
+    pub fn cloud_file_info(&mut self, val: &CloudFileInfo) -> &mut Self {
+        self.set_cloud_file_info(val);
         self
     }
     #[deprecated = "Use `set_cloud_identifier()` instead."]
@@ -216,9 +197,34 @@ impl EntryMetadata {
         self.set_cloud_identifier(val);
         self
     }
-    #[deprecated = "Use `set_cloud_file_info()` instead."]
-    pub fn cloud_file_info(&mut self, val: &CloudFileInfo) -> &mut Self {
-        self.set_cloud_file_info(val);
+    #[deprecated = "Use `set_is_directory()` instead."]
+    pub fn is_directory(&mut self, val: bool) -> &mut Self {
+        self.set_is_directory(val);
+        self
+    }
+    #[deprecated = "Use `set_mime_type()` instead."]
+    pub fn mime_type(&mut self, val: String) -> &mut Self {
+        self.set_mime_type(val);
+        self
+    }
+    #[deprecated = "Use `set_modification_time()` instead."]
+    pub fn modification_time(&mut self, val: &Object) -> &mut Self {
+        self.set_modification_time(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
+        self
+    }
+    #[deprecated = "Use `set_size()` instead."]
+    pub fn size(&mut self, val: f64) -> &mut Self {
+        self.set_size(val);
+        self
+    }
+    #[deprecated = "Use `set_thumbnail()` instead."]
+    pub fn thumbnail(&mut self, val: String) -> &mut Self {
+        self.set_thumbnail(val);
         self
     }
 }
@@ -239,24 +245,26 @@ extern "C" {
     ///Change the `entryPath` field of this object.
     #[wasm_bindgen(method, setter = "entryPath")]
     pub fn set_entry_path(this: &Watcher, val: String);
-    ///Get the `recursive` field of this object.
-    #[wasm_bindgen(method, getter = "recursive")]
-    pub fn get_recursive(this: &Watcher) -> bool;
-    ///Change the `recursive` field of this object.
-    #[wasm_bindgen(method, setter = "recursive")]
-    pub fn set_recursive(this: &Watcher, val: bool);
     ///Get the `lastTag` field of this object.
     #[wasm_bindgen(method, getter = "lastTag")]
     pub fn get_last_tag(this: &Watcher) -> Option<String>;
     ///Change the `lastTag` field of this object.
     #[wasm_bindgen(method, setter = "lastTag")]
     pub fn set_last_tag(this: &Watcher, val: String);
+    ///Get the `recursive` field of this object.
+    #[wasm_bindgen(method, getter = "recursive")]
+    pub fn get_recursive(this: &Watcher) -> bool;
+    ///Change the `recursive` field of this object.
+    #[wasm_bindgen(method, setter = "recursive")]
+    pub fn set_recursive(this: &Watcher, val: bool);
 }
 impl Watcher {
     ///Construct a new `Watcher`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_entry_path()` instead."]
@@ -264,14 +272,14 @@ impl Watcher {
         self.set_entry_path(val);
         self
     }
-    #[deprecated = "Use `set_recursive()` instead."]
-    pub fn recursive(&mut self, val: bool) -> &mut Self {
-        self.set_recursive(val);
-        self
-    }
     #[deprecated = "Use `set_last_tag()` instead."]
     pub fn last_tag(&mut self, val: String) -> &mut Self {
         self.set_last_tag(val);
+        self
+    }
+    #[deprecated = "Use `set_recursive()` instead."]
+    pub fn recursive(&mut self, val: bool) -> &mut Self {
+        self.set_recursive(val);
         self
     }
 }
@@ -286,12 +294,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type OpenedFile;
-    ///Get the `openRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "openRequestId")]
-    pub fn get_open_request_id(this: &OpenedFile) -> i32;
-    ///Change the `openRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "openRequestId")]
-    pub fn set_open_request_id(this: &OpenedFile, val: i32);
     ///Get the `filePath` field of this object.
     #[wasm_bindgen(method, getter = "filePath")]
     pub fn get_file_path(this: &OpenedFile) -> String;
@@ -304,18 +306,21 @@ extern "C" {
     ///Change the `mode` field of this object.
     #[wasm_bindgen(method, setter = "mode")]
     pub fn set_mode(this: &OpenedFile, val: OpenFileMode);
+    ///Get the `openRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "openRequestId")]
+    pub fn get_open_request_id(this: &OpenedFile) -> i32;
+    ///Change the `openRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "openRequestId")]
+    pub fn set_open_request_id(this: &OpenedFile, val: i32);
 }
 impl OpenedFile {
     ///Construct a new `OpenedFile`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_open_request_id()` instead."]
-    pub fn open_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_open_request_id(val);
-        self
     }
     #[deprecated = "Use `set_file_path()` instead."]
     pub fn file_path(&mut self, val: String) -> &mut Self {
@@ -325,6 +330,11 @@ impl OpenedFile {
     #[deprecated = "Use `set_mode()` instead."]
     pub fn mode(&mut self, val: OpenFileMode) -> &mut Self {
         self.set_mode(val);
+        self
+    }
+    #[deprecated = "Use `set_open_request_id()` instead."]
+    pub fn open_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_open_request_id(val);
         self
     }
 }
@@ -339,69 +349,61 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type FileSystemInfo;
-    ///Get the `watchers` field of this object.
-    #[wasm_bindgen(method, getter = "watchers")]
-    pub fn get_watchers(this: &FileSystemInfo) -> Array;
-    ///Change the `watchers` field of this object.
-    #[wasm_bindgen(method, setter = "watchers")]
-    pub fn set_watchers(this: &FileSystemInfo, val: &Array);
-    ///Get the `supportsNotifyTag` field of this object.
-    #[wasm_bindgen(method, getter = "supportsNotifyTag")]
-    pub fn get_supports_notify_tag(this: &FileSystemInfo) -> Option<bool>;
-    ///Change the `supportsNotifyTag` field of this object.
-    #[wasm_bindgen(method, setter = "supportsNotifyTag")]
-    pub fn set_supports_notify_tag(this: &FileSystemInfo, val: bool);
-    ///Get the `openedFilesLimit` field of this object.
-    #[wasm_bindgen(method, getter = "openedFilesLimit")]
-    pub fn get_opened_files_limit(this: &FileSystemInfo) -> i32;
-    ///Change the `openedFilesLimit` field of this object.
-    #[wasm_bindgen(method, setter = "openedFilesLimit")]
-    pub fn set_opened_files_limit(this: &FileSystemInfo, val: i32);
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &FileSystemInfo) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &FileSystemInfo, val: String);
-    ///Get the `writable` field of this object.
-    #[wasm_bindgen(method, getter = "writable")]
-    pub fn get_writable(this: &FileSystemInfo) -> bool;
-    ///Change the `writable` field of this object.
-    #[wasm_bindgen(method, setter = "writable")]
-    pub fn set_writable(this: &FileSystemInfo, val: bool);
-    ///Get the `openedFiles` field of this object.
-    #[wasm_bindgen(method, getter = "openedFiles")]
-    pub fn get_opened_files(this: &FileSystemInfo) -> Array;
-    ///Change the `openedFiles` field of this object.
-    #[wasm_bindgen(method, setter = "openedFiles")]
-    pub fn set_opened_files(this: &FileSystemInfo, val: &Array);
     ///Get the `displayName` field of this object.
     #[wasm_bindgen(method, getter = "displayName")]
     pub fn get_display_name(this: &FileSystemInfo) -> String;
     ///Change the `displayName` field of this object.
     #[wasm_bindgen(method, setter = "displayName")]
     pub fn set_display_name(this: &FileSystemInfo, val: String);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &FileSystemInfo) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &FileSystemInfo, val: String);
+    ///Get the `openedFiles` field of this object.
+    #[wasm_bindgen(method, getter = "openedFiles")]
+    pub fn get_opened_files(this: &FileSystemInfo) -> Array;
+    ///Change the `openedFiles` field of this object.
+    #[wasm_bindgen(method, setter = "openedFiles")]
+    pub fn set_opened_files(this: &FileSystemInfo, val: &Array);
+    ///Get the `openedFilesLimit` field of this object.
+    #[wasm_bindgen(method, getter = "openedFilesLimit")]
+    pub fn get_opened_files_limit(this: &FileSystemInfo) -> i32;
+    ///Change the `openedFilesLimit` field of this object.
+    #[wasm_bindgen(method, setter = "openedFilesLimit")]
+    pub fn set_opened_files_limit(this: &FileSystemInfo, val: i32);
+    ///Get the `supportsNotifyTag` field of this object.
+    #[wasm_bindgen(method, getter = "supportsNotifyTag")]
+    pub fn get_supports_notify_tag(this: &FileSystemInfo) -> Option<bool>;
+    ///Change the `supportsNotifyTag` field of this object.
+    #[wasm_bindgen(method, setter = "supportsNotifyTag")]
+    pub fn set_supports_notify_tag(this: &FileSystemInfo, val: bool);
+    ///Get the `watchers` field of this object.
+    #[wasm_bindgen(method, getter = "watchers")]
+    pub fn get_watchers(this: &FileSystemInfo) -> Array;
+    ///Change the `watchers` field of this object.
+    #[wasm_bindgen(method, setter = "watchers")]
+    pub fn set_watchers(this: &FileSystemInfo, val: &Array);
+    ///Get the `writable` field of this object.
+    #[wasm_bindgen(method, getter = "writable")]
+    pub fn get_writable(this: &FileSystemInfo) -> bool;
+    ///Change the `writable` field of this object.
+    #[wasm_bindgen(method, setter = "writable")]
+    pub fn set_writable(this: &FileSystemInfo, val: bool);
 }
 impl FileSystemInfo {
     ///Construct a new `FileSystemInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_watchers()` instead."]
-    pub fn watchers(&mut self, val: &Array) -> &mut Self {
-        self.set_watchers(val);
-        self
-    }
-    #[deprecated = "Use `set_supports_notify_tag()` instead."]
-    pub fn supports_notify_tag(&mut self, val: bool) -> &mut Self {
-        self.set_supports_notify_tag(val);
-        self
-    }
-    #[deprecated = "Use `set_opened_files_limit()` instead."]
-    pub fn opened_files_limit(&mut self, val: i32) -> &mut Self {
-        self.set_opened_files_limit(val);
+    #[deprecated = "Use `set_display_name()` instead."]
+    pub fn display_name(&mut self, val: String) -> &mut Self {
+        self.set_display_name(val);
         self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -409,19 +411,29 @@ impl FileSystemInfo {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_writable()` instead."]
-    pub fn writable(&mut self, val: bool) -> &mut Self {
-        self.set_writable(val);
-        self
-    }
     #[deprecated = "Use `set_opened_files()` instead."]
     pub fn opened_files(&mut self, val: &Array) -> &mut Self {
         self.set_opened_files(val);
         self
     }
-    #[deprecated = "Use `set_display_name()` instead."]
-    pub fn display_name(&mut self, val: String) -> &mut Self {
-        self.set_display_name(val);
+    #[deprecated = "Use `set_opened_files_limit()` instead."]
+    pub fn opened_files_limit(&mut self, val: i32) -> &mut Self {
+        self.set_opened_files_limit(val);
+        self
+    }
+    #[deprecated = "Use `set_supports_notify_tag()` instead."]
+    pub fn supports_notify_tag(&mut self, val: bool) -> &mut Self {
+        self.set_supports_notify_tag(val);
+        self
+    }
+    #[deprecated = "Use `set_watchers()` instead."]
+    pub fn watchers(&mut self, val: &Array) -> &mut Self {
+        self.set_watchers(val);
+        self
+    }
+    #[deprecated = "Use `set_writable()` instead."]
+    pub fn writable(&mut self, val: bool) -> &mut Self {
+        self.set_writable(val);
         self
     }
 }
@@ -436,12 +448,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type MountOptions;
-    ///Get the `supportsNotifyTag` field of this object.
-    #[wasm_bindgen(method, getter = "supportsNotifyTag")]
-    pub fn get_supports_notify_tag(this: &MountOptions) -> Option<bool>;
-    ///Change the `supportsNotifyTag` field of this object.
-    #[wasm_bindgen(method, setter = "supportsNotifyTag")]
-    pub fn set_supports_notify_tag(this: &MountOptions, val: bool);
     ///Get the `displayName` field of this object.
     #[wasm_bindgen(method, getter = "displayName")]
     pub fn get_display_name(this: &MountOptions) -> String;
@@ -454,18 +460,24 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &MountOptions, val: String);
-    ///Get the `persistent` field of this object.
-    #[wasm_bindgen(method, getter = "persistent")]
-    pub fn get_persistent(this: &MountOptions) -> Option<bool>;
-    ///Change the `persistent` field of this object.
-    #[wasm_bindgen(method, setter = "persistent")]
-    pub fn set_persistent(this: &MountOptions, val: bool);
     ///Get the `openedFilesLimit` field of this object.
     #[wasm_bindgen(method, getter = "openedFilesLimit")]
     pub fn get_opened_files_limit(this: &MountOptions) -> Option<i32>;
     ///Change the `openedFilesLimit` field of this object.
     #[wasm_bindgen(method, setter = "openedFilesLimit")]
     pub fn set_opened_files_limit(this: &MountOptions, val: i32);
+    ///Get the `persistent` field of this object.
+    #[wasm_bindgen(method, getter = "persistent")]
+    pub fn get_persistent(this: &MountOptions) -> Option<bool>;
+    ///Change the `persistent` field of this object.
+    #[wasm_bindgen(method, setter = "persistent")]
+    pub fn set_persistent(this: &MountOptions, val: bool);
+    ///Get the `supportsNotifyTag` field of this object.
+    #[wasm_bindgen(method, getter = "supportsNotifyTag")]
+    pub fn get_supports_notify_tag(this: &MountOptions) -> Option<bool>;
+    ///Change the `supportsNotifyTag` field of this object.
+    #[wasm_bindgen(method, setter = "supportsNotifyTag")]
+    pub fn set_supports_notify_tag(this: &MountOptions, val: bool);
     ///Get the `writable` field of this object.
     #[wasm_bindgen(method, getter = "writable")]
     pub fn get_writable(this: &MountOptions) -> Option<bool>;
@@ -477,13 +489,10 @@ impl MountOptions {
     ///Construct a new `MountOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_supports_notify_tag()` instead."]
-    pub fn supports_notify_tag(&mut self, val: bool) -> &mut Self {
-        self.set_supports_notify_tag(val);
-        self
     }
     #[deprecated = "Use `set_display_name()` instead."]
     pub fn display_name(&mut self, val: String) -> &mut Self {
@@ -495,14 +504,19 @@ impl MountOptions {
         self.set_file_system_id(val);
         self
     }
+    #[deprecated = "Use `set_opened_files_limit()` instead."]
+    pub fn opened_files_limit(&mut self, val: i32) -> &mut Self {
+        self.set_opened_files_limit(val);
+        self
+    }
     #[deprecated = "Use `set_persistent()` instead."]
     pub fn persistent(&mut self, val: bool) -> &mut Self {
         self.set_persistent(val);
         self
     }
-    #[deprecated = "Use `set_opened_files_limit()` instead."]
-    pub fn opened_files_limit(&mut self, val: i32) -> &mut Self {
-        self.set_opened_files_limit(val);
+    #[deprecated = "Use `set_supports_notify_tag()` instead."]
+    pub fn supports_notify_tag(&mut self, val: bool) -> &mut Self {
+        self.set_supports_notify_tag(val);
         self
     }
     #[deprecated = "Use `set_writable()` instead."]
@@ -533,7 +547,9 @@ impl UnmountOptions {
     ///Construct a new `UnmountOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -570,7 +586,9 @@ impl UnmountRequestedOptions {
     ///Construct a new `UnmountRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -595,83 +613,85 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type GetMetadataRequestedOptions;
-    ///Get the `entryPath` field of this object.
-    #[wasm_bindgen(method, getter = "entryPath")]
-    pub fn get_entry_path(this: &GetMetadataRequestedOptions) -> String;
-    ///Change the `entryPath` field of this object.
-    #[wasm_bindgen(method, setter = "entryPath")]
-    pub fn set_entry_path(this: &GetMetadataRequestedOptions, val: String);
-    ///Get the `cloudIdentifier` field of this object.
-    #[wasm_bindgen(method, getter = "cloudIdentifier")]
-    pub fn get_cloud_identifier(this: &GetMetadataRequestedOptions) -> bool;
-    ///Change the `cloudIdentifier` field of this object.
-    #[wasm_bindgen(method, setter = "cloudIdentifier")]
-    pub fn set_cloud_identifier(this: &GetMetadataRequestedOptions, val: bool);
-    ///Get the `modificationTime` field of this object.
-    #[wasm_bindgen(method, getter = "modificationTime")]
-    pub fn get_modification_time(this: &GetMetadataRequestedOptions) -> bool;
-    ///Change the `modificationTime` field of this object.
-    #[wasm_bindgen(method, setter = "modificationTime")]
-    pub fn set_modification_time(this: &GetMetadataRequestedOptions, val: bool);
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &GetMetadataRequestedOptions) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &GetMetadataRequestedOptions, val: String);
-    ///Get the `size` field of this object.
-    #[wasm_bindgen(method, getter = "size")]
-    pub fn get_size(this: &GetMetadataRequestedOptions) -> bool;
-    ///Change the `size` field of this object.
-    #[wasm_bindgen(method, setter = "size")]
-    pub fn set_size(this: &GetMetadataRequestedOptions, val: bool);
     ///Get the `cloudFileInfo` field of this object.
     #[wasm_bindgen(method, getter = "cloudFileInfo")]
     pub fn get_cloud_file_info(this: &GetMetadataRequestedOptions) -> bool;
     ///Change the `cloudFileInfo` field of this object.
     #[wasm_bindgen(method, setter = "cloudFileInfo")]
     pub fn set_cloud_file_info(this: &GetMetadataRequestedOptions, val: bool);
-    ///Get the `mimeType` field of this object.
-    #[wasm_bindgen(method, getter = "mimeType")]
-    pub fn get_mime_type(this: &GetMetadataRequestedOptions) -> bool;
-    ///Change the `mimeType` field of this object.
-    #[wasm_bindgen(method, setter = "mimeType")]
-    pub fn set_mime_type(this: &GetMetadataRequestedOptions, val: bool);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &GetMetadataRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &GetMetadataRequestedOptions, val: i32);
-    ///Get the `thumbnail` field of this object.
-    #[wasm_bindgen(method, getter = "thumbnail")]
-    pub fn get_thumbnail(this: &GetMetadataRequestedOptions) -> bool;
-    ///Change the `thumbnail` field of this object.
-    #[wasm_bindgen(method, setter = "thumbnail")]
-    pub fn set_thumbnail(this: &GetMetadataRequestedOptions, val: bool);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &GetMetadataRequestedOptions) -> bool;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `cloudIdentifier` field of this object.
+    #[wasm_bindgen(method, getter = "cloudIdentifier")]
+    pub fn get_cloud_identifier(this: &GetMetadataRequestedOptions) -> bool;
+    ///Change the `cloudIdentifier` field of this object.
+    #[wasm_bindgen(method, setter = "cloudIdentifier")]
+    pub fn set_cloud_identifier(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `entryPath` field of this object.
+    #[wasm_bindgen(method, getter = "entryPath")]
+    pub fn get_entry_path(this: &GetMetadataRequestedOptions) -> String;
+    ///Change the `entryPath` field of this object.
+    #[wasm_bindgen(method, setter = "entryPath")]
+    pub fn set_entry_path(this: &GetMetadataRequestedOptions, val: String);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &GetMetadataRequestedOptions) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &GetMetadataRequestedOptions, val: String);
     ///Get the `isDirectory` field of this object.
     #[wasm_bindgen(method, getter = "isDirectory")]
     pub fn get_is_directory(this: &GetMetadataRequestedOptions) -> bool;
     ///Change the `isDirectory` field of this object.
     #[wasm_bindgen(method, setter = "isDirectory")]
     pub fn set_is_directory(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `mimeType` field of this object.
+    #[wasm_bindgen(method, getter = "mimeType")]
+    pub fn get_mime_type(this: &GetMetadataRequestedOptions) -> bool;
+    ///Change the `mimeType` field of this object.
+    #[wasm_bindgen(method, setter = "mimeType")]
+    pub fn set_mime_type(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `modificationTime` field of this object.
+    #[wasm_bindgen(method, getter = "modificationTime")]
+    pub fn get_modification_time(this: &GetMetadataRequestedOptions) -> bool;
+    ///Change the `modificationTime` field of this object.
+    #[wasm_bindgen(method, setter = "modificationTime")]
+    pub fn set_modification_time(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &GetMetadataRequestedOptions) -> bool;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &GetMetadataRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &GetMetadataRequestedOptions, val: i32);
+    ///Get the `size` field of this object.
+    #[wasm_bindgen(method, getter = "size")]
+    pub fn get_size(this: &GetMetadataRequestedOptions) -> bool;
+    ///Change the `size` field of this object.
+    #[wasm_bindgen(method, setter = "size")]
+    pub fn set_size(this: &GetMetadataRequestedOptions, val: bool);
+    ///Get the `thumbnail` field of this object.
+    #[wasm_bindgen(method, getter = "thumbnail")]
+    pub fn get_thumbnail(this: &GetMetadataRequestedOptions) -> bool;
+    ///Change the `thumbnail` field of this object.
+    #[wasm_bindgen(method, setter = "thumbnail")]
+    pub fn set_thumbnail(this: &GetMetadataRequestedOptions, val: bool);
 }
 impl GetMetadataRequestedOptions {
     ///Construct a new `GetMetadataRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_entry_path()` instead."]
-    pub fn entry_path(&mut self, val: String) -> &mut Self {
-        self.set_entry_path(val);
+    #[deprecated = "Use `set_cloud_file_info()` instead."]
+    pub fn cloud_file_info(&mut self, val: bool) -> &mut Self {
+        self.set_cloud_file_info(val);
         self
     }
     #[deprecated = "Use `set_cloud_identifier()` instead."]
@@ -679,9 +699,9 @@ impl GetMetadataRequestedOptions {
         self.set_cloud_identifier(val);
         self
     }
-    #[deprecated = "Use `set_modification_time()` instead."]
-    pub fn modification_time(&mut self, val: bool) -> &mut Self {
-        self.set_modification_time(val);
+    #[deprecated = "Use `set_entry_path()` instead."]
+    pub fn entry_path(&mut self, val: String) -> &mut Self {
+        self.set_entry_path(val);
         self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -689,14 +709,9 @@ impl GetMetadataRequestedOptions {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_size()` instead."]
-    pub fn size(&mut self, val: bool) -> &mut Self {
-        self.set_size(val);
-        self
-    }
-    #[deprecated = "Use `set_cloud_file_info()` instead."]
-    pub fn cloud_file_info(&mut self, val: bool) -> &mut Self {
-        self.set_cloud_file_info(val);
+    #[deprecated = "Use `set_is_directory()` instead."]
+    pub fn is_directory(&mut self, val: bool) -> &mut Self {
+        self.set_is_directory(val);
         self
     }
     #[deprecated = "Use `set_mime_type()` instead."]
@@ -704,14 +719,9 @@ impl GetMetadataRequestedOptions {
         self.set_mime_type(val);
         self
     }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_thumbnail()` instead."]
-    pub fn thumbnail(&mut self, val: bool) -> &mut Self {
-        self.set_thumbnail(val);
+    #[deprecated = "Use `set_modification_time()` instead."]
+    pub fn modification_time(&mut self, val: bool) -> &mut Self {
+        self.set_modification_time(val);
         self
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -719,9 +729,19 @@ impl GetMetadataRequestedOptions {
         self.set_name(val);
         self
     }
-    #[deprecated = "Use `set_is_directory()` instead."]
-    pub fn is_directory(&mut self, val: bool) -> &mut Self {
-        self.set_is_directory(val);
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_size()` instead."]
+    pub fn size(&mut self, val: bool) -> &mut Self {
+        self.set_size(val);
+        self
+    }
+    #[deprecated = "Use `set_thumbnail()` instead."]
+    pub fn thumbnail(&mut self, val: bool) -> &mut Self {
+        self.set_thumbnail(val);
         self
     }
 }
@@ -736,18 +756,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type GetActionsRequestedOptions;
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &GetActionsRequestedOptions) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &GetActionsRequestedOptions, val: String);
     ///Get the `entryPaths` field of this object.
     #[wasm_bindgen(method, getter = "entryPaths")]
     pub fn get_entry_paths(this: &GetActionsRequestedOptions) -> Array;
     ///Change the `entryPaths` field of this object.
     #[wasm_bindgen(method, setter = "entryPaths")]
     pub fn set_entry_paths(this: &GetActionsRequestedOptions, val: &Array);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &GetActionsRequestedOptions) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &GetActionsRequestedOptions, val: String);
     ///Get the `requestId` field of this object.
     #[wasm_bindgen(method, getter = "requestId")]
     pub fn get_request_id(this: &GetActionsRequestedOptions) -> i32;
@@ -759,17 +779,19 @@ impl GetActionsRequestedOptions {
     ///Construct a new `GetActionsRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_file_system_id()` instead."]
-    pub fn file_system_id(&mut self, val: String) -> &mut Self {
-        self.set_file_system_id(val);
-        self
     }
     #[deprecated = "Use `set_entry_paths()` instead."]
     pub fn entry_paths(&mut self, val: &Array) -> &mut Self {
         self.set_entry_paths(val);
+        self
+    }
+    #[deprecated = "Use `set_file_system_id()` instead."]
+    pub fn file_system_id(&mut self, val: String) -> &mut Self {
+        self.set_file_system_id(val);
         self
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -798,60 +820,62 @@ extern "C" {
     ///Change the `directoryPath` field of this object.
     #[wasm_bindgen(method, setter = "directoryPath")]
     pub fn set_directory_path(this: &ReadDirectoryRequestedOptions, val: String);
-    ///Get the `thumbnail` field of this object.
-    #[wasm_bindgen(method, getter = "thumbnail")]
-    pub fn get_thumbnail(this: &ReadDirectoryRequestedOptions) -> bool;
-    ///Change the `thumbnail` field of this object.
-    #[wasm_bindgen(method, setter = "thumbnail")]
-    pub fn set_thumbnail(this: &ReadDirectoryRequestedOptions, val: bool);
-    ///Get the `modificationTime` field of this object.
-    #[wasm_bindgen(method, getter = "modificationTime")]
-    pub fn get_modification_time(this: &ReadDirectoryRequestedOptions) -> bool;
-    ///Change the `modificationTime` field of this object.
-    #[wasm_bindgen(method, setter = "modificationTime")]
-    pub fn set_modification_time(this: &ReadDirectoryRequestedOptions, val: bool);
-    ///Get the `size` field of this object.
-    #[wasm_bindgen(method, getter = "size")]
-    pub fn get_size(this: &ReadDirectoryRequestedOptions) -> bool;
-    ///Change the `size` field of this object.
-    #[wasm_bindgen(method, setter = "size")]
-    pub fn set_size(this: &ReadDirectoryRequestedOptions, val: bool);
-    ///Get the `isDirectory` field of this object.
-    #[wasm_bindgen(method, getter = "isDirectory")]
-    pub fn get_is_directory(this: &ReadDirectoryRequestedOptions) -> bool;
-    ///Change the `isDirectory` field of this object.
-    #[wasm_bindgen(method, setter = "isDirectory")]
-    pub fn set_is_directory(this: &ReadDirectoryRequestedOptions, val: bool);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &ReadDirectoryRequestedOptions) -> bool;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &ReadDirectoryRequestedOptions, val: bool);
     ///Get the `fileSystemId` field of this object.
     #[wasm_bindgen(method, getter = "fileSystemId")]
     pub fn get_file_system_id(this: &ReadDirectoryRequestedOptions) -> String;
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &ReadDirectoryRequestedOptions, val: String);
+    ///Get the `isDirectory` field of this object.
+    #[wasm_bindgen(method, getter = "isDirectory")]
+    pub fn get_is_directory(this: &ReadDirectoryRequestedOptions) -> bool;
+    ///Change the `isDirectory` field of this object.
+    #[wasm_bindgen(method, setter = "isDirectory")]
+    pub fn set_is_directory(this: &ReadDirectoryRequestedOptions, val: bool);
     ///Get the `mimeType` field of this object.
     #[wasm_bindgen(method, getter = "mimeType")]
     pub fn get_mime_type(this: &ReadDirectoryRequestedOptions) -> bool;
     ///Change the `mimeType` field of this object.
     #[wasm_bindgen(method, setter = "mimeType")]
     pub fn set_mime_type(this: &ReadDirectoryRequestedOptions, val: bool);
+    ///Get the `modificationTime` field of this object.
+    #[wasm_bindgen(method, getter = "modificationTime")]
+    pub fn get_modification_time(this: &ReadDirectoryRequestedOptions) -> bool;
+    ///Change the `modificationTime` field of this object.
+    #[wasm_bindgen(method, setter = "modificationTime")]
+    pub fn set_modification_time(this: &ReadDirectoryRequestedOptions, val: bool);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &ReadDirectoryRequestedOptions) -> bool;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &ReadDirectoryRequestedOptions, val: bool);
     ///Get the `requestId` field of this object.
     #[wasm_bindgen(method, getter = "requestId")]
     pub fn get_request_id(this: &ReadDirectoryRequestedOptions) -> i32;
     ///Change the `requestId` field of this object.
     #[wasm_bindgen(method, setter = "requestId")]
     pub fn set_request_id(this: &ReadDirectoryRequestedOptions, val: i32);
+    ///Get the `size` field of this object.
+    #[wasm_bindgen(method, getter = "size")]
+    pub fn get_size(this: &ReadDirectoryRequestedOptions) -> bool;
+    ///Change the `size` field of this object.
+    #[wasm_bindgen(method, setter = "size")]
+    pub fn set_size(this: &ReadDirectoryRequestedOptions, val: bool);
+    ///Get the `thumbnail` field of this object.
+    #[wasm_bindgen(method, getter = "thumbnail")]
+    pub fn get_thumbnail(this: &ReadDirectoryRequestedOptions) -> bool;
+    ///Change the `thumbnail` field of this object.
+    #[wasm_bindgen(method, setter = "thumbnail")]
+    pub fn set_thumbnail(this: &ReadDirectoryRequestedOptions, val: bool);
 }
 impl ReadDirectoryRequestedOptions {
     ///Construct a new `ReadDirectoryRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_directory_path()` instead."]
@@ -859,19 +883,9 @@ impl ReadDirectoryRequestedOptions {
         self.set_directory_path(val);
         self
     }
-    #[deprecated = "Use `set_thumbnail()` instead."]
-    pub fn thumbnail(&mut self, val: bool) -> &mut Self {
-        self.set_thumbnail(val);
-        self
-    }
-    #[deprecated = "Use `set_modification_time()` instead."]
-    pub fn modification_time(&mut self, val: bool) -> &mut Self {
-        self.set_modification_time(val);
-        self
-    }
-    #[deprecated = "Use `set_size()` instead."]
-    pub fn size(&mut self, val: bool) -> &mut Self {
-        self.set_size(val);
+    #[deprecated = "Use `set_file_system_id()` instead."]
+    pub fn file_system_id(&mut self, val: String) -> &mut Self {
+        self.set_file_system_id(val);
         self
     }
     #[deprecated = "Use `set_is_directory()` instead."]
@@ -879,24 +893,34 @@ impl ReadDirectoryRequestedOptions {
         self.set_is_directory(val);
         self
     }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: bool) -> &mut Self {
-        self.set_name(val);
-        self
-    }
-    #[deprecated = "Use `set_file_system_id()` instead."]
-    pub fn file_system_id(&mut self, val: String) -> &mut Self {
-        self.set_file_system_id(val);
-        self
-    }
     #[deprecated = "Use `set_mime_type()` instead."]
     pub fn mime_type(&mut self, val: bool) -> &mut Self {
         self.set_mime_type(val);
         self
     }
+    #[deprecated = "Use `set_modification_time()` instead."]
+    pub fn modification_time(&mut self, val: bool) -> &mut Self {
+        self.set_modification_time(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: bool) -> &mut Self {
+        self.set_name(val);
+        self
+    }
     #[deprecated = "Use `set_request_id()` instead."]
     pub fn request_id(&mut self, val: i32) -> &mut Self {
         self.set_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_size()` instead."]
+    pub fn size(&mut self, val: bool) -> &mut Self {
+        self.set_size(val);
+        self
+    }
+    #[deprecated = "Use `set_thumbnail()` instead."]
+    pub fn thumbnail(&mut self, val: bool) -> &mut Self {
+        self.set_thumbnail(val);
         self
     }
 }
@@ -911,18 +935,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type OpenFileRequestedOptions;
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &OpenFileRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &OpenFileRequestedOptions, val: i32);
-    ///Get the `mode` field of this object.
-    #[wasm_bindgen(method, getter = "mode")]
-    pub fn get_mode(this: &OpenFileRequestedOptions) -> OpenFileMode;
-    ///Change the `mode` field of this object.
-    #[wasm_bindgen(method, setter = "mode")]
-    pub fn set_mode(this: &OpenFileRequestedOptions, val: OpenFileMode);
     ///Get the `filePath` field of this object.
     #[wasm_bindgen(method, getter = "filePath")]
     pub fn get_file_path(this: &OpenFileRequestedOptions) -> String;
@@ -935,23 +947,27 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &OpenFileRequestedOptions, val: String);
+    ///Get the `mode` field of this object.
+    #[wasm_bindgen(method, getter = "mode")]
+    pub fn get_mode(this: &OpenFileRequestedOptions) -> OpenFileMode;
+    ///Change the `mode` field of this object.
+    #[wasm_bindgen(method, setter = "mode")]
+    pub fn set_mode(this: &OpenFileRequestedOptions, val: OpenFileMode);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &OpenFileRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &OpenFileRequestedOptions, val: i32);
 }
 impl OpenFileRequestedOptions {
     ///Construct a new `OpenFileRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_mode()` instead."]
-    pub fn mode(&mut self, val: OpenFileMode) -> &mut Self {
-        self.set_mode(val);
-        self
     }
     #[deprecated = "Use `set_file_path()` instead."]
     pub fn file_path(&mut self, val: String) -> &mut Self {
@@ -961,6 +977,16 @@ impl OpenFileRequestedOptions {
     #[deprecated = "Use `set_file_system_id()` instead."]
     pub fn file_system_id(&mut self, val: String) -> &mut Self {
         self.set_file_system_id(val);
+        self
+    }
+    #[deprecated = "Use `set_mode()` instead."]
+    pub fn mode(&mut self, val: OpenFileMode) -> &mut Self {
+        self.set_mode(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
 }
@@ -998,7 +1024,9 @@ impl CloseFileRequestedOptions {
     ///Construct a new `CloseFileRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -1034,36 +1062,38 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &ReadFileRequestedOptions, val: String);
-    ///Get the `openRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "openRequestId")]
-    pub fn get_open_request_id(this: &ReadFileRequestedOptions) -> i32;
-    ///Change the `openRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "openRequestId")]
-    pub fn set_open_request_id(this: &ReadFileRequestedOptions, val: i32);
-    ///Get the `offset` field of this object.
-    #[wasm_bindgen(method, getter = "offset")]
-    pub fn get_offset(this: &ReadFileRequestedOptions) -> f64;
-    ///Change the `offset` field of this object.
-    #[wasm_bindgen(method, setter = "offset")]
-    pub fn set_offset(this: &ReadFileRequestedOptions, val: f64);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &ReadFileRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &ReadFileRequestedOptions, val: i32);
     ///Get the `length` field of this object.
     #[wasm_bindgen(method, getter = "length")]
     pub fn get_length(this: &ReadFileRequestedOptions) -> f64;
     ///Change the `length` field of this object.
     #[wasm_bindgen(method, setter = "length")]
     pub fn set_length(this: &ReadFileRequestedOptions, val: f64);
+    ///Get the `offset` field of this object.
+    #[wasm_bindgen(method, getter = "offset")]
+    pub fn get_offset(this: &ReadFileRequestedOptions) -> f64;
+    ///Change the `offset` field of this object.
+    #[wasm_bindgen(method, setter = "offset")]
+    pub fn set_offset(this: &ReadFileRequestedOptions, val: f64);
+    ///Get the `openRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "openRequestId")]
+    pub fn get_open_request_id(this: &ReadFileRequestedOptions) -> i32;
+    ///Change the `openRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "openRequestId")]
+    pub fn set_open_request_id(this: &ReadFileRequestedOptions, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &ReadFileRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &ReadFileRequestedOptions, val: i32);
 }
 impl ReadFileRequestedOptions {
     ///Construct a new `ReadFileRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -1071,9 +1101,9 @@ impl ReadFileRequestedOptions {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_open_request_id()` instead."]
-    pub fn open_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_open_request_id(val);
+    #[deprecated = "Use `set_length()` instead."]
+    pub fn length(&mut self, val: f64) -> &mut Self {
+        self.set_length(val);
         self
     }
     #[deprecated = "Use `set_offset()` instead."]
@@ -1081,14 +1111,14 @@ impl ReadFileRequestedOptions {
         self.set_offset(val);
         self
     }
+    #[deprecated = "Use `set_open_request_id()` instead."]
+    pub fn open_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_open_request_id(val);
+        self
+    }
     #[deprecated = "Use `set_request_id()` instead."]
     pub fn request_id(&mut self, val: i32) -> &mut Self {
         self.set_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_length()` instead."]
-    pub fn length(&mut self, val: f64) -> &mut Self {
-        self.set_length(val);
         self
     }
 }
@@ -1118,24 +1148,26 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &CreateDirectoryRequestedOptions, val: String);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &CreateDirectoryRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &CreateDirectoryRequestedOptions, val: i32);
     ///Get the `recursive` field of this object.
     #[wasm_bindgen(method, getter = "recursive")]
     pub fn get_recursive(this: &CreateDirectoryRequestedOptions) -> bool;
     ///Change the `recursive` field of this object.
     #[wasm_bindgen(method, setter = "recursive")]
     pub fn set_recursive(this: &CreateDirectoryRequestedOptions, val: bool);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &CreateDirectoryRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &CreateDirectoryRequestedOptions, val: i32);
 }
 impl CreateDirectoryRequestedOptions {
     ///Construct a new `CreateDirectoryRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_directory_path()` instead."]
@@ -1148,14 +1180,14 @@ impl CreateDirectoryRequestedOptions {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
-    }
     #[deprecated = "Use `set_recursive()` instead."]
     pub fn recursive(&mut self, val: bool) -> &mut Self {
         self.set_recursive(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
 }
@@ -1170,18 +1202,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type DeleteEntryRequestedOptions;
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &DeleteEntryRequestedOptions) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &DeleteEntryRequestedOptions, val: String);
     ///Get the `entryPath` field of this object.
     #[wasm_bindgen(method, getter = "entryPath")]
     pub fn get_entry_path(this: &DeleteEntryRequestedOptions) -> String;
     ///Change the `entryPath` field of this object.
     #[wasm_bindgen(method, setter = "entryPath")]
     pub fn set_entry_path(this: &DeleteEntryRequestedOptions, val: String);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &DeleteEntryRequestedOptions) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &DeleteEntryRequestedOptions, val: String);
     ///Get the `recursive` field of this object.
     #[wasm_bindgen(method, getter = "recursive")]
     pub fn get_recursive(this: &DeleteEntryRequestedOptions) -> bool;
@@ -1199,17 +1231,19 @@ impl DeleteEntryRequestedOptions {
     ///Construct a new `DeleteEntryRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_file_system_id()` instead."]
-    pub fn file_system_id(&mut self, val: String) -> &mut Self {
-        self.set_file_system_id(val);
-        self
     }
     #[deprecated = "Use `set_entry_path()` instead."]
     pub fn entry_path(&mut self, val: String) -> &mut Self {
         self.set_entry_path(val);
+        self
+    }
+    #[deprecated = "Use `set_file_system_id()` instead."]
+    pub fn file_system_id(&mut self, val: String) -> &mut Self {
+        self.set_file_system_id(val);
         self
     }
     #[deprecated = "Use `set_recursive()` instead."]
@@ -1234,18 +1268,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CreateFileRequestedOptions;
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &CreateFileRequestedOptions) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &CreateFileRequestedOptions, val: String);
     ///Get the `filePath` field of this object.
     #[wasm_bindgen(method, getter = "filePath")]
     pub fn get_file_path(this: &CreateFileRequestedOptions) -> String;
     ///Change the `filePath` field of this object.
     #[wasm_bindgen(method, setter = "filePath")]
     pub fn set_file_path(this: &CreateFileRequestedOptions, val: String);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &CreateFileRequestedOptions) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &CreateFileRequestedOptions, val: String);
     ///Get the `requestId` field of this object.
     #[wasm_bindgen(method, getter = "requestId")]
     pub fn get_request_id(this: &CreateFileRequestedOptions) -> i32;
@@ -1257,17 +1291,19 @@ impl CreateFileRequestedOptions {
     ///Construct a new `CreateFileRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_file_system_id()` instead."]
-    pub fn file_system_id(&mut self, val: String) -> &mut Self {
-        self.set_file_system_id(val);
-        self
     }
     #[deprecated = "Use `set_file_path()` instead."]
     pub fn file_path(&mut self, val: String) -> &mut Self {
         self.set_file_path(val);
+        self
+    }
+    #[deprecated = "Use `set_file_system_id()` instead."]
+    pub fn file_system_id(&mut self, val: String) -> &mut Self {
+        self.set_file_system_id(val);
         self
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -1287,18 +1323,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type CopyEntryRequestedOptions;
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &CopyEntryRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &CopyEntryRequestedOptions, val: i32);
     ///Get the `fileSystemId` field of this object.
     #[wasm_bindgen(method, getter = "fileSystemId")]
     pub fn get_file_system_id(this: &CopyEntryRequestedOptions) -> String;
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &CopyEntryRequestedOptions, val: String);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &CopyEntryRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &CopyEntryRequestedOptions, val: i32);
     ///Get the `sourcePath` field of this object.
     #[wasm_bindgen(method, getter = "sourcePath")]
     pub fn get_source_path(this: &CopyEntryRequestedOptions) -> String;
@@ -1316,17 +1352,19 @@ impl CopyEntryRequestedOptions {
     ///Construct a new `CopyEntryRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
     pub fn file_system_id(&mut self, val: String) -> &mut Self {
         self.set_file_system_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
     #[deprecated = "Use `set_source_path()` instead."]
@@ -1357,30 +1395,32 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &MoveEntryRequestedOptions, val: String);
-    ///Get the `targetPath` field of this object.
-    #[wasm_bindgen(method, getter = "targetPath")]
-    pub fn get_target_path(this: &MoveEntryRequestedOptions) -> String;
-    ///Change the `targetPath` field of this object.
-    #[wasm_bindgen(method, setter = "targetPath")]
-    pub fn set_target_path(this: &MoveEntryRequestedOptions, val: String);
-    ///Get the `sourcePath` field of this object.
-    #[wasm_bindgen(method, getter = "sourcePath")]
-    pub fn get_source_path(this: &MoveEntryRequestedOptions) -> String;
-    ///Change the `sourcePath` field of this object.
-    #[wasm_bindgen(method, setter = "sourcePath")]
-    pub fn set_source_path(this: &MoveEntryRequestedOptions, val: String);
     ///Get the `requestId` field of this object.
     #[wasm_bindgen(method, getter = "requestId")]
     pub fn get_request_id(this: &MoveEntryRequestedOptions) -> i32;
     ///Change the `requestId` field of this object.
     #[wasm_bindgen(method, setter = "requestId")]
     pub fn set_request_id(this: &MoveEntryRequestedOptions, val: i32);
+    ///Get the `sourcePath` field of this object.
+    #[wasm_bindgen(method, getter = "sourcePath")]
+    pub fn get_source_path(this: &MoveEntryRequestedOptions) -> String;
+    ///Change the `sourcePath` field of this object.
+    #[wasm_bindgen(method, setter = "sourcePath")]
+    pub fn set_source_path(this: &MoveEntryRequestedOptions, val: String);
+    ///Get the `targetPath` field of this object.
+    #[wasm_bindgen(method, getter = "targetPath")]
+    pub fn get_target_path(this: &MoveEntryRequestedOptions) -> String;
+    ///Change the `targetPath` field of this object.
+    #[wasm_bindgen(method, setter = "targetPath")]
+    pub fn set_target_path(this: &MoveEntryRequestedOptions, val: String);
 }
 impl MoveEntryRequestedOptions {
     ///Construct a new `MoveEntryRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -1388,9 +1428,9 @@ impl MoveEntryRequestedOptions {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_target_path()` instead."]
-    pub fn target_path(&mut self, val: String) -> &mut Self {
-        self.set_target_path(val);
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
     #[deprecated = "Use `set_source_path()` instead."]
@@ -1398,9 +1438,9 @@ impl MoveEntryRequestedOptions {
         self.set_source_path(val);
         self
     }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
+    #[deprecated = "Use `set_target_path()` instead."]
+    pub fn target_path(&mut self, val: String) -> &mut Self {
+        self.set_target_path(val);
         self
     }
 }
@@ -1415,24 +1455,24 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type TruncateRequestedOptions;
-    ///Get the `length` field of this object.
-    #[wasm_bindgen(method, getter = "length")]
-    pub fn get_length(this: &TruncateRequestedOptions) -> f64;
-    ///Change the `length` field of this object.
-    #[wasm_bindgen(method, setter = "length")]
-    pub fn set_length(this: &TruncateRequestedOptions, val: f64);
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &TruncateRequestedOptions) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &TruncateRequestedOptions, val: String);
     ///Get the `filePath` field of this object.
     #[wasm_bindgen(method, getter = "filePath")]
     pub fn get_file_path(this: &TruncateRequestedOptions) -> String;
     ///Change the `filePath` field of this object.
     #[wasm_bindgen(method, setter = "filePath")]
     pub fn set_file_path(this: &TruncateRequestedOptions, val: String);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &TruncateRequestedOptions) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &TruncateRequestedOptions, val: String);
+    ///Get the `length` field of this object.
+    #[wasm_bindgen(method, getter = "length")]
+    pub fn get_length(this: &TruncateRequestedOptions) -> f64;
+    ///Change the `length` field of this object.
+    #[wasm_bindgen(method, setter = "length")]
+    pub fn set_length(this: &TruncateRequestedOptions, val: f64);
     ///Get the `requestId` field of this object.
     #[wasm_bindgen(method, getter = "requestId")]
     pub fn get_request_id(this: &TruncateRequestedOptions) -> i32;
@@ -1444,12 +1484,14 @@ impl TruncateRequestedOptions {
     ///Construct a new `TruncateRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_length()` instead."]
-    pub fn length(&mut self, val: f64) -> &mut Self {
-        self.set_length(val);
+    #[deprecated = "Use `set_file_path()` instead."]
+    pub fn file_path(&mut self, val: String) -> &mut Self {
+        self.set_file_path(val);
         self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -1457,9 +1499,9 @@ impl TruncateRequestedOptions {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_file_path()` instead."]
-    pub fn file_path(&mut self, val: String) -> &mut Self {
-        self.set_file_path(val);
+    #[deprecated = "Use `set_length()` instead."]
+    pub fn length(&mut self, val: f64) -> &mut Self {
+        self.set_length(val);
         self
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -1479,24 +1521,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type WriteFileRequestedOptions;
-    ///Get the `openRequestId` field of this object.
-    #[wasm_bindgen(method, getter = "openRequestId")]
-    pub fn get_open_request_id(this: &WriteFileRequestedOptions) -> i32;
-    ///Change the `openRequestId` field of this object.
-    #[wasm_bindgen(method, setter = "openRequestId")]
-    pub fn set_open_request_id(this: &WriteFileRequestedOptions, val: i32);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &WriteFileRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &WriteFileRequestedOptions, val: i32);
-    ///Get the `offset` field of this object.
-    #[wasm_bindgen(method, getter = "offset")]
-    pub fn get_offset(this: &WriteFileRequestedOptions) -> f64;
-    ///Change the `offset` field of this object.
-    #[wasm_bindgen(method, setter = "offset")]
-    pub fn set_offset(this: &WriteFileRequestedOptions, val: f64);
     ///Get the `data` field of this object.
     #[wasm_bindgen(method, getter = "data")]
     pub fn get_data(this: &WriteFileRequestedOptions) -> ::js_sys::ArrayBuffer;
@@ -1509,28 +1533,33 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &WriteFileRequestedOptions, val: String);
+    ///Get the `offset` field of this object.
+    #[wasm_bindgen(method, getter = "offset")]
+    pub fn get_offset(this: &WriteFileRequestedOptions) -> f64;
+    ///Change the `offset` field of this object.
+    #[wasm_bindgen(method, setter = "offset")]
+    pub fn set_offset(this: &WriteFileRequestedOptions, val: f64);
+    ///Get the `openRequestId` field of this object.
+    #[wasm_bindgen(method, getter = "openRequestId")]
+    pub fn get_open_request_id(this: &WriteFileRequestedOptions) -> i32;
+    ///Change the `openRequestId` field of this object.
+    #[wasm_bindgen(method, setter = "openRequestId")]
+    pub fn set_open_request_id(this: &WriteFileRequestedOptions, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &WriteFileRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &WriteFileRequestedOptions, val: i32);
 }
 impl WriteFileRequestedOptions {
     ///Construct a new `WriteFileRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_open_request_id()` instead."]
-    pub fn open_request_id(&mut self, val: i32) -> &mut Self {
-        self.set_open_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
-    }
-    #[deprecated = "Use `set_offset()` instead."]
-    pub fn offset(&mut self, val: f64) -> &mut Self {
-        self.set_offset(val);
-        self
     }
     #[deprecated = "Use `set_data()` instead."]
     pub fn data(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
@@ -1540,6 +1569,21 @@ impl WriteFileRequestedOptions {
     #[deprecated = "Use `set_file_system_id()` instead."]
     pub fn file_system_id(&mut self, val: String) -> &mut Self {
         self.set_file_system_id(val);
+        self
+    }
+    #[deprecated = "Use `set_offset()` instead."]
+    pub fn offset(&mut self, val: f64) -> &mut Self {
+        self.set_offset(val);
+        self
+    }
+    #[deprecated = "Use `set_open_request_id()` instead."]
+    pub fn open_request_id(&mut self, val: i32) -> &mut Self {
+        self.set_open_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
 }
@@ -1560,24 +1604,26 @@ extern "C" {
     ///Change the `fileSystemId` field of this object.
     #[wasm_bindgen(method, setter = "fileSystemId")]
     pub fn set_file_system_id(this: &AbortRequestedOptions, val: String);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &AbortRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &AbortRequestedOptions, val: i32);
     ///Get the `operationRequestId` field of this object.
     #[wasm_bindgen(method, getter = "operationRequestId")]
     pub fn get_operation_request_id(this: &AbortRequestedOptions) -> i32;
     ///Change the `operationRequestId` field of this object.
     #[wasm_bindgen(method, setter = "operationRequestId")]
     pub fn set_operation_request_id(this: &AbortRequestedOptions, val: i32);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &AbortRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &AbortRequestedOptions, val: i32);
 }
 impl AbortRequestedOptions {
     ///Construct a new `AbortRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -1585,14 +1631,14 @@ impl AbortRequestedOptions {
         self.set_file_system_id(val);
         self
     }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
-        self
-    }
     #[deprecated = "Use `set_operation_request_id()` instead."]
     pub fn operation_request_id(&mut self, val: i32) -> &mut Self {
         self.set_operation_request_id(val);
+        self
+    }
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
 }
@@ -1607,46 +1653,48 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type AddWatcherRequestedOptions;
-    ///Get the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, getter = "fileSystemId")]
-    pub fn get_file_system_id(this: &AddWatcherRequestedOptions) -> String;
-    ///Change the `fileSystemId` field of this object.
-    #[wasm_bindgen(method, setter = "fileSystemId")]
-    pub fn set_file_system_id(this: &AddWatcherRequestedOptions, val: String);
-    ///Get the `requestId` field of this object.
-    #[wasm_bindgen(method, getter = "requestId")]
-    pub fn get_request_id(this: &AddWatcherRequestedOptions) -> i32;
-    ///Change the `requestId` field of this object.
-    #[wasm_bindgen(method, setter = "requestId")]
-    pub fn set_request_id(this: &AddWatcherRequestedOptions, val: i32);
-    ///Get the `recursive` field of this object.
-    #[wasm_bindgen(method, getter = "recursive")]
-    pub fn get_recursive(this: &AddWatcherRequestedOptions) -> bool;
-    ///Change the `recursive` field of this object.
-    #[wasm_bindgen(method, setter = "recursive")]
-    pub fn set_recursive(this: &AddWatcherRequestedOptions, val: bool);
     ///Get the `entryPath` field of this object.
     #[wasm_bindgen(method, getter = "entryPath")]
     pub fn get_entry_path(this: &AddWatcherRequestedOptions) -> String;
     ///Change the `entryPath` field of this object.
     #[wasm_bindgen(method, setter = "entryPath")]
     pub fn set_entry_path(this: &AddWatcherRequestedOptions, val: String);
+    ///Get the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, getter = "fileSystemId")]
+    pub fn get_file_system_id(this: &AddWatcherRequestedOptions) -> String;
+    ///Change the `fileSystemId` field of this object.
+    #[wasm_bindgen(method, setter = "fileSystemId")]
+    pub fn set_file_system_id(this: &AddWatcherRequestedOptions, val: String);
+    ///Get the `recursive` field of this object.
+    #[wasm_bindgen(method, getter = "recursive")]
+    pub fn get_recursive(this: &AddWatcherRequestedOptions) -> bool;
+    ///Change the `recursive` field of this object.
+    #[wasm_bindgen(method, setter = "recursive")]
+    pub fn set_recursive(this: &AddWatcherRequestedOptions, val: bool);
+    ///Get the `requestId` field of this object.
+    #[wasm_bindgen(method, getter = "requestId")]
+    pub fn get_request_id(this: &AddWatcherRequestedOptions) -> i32;
+    ///Change the `requestId` field of this object.
+    #[wasm_bindgen(method, setter = "requestId")]
+    pub fn set_request_id(this: &AddWatcherRequestedOptions, val: i32);
 }
 impl AddWatcherRequestedOptions {
     ///Construct a new `AddWatcherRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_entry_path()` instead."]
+    pub fn entry_path(&mut self, val: String) -> &mut Self {
+        self.set_entry_path(val);
+        self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
     pub fn file_system_id(&mut self, val: String) -> &mut Self {
         self.set_file_system_id(val);
-        self
-    }
-    #[deprecated = "Use `set_request_id()` instead."]
-    pub fn request_id(&mut self, val: i32) -> &mut Self {
-        self.set_request_id(val);
         self
     }
     #[deprecated = "Use `set_recursive()` instead."]
@@ -1654,9 +1702,9 @@ impl AddWatcherRequestedOptions {
         self.set_recursive(val);
         self
     }
-    #[deprecated = "Use `set_entry_path()` instead."]
-    pub fn entry_path(&mut self, val: String) -> &mut Self {
-        self.set_entry_path(val);
+    #[deprecated = "Use `set_request_id()` instead."]
+    pub fn request_id(&mut self, val: i32) -> &mut Self {
+        self.set_request_id(val);
         self
     }
 }
@@ -1674,6 +1722,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type RemoveWatcherRequestedOptions;
+    ///Get the `entryPath` field of this object.
+    #[wasm_bindgen(method, getter = "entryPath")]
+    pub fn get_entry_path(this: &RemoveWatcherRequestedOptions) -> String;
+    ///Change the `entryPath` field of this object.
+    #[wasm_bindgen(method, setter = "entryPath")]
+    pub fn set_entry_path(this: &RemoveWatcherRequestedOptions, val: String);
     ///Get the `fileSystemId` field of this object.
     #[wasm_bindgen(method, getter = "fileSystemId")]
     pub fn get_file_system_id(this: &RemoveWatcherRequestedOptions) -> String;
@@ -1686,12 +1740,6 @@ extern "C" {
     ///Change the `recursive` field of this object.
     #[wasm_bindgen(method, setter = "recursive")]
     pub fn set_recursive(this: &RemoveWatcherRequestedOptions, val: bool);
-    ///Get the `entryPath` field of this object.
-    #[wasm_bindgen(method, getter = "entryPath")]
-    pub fn get_entry_path(this: &RemoveWatcherRequestedOptions) -> String;
-    ///Change the `entryPath` field of this object.
-    #[wasm_bindgen(method, setter = "entryPath")]
-    pub fn set_entry_path(this: &RemoveWatcherRequestedOptions, val: String);
     ///Get the `requestId` field of this object.
     #[wasm_bindgen(method, getter = "requestId")]
     pub fn get_request_id(this: &RemoveWatcherRequestedOptions) -> i32;
@@ -1703,8 +1751,15 @@ impl RemoveWatcherRequestedOptions {
     ///Construct a new `RemoveWatcherRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_entry_path()` instead."]
+    pub fn entry_path(&mut self, val: String) -> &mut Self {
+        self.set_entry_path(val);
+        self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
     pub fn file_system_id(&mut self, val: String) -> &mut Self {
@@ -1714,11 +1769,6 @@ impl RemoveWatcherRequestedOptions {
     #[deprecated = "Use `set_recursive()` instead."]
     pub fn recursive(&mut self, val: bool) -> &mut Self {
         self.set_recursive(val);
-        self
-    }
-    #[deprecated = "Use `set_entry_path()` instead."]
-    pub fn entry_path(&mut self, val: String) -> &mut Self {
-        self.set_entry_path(val);
         self
     }
     #[deprecated = "Use `set_request_id()` instead."]
@@ -1738,34 +1788,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Action;
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &Action) -> Option<String>;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &Action, val: String);
     ///Get the `id` field of this object.
     #[wasm_bindgen(method, getter = "id")]
     pub fn get_id(this: &Action) -> String;
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &Action, val: String);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &Action) -> Option<String>;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &Action, val: String);
 }
 impl Action {
     ///Construct a new `Action`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
-        self
     }
     #[deprecated = "Use `set_id()` instead."]
     pub fn id(&mut self, val: String) -> &mut Self {
         self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
         self
     }
 }
@@ -1812,7 +1864,9 @@ impl ExecuteActionRequestedOptions {
     ///Construct a new `ExecuteActionRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_action_id()` instead."]
@@ -1847,6 +1901,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Change;
+    ///Get the `changeType` field of this object.
+    #[wasm_bindgen(method, getter = "changeType")]
+    pub fn get_change_type(this: &Change) -> ChangeType;
+    ///Change the `changeType` field of this object.
+    #[wasm_bindgen(method, setter = "changeType")]
+    pub fn set_change_type(this: &Change, val: ChangeType);
     ///Get the `cloudFileInfo` field of this object.
     #[wasm_bindgen(method, getter = "cloudFileInfo")]
     pub fn get_cloud_file_info(this: &Change) -> Option<CloudFileInfo>;
@@ -1859,19 +1919,20 @@ extern "C" {
     ///Change the `entryPath` field of this object.
     #[wasm_bindgen(method, setter = "entryPath")]
     pub fn set_entry_path(this: &Change, val: String);
-    ///Get the `changeType` field of this object.
-    #[wasm_bindgen(method, getter = "changeType")]
-    pub fn get_change_type(this: &Change) -> ChangeType;
-    ///Change the `changeType` field of this object.
-    #[wasm_bindgen(method, setter = "changeType")]
-    pub fn set_change_type(this: &Change, val: ChangeType);
 }
 impl Change {
     ///Construct a new `Change`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_change_type()` instead."]
+    pub fn change_type(&mut self, val: ChangeType) -> &mut Self {
+        self.set_change_type(val);
+        self
     }
     #[deprecated = "Use `set_cloud_file_info()` instead."]
     pub fn cloud_file_info(&mut self, val: &CloudFileInfo) -> &mut Self {
@@ -1881,11 +1942,6 @@ impl Change {
     #[deprecated = "Use `set_entry_path()` instead."]
     pub fn entry_path(&mut self, val: String) -> &mut Self {
         self.set_entry_path(val);
-        self
-    }
-    #[deprecated = "Use `set_change_type()` instead."]
-    pub fn change_type(&mut self, val: ChangeType) -> &mut Self {
-        self.set_change_type(val);
         self
     }
 }
@@ -1900,24 +1956,18 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type NotifyOptions;
+    ///Get the `changeType` field of this object.
+    #[wasm_bindgen(method, getter = "changeType")]
+    pub fn get_change_type(this: &NotifyOptions) -> ChangeType;
+    ///Change the `changeType` field of this object.
+    #[wasm_bindgen(method, setter = "changeType")]
+    pub fn set_change_type(this: &NotifyOptions, val: ChangeType);
     ///Get the `changes` field of this object.
     #[wasm_bindgen(method, getter = "changes")]
     pub fn get_changes(this: &NotifyOptions) -> Option<Array>;
     ///Change the `changes` field of this object.
     #[wasm_bindgen(method, setter = "changes")]
     pub fn set_changes(this: &NotifyOptions, val: &Array);
-    ///Get the `tag` field of this object.
-    #[wasm_bindgen(method, getter = "tag")]
-    pub fn get_tag(this: &NotifyOptions) -> Option<String>;
-    ///Change the `tag` field of this object.
-    #[wasm_bindgen(method, setter = "tag")]
-    pub fn set_tag(this: &NotifyOptions, val: String);
-    ///Get the `recursive` field of this object.
-    #[wasm_bindgen(method, getter = "recursive")]
-    pub fn get_recursive(this: &NotifyOptions) -> bool;
-    ///Change the `recursive` field of this object.
-    #[wasm_bindgen(method, setter = "recursive")]
-    pub fn set_recursive(this: &NotifyOptions, val: bool);
     ///Get the `fileSystemId` field of this object.
     #[wasm_bindgen(method, getter = "fileSystemId")]
     pub fn get_file_system_id(this: &NotifyOptions) -> String;
@@ -1930,33 +1980,36 @@ extern "C" {
     ///Change the `observedPath` field of this object.
     #[wasm_bindgen(method, setter = "observedPath")]
     pub fn set_observed_path(this: &NotifyOptions, val: String);
-    ///Get the `changeType` field of this object.
-    #[wasm_bindgen(method, getter = "changeType")]
-    pub fn get_change_type(this: &NotifyOptions) -> ChangeType;
-    ///Change the `changeType` field of this object.
-    #[wasm_bindgen(method, setter = "changeType")]
-    pub fn set_change_type(this: &NotifyOptions, val: ChangeType);
+    ///Get the `recursive` field of this object.
+    #[wasm_bindgen(method, getter = "recursive")]
+    pub fn get_recursive(this: &NotifyOptions) -> bool;
+    ///Change the `recursive` field of this object.
+    #[wasm_bindgen(method, setter = "recursive")]
+    pub fn set_recursive(this: &NotifyOptions, val: bool);
+    ///Get the `tag` field of this object.
+    #[wasm_bindgen(method, getter = "tag")]
+    pub fn get_tag(this: &NotifyOptions) -> Option<String>;
+    ///Change the `tag` field of this object.
+    #[wasm_bindgen(method, setter = "tag")]
+    pub fn set_tag(this: &NotifyOptions, val: String);
 }
 impl NotifyOptions {
     ///Construct a new `NotifyOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_change_type()` instead."]
+    pub fn change_type(&mut self, val: ChangeType) -> &mut Self {
+        self.set_change_type(val);
+        self
     }
     #[deprecated = "Use `set_changes()` instead."]
     pub fn changes(&mut self, val: &Array) -> &mut Self {
         self.set_changes(val);
-        self
-    }
-    #[deprecated = "Use `set_tag()` instead."]
-    pub fn tag(&mut self, val: String) -> &mut Self {
-        self.set_tag(val);
-        self
-    }
-    #[deprecated = "Use `set_recursive()` instead."]
-    pub fn recursive(&mut self, val: bool) -> &mut Self {
-        self.set_recursive(val);
         self
     }
     #[deprecated = "Use `set_file_system_id()` instead."]
@@ -1969,9 +2022,14 @@ impl NotifyOptions {
         self.set_observed_path(val);
         self
     }
-    #[deprecated = "Use `set_change_type()` instead."]
-    pub fn change_type(&mut self, val: ChangeType) -> &mut Self {
-        self.set_change_type(val);
+    #[deprecated = "Use `set_recursive()` instead."]
+    pub fn recursive(&mut self, val: bool) -> &mut Self {
+        self.set_recursive(val);
+        self
+    }
+    #[deprecated = "Use `set_tag()` instead."]
+    pub fn tag(&mut self, val: String) -> &mut Self {
+        self.set_tag(val);
         self
     }
 }
@@ -2003,7 +2061,9 @@ impl ConfigureRequestedOptions {
     ///Construct a new `ConfigureRequestedOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_file_system_id()` instead."]

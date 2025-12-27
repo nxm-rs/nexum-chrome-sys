@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     ///Stores persistent data from the login screen. This data can be accessed later using $(ref:retrievePersistentData) by any extension from the specified extension ids. This method will fail if called while a user session is active.

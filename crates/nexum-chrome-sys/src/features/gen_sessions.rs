@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Filter")]
@@ -19,7 +19,9 @@ impl Filter {
     ///Construct a new `Filter`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_max_results()` instead."]
@@ -39,6 +41,12 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type Session;
+    ///Get the `lastModified` field of this object.
+    #[wasm_bindgen(method, getter = "lastModified")]
+    pub fn get_last_modified(this: &Session) -> i32;
+    ///Change the `lastModified` field of this object.
+    #[wasm_bindgen(method, setter = "lastModified")]
+    pub fn set_last_modified(this: &Session, val: i32);
     #[cfg(feature = "tabs")]
     ///Get the `tab` field of this object.
     #[wasm_bindgen(method, getter = "tab")]
@@ -55,19 +63,20 @@ extern "C" {
     ///Change the `window` field of this object.
     #[wasm_bindgen(method, setter = "window")]
     pub fn set_window(this: &Session, val: super::windows::Window);
-    ///Get the `lastModified` field of this object.
-    #[wasm_bindgen(method, getter = "lastModified")]
-    pub fn get_last_modified(this: &Session) -> i32;
-    ///Change the `lastModified` field of this object.
-    #[wasm_bindgen(method, setter = "lastModified")]
-    pub fn set_last_modified(this: &Session, val: i32);
 }
 impl Session {
     ///Construct a new `Session`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
+    }
+    #[deprecated = "Use `set_last_modified()` instead."]
+    pub fn last_modified(&mut self, val: i32) -> &mut Self {
+        self.set_last_modified(val);
+        self
     }
     #[cfg(feature = "tabs")]
     #[deprecated = "Use `set_tab()` instead."]
@@ -79,11 +88,6 @@ impl Session {
     #[deprecated = "Use `set_window()` instead."]
     pub fn window(&mut self, val: super::windows::Window) -> &mut Self {
         self.set_window(val);
-        self
-    }
-    #[deprecated = "Use `set_last_modified()` instead."]
-    pub fn last_modified(&mut self, val: i32) -> &mut Self {
-        self.set_last_modified(val);
         self
     }
 }
@@ -104,24 +108,26 @@ extern "C" {
     ///Change the `deviceName` field of this object.
     #[wasm_bindgen(method, setter = "deviceName")]
     pub fn set_device_name(this: &Device, val: String);
-    ///Get the `sessions` field of this object.
-    #[wasm_bindgen(method, getter = "sessions")]
-    pub fn get_sessions(this: &Device) -> Array;
-    ///Change the `sessions` field of this object.
-    #[wasm_bindgen(method, setter = "sessions")]
-    pub fn set_sessions(this: &Device, val: &Array);
     ///Get the `info` field of this object.
     #[wasm_bindgen(method, getter = "info")]
     pub fn get_info(this: &Device) -> String;
     ///Change the `info` field of this object.
     #[wasm_bindgen(method, setter = "info")]
     pub fn set_info(this: &Device, val: String);
+    ///Get the `sessions` field of this object.
+    #[wasm_bindgen(method, getter = "sessions")]
+    pub fn get_sessions(this: &Device) -> Array;
+    ///Change the `sessions` field of this object.
+    #[wasm_bindgen(method, setter = "sessions")]
+    pub fn set_sessions(this: &Device, val: &Array);
 }
 impl Device {
     ///Construct a new `Device`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_device_name()` instead."]
@@ -129,14 +135,14 @@ impl Device {
         self.set_device_name(val);
         self
     }
-    #[deprecated = "Use `set_sessions()` instead."]
-    pub fn sessions(&mut self, val: &Array) -> &mut Self {
-        self.set_sessions(val);
-        self
-    }
     #[deprecated = "Use `set_info()` instead."]
     pub fn info(&mut self, val: String) -> &mut Self {
         self.set_info(val);
+        self
+    }
+    #[deprecated = "Use `set_sessions()` instead."]
+    pub fn sessions(&mut self, val: &Array) -> &mut Self {
+        self.set_sessions(val);
         self
     }
 }

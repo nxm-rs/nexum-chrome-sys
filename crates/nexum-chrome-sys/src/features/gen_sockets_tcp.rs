@@ -1,42 +1,44 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SocketProperties")]
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SocketProperties;
-    ///Get the `persistent` field of this object.
-    #[wasm_bindgen(method, getter = "persistent")]
-    pub fn get_persistent(this: &SocketProperties) -> Option<bool>;
-    ///Change the `persistent` field of this object.
-    #[wasm_bindgen(method, setter = "persistent")]
-    pub fn set_persistent(this: &SocketProperties, val: bool);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &SocketProperties) -> Option<String>;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &SocketProperties, val: String);
     ///Get the `bufferSize` field of this object.
     #[wasm_bindgen(method, getter = "bufferSize")]
     pub fn get_buffer_size(this: &SocketProperties) -> Option<i32>;
     ///Change the `bufferSize` field of this object.
     #[wasm_bindgen(method, setter = "bufferSize")]
     pub fn set_buffer_size(this: &SocketProperties, val: i32);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &SocketProperties) -> Option<String>;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &SocketProperties, val: String);
+    ///Get the `persistent` field of this object.
+    #[wasm_bindgen(method, getter = "persistent")]
+    pub fn get_persistent(this: &SocketProperties) -> Option<bool>;
+    ///Change the `persistent` field of this object.
+    #[wasm_bindgen(method, setter = "persistent")]
+    pub fn set_persistent(this: &SocketProperties, val: bool);
 }
 impl SocketProperties {
     ///Construct a new `SocketProperties`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
-    #[deprecated = "Use `set_persistent()` instead."]
-    pub fn persistent(&mut self, val: bool) -> &mut Self {
-        self.set_persistent(val);
+    #[deprecated = "Use `set_buffer_size()` instead."]
+    pub fn buffer_size(&mut self, val: i32) -> &mut Self {
+        self.set_buffer_size(val);
         self
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -44,9 +46,9 @@ impl SocketProperties {
         self.set_name(val);
         self
     }
-    #[deprecated = "Use `set_buffer_size()` instead."]
-    pub fn buffer_size(&mut self, val: i32) -> &mut Self {
-        self.set_buffer_size(val);
+    #[deprecated = "Use `set_persistent()` instead."]
+    pub fn persistent(&mut self, val: bool) -> &mut Self {
+        self.set_persistent(val);
         self
     }
 }
@@ -72,7 +74,9 @@ impl CreateInfo {
     ///Construct a new `CreateInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_socket_id()` instead."]
@@ -100,34 +104,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type SendInfo;
-    ///Get the `resultCode` field of this object.
-    #[wasm_bindgen(method, getter = "resultCode")]
-    pub fn get_result_code(this: &SendInfo) -> i32;
-    ///Change the `resultCode` field of this object.
-    #[wasm_bindgen(method, setter = "resultCode")]
-    pub fn set_result_code(this: &SendInfo, val: i32);
     ///Get the `bytesSent` field of this object.
     #[wasm_bindgen(method, getter = "bytesSent")]
     pub fn get_bytes_sent(this: &SendInfo) -> Option<i32>;
     ///Change the `bytesSent` field of this object.
     #[wasm_bindgen(method, setter = "bytesSent")]
     pub fn set_bytes_sent(this: &SendInfo, val: i32);
+    ///Get the `resultCode` field of this object.
+    #[wasm_bindgen(method, getter = "resultCode")]
+    pub fn get_result_code(this: &SendInfo) -> i32;
+    ///Change the `resultCode` field of this object.
+    #[wasm_bindgen(method, setter = "resultCode")]
+    pub fn set_result_code(this: &SendInfo, val: i32);
 }
 impl SendInfo {
     ///Construct a new `SendInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_result_code()` instead."]
-    pub fn result_code(&mut self, val: i32) -> &mut Self {
-        self.set_result_code(val);
-        self
     }
     #[deprecated = "Use `set_bytes_sent()` instead."]
     pub fn bytes_sent(&mut self, val: i32) -> &mut Self {
         self.set_bytes_sent(val);
+        self
+    }
+    #[deprecated = "Use `set_result_code()` instead."]
+    pub fn result_code(&mut self, val: i32) -> &mut Self {
+        self.set_result_code(val);
         self
     }
 }
@@ -142,34 +148,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type TlsVersionConstraints;
-    ///Get the `min` field of this object.
-    #[wasm_bindgen(method, getter = "min")]
-    pub fn get_min(this: &TlsVersionConstraints) -> Option<String>;
-    ///Change the `min` field of this object.
-    #[wasm_bindgen(method, setter = "min")]
-    pub fn set_min(this: &TlsVersionConstraints, val: String);
     ///Get the `max` field of this object.
     #[wasm_bindgen(method, getter = "max")]
     pub fn get_max(this: &TlsVersionConstraints) -> Option<String>;
     ///Change the `max` field of this object.
     #[wasm_bindgen(method, setter = "max")]
     pub fn set_max(this: &TlsVersionConstraints, val: String);
+    ///Get the `min` field of this object.
+    #[wasm_bindgen(method, getter = "min")]
+    pub fn get_min(this: &TlsVersionConstraints) -> Option<String>;
+    ///Change the `min` field of this object.
+    #[wasm_bindgen(method, setter = "min")]
+    pub fn set_min(this: &TlsVersionConstraints, val: String);
 }
 impl TlsVersionConstraints {
     ///Construct a new `TlsVersionConstraints`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_min()` instead."]
-    pub fn min(&mut self, val: String) -> &mut Self {
-        self.set_min(val);
-        self
     }
     #[deprecated = "Use `set_max()` instead."]
     pub fn max(&mut self, val: String) -> &mut Self {
         self.set_max(val);
+        self
+    }
+    #[deprecated = "Use `set_min()` instead."]
+    pub fn min(&mut self, val: String) -> &mut Self {
+        self.set_min(val);
         self
     }
 }
@@ -195,7 +203,9 @@ impl SecureOptions {
     ///Construct a new `SecureOptions`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_tls_version()` instead."]
@@ -221,24 +231,24 @@ extern "C" {
     ///Change the `bufferSize` field of this object.
     #[wasm_bindgen(method, setter = "bufferSize")]
     pub fn set_buffer_size(this: &SocketInfo, val: i32);
-    ///Get the `localPort` field of this object.
-    #[wasm_bindgen(method, getter = "localPort")]
-    pub fn get_local_port(this: &SocketInfo) -> Option<i32>;
-    ///Change the `localPort` field of this object.
-    #[wasm_bindgen(method, setter = "localPort")]
-    pub fn set_local_port(this: &SocketInfo, val: i32);
     ///Get the `connected` field of this object.
     #[wasm_bindgen(method, getter = "connected")]
     pub fn get_connected(this: &SocketInfo) -> bool;
     ///Change the `connected` field of this object.
     #[wasm_bindgen(method, setter = "connected")]
     pub fn set_connected(this: &SocketInfo, val: bool);
-    ///Get the `persistent` field of this object.
-    #[wasm_bindgen(method, getter = "persistent")]
-    pub fn get_persistent(this: &SocketInfo) -> bool;
-    ///Change the `persistent` field of this object.
-    #[wasm_bindgen(method, setter = "persistent")]
-    pub fn set_persistent(this: &SocketInfo, val: bool);
+    ///Get the `localAddress` field of this object.
+    #[wasm_bindgen(method, getter = "localAddress")]
+    pub fn get_local_address(this: &SocketInfo) -> Option<String>;
+    ///Change the `localAddress` field of this object.
+    #[wasm_bindgen(method, setter = "localAddress")]
+    pub fn set_local_address(this: &SocketInfo, val: String);
+    ///Get the `localPort` field of this object.
+    #[wasm_bindgen(method, getter = "localPort")]
+    pub fn get_local_port(this: &SocketInfo) -> Option<i32>;
+    ///Change the `localPort` field of this object.
+    #[wasm_bindgen(method, setter = "localPort")]
+    pub fn set_local_port(this: &SocketInfo, val: i32);
     ///Get the `name` field of this object.
     #[wasm_bindgen(method, getter = "name")]
     pub fn get_name(this: &SocketInfo) -> Option<String>;
@@ -263,24 +273,26 @@ extern "C" {
     ///Change the `peerPort` field of this object.
     #[wasm_bindgen(method, setter = "peerPort")]
     pub fn set_peer_port(this: &SocketInfo, val: i32);
+    ///Get the `persistent` field of this object.
+    #[wasm_bindgen(method, getter = "persistent")]
+    pub fn get_persistent(this: &SocketInfo) -> bool;
+    ///Change the `persistent` field of this object.
+    #[wasm_bindgen(method, setter = "persistent")]
+    pub fn set_persistent(this: &SocketInfo, val: bool);
     ///Get the `socketId` field of this object.
     #[wasm_bindgen(method, getter = "socketId")]
     pub fn get_socket_id(this: &SocketInfo) -> i32;
     ///Change the `socketId` field of this object.
     #[wasm_bindgen(method, setter = "socketId")]
     pub fn set_socket_id(this: &SocketInfo, val: i32);
-    ///Get the `localAddress` field of this object.
-    #[wasm_bindgen(method, getter = "localAddress")]
-    pub fn get_local_address(this: &SocketInfo) -> Option<String>;
-    ///Change the `localAddress` field of this object.
-    #[wasm_bindgen(method, setter = "localAddress")]
-    pub fn set_local_address(this: &SocketInfo, val: String);
 }
 impl SocketInfo {
     ///Construct a new `SocketInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_buffer_size()` instead."]
@@ -288,19 +300,19 @@ impl SocketInfo {
         self.set_buffer_size(val);
         self
     }
-    #[deprecated = "Use `set_local_port()` instead."]
-    pub fn local_port(&mut self, val: i32) -> &mut Self {
-        self.set_local_port(val);
-        self
-    }
     #[deprecated = "Use `set_connected()` instead."]
     pub fn connected(&mut self, val: bool) -> &mut Self {
         self.set_connected(val);
         self
     }
-    #[deprecated = "Use `set_persistent()` instead."]
-    pub fn persistent(&mut self, val: bool) -> &mut Self {
-        self.set_persistent(val);
+    #[deprecated = "Use `set_local_address()` instead."]
+    pub fn local_address(&mut self, val: String) -> &mut Self {
+        self.set_local_address(val);
+        self
+    }
+    #[deprecated = "Use `set_local_port()` instead."]
+    pub fn local_port(&mut self, val: i32) -> &mut Self {
+        self.set_local_port(val);
         self
     }
     #[deprecated = "Use `set_name()` instead."]
@@ -323,14 +335,14 @@ impl SocketInfo {
         self.set_peer_port(val);
         self
     }
+    #[deprecated = "Use `set_persistent()` instead."]
+    pub fn persistent(&mut self, val: bool) -> &mut Self {
+        self.set_persistent(val);
+        self
+    }
     #[deprecated = "Use `set_socket_id()` instead."]
     pub fn socket_id(&mut self, val: i32) -> &mut Self {
         self.set_socket_id(val);
-        self
-    }
-    #[deprecated = "Use `set_local_address()` instead."]
-    pub fn local_address(&mut self, val: String) -> &mut Self {
-        self.set_local_address(val);
         self
     }
 }
@@ -345,34 +357,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type ReceiveInfo;
-    ///Get the `socketId` field of this object.
-    #[wasm_bindgen(method, getter = "socketId")]
-    pub fn get_socket_id(this: &ReceiveInfo) -> i32;
-    ///Change the `socketId` field of this object.
-    #[wasm_bindgen(method, setter = "socketId")]
-    pub fn set_socket_id(this: &ReceiveInfo, val: i32);
     ///Get the `data` field of this object.
     #[wasm_bindgen(method, getter = "data")]
     pub fn get_data(this: &ReceiveInfo) -> ::js_sys::ArrayBuffer;
     ///Change the `data` field of this object.
     #[wasm_bindgen(method, setter = "data")]
     pub fn set_data(this: &ReceiveInfo, val: &::js_sys::ArrayBuffer);
+    ///Get the `socketId` field of this object.
+    #[wasm_bindgen(method, getter = "socketId")]
+    pub fn get_socket_id(this: &ReceiveInfo) -> i32;
+    ///Change the `socketId` field of this object.
+    #[wasm_bindgen(method, setter = "socketId")]
+    pub fn set_socket_id(this: &ReceiveInfo, val: i32);
 }
 impl ReceiveInfo {
     ///Construct a new `ReceiveInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_socket_id()` instead."]
-    pub fn socket_id(&mut self, val: i32) -> &mut Self {
-        self.set_socket_id(val);
-        self
     }
     #[deprecated = "Use `set_data()` instead."]
     pub fn data(&mut self, val: &::js_sys::ArrayBuffer) -> &mut Self {
         self.set_data(val);
+        self
+    }
+    #[deprecated = "Use `set_socket_id()` instead."]
+    pub fn socket_id(&mut self, val: i32) -> &mut Self {
+        self.set_socket_id(val);
         self
     }
 }
@@ -404,7 +418,9 @@ impl ReceiveErrorInfo {
     ///Construct a new `ReceiveErrorInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_result_code()` instead."]

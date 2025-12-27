@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 ///Error codes returned in response to $(ref:onPrintRequested) event.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -27,24 +27,26 @@ extern "C" {
     ///Change the `description` field of this object.
     #[wasm_bindgen(method, setter = "description")]
     pub fn set_description(this: &PrinterInfo, val: String);
-    ///Get the `name` field of this object.
-    #[wasm_bindgen(method, getter = "name")]
-    pub fn get_name(this: &PrinterInfo) -> String;
-    ///Change the `name` field of this object.
-    #[wasm_bindgen(method, setter = "name")]
-    pub fn set_name(this: &PrinterInfo, val: String);
     ///Get the `id` field of this object.
     #[wasm_bindgen(method, getter = "id")]
     pub fn get_id(this: &PrinterInfo) -> String;
     ///Change the `id` field of this object.
     #[wasm_bindgen(method, setter = "id")]
     pub fn set_id(this: &PrinterInfo, val: String);
+    ///Get the `name` field of this object.
+    #[wasm_bindgen(method, getter = "name")]
+    pub fn get_name(this: &PrinterInfo) -> String;
+    ///Change the `name` field of this object.
+    #[wasm_bindgen(method, setter = "name")]
+    pub fn set_name(this: &PrinterInfo, val: String);
 }
 impl PrinterInfo {
     ///Construct a new `PrinterInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_description()` instead."]
@@ -52,14 +54,14 @@ impl PrinterInfo {
         self.set_description(val);
         self
     }
-    #[deprecated = "Use `set_name()` instead."]
-    pub fn name(&mut self, val: String) -> &mut Self {
-        self.set_name(val);
-        self
-    }
     #[deprecated = "Use `set_id()` instead."]
     pub fn id(&mut self, val: String) -> &mut Self {
         self.set_id(val);
+        self
+    }
+    #[deprecated = "Use `set_name()` instead."]
+    pub fn name(&mut self, val: String) -> &mut Self {
+        self.set_name(val);
         self
     }
 }
@@ -74,12 +76,6 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type PrintJob;
-    ///Get the `title` field of this object.
-    #[wasm_bindgen(method, getter = "title")]
-    pub fn get_title(this: &PrintJob) -> String;
-    ///Change the `title` field of this object.
-    #[wasm_bindgen(method, setter = "title")]
-    pub fn set_title(this: &PrintJob, val: String);
     ///Get the `contentType` field of this object.
     #[wasm_bindgen(method, getter = "contentType")]
     pub fn get_content_type(this: &PrintJob) -> String;
@@ -104,18 +100,21 @@ extern "C" {
     ///Change the `ticket` field of this object.
     #[wasm_bindgen(method, setter = "ticket")]
     pub fn set_ticket(this: &PrintJob, val: &Object);
+    ///Get the `title` field of this object.
+    #[wasm_bindgen(method, getter = "title")]
+    pub fn get_title(this: &PrintJob) -> String;
+    ///Change the `title` field of this object.
+    #[wasm_bindgen(method, setter = "title")]
+    pub fn set_title(this: &PrintJob, val: String);
 }
 impl PrintJob {
     ///Construct a new `PrintJob`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_title()` instead."]
-    pub fn title(&mut self, val: String) -> &mut Self {
-        self.set_title(val);
-        self
     }
     #[deprecated = "Use `set_content_type()` instead."]
     pub fn content_type(&mut self, val: String) -> &mut Self {
@@ -135,6 +134,11 @@ impl PrintJob {
     #[deprecated = "Use `set_ticket()` instead."]
     pub fn ticket(&mut self, val: &Object) -> &mut Self {
         self.set_ticket(val);
+        self
+    }
+    #[deprecated = "Use `set_title()` instead."]
+    pub fn title(&mut self, val: String) -> &mut Self {
+        self.set_title(val);
         self
     }
 }

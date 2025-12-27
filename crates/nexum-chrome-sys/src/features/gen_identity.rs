@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 #![allow(clippy::all)]
-use js_sys::{Array, Function, Object, Promise};
 use wasm_bindgen::prelude::*;
+use js_sys::{Array, Function, Object, Promise};
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AccountInfo")]
@@ -19,7 +19,9 @@ impl AccountInfo {
     ///Construct a new `AccountInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_id()` instead."]
@@ -59,7 +61,9 @@ impl ProfileDetails {
     ///Construct a new `ProfileDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_account_status()` instead."]
@@ -96,7 +100,9 @@ impl ProfileUserInfo {
     ///Construct a new `ProfileUserInfo`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_email()` instead."]
@@ -121,56 +127,58 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type TokenDetails;
-    ///Get the `enableGranularPermissions` field of this object.
-    #[wasm_bindgen(method, getter = "enableGranularPermissions")]
-    pub fn get_enable_granular_permissions(this: &TokenDetails) -> Option<bool>;
-    ///Change the `enableGranularPermissions` field of this object.
-    #[wasm_bindgen(method, setter = "enableGranularPermissions")]
-    pub fn set_enable_granular_permissions(this: &TokenDetails, val: bool);
     ///Get the `account` field of this object.
     #[wasm_bindgen(method, getter = "account")]
     pub fn get_account(this: &TokenDetails) -> Option<AccountInfo>;
     ///Change the `account` field of this object.
     #[wasm_bindgen(method, setter = "account")]
     pub fn set_account(this: &TokenDetails, val: &AccountInfo);
-    ///Get the `scopes` field of this object.
-    #[wasm_bindgen(method, getter = "scopes")]
-    pub fn get_scopes(this: &TokenDetails) -> Option<Array>;
-    ///Change the `scopes` field of this object.
-    #[wasm_bindgen(method, setter = "scopes")]
-    pub fn set_scopes(this: &TokenDetails, val: &Array);
+    ///Get the `enableGranularPermissions` field of this object.
+    #[wasm_bindgen(method, getter = "enableGranularPermissions")]
+    pub fn get_enable_granular_permissions(this: &TokenDetails) -> Option<bool>;
+    ///Change the `enableGranularPermissions` field of this object.
+    #[wasm_bindgen(method, setter = "enableGranularPermissions")]
+    pub fn set_enable_granular_permissions(this: &TokenDetails, val: bool);
     ///Get the `interactive` field of this object.
     #[wasm_bindgen(method, getter = "interactive")]
     pub fn get_interactive(this: &TokenDetails) -> Option<bool>;
     ///Change the `interactive` field of this object.
     #[wasm_bindgen(method, setter = "interactive")]
     pub fn set_interactive(this: &TokenDetails, val: bool);
+    ///Get the `scopes` field of this object.
+    #[wasm_bindgen(method, getter = "scopes")]
+    pub fn get_scopes(this: &TokenDetails) -> Option<Array>;
+    ///Change the `scopes` field of this object.
+    #[wasm_bindgen(method, setter = "scopes")]
+    pub fn set_scopes(this: &TokenDetails, val: &Array);
 }
 impl TokenDetails {
     ///Construct a new `TokenDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_enable_granular_permissions()` instead."]
-    pub fn enable_granular_permissions(&mut self, val: bool) -> &mut Self {
-        self.set_enable_granular_permissions(val);
-        self
     }
     #[deprecated = "Use `set_account()` instead."]
     pub fn account(&mut self, val: &AccountInfo) -> &mut Self {
         self.set_account(val);
         self
     }
-    #[deprecated = "Use `set_scopes()` instead."]
-    pub fn scopes(&mut self, val: &Array) -> &mut Self {
-        self.set_scopes(val);
+    #[deprecated = "Use `set_enable_granular_permissions()` instead."]
+    pub fn enable_granular_permissions(&mut self, val: bool) -> &mut Self {
+        self.set_enable_granular_permissions(val);
         self
     }
     #[deprecated = "Use `set_interactive()` instead."]
     pub fn interactive(&mut self, val: bool) -> &mut Self {
         self.set_interactive(val);
+        self
+    }
+    #[deprecated = "Use `set_scopes()` instead."]
+    pub fn scopes(&mut self, val: &Array) -> &mut Self {
+        self.set_scopes(val);
         self
     }
 }
@@ -196,7 +204,9 @@ impl InvalidTokenDetails {
     ///Construct a new `InvalidTokenDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_token()` instead."]
@@ -218,22 +228,24 @@ extern "C" {
     pub type WebAuthFlowDetails;
     ///Get the `abortOnLoadForNonInteractive` field of this object.
     #[wasm_bindgen(method, getter = "abortOnLoadForNonInteractive")]
-    pub fn get_abort_on_load_for_non_interactive(this: &WebAuthFlowDetails) -> Option<bool>;
+    pub fn get_abort_on_load_for_non_interactive(
+        this: &WebAuthFlowDetails,
+    ) -> Option<bool>;
     ///Change the `abortOnLoadForNonInteractive` field of this object.
     #[wasm_bindgen(method, setter = "abortOnLoadForNonInteractive")]
     pub fn set_abort_on_load_for_non_interactive(this: &WebAuthFlowDetails, val: bool);
-    ///Get the `timeoutMsForNonInteractive` field of this object.
-    #[wasm_bindgen(method, getter = "timeoutMsForNonInteractive")]
-    pub fn get_timeout_ms_for_non_interactive(this: &WebAuthFlowDetails) -> Option<i32>;
-    ///Change the `timeoutMsForNonInteractive` field of this object.
-    #[wasm_bindgen(method, setter = "timeoutMsForNonInteractive")]
-    pub fn set_timeout_ms_for_non_interactive(this: &WebAuthFlowDetails, val: i32);
     ///Get the `interactive` field of this object.
     #[wasm_bindgen(method, getter = "interactive")]
     pub fn get_interactive(this: &WebAuthFlowDetails) -> Option<bool>;
     ///Change the `interactive` field of this object.
     #[wasm_bindgen(method, setter = "interactive")]
     pub fn set_interactive(this: &WebAuthFlowDetails, val: bool);
+    ///Get the `timeoutMsForNonInteractive` field of this object.
+    #[wasm_bindgen(method, getter = "timeoutMsForNonInteractive")]
+    pub fn get_timeout_ms_for_non_interactive(this: &WebAuthFlowDetails) -> Option<i32>;
+    ///Change the `timeoutMsForNonInteractive` field of this object.
+    #[wasm_bindgen(method, setter = "timeoutMsForNonInteractive")]
+    pub fn set_timeout_ms_for_non_interactive(this: &WebAuthFlowDetails, val: i32);
     ///Get the `url` field of this object.
     #[wasm_bindgen(method, getter = "url")]
     pub fn get_url(this: &WebAuthFlowDetails) -> String;
@@ -245,7 +257,9 @@ impl WebAuthFlowDetails {
     ///Construct a new `WebAuthFlowDetails`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
     }
     #[deprecated = "Use `set_abort_on_load_for_non_interactive()` instead."]
@@ -253,14 +267,14 @@ impl WebAuthFlowDetails {
         self.set_abort_on_load_for_non_interactive(val);
         self
     }
-    #[deprecated = "Use `set_timeout_ms_for_non_interactive()` instead."]
-    pub fn timeout_ms_for_non_interactive(&mut self, val: i32) -> &mut Self {
-        self.set_timeout_ms_for_non_interactive(val);
-        self
-    }
     #[deprecated = "Use `set_interactive()` instead."]
     pub fn interactive(&mut self, val: bool) -> &mut Self {
         self.set_interactive(val);
+        self
+    }
+    #[deprecated = "Use `set_timeout_ms_for_non_interactive()` instead."]
+    pub fn timeout_ms_for_non_interactive(&mut self, val: i32) -> &mut Self {
+        self.set_timeout_ms_for_non_interactive(val);
         self
     }
     #[deprecated = "Use `set_url()` instead."]
@@ -280,34 +294,36 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type GetAuthTokenResult;
-    ///Get the `token` field of this object.
-    #[wasm_bindgen(method, getter = "token")]
-    pub fn get_token(this: &GetAuthTokenResult) -> Option<String>;
-    ///Change the `token` field of this object.
-    #[wasm_bindgen(method, setter = "token")]
-    pub fn set_token(this: &GetAuthTokenResult, val: String);
     ///Get the `grantedScopes` field of this object.
     #[wasm_bindgen(method, getter = "grantedScopes")]
     pub fn get_granted_scopes(this: &GetAuthTokenResult) -> Option<Array>;
     ///Change the `grantedScopes` field of this object.
     #[wasm_bindgen(method, setter = "grantedScopes")]
     pub fn set_granted_scopes(this: &GetAuthTokenResult, val: &Array);
+    ///Get the `token` field of this object.
+    #[wasm_bindgen(method, getter = "token")]
+    pub fn get_token(this: &GetAuthTokenResult) -> Option<String>;
+    ///Change the `token` field of this object.
+    #[wasm_bindgen(method, setter = "token")]
+    pub fn set_token(this: &GetAuthTokenResult, val: String);
 }
 impl GetAuthTokenResult {
     ///Construct a new `GetAuthTokenResult`.
     pub fn new() -> Self {
         #[allow(unused_mut)]
-        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+        let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(
+            ::js_sys::Object::new(),
+        );
         ret
-    }
-    #[deprecated = "Use `set_token()` instead."]
-    pub fn token(&mut self, val: String) -> &mut Self {
-        self.set_token(val);
-        self
     }
     #[deprecated = "Use `set_granted_scopes()` instead."]
     pub fn granted_scopes(&mut self, val: &Array) -> &mut Self {
         self.set_granted_scopes(val);
+        self
+    }
+    #[deprecated = "Use `set_token()` instead."]
+    pub fn token(&mut self, val: String) -> &mut Self {
+        self.set_token(val);
         self
     }
 }
