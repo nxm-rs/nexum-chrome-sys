@@ -1,6 +1,7 @@
 //! Code generation for Chrome Extension API bindings.
 
 mod namespace;
+mod utils;
 
 use anyhow::{Context, Result};
 use std::collections::BTreeSet;
