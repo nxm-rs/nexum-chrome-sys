@@ -210,6 +210,39 @@ impl Default for QueryQueryInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `QueryQueryInfo`.
+pub struct QueryQueryInfoData {
+    ///Whether the groups are collapsed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collapsed: Option<bool>,
+    ///The color of the groups.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color: Option<Color>,
+    ///Whether the group is shared.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shared: Option<bool>,
+    ///Match group titles against a pattern.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The ID of the parent window, or $(ref:windows.WINDOW_ID_CURRENT) for the current window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&QueryQueryInfo> for QueryQueryInfoData {
+    fn from(val: &QueryQueryInfo) -> Self {
+        Self {
+            collapsed: val.get_collapsed(),
+            color: val.get_color(),
+            shared: val.get_shared(),
+            title: val.get_title(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateUpdateProperties")]
@@ -263,6 +296,31 @@ impl Default for UpdateUpdateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UpdateUpdateProperties`.
+pub struct UpdateUpdatePropertiesData {
+    ///Whether the group should be collapsed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collapsed: Option<bool>,
+    ///The color of the group.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color: Option<Color>,
+    ///The title of the group.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UpdateUpdateProperties> for UpdateUpdatePropertiesData {
+    fn from(val: &UpdateUpdateProperties) -> Self {
+        Self {
+            collapsed: val.get_collapsed(),
+            color: val.get_color(),
+            title: val.get_title(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MoveMoveProperties")]
@@ -303,6 +361,26 @@ impl MoveMoveProperties {
 impl Default for MoveMoveProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MoveMoveProperties`.
+pub struct MoveMovePropertiesData {
+    ///The position to move the group to. Use -1 to place the group at the end of the window.
+    pub index: i32,
+    ///The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with $(ref:windows.WindowType) type "normal".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&MoveMoveProperties> for MoveMovePropertiesData {
+    fn from(val: &MoveMoveProperties) -> Self {
+        Self {
+            index: val.get_index(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]

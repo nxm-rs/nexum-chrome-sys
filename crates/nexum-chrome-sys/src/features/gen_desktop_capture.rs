@@ -108,6 +108,36 @@ impl Default for ChooseDesktopMediaOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ChooseDesktopMediaOptions`. Mirrors members of DisplayMediaStreamConstraints which need to be applied before the user makes their selection, and must therefore be provided to chooseDesktopMedia() rather than be deferred to getUserMedia().
+pub struct ChooseDesktopMediaOptionsData {
+    ///Mirrors selfBrowserSurface.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub self_browser_surface: Option<SelfCapturePreferenceEnum>,
+    ///Indicates that the caller intends to perform local audio suppression, and that the media picker shown to the user should therefore reflect that with the appropriate warnings, as it does when getDisplayMedia() is invoked.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub suppress_local_audio_playback_intended: Option<bool>,
+    ///Mirrors systemAudio.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub system_audio: Option<SystemAudioPreferenceEnum>,
+    ///Mirrors windowAudio.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_audio: Option<WindowAudioPreferenceEnum>,
+}
+#[cfg(feature = "serde")]
+impl From<&ChooseDesktopMediaOptions> for ChooseDesktopMediaOptionsData {
+    fn from(val: &ChooseDesktopMediaOptions) -> Self {
+        Self {
+            self_browser_surface: val.get_self_browser_surface(),
+            suppress_local_audio_playback_intended: val
+                .get_suppress_local_audio_playback_intended(),
+            system_audio: val.get_system_audio(),
+            window_audio: val.get_window_audio(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[cfg(feature = "tabs")]

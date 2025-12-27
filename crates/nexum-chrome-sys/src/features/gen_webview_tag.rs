@@ -1799,6 +1799,25 @@ impl Default for ExitDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ExitDetails`.
+pub struct ExitDetailsData {
+    ///Chrome's internal ID of the process that exited.
+    pub process_id: i32,
+    ///String indicating the reason for the exit.
+    pub reason: ExitReason,
+}
+#[cfg(feature = "serde")]
+impl From<&ExitDetails> for ExitDetailsData {
+    fn from(val: &ExitDetails) -> Self {
+        Self {
+            process_id: val.get_process_id(),
+            reason: val.get_reason(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Queries audio state.

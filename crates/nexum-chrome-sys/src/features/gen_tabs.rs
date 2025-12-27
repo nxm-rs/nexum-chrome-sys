@@ -759,6 +759,67 @@ impl Default for OnUpdatedChangeInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnUpdatedChangeInfo`. Lists the changes to the state of the tab that was updated.
+pub struct OnUpdatedChangeInfoData {
+    ///The tab's new audible state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audible: Option<bool>,
+    ///The tab's new auto-discardable state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_discardable: Option<bool>,
+    ///The tab's new discarded state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub discarded: Option<bool>,
+    ///The tab's new favicon URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub fav_icon_url: Option<String>,
+    ///The tab's new frozen state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frozen: Option<bool>,
+    ///The tab's new group.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub group_id: Option<i32>,
+    ///The tab's new muted state and the reason for the change.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub muted_info: Option<MutedInfoData>,
+    ///The tab's new pinned state.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pinned: Option<bool>,
+    ///The tab's new Split View.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub split_view_id: Option<i32>,
+    ///The tab's loading status.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<TabStatus>,
+    ///The tab's new title.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The tab's URL if it has changed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnUpdatedChangeInfo> for OnUpdatedChangeInfoData {
+    fn from(val: &OnUpdatedChangeInfo) -> Self {
+        Self {
+            audible: val.get_audible(),
+            auto_discardable: val.get_auto_discardable(),
+            discarded: val.get_discarded(),
+            fav_icon_url: val.get_fav_icon_url(),
+            frozen: val.get_frozen(),
+            group_id: val.get_group_id(),
+            muted_info: val.get_muted_info().as_ref().map(|v| v.into()),
+            pinned: val.get_pinned(),
+            split_view_id: val.get_split_view_id(),
+            status: val.get_status(),
+            title: val.get_title(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnMovedMoveInfo")]
@@ -812,6 +873,28 @@ impl Default for OnMovedMoveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnMovedMoveInfo`.
+pub struct OnMovedMoveInfoData {
+    ///
+    pub from_index: i32,
+    ///
+    pub to_index: i32,
+    ///
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnMovedMoveInfo> for OnMovedMoveInfoData {
+    fn from(val: &OnMovedMoveInfo) -> Self {
+        Self {
+            from_index: val.get_from_index(),
+            to_index: val.get_to_index(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnSelectionChangedSelectInfo")]
@@ -843,6 +926,22 @@ impl Default for OnSelectionChangedSelectInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnSelectionChangedSelectInfo`.
+pub struct OnSelectionChangedSelectInfoData {
+    ///The ID of the window the selected tab changed inside of.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnSelectionChangedSelectInfo> for OnSelectionChangedSelectInfoData {
+    fn from(val: &OnSelectionChangedSelectInfo) -> Self {
+        Self {
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnActiveChangedSelectInfo")]
@@ -872,6 +971,22 @@ impl OnActiveChangedSelectInfo {
 impl Default for OnActiveChangedSelectInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnActiveChangedSelectInfo`.
+pub struct OnActiveChangedSelectInfoData {
+    ///The ID of the window the selected tab changed inside of.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnActiveChangedSelectInfo> for OnActiveChangedSelectInfoData {
+    fn from(val: &OnActiveChangedSelectInfo) -> Self {
+        Self {
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -916,6 +1031,25 @@ impl Default for OnActivatedActiveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnActivatedActiveInfo`.
+pub struct OnActivatedActiveInfoData {
+    ///The ID of the tab that has become active.
+    pub tab_id: i32,
+    ///The ID of the window the active tab changed inside of.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnActivatedActiveInfo> for OnActivatedActiveInfoData {
+    fn from(val: &OnActivatedActiveInfo) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnHighlightChangedSelectInfo")]
@@ -956,6 +1090,25 @@ impl OnHighlightChangedSelectInfo {
 impl Default for OnHighlightChangedSelectInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnHighlightChangedSelectInfo`.
+pub struct OnHighlightChangedSelectInfoData {
+    ///All highlighted tabs in the window.
+    pub tab_ids: Vec<i32>,
+    ///The window whose tabs changed.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnHighlightChangedSelectInfo> for OnHighlightChangedSelectInfoData {
+    fn from(val: &OnHighlightChangedSelectInfo) -> Self {
+        Self {
+            tab_ids: serde_wasm_bindgen::from_value(val.get_tab_ids().into()).unwrap_or_default(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1000,6 +1153,25 @@ impl Default for OnHighlightedHighlightInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnHighlightedHighlightInfo`.
+pub struct OnHighlightedHighlightInfoData {
+    ///All highlighted tabs in the window.
+    pub tab_ids: Vec<i32>,
+    ///The window whose tabs changed.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnHighlightedHighlightInfo> for OnHighlightedHighlightInfoData {
+    fn from(val: &OnHighlightedHighlightInfo) -> Self {
+        Self {
+            tab_ids: serde_wasm_bindgen::from_value(val.get_tab_ids().into()).unwrap_or_default(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnDetachedDetachInfo")]
@@ -1040,6 +1212,25 @@ impl OnDetachedDetachInfo {
 impl Default for OnDetachedDetachInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnDetachedDetachInfo`.
+pub struct OnDetachedDetachInfoData {
+    ///
+    pub old_position: i32,
+    ///
+    pub old_window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnDetachedDetachInfo> for OnDetachedDetachInfoData {
+    fn from(val: &OnDetachedDetachInfo) -> Self {
+        Self {
+            old_position: val.get_old_position(),
+            old_window_id: val.get_old_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1084,6 +1275,25 @@ impl Default for OnAttachedAttachInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnAttachedAttachInfo`.
+pub struct OnAttachedAttachInfoData {
+    ///
+    pub new_position: i32,
+    ///
+    pub new_window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnAttachedAttachInfo> for OnAttachedAttachInfoData {
+    fn from(val: &OnAttachedAttachInfo) -> Self {
+        Self {
+            new_position: val.get_new_position(),
+            new_window_id: val.get_new_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnRemovedRemoveInfo")]
@@ -1124,6 +1334,25 @@ impl OnRemovedRemoveInfo {
 impl Default for OnRemovedRemoveInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnRemovedRemoveInfo`.
+pub struct OnRemovedRemoveInfoData {
+    ///True when the tab was closed because its parent window was closed.
+    pub is_window_closing: bool,
+    ///The window whose tab is closed.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnRemovedRemoveInfo> for OnRemovedRemoveInfoData {
+    fn from(val: &OnRemovedRemoveInfo) -> Self {
+        Self {
+            is_window_closing: val.get_is_window_closing(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1190,6 +1419,31 @@ impl Default for OnZoomChangeZoomChangeInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnZoomChangeZoomChangeInfo`.
+pub struct OnZoomChangeZoomChangeInfoData {
+    ///
+    pub new_zoom_factor: f64,
+    ///
+    pub old_zoom_factor: f64,
+    ///
+    pub tab_id: i32,
+    ///
+    pub zoom_settings: ZoomSettingsData,
+}
+#[cfg(feature = "serde")]
+impl From<&OnZoomChangeZoomChangeInfo> for OnZoomChangeZoomChangeInfoData {
+    fn from(val: &OnZoomChangeZoomChangeInfo) -> Self {
+        Self {
+            new_zoom_factor: val.get_new_zoom_factor(),
+            old_zoom_factor: val.get_old_zoom_factor(),
+            tab_id: val.get_tab_id(),
+            zoom_settings: (&val.get_zoom_settings()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConnectConnectInfo")]
@@ -1243,6 +1497,31 @@ impl Default for ConnectConnectInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConnectConnectInfo`.
+pub struct ConnectConnectInfoData {
+    ///Open a port to a specific document identified by documentId instead of all frames in the tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///Open a port to a specific frame identified by frameId instead of all frames in the tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///Is passed into onConnect for content scripts that are listening for the connection event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ConnectConnectInfo> for ConnectConnectInfoData {
+    fn from(val: &ConnectConnectInfo) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            name: val.get_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendMessageOptions")]
@@ -1283,6 +1562,27 @@ impl SendMessageOptions {
 impl Default for SendMessageOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendMessageOptions`.
+pub struct SendMessageOptionsData {
+    ///Send a message to a specific document identified by documentId instead of all frames in the tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///Send a message to a specific frame identified by frameId instead of all frames in the tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SendMessageOptions> for SendMessageOptionsData {
+    fn from(val: &SendMessageOptions) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1380,6 +1680,47 @@ impl CreateCreateProperties {
 impl Default for CreateCreateProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateCreateProperties`.
+pub struct CreateCreatePropertiesData {
+    ///Whether the tab should become the active tab in the window. Does not affect whether the window is focused (see $(ref:windows.update)). Defaults to true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<bool>,
+    ///The position the tab should take in the window. The provided value is clamped to between zero and the number of tabs in the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub index: Option<i32>,
+    ///The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as the newly created tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub opener_tab_id: Option<i32>,
+    ///Whether the tab should be pinned. Defaults to false
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pinned: Option<bool>,
+    ///Whether the tab should become the selected tab in the window. Defaults to true
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selected: Option<bool>,
+    ///The URL to initially navigate the tab to. Fully-qualified URLs must include a scheme (i.e., 'http://www.google.com', not 'www.google.com'). Relative URLs are relative to the current page within the extension. Defaults to the New Tab Page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    ///The window in which to create the new tab. Defaults to the current window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateCreateProperties> for CreateCreatePropertiesData {
+    fn from(val: &CreateCreateProperties) -> Self {
+        Self {
+            active: val.get_active(),
+            index: val.get_index(),
+            opener_tab_id: val.get_opener_tab_id(),
+            pinned: val.get_pinned(),
+            selected: val.get_selected(),
+            url: val.get_url(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1600,6 +1941,93 @@ impl Default for QueryQueryInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `QueryQueryInfo`.
+pub struct QueryQueryInfoData {
+    ///Whether the tabs are active in their windows.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<bool>,
+    ///Whether the tabs are audible.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audible: Option<bool>,
+    ///Whether the tabs can be discarded automatically by the browser when resources are low.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_discardable: Option<bool>,
+    ///Whether the tabs are in the current window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub current_window: Option<bool>,
+    ///Whether the tabs are discarded. A discarded tab is one whose content has been unloaded from memory, but is still visible in the tab strip. Its content is reloaded the next time it is activated.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub discarded: Option<bool>,
+    ///Whether the tabs are frozen. A frozen tab cannot execute tasks, including event handlers or timers. It is visible in the tab strip and its content is loaded in memory. It is unfrozen on activation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frozen: Option<bool>,
+    ///The ID of the group that the tabs are in, or $(ref:tabGroups.TAB_GROUP_ID_NONE) for ungrouped tabs.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub group_id: Option<i32>,
+    ///Whether the tabs are highlighted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub highlighted: Option<bool>,
+    ///The position of the tabs within their windows.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub index: Option<i32>,
+    ///Whether the tabs are in the last focused window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub last_focused_window: Option<bool>,
+    ///Whether the tabs are muted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub muted: Option<bool>,
+    ///Whether the tabs are pinned.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pinned: Option<bool>,
+    ///The ID of the Split View that the tabs are in, or $(ref:tabs.SPLIT_VIEW_ID_NONE) for tabs that aren't in a Split View.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub split_view_id: Option<i32>,
+    ///The tab loading status.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub status: Option<TabStatus>,
+    ///Match page titles against a pattern. This property is ignored if the extension does not have the "tabs" permission or host permissions for the page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///Match tabs against one or more URL patterns. Fragment identifiers are not matched. This property is ignored if the extension does not have the "tabs" permission or host permissions for the page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<serde_json::Value>,
+    ///The ID of the parent window, or $(ref:windows.WINDOW_ID_CURRENT) for the current window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+    ///The type of window the tabs are in.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_type: Option<WindowType>,
+}
+#[cfg(feature = "serde")]
+impl From<&QueryQueryInfo> for QueryQueryInfoData {
+    fn from(val: &QueryQueryInfo) -> Self {
+        Self {
+            active: val.get_active(),
+            audible: val.get_audible(),
+            auto_discardable: val.get_auto_discardable(),
+            current_window: val.get_current_window(),
+            discarded: val.get_discarded(),
+            frozen: val.get_frozen(),
+            group_id: val.get_group_id(),
+            highlighted: val.get_highlighted(),
+            index: val.get_index(),
+            last_focused_window: val.get_last_focused_window(),
+            muted: val.get_muted(),
+            pinned: val.get_pinned(),
+            split_view_id: val.get_split_view_id(),
+            status: val.get_status(),
+            title: val.get_title(),
+            url: val
+                .get_url()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            window_id: val.get_window_id(),
+            window_type: val.get_window_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HighlightHighlightInfo")]
@@ -1640,6 +2068,26 @@ impl HighlightHighlightInfo {
 impl Default for HighlightHighlightInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HighlightHighlightInfo`.
+pub struct HighlightHighlightInfoData {
+    ///One or more tab indices to highlight.
+    pub tabs: serde_json::Value,
+    ///The window that contains the tabs.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&HighlightHighlightInfo> for HighlightHighlightInfoData {
+    fn from(val: &HighlightHighlightInfo) -> Self {
+        Self {
+            tabs: serde_wasm_bindgen::from_value(val.get_tabs()).unwrap_or_default(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1750,6 +2198,51 @@ impl Default for UpdateUpdateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UpdateUpdateProperties`.
+pub struct UpdateUpdatePropertiesData {
+    ///Whether the tab should be active. Does not affect whether the window is focused (see $(ref:windows.update)).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active: Option<bool>,
+    ///Whether the tab should be discarded automatically by the browser when resources are low.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_discardable: Option<bool>,
+    ///Adds or removes the tab from the current selection.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub highlighted: Option<bool>,
+    ///Whether the tab should be muted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub muted: Option<bool>,
+    ///The ID of the tab that opened this tab. If specified, the opener tab must be in the same window as this tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub opener_tab_id: Option<i32>,
+    ///Whether the tab should be pinned.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pinned: Option<bool>,
+    ///Whether the tab should be selected.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selected: Option<bool>,
+    ///A URL to navigate the tab to. JavaScript URLs are not supported; use $(ref:scripting.executeScript) instead.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UpdateUpdateProperties> for UpdateUpdatePropertiesData {
+    fn from(val: &UpdateUpdateProperties) -> Self {
+        Self {
+            active: val.get_active(),
+            auto_discardable: val.get_auto_discardable(),
+            highlighted: val.get_highlighted(),
+            muted: val.get_muted(),
+            opener_tab_id: val.get_opener_tab_id(),
+            pinned: val.get_pinned(),
+            selected: val.get_selected(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MoveMoveProperties")]
@@ -1792,6 +2285,26 @@ impl Default for MoveMoveProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MoveMoveProperties`.
+pub struct MoveMovePropertiesData {
+    ///The position to move the window to. Use -1 to place the tab at the end of the window.
+    pub index: i32,
+    ///Defaults to the window the tab is currently in.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&MoveMoveProperties> for MoveMovePropertiesData {
+    fn from(val: &MoveMoveProperties) -> Self {
+        Self {
+            index: val.get_index(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReloadReloadProperties")]
@@ -1821,6 +2334,23 @@ impl ReloadReloadProperties {
 impl Default for ReloadReloadProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReloadReloadProperties`.
+pub struct ReloadReloadPropertiesData {
+    ///Whether to bypass local caching. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bypass_cache: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&ReloadReloadProperties> for ReloadReloadPropertiesData {
+    fn from(val: &ReloadReloadProperties) -> Self {
+        Self {
+            bypass_cache: val.get_bypass_cache(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1874,6 +2404,32 @@ impl GroupOptions {
 impl Default for GroupOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GroupOptions`.
+pub struct GroupOptionsData {
+    ///Configurations for creating a group. Cannot be used if groupId is already specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub create_properties: Option<serde_json::Value>,
+    ///The ID of the group to add the tabs to. If not specified, a new group will be created.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub group_id: Option<i32>,
+    ///The tab ID or list of tab IDs to add to the specified group.
+    pub tab_ids: serde_json::Value,
+}
+#[cfg(feature = "serde")]
+impl From<&GroupOptions> for GroupOptionsData {
+    fn from(val: &GroupOptions) -> Self {
+        Self {
+            create_properties: val
+                .get_create_properties()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            group_id: val.get_group_id(),
+            tab_ids: serde_wasm_bindgen::from_value(val.get_tab_ids()).unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]

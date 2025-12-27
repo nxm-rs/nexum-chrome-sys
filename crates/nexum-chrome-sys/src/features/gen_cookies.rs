@@ -572,6 +572,28 @@ impl Default for OnChangedChangeInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnChangedChangeInfo`.
+pub struct OnChangedChangeInfoData {
+    ///The underlying reason behind the cookie's change.
+    pub cause: OnChangedCause,
+    ///Information about the cookie that was set or removed.
+    pub cookie: CookieData,
+    ///True if a cookie was removed.
+    pub removed: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&OnChangedChangeInfo> for OnChangedChangeInfoData {
+    fn from(val: &OnChangedChangeInfo) -> Self {
+        Self {
+            cause: val.get_cause(),
+            cookie: (&val.get_cookie()).into(),
+            removed: val.get_removed(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetAllDetails")]
@@ -678,6 +700,51 @@ impl GetAllDetails {
 impl Default for GetAllDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetAllDetails`. Information to filter the cookies being retrieved.
+pub struct GetAllDetailsData {
+    ///Restricts the retrieved cookies to those whose domains match or are subdomains of this one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domain: Option<String>,
+    ///Filters the cookies by name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///The partition key for reading or modifying cookies with the Partitioned attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub partition_key: Option<CookiePartitionKeyData>,
+    ///Restricts the retrieved cookies to those whose path exactly matches this string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    ///Filters the cookies by their Secure property.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure: Option<bool>,
+    ///Filters out session vs. persistent cookies.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub session: Option<bool>,
+    ///The cookie store to retrieve cookies from. If omitted, the current execution context's cookie store will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub store_id: Option<String>,
+    ///Restricts the retrieved cookies to those that would match the given URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetAllDetails> for GetAllDetailsData {
+    fn from(val: &GetAllDetails) -> Self {
+        Self {
+            domain: val.get_domain(),
+            name: val.get_name(),
+            partition_key: val.get_partition_key().as_ref().map(|v| v.into()),
+            path: val.get_path(),
+            secure: val.get_secure(),
+            session: val.get_session(),
+            store_id: val.get_store_id(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -819,6 +886,62 @@ impl SetDetails {
 impl Default for SetDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetDetails`. Details about the cookie being set.
+pub struct SetDetailsData {
+    ///The domain of the cookie. If omitted, the cookie becomes a host-only cookie.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domain: Option<String>,
+    ///The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted, the cookie becomes a session cookie.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expiration_date: Option<f64>,
+    ///Whether the cookie should be marked as HttpOnly. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub http_only: Option<bool>,
+    ///The name of the cookie. Empty by default if omitted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///The partition key for reading or modifying cookies with the Partitioned attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub partition_key: Option<CookiePartitionKeyData>,
+    ///The path of the cookie. Defaults to the path portion of the url parameter.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    ///The cookie's same-site status. Defaults to "unspecified", i.e., if omitted, the cookie is set without specifying a SameSite attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub same_site: Option<SameSiteStatus>,
+    ///Whether the cookie should be marked as Secure. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure: Option<bool>,
+    ///The ID of the cookie store in which to set the cookie. By default, the cookie is set in the current execution context's cookie store.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub store_id: Option<String>,
+    ///The request-URI to associate with the setting of the cookie. This value can affect the default domain and path values of the created cookie. If host permissions for this URL are not specified in the manifest file, the API call will fail.
+    pub url: String,
+    ///The value of the cookie. Empty by default if omitted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetDetails> for SetDetailsData {
+    fn from(val: &SetDetails) -> Self {
+        Self {
+            domain: val.get_domain(),
+            expiration_date: val.get_expiration_date(),
+            http_only: val.get_http_only(),
+            name: val.get_name(),
+            partition_key: val.get_partition_key().as_ref().map(|v| v.into()),
+            path: val.get_path(),
+            same_site: val.get_same_site(),
+            secure: val.get_secure(),
+            store_id: val.get_store_id(),
+            url: val.get_url(),
+            value: val.get_value(),
+        }
     }
 }
 #[wasm_bindgen]

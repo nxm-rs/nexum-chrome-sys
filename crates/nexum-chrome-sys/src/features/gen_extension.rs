@@ -63,6 +63,31 @@ impl Default for GetViewsFetchProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetViewsFetchProperties`.
+pub struct GetViewsFetchPropertiesData {
+    ///Find a view according to a tab id. If this field is omitted, returns all views.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The type of view to get. If omitted, returns all views (including background pages and tabs).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<ViewType>,
+    ///The window to restrict the search to. If omitted, returns all views.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetViewsFetchProperties> for GetViewsFetchPropertiesData {
+    fn from(val: &GetViewsFetchProperties) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            r#type: val.get_type(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Sends a single request to other listeners within the extension. Similar to $(ref:runtime.connect), but only sends a single request with an optional response. The $(ref:extension.onRequest) event is fired in each page of the extension.

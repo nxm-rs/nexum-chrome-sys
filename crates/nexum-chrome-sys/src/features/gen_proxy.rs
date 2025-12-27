@@ -434,6 +434,28 @@ impl Default for OnProxyErrorDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnProxyErrorDetails`.
+pub struct OnProxyErrorDetailsData {
+    ///Additional details about the error such as a JavaScript runtime error.
+    pub details: String,
+    ///The error description.
+    pub error: String,
+    ///If true, the error was fatal and the network transaction was aborted. Otherwise, a direct connection is used instead.
+    pub fatal: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&OnProxyErrorDetails> for OnProxyErrorDetailsData {
+    fn from(val: &OnProxyErrorDetails) -> Self {
+        Self {
+            details: val.get_details(),
+            error: val.get_error(),
+            fatal: val.get_fatal(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Notifies about proxy errors.

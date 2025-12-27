@@ -100,6 +100,31 @@ impl Default for EvalOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EvalOptions`. The options parameter can contain one or more options.
+pub struct EvalOptionsData {
+    ///If specified, the expression is evaluated on the iframe whose URL matches the one specified. By default, the expression is evaluated in the top frame of the inspected page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_url: Option<String>,
+    ///Evaluate the expression in the context of a content script of an extension that matches the specified origin. If given, scriptExecutionContext overrides the 'true' setting on useContentScriptContext.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub script_execution_context: Option<String>,
+    ///Evaluate the expression in the context of the content script of the calling extension, provided that the content script is already injected into the inspected page. If not, the expression is not evaluated and the callback is invoked with the exception parameter set to an object that has the isError field set to true and the code field set to E_NOTFOUND.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub use_content_script_context: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&EvalOptions> for EvalOptionsData {
+    fn from(val: &EvalOptions) -> Self {
+        Self {
+            frame_url: val.get_frame_url(),
+            script_execution_context: val.get_script_execution_context(),
+            use_content_script_context: val.get_use_content_script_context(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReloadReloadOptions")]
@@ -151,6 +176,31 @@ impl ReloadReloadOptions {
 impl Default for ReloadReloadOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReloadReloadOptions`.
+pub struct ReloadReloadOptionsData {
+    ///When true, the loader will bypass the cache for all inspected page resources loaded before the load event is fired. The effect is similar to pressing Ctrl+Shift+R in the inspected window or within the Developer Tools window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ignore_cache: Option<bool>,
+    ///If specified, the script will be injected into every frame of the inspected page immediately upon load, before any of the frame's scripts. The script will not be injected after subsequent reloads&mdash;for example, if the user presses Ctrl+R.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub injected_script: Option<String>,
+    ///If specified, the string will override the value of the User-Agent HTTP header that's sent while loading the resources of the inspected page. The string will also override the value of the navigator.userAgent property that's returned to any scripts that are running within the inspected page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub user_agent: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ReloadReloadOptions> for ReloadReloadOptionsData {
+    fn from(val: &ReloadReloadOptions) -> Self {
+        Self {
+            ignore_cache: val.get_ignore_cache(),
+            injected_script: val.get_injected_script(),
+            user_agent: val.get_user_agent(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -112,6 +112,25 @@ impl Default for SetTitleDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetTitleDetails`.
+pub struct SetTitleDetailsData {
+    ///The id of the tab for which you want to modify the page action.
+    pub tab_id: i32,
+    ///The tooltip string.
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SetTitleDetails> for SetTitleDetailsData {
+    fn from(val: &SetTitleDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            title: val.get_title(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetIconDetails")]
@@ -176,6 +195,38 @@ impl Default for SetIconDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetIconDetails`.
+pub struct SetIconDetailsData {
+    ///Deprecated. This argument is ignored.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_index: Option<i32>,
+    ///Either an ImageData object or a dictionary {size - ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}'
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_data: Option<serde_json::Value>,
+    ///Either a relative image path or a dictionary {size - relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then image with size scale * n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}'
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<serde_json::Value>,
+    ///The id of the tab for which you want to modify the page action.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetIconDetails> for SetIconDetailsData {
+    fn from(val: &SetIconDetails) -> Self {
+        Self {
+            icon_index: val.get_icon_index(),
+            image_data: val
+                .get_image_data()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            path: val
+                .get_path()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetPopupDetails")]
@@ -216,6 +267,25 @@ impl SetPopupDetails {
 impl Default for SetPopupDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetPopupDetails`.
+pub struct SetPopupDetailsData {
+    ///The relative path to the HTML file to show in a popup. If set to the empty string (''), no popup is shown.
+    pub popup: String,
+    ///The id of the tab for which you want to modify the page action.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetPopupDetails> for SetPopupDetailsData {
+    fn from(val: &SetPopupDetails) -> Self {
+        Self {
+            popup: val.get_popup(),
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]

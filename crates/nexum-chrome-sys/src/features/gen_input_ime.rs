@@ -745,6 +745,33 @@ impl Default for OnSurroundingTextChangedSurroundingInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnSurroundingTextChangedSurroundingInfo`. The surrounding information.
+pub struct OnSurroundingTextChangedSurroundingInfoData {
+    ///The beginning position of the selection. This value indicates caret position if there is no selection.
+    pub anchor: i32,
+    ///The ending position of the selection. This value indicates caret position if there is no selection.
+    pub focus: i32,
+    ///The offset position of text. Since text only includes a subset of text around the cursor, offset indicates the absolute position of the first character of text.
+    pub offset: i32,
+    ///The text around the cursor. This is only a subset of all text in the input field.
+    pub text: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnSurroundingTextChangedSurroundingInfo>
+    for OnSurroundingTextChangedSurroundingInfoData
+{
+    fn from(val: &OnSurroundingTextChangedSurroundingInfo) -> Self {
+        Self {
+            anchor: val.get_anchor(),
+            focus: val.get_focus(),
+            offset: val.get_offset(),
+            text: val.get_text(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -788,6 +815,25 @@ impl OnAssistiveWindowButtonClickedDetails {
 impl Default for OnAssistiveWindowButtonClickedDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnAssistiveWindowButtonClickedDetails`.
+pub struct OnAssistiveWindowButtonClickedDetailsData {
+    ///The ID of the button clicked.
+    pub button_id: AssistiveWindowButton,
+    ///The type of the assistive window.
+    pub window_type: AssistiveWindowType,
+}
+#[cfg(feature = "serde")]
+impl From<&OnAssistiveWindowButtonClickedDetails> for OnAssistiveWindowButtonClickedDetailsData {
+    fn from(val: &OnAssistiveWindowButtonClickedDetails) -> Self {
+        Self {
+            button_id: val.get_button_id(),
+            window_type: val.get_window_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -876,6 +922,42 @@ impl Default for SetCompositionParameters {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetCompositionParameters`.
+pub struct SetCompositionParametersData {
+    ///ID of the context where the composition text will be set
+    pub context_id: i32,
+    ///Position in the text of the cursor.
+    pub cursor: i32,
+    ///List of segments and their associated types.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub segments: Option<Vec<serde_json::Value>>,
+    ///Position in the text that the selection ends at.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_end: Option<i32>,
+    ///Position in the text that the selection starts at.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub selection_start: Option<i32>,
+    ///Text to set
+    pub text: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SetCompositionParameters> for SetCompositionParametersData {
+    fn from(val: &SetCompositionParameters) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+            cursor: val.get_cursor(),
+            segments: val
+                .get_segments()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            selection_end: val.get_selection_end(),
+            selection_start: val.get_selection_start(),
+            text: val.get_text(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ClearCompositionParameters")]
@@ -905,6 +987,22 @@ impl ClearCompositionParameters {
 impl Default for ClearCompositionParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ClearCompositionParameters`.
+pub struct ClearCompositionParametersData {
+    ///ID of the context where the composition will be cleared
+    pub context_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ClearCompositionParameters> for ClearCompositionParametersData {
+    fn from(val: &ClearCompositionParameters) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -949,6 +1047,25 @@ impl Default for CommitTextParameters {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CommitTextParameters`.
+pub struct CommitTextParametersData {
+    ///ID of the context where the text will be committed
+    pub context_id: i32,
+    ///The text to commit
+    pub text: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CommitTextParameters> for CommitTextParametersData {
+    fn from(val: &CommitTextParameters) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+            text: val.get_text(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendKeyEventsParameters")]
@@ -989,6 +1106,25 @@ impl SendKeyEventsParameters {
 impl Default for SendKeyEventsParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendKeyEventsParameters`.
+pub struct SendKeyEventsParametersData {
+    ///ID of the context where the key events will be sent, or zero to send key events to non-input field.
+    pub context_id: i32,
+    ///Data on the key event.
+    pub key_data: Vec<KeyboardEventData>,
+}
+#[cfg(feature = "serde")]
+impl From<&SendKeyEventsParameters> for SendKeyEventsParametersData {
+    fn from(val: &SendKeyEventsParameters) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+            key_data: serde_wasm_bindgen::from_value(val.get_key_data().into()).unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1036,6 +1172,26 @@ impl Default for SetCandidateWindowPropertiesParameters {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetCandidateWindowPropertiesParameters`.
+pub struct SetCandidateWindowPropertiesParametersData {
+    ///ID of the engine to set properties on.
+    pub engine_id: String,
+    ///
+    pub properties: serde_json::Value,
+}
+#[cfg(feature = "serde")]
+impl From<&SetCandidateWindowPropertiesParameters> for SetCandidateWindowPropertiesParametersData {
+    fn from(val: &SetCandidateWindowPropertiesParameters) -> Self {
+        Self {
+            engine_id: val.get_engine_id(),
+            properties: serde_wasm_bindgen::from_value(val.get_properties().into())
+                .unwrap_or_default(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetCandidatesParameters")]
@@ -1078,6 +1234,26 @@ impl Default for SetCandidatesParameters {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetCandidatesParameters`.
+pub struct SetCandidatesParametersData {
+    ///List of candidates to show in the candidate window
+    pub candidates: Vec<serde_json::Value>,
+    ///ID of the context that owns the candidate window.
+    pub context_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetCandidatesParameters> for SetCandidatesParametersData {
+    fn from(val: &SetCandidatesParameters) -> Self {
+        Self {
+            candidates: serde_wasm_bindgen::from_value(val.get_candidates().into())
+                .unwrap_or_default(),
+            context_id: val.get_context_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetCursorPositionParameters")]
@@ -1118,6 +1294,25 @@ impl SetCursorPositionParameters {
 impl Default for SetCursorPositionParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetCursorPositionParameters`.
+pub struct SetCursorPositionParametersData {
+    ///ID of the candidate to select.
+    pub candidate_id: i32,
+    ///ID of the context that owns the candidate window.
+    pub context_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetCursorPositionParameters> for SetCursorPositionParametersData {
+    fn from(val: &SetCursorPositionParameters) -> Self {
+        Self {
+            candidate_id: val.get_candidate_id(),
+            context_id: val.get_context_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1168,6 +1363,25 @@ impl SetAssistiveWindowPropertiesParameters {
 impl Default for SetAssistiveWindowPropertiesParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetAssistiveWindowPropertiesParameters`.
+pub struct SetAssistiveWindowPropertiesParametersData {
+    ///ID of the context owning the assistive window.
+    pub context_id: i32,
+    ///Properties of the assistive window.
+    pub properties: AssistiveWindowPropertiesData,
+}
+#[cfg(feature = "serde")]
+impl From<&SetAssistiveWindowPropertiesParameters> for SetAssistiveWindowPropertiesParametersData {
+    fn from(val: &SetAssistiveWindowPropertiesParameters) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+            properties: (&val.get_properties()).into(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1260,6 +1474,37 @@ impl Default for SetAssistiveWindowButtonHighlightedParameters {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetAssistiveWindowButtonHighlightedParameters`.
+pub struct SetAssistiveWindowButtonHighlightedParametersData {
+    ///The text for the screenreader to announce.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub announce_string: Option<String>,
+    ///The ID of the button
+    pub button_id: AssistiveWindowButton,
+    ///ID of the context owning the assistive window.
+    pub context_id: i32,
+    ///Whether the button should be highlighted.
+    pub highlighted: bool,
+    ///The window type the button belongs to.
+    pub window_type: AssistiveWindowType,
+}
+#[cfg(feature = "serde")]
+impl From<&SetAssistiveWindowButtonHighlightedParameters>
+    for SetAssistiveWindowButtonHighlightedParametersData
+{
+    fn from(val: &SetAssistiveWindowButtonHighlightedParameters) -> Self {
+        Self {
+            announce_string: val.get_announce_string(),
+            button_id: val.get_button_id(),
+            context_id: val.get_context_id(),
+            highlighted: val.get_highlighted(),
+            window_type: val.get_window_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1325,6 +1570,31 @@ impl DeleteSurroundingTextParameters {
 impl Default for DeleteSurroundingTextParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeleteSurroundingTextParameters`.
+pub struct DeleteSurroundingTextParametersData {
+    ///ID of the context where the surrounding text will be deleted.
+    pub context_id: i32,
+    ///ID of the engine receiving the event.
+    pub engine_id: String,
+    ///The number of characters to be deleted
+    pub length: i32,
+    ///The offset from the caret position where deletion will start. This value can be negative.
+    pub offset: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&DeleteSurroundingTextParameters> for DeleteSurroundingTextParametersData {
+    fn from(val: &DeleteSurroundingTextParameters) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+            engine_id: val.get_engine_id(),
+            length: val.get_length(),
+            offset: val.get_offset(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -122,6 +122,31 @@ impl Default for AddHostAccessRequestRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AddHostAccessRequestRequest`.
+pub struct AddHostAccessRequestRequestData {
+    ///The id of a document where host access requests can be shown. Must be the top-level document within a tab. If provided, the request is shown on the tab of the specified document and is removed when the document navigates to a new origin. Adding a new request will override any existent request for `tabId`. This or `tabId` must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The URL pattern where host access requests can be shown. If provided, host access requests will only be shown on URLs that match this pattern.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pattern: Option<String>,
+    ///The id of the tab where host access requests can be shown. If provided, the request is shown on the specified tab and is removed when the tab navigates to a new origin. Adding a new request will override an existent request for `documentId`. This or `documentId` must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&AddHostAccessRequestRequest> for AddHostAccessRequestRequestData {
+    fn from(val: &AddHostAccessRequestRequest) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            pattern: val.get_pattern(),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -176,6 +201,31 @@ impl RemoveHostAccessRequestRequest {
 impl Default for RemoveHostAccessRequestRequest {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RemoveHostAccessRequestRequest`.
+pub struct RemoveHostAccessRequestRequestData {
+    ///The id of a document where host access request will be removed. Must be the top-level document within a tab. This or `tabId` must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The URL pattern where host access request will be removed. If provided, this must exactly match the pattern of an existing host access request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub pattern: Option<String>,
+    ///The id of the tab where host access request will be removed. This or `documentId` must be specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&RemoveHostAccessRequestRequest> for RemoveHostAccessRequestRequestData {
+    fn from(val: &RemoveHostAccessRequestRequest) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            pattern: val.get_pattern(),
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]

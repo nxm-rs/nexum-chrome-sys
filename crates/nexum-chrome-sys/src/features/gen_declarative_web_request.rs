@@ -2383,6 +2383,54 @@ impl Default for OnMessageDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnMessageDetails`.
+pub struct OnMessageDetailsData {
+    ///A UUID of the document that made the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///The message sent by the calling script.
+    pub message: String,
+    ///Standard HTTP method.
+    pub method: String,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///The stage of the network request during which the event was triggered.
+    pub stage: Stage,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnMessageDetails> for OnMessageDetailsData {
+    fn from(val: &OnMessageDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            message: val.get_message(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            stage: val.get_stage(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///

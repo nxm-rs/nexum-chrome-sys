@@ -55,6 +55,30 @@ impl Default for OnMessageMessage {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnMessageMessage`. A message received from another party via FCM.
+pub struct OnMessageMessageData {
+    ///The collapse key of a message. See the Non-collapsible and collapsible messages for details.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collapse_key: Option<String>,
+    ///The message data.
+    pub data: serde_json::Value,
+    ///The sender who issued the message.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub from: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnMessageMessage> for OnMessageMessageData {
+    fn from(val: &OnMessageMessage) -> Self {
+        Self {
+            collapse_key: val.get_collapse_key(),
+            data: serde_wasm_bindgen::from_value(val.get_data().into()).unwrap_or_default(),
+            from: val.get_from(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnSendErrorError")]
@@ -106,6 +130,29 @@ impl OnSendErrorError {
 impl Default for OnSendErrorError {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnSendErrorError`. An error that occured while trying to send the message either in Chrome or on the FCM server. Application can retry sending the message with a reasonable backoff and possibly longer time-to-live.
+pub struct OnSendErrorErrorData {
+    ///Additional details related to the error, when available.
+    pub details: serde_json::Value,
+    ///The error message describing the problem.
+    pub error_message: String,
+    ///The ID of the message with this error, if error is related to a specific message.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub message_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnSendErrorError> for OnSendErrorErrorData {
+    fn from(val: &OnSendErrorError) -> Self {
+        Self {
+            details: serde_wasm_bindgen::from_value(val.get_details().into()).unwrap_or_default(),
+            error_message: val.get_error_message(),
+            message_id: val.get_message_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -170,6 +217,32 @@ impl SendMessage {
 impl Default for SendMessage {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendMessage`. A message to send to the other party via FCM.
+pub struct SendMessageData {
+    ///Message data to send to the server. Case-insensitive goog. and google, as well as case-sensitive collapse_key are disallowed as key prefixes. Sum of all key/value pairs should not exceed $(ref:gcm.MAX_MESSAGE_SIZE).
+    pub data: serde_json::Value,
+    ///The ID of the server to send the message to as assigned by Google API Console.
+    pub destination_id: String,
+    ///The ID of the message. It must be unique for each message in scope of the applications. See the Cloud Messaging documentation for advice for picking and handling an ID.
+    pub message_id: String,
+    ///Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The default value of time-to-live is 86,400 seconds (1 day) and the maximum value is 2,419,200 seconds (28 days).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub time_to_live: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SendMessage> for SendMessageData {
+    fn from(val: &SendMessage) -> Self {
+        Self {
+            data: serde_wasm_bindgen::from_value(val.get_data().into()).unwrap_or_default(),
+            destination_id: val.get_destination_id(),
+            message_id: val.get_message_id(),
+            time_to_live: val.get_time_to_live(),
+        }
     }
 }
 #[wasm_bindgen]

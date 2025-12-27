@@ -308,6 +308,32 @@ impl Default for OnFontChangedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnFontChangedDetails`.
+pub struct OnFontChangedDetailsData {
+    ///The font ID. See the description in getFont.
+    pub font_id: String,
+    ///The generic font family for which the font setting has changed.
+    pub generic_family: GenericFamily,
+    ///The level of control this extension has over the setting.
+    pub level_of_control: LevelOfControl,
+    ///The script code for which the font setting has changed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub script: Option<ScriptCode>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnFontChangedDetails> for OnFontChangedDetailsData {
+    fn from(val: &OnFontChangedDetails) -> Self {
+        Self {
+            font_id: val.get_font_id(),
+            generic_family: val.get_generic_family(),
+            level_of_control: val.get_level_of_control(),
+            script: val.get_script(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -351,6 +377,25 @@ impl OnDefaultFontSizeChangedDetails {
 impl Default for OnDefaultFontSizeChangedDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnDefaultFontSizeChangedDetails`.
+pub struct OnDefaultFontSizeChangedDetailsData {
+    ///The level of control this extension has over the setting.
+    pub level_of_control: LevelOfControl,
+    ///The font size in pixels.
+    pub pixel_size: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnDefaultFontSizeChangedDetails> for OnDefaultFontSizeChangedDetailsData {
+    fn from(val: &OnDefaultFontSizeChangedDetails) -> Self {
+        Self {
+            level_of_control: val.get_level_of_control(),
+            pixel_size: val.get_pixel_size(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -398,6 +443,25 @@ impl Default for OnDefaultFixedFontSizeChangedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnDefaultFixedFontSizeChangedDetails`.
+pub struct OnDefaultFixedFontSizeChangedDetailsData {
+    ///The level of control this extension has over the setting.
+    pub level_of_control: LevelOfControl,
+    ///The font size in pixels.
+    pub pixel_size: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnDefaultFixedFontSizeChangedDetails> for OnDefaultFixedFontSizeChangedDetailsData {
+    fn from(val: &OnDefaultFixedFontSizeChangedDetails) -> Self {
+        Self {
+            level_of_control: val.get_level_of_control(),
+            pixel_size: val.get_pixel_size(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -443,6 +507,25 @@ impl Default for OnMinimumFontSizeChangedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnMinimumFontSizeChangedDetails`.
+pub struct OnMinimumFontSizeChangedDetailsData {
+    ///The level of control this extension has over the setting.
+    pub level_of_control: LevelOfControl,
+    ///The font size in pixels.
+    pub pixel_size: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&OnMinimumFontSizeChangedDetails> for OnMinimumFontSizeChangedDetailsData {
+    fn from(val: &OnMinimumFontSizeChangedDetails) -> Self {
+        Self {
+            level_of_control: val.get_level_of_control(),
+            pixel_size: val.get_pixel_size(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ClearFontDetails")]
@@ -485,6 +568,26 @@ impl Default for ClearFontDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ClearFontDetails`.
+pub struct ClearFontDetailsData {
+    ///The generic font family for which the font should be cleared.
+    pub generic_family: GenericFamily,
+    ///The script for which the font should be cleared. If omitted, the global script font setting is cleared.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub script: Option<ScriptCode>,
+}
+#[cfg(feature = "serde")]
+impl From<&ClearFontDetails> for ClearFontDetailsData {
+    fn from(val: &ClearFontDetails) -> Self {
+        Self {
+            generic_family: val.get_generic_family(),
+            script: val.get_script(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetFontDetails")]
@@ -525,6 +628,26 @@ impl GetFontDetails {
 impl Default for GetFontDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetFontDetails`.
+pub struct GetFontDetailsData {
+    ///The generic font family for which the font should be retrieved.
+    pub generic_family: GenericFamily,
+    ///The script for which the font should be retrieved. If omitted, the font setting for the global script (script code "Zyyy") is retrieved.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub script: Option<ScriptCode>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetFontDetails> for GetFontDetailsData {
+    fn from(val: &GetFontDetails) -> Self {
+        Self {
+            generic_family: val.get_generic_family(),
+            script: val.get_script(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -580,6 +703,29 @@ impl Default for SetFontDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetFontDetails`.
+pub struct SetFontDetailsData {
+    ///The font ID. The empty string means to fallback to the global script font setting.
+    pub font_id: String,
+    ///The generic font family for which the font should be set.
+    pub generic_family: GenericFamily,
+    ///The script code which the font should be set. If omitted, the font setting for the global script (script code "Zyyy") is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub script: Option<ScriptCode>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetFontDetails> for SetFontDetailsData {
+    fn from(val: &SetFontDetails) -> Self {
+        Self {
+            font_id: val.get_font_id(),
+            generic_family: val.get_generic_family(),
+            script: val.get_script(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetDefaultFontSizeDetails")]
@@ -609,6 +755,22 @@ impl SetDefaultFontSizeDetails {
 impl Default for SetDefaultFontSizeDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetDefaultFontSizeDetails`.
+pub struct SetDefaultFontSizeDetailsData {
+    ///The font size in pixels.
+    pub pixel_size: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetDefaultFontSizeDetails> for SetDefaultFontSizeDetailsData {
+    fn from(val: &SetDefaultFontSizeDetails) -> Self {
+        Self {
+            pixel_size: val.get_pixel_size(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -645,6 +807,22 @@ impl Default for SetDefaultFixedFontSizeDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetDefaultFixedFontSizeDetails`.
+pub struct SetDefaultFixedFontSizeDetailsData {
+    ///The font size in pixels.
+    pub pixel_size: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetDefaultFixedFontSizeDetails> for SetDefaultFixedFontSizeDetailsData {
+    fn from(val: &SetDefaultFixedFontSizeDetails) -> Self {
+        Self {
+            pixel_size: val.get_pixel_size(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetMinimumFontSizeDetails")]
@@ -674,6 +852,22 @@ impl SetMinimumFontSizeDetails {
 impl Default for SetMinimumFontSizeDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetMinimumFontSizeDetails`.
+pub struct SetMinimumFontSizeDetailsData {
+    ///The font size in pixels.
+    pub pixel_size: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SetMinimumFontSizeDetails> for SetMinimumFontSizeDetailsData {
+    fn from(val: &SetMinimumFontSizeDetails) -> Self {
+        Self {
+            pixel_size: val.get_pixel_size(),
+        }
     }
 }
 #[wasm_bindgen]

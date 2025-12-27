@@ -162,6 +162,41 @@ impl Default for OnBeforeNavigateDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnBeforeNavigateDetails`.
+pub struct OnBeforeNavigateDetailsData {
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique for a given tab and process.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The value of -1.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation is about to occur.
+    pub tab_id: i32,
+    ///The time when the browser was about to start the navigation, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnBeforeNavigateDetails> for OnBeforeNavigateDetailsData {
+    fn from(val: &OnBeforeNavigateDetails) -> Self {
+        Self {
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnCommittedDetails")]
@@ -328,6 +363,53 @@ impl Default for OnCommittedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnCommittedDetails`.
+pub struct OnCommittedDetailsData {
+    ///A UUID of the document loaded.
+    pub document_id: String,
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The ID of the process that runs the renderer for this frame.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation occurs.
+    pub tab_id: i32,
+    ///The time when the navigation was committed, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///A list of transition qualifiers.
+    pub transition_qualifiers: Vec<TransitionQualifier>,
+    ///Cause of the navigation.
+    pub transition_type: TransitionType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnCommittedDetails> for OnCommittedDetailsData {
+    fn from(val: &OnCommittedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            transition_qualifiers: serde_wasm_bindgen::from_value(
+                val.get_transition_qualifiers().into(),
+            )
+            .unwrap_or_default(),
+            transition_type: val.get_transition_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnDomContentLoadedDetails")]
@@ -472,6 +554,44 @@ impl Default for OnDomContentLoadedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnDomContentLoadedDetails`.
+pub struct OnDomContentLoadedDetailsData {
+    ///A UUID of the document loaded.
+    pub document_id: String,
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The ID of the process that runs the renderer for this frame.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation occurs.
+    pub tab_id: i32,
+    ///The time when the page's DOM was fully constructed, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnDomContentLoadedDetails> for OnDomContentLoadedDetailsData {
+    fn from(val: &OnDomContentLoadedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnCompletedDetails")]
@@ -614,6 +734,44 @@ impl OnCompletedDetails {
 impl Default for OnCompletedDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnCompletedDetails`.
+pub struct OnCompletedDetailsData {
+    ///A UUID of the document loaded.
+    pub document_id: String,
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The ID of the process that runs the renderer for this frame.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation occurs.
+    pub tab_id: i32,
+    ///The time when the document finished loading, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnCompletedDetails> for OnCompletedDetailsData {
+    fn from(val: &OnCompletedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -771,6 +929,47 @@ impl Default for OnErrorOccurredDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnErrorOccurredDetails`.
+pub struct OnErrorOccurredDetailsData {
+    ///A UUID of the document loaded.
+    pub document_id: String,
+    ///The error description.
+    pub error: String,
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The value of -1.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation occurs.
+    pub tab_id: i32,
+    ///The time when the error occurred, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnErrorOccurredDetails> for OnErrorOccurredDetailsData {
+    fn from(val: &OnErrorOccurredDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            error: val.get_error(),
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -858,6 +1057,37 @@ impl OnCreatedNavigationTargetDetails {
 impl Default for OnCreatedNavigationTargetDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnCreatedNavigationTargetDetails`.
+pub struct OnCreatedNavigationTargetDetailsData {
+    ///The ID of the frame with sourceTabId in which the navigation is triggered. 0 indicates the main frame.
+    pub source_frame_id: i32,
+    ///The ID of the process that runs the renderer for the source frame.
+    pub source_process_id: i32,
+    ///The ID of the tab in which the navigation is triggered.
+    pub source_tab_id: i32,
+    ///The ID of the tab in which the url is opened
+    pub tab_id: i32,
+    ///The time when the browser was about to create a new view, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///The URL to be opened in the new window.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnCreatedNavigationTargetDetails> for OnCreatedNavigationTargetDetailsData {
+    fn from(val: &OnCreatedNavigationTargetDetails) -> Self {
+        Self {
+            source_frame_id: val.get_source_frame_id(),
+            source_process_id: val.get_source_process_id(),
+            source_tab_id: val.get_source_tab_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1034,6 +1264,53 @@ impl Default for OnReferenceFragmentUpdatedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnReferenceFragmentUpdatedDetails`.
+pub struct OnReferenceFragmentUpdatedDetailsData {
+    ///A UUID of the document loaded.
+    pub document_id: String,
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The ID of the process that runs the renderer for this frame.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation occurs.
+    pub tab_id: i32,
+    ///The time when the navigation was committed, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///A list of transition qualifiers.
+    pub transition_qualifiers: Vec<TransitionQualifier>,
+    ///Cause of the navigation.
+    pub transition_type: TransitionType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnReferenceFragmentUpdatedDetails> for OnReferenceFragmentUpdatedDetailsData {
+    fn from(val: &OnReferenceFragmentUpdatedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            transition_qualifiers: serde_wasm_bindgen::from_value(
+                val.get_transition_qualifiers().into(),
+            )
+            .unwrap_or_default(),
+            transition_type: val.get_transition_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnTabReplacedDetails")]
@@ -1085,6 +1362,28 @@ impl OnTabReplacedDetails {
 impl Default for OnTabReplacedDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnTabReplacedDetails`.
+pub struct OnTabReplacedDetailsData {
+    ///The ID of the tab that was replaced.
+    pub replaced_tab_id: i32,
+    ///The ID of the tab that replaced the old tab.
+    pub tab_id: i32,
+    ///The time when the replacement happened, in milliseconds since the epoch.
+    pub time_stamp: f64,
+}
+#[cfg(feature = "serde")]
+impl From<&OnTabReplacedDetails> for OnTabReplacedDetailsData {
+    fn from(val: &OnTabReplacedDetails) -> Self {
+        Self {
+            replaced_tab_id: val.get_replaced_tab_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1257,6 +1556,53 @@ impl Default for OnHistoryStateUpdatedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnHistoryStateUpdatedDetails`.
+pub struct OnHistoryStateUpdatedDetailsData {
+    ///A UUID of the document loaded.
+    pub document_id: String,
+    ///0 indicates the navigation happens in the tab content window; a positive value indicates navigation in a subframe. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///A UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///The ID of the parent frame, or -1 if this is the main frame.
+    pub parent_frame_id: i32,
+    ///The ID of the process that runs the renderer for this frame.
+    pub process_id: i32,
+    ///The ID of the tab in which the navigation occurs.
+    pub tab_id: i32,
+    ///The time when the navigation was committed, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///A list of transition qualifiers.
+    pub transition_qualifiers: Vec<TransitionQualifier>,
+    ///Cause of the navigation.
+    pub transition_type: TransitionType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnHistoryStateUpdatedDetails> for OnHistoryStateUpdatedDetailsData {
+    fn from(val: &OnHistoryStateUpdatedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            transition_qualifiers: serde_wasm_bindgen::from_value(
+                val.get_transition_qualifiers().into(),
+            )
+            .unwrap_or_default(),
+            transition_type: val.get_transition_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetFrameDetails")]
@@ -1321,6 +1667,35 @@ impl Default for GetFrameDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetFrameDetails`. Information about the frame to retrieve information about.
+pub struct GetFrameDetailsData {
+    ///The UUID of the document. If the frameId and/or tabId are provided they will be validated to match the document found by provided document ID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The ID of the frame in the given tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///The ID of the process that runs the renderer for this tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub process_id: Option<i32>,
+    ///The ID of the tab in which the frame is.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetFrameDetails> for GetFrameDetailsData {
+    fn from(val: &GetFrameDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            process_id: val.get_process_id(),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetAllFramesDetails")]
@@ -1350,6 +1725,22 @@ impl GetAllFramesDetails {
 impl Default for GetAllFramesDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetAllFramesDetails`. Information about the tab to retrieve all frames from.
+pub struct GetAllFramesDetailsData {
+    ///The ID of the tab.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&GetAllFramesDetails> for GetAllFramesDetailsData {
+    fn from(val: &GetAllFramesDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]

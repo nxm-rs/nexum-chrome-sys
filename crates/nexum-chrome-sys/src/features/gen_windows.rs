@@ -464,6 +464,65 @@ impl Default for CreateCreateData {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateCreateData`.
+pub struct CreateCreateDataData {
+    ///If true, opens an active window. If false, opens an inactive window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub focused: Option<bool>,
+    ///The height in pixels of the new window, including the frame. If not specified, defaults to a natural height.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///Whether the new window should be an incognito window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub incognito: Option<bool>,
+    ///The number of pixels to position the new window from the left edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub left: Option<i32>,
+    ///If true, the newly-created window's 'window.opener' is set to the caller and is in the same unit of related browsing contexts as the caller.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub set_self_as_opener: Option<bool>,
+    ///The initial state of the window. The minimized, maximized, and fullscreen states cannot be combined with left, top, width, or height.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<WindowState>,
+    ///The ID of the tab to add to the new window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The number of pixels to position the new window from the top edge of the screen. If not specified, the new window is offset naturally from the last focused window. This value is ignored for panels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    ///Specifies what type of browser window to create.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<CreateType>,
+    ///A URL or array of URLs to open as tabs in the window. Fully-qualified URLs must include a scheme, e.g., 'http://www.google.com', not 'www.google.com'. Non-fully-qualified URLs are considered relative within the extension. Defaults to the New Tab Page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<serde_json::Value>,
+    ///The width in pixels of the new window, including the frame. If not specified, defaults to a natural width.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateCreateData> for CreateCreateDataData {
+    fn from(val: &CreateCreateData) -> Self {
+        Self {
+            focused: val.get_focused(),
+            height: val.get_height(),
+            incognito: val.get_incognito(),
+            left: val.get_left(),
+            set_self_as_opener: val.get_set_self_as_opener(),
+            state: val.get_state(),
+            tab_id: val.get_tab_id(),
+            top: val.get_top(),
+            r#type: val.get_type(),
+            url: val
+                .get_url()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateUpdateInfo")]
@@ -559,6 +618,47 @@ impl UpdateUpdateInfo {
 impl Default for UpdateUpdateInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UpdateUpdateInfo`.
+pub struct UpdateUpdateInfoData {
+    ///If true, causes the window to be displayed in a manner that draws the user's attention to the window, without changing the focused window. The effect lasts until the user changes focus to the window. This option has no effect if the window already has focus. Set to false to cancel a previous drawAttention request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub draw_attention: Option<bool>,
+    ///If true, brings the window to the front; cannot be combined with the state 'minimized'. If false, brings the next window in the z-order to the front; cannot be combined with the state 'fullscreen' or 'maximized'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub focused: Option<bool>,
+    ///The height to resize the window to in pixels. This value is ignored for panels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///The offset from the left edge of the screen to move the window to in pixels. This value is ignored for panels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub left: Option<i32>,
+    ///The new state of the window. The 'minimized', 'maximized', and 'fullscreen' states cannot be combined with 'left', 'top', 'width', or 'height'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<WindowState>,
+    ///The offset from the top edge of the screen to move the window to in pixels. This value is ignored for panels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    ///The width to resize the window to in pixels. This value is ignored for panels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&UpdateUpdateInfo> for UpdateUpdateInfoData {
+    fn from(val: &UpdateUpdateInfo) -> Self {
+        Self {
+            draw_attention: val.get_draw_attention(),
+            focused: val.get_focused(),
+            height: val.get_height(),
+            left: val.get_left(),
+            state: val.get_state(),
+            top: val.get_top(),
+            width: val.get_width(),
+        }
     }
 }
 #[wasm_bindgen]
