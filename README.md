@@ -15,6 +15,7 @@ Auto-generated from Google's official [chrome-types](https://github.com/GoogleCh
 - **Feature-gated** - only compile what you use
 - **Type-safe** - full Rust type checking for Chrome APIs
 - **Zero-cost abstractions** - thin wasm-bindgen wrappers over JS objects
+- **Serde support** - optional serializable companion types
 - **Auto-updated** - weekly regeneration from latest Chrome API definitions
 
 ## Installation
@@ -84,6 +85,28 @@ create_props.set_pinned(false);
 
 // Pass to Chrome API
 let promise = tabs::create(create_props);
+```
+
+### Serde Support
+
+Enable the `serde` feature for serializable companion types:
+
+```toml
+[dependencies]
+nexum-chrome-sys = { version = "0.1", features = ["serde", "tabs"] }
+```
+
+Each dictionary type gets a `*Data` companion struct:
+
+```rust
+use nexum_chrome_sys::tabs::{Tab, TabData};
+
+// Convert from wasm-bindgen type to serializable struct
+let tab: Tab = get_tab_somehow();
+let data: TabData = (&tab).into();
+
+// Now you can serialize it
+let json = serde_json::to_string(&data)?;
 ```
 
 ## Regeneration
