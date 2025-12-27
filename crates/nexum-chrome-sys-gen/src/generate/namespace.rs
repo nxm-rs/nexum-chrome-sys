@@ -10,7 +10,7 @@ use proc_macro2::TokenStream;
 use quote::quote;
 
 use super::functions::{GenerateEvent, GenerateFunction};
-use super::types::{generate_type, GenContext};
+use super::types::{GenContext, generate_type};
 use crate::schema::NamespaceSpec;
 
 /// Generate Rust code for a namespace.

@@ -4,7 +4,7 @@ use heck::ToSnakeCase;
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 
-use super::types::{map_type_to_js, GenContext};
+use super::types::{GenContext, map_type_to_js};
 use super::utils::{clean_html, make_ident};
 use crate::schema::{EventSpec, TypeSpec};
 
