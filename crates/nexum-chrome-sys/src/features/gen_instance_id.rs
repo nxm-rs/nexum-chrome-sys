@@ -55,6 +55,31 @@ impl Default for GetTokenGetTokenParams {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetTokenGetTokenParams`. Parameters for getToken.
+pub struct GetTokenGetTokenParamsData {
+    ///Identifies the entity that is authorized to access resources associated with this Instance ID. It can be a project ID from Google developer console.
+    pub authorized_entity: String,
+    ///Allows including a small number of string key/value pairs that will be associated with the token and may be used in processing the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub options: Option<serde_json::Value>,
+    ///Identifies authorized actions that the authorized entity can take. E.g. for sending GCM messages, GCM scope should be used.
+    pub scope: String,
+}
+#[cfg(feature = "serde")]
+impl From<&GetTokenGetTokenParams> for GetTokenGetTokenParamsData {
+    fn from(val: &GetTokenGetTokenParams) -> Self {
+        Self {
+            authorized_entity: val.get_authorized_entity(),
+            options: val
+                .get_options()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            scope: val.get_scope(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeleteTokenDeleteTokenParams")]
@@ -95,6 +120,25 @@ impl DeleteTokenDeleteTokenParams {
 impl Default for DeleteTokenDeleteTokenParams {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeleteTokenDeleteTokenParams`. Parameters for deleteToken.
+pub struct DeleteTokenDeleteTokenParamsData {
+    ///The authorized entity that is used to obtain the token.
+    pub authorized_entity: String,
+    ///The scope that is used to obtain the token.
+    pub scope: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DeleteTokenDeleteTokenParams> for DeleteTokenDeleteTokenParamsData {
+    fn from(val: &DeleteTokenDeleteTokenParams) -> Self {
+        Self {
+            authorized_entity: val.get_authorized_entity(),
+            scope: val.get_scope(),
+        }
     }
 }
 #[wasm_bindgen]

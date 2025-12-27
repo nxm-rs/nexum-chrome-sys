@@ -663,6 +663,61 @@ impl Default for OnBeforeRequestDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnBeforeRequestDetails`.
+pub struct OnBeforeRequestDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_body: Option<serde_json::Value>,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnBeforeRequestDetails> for OnBeforeRequestDetailsData {
+    fn from(val: &OnBeforeRequestDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            initiator: val.get_initiator(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_body: val
+                .get_request_body()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            request_id: val.get_request_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnBeforeSendHeadersDetails")]
@@ -854,6 +909,55 @@ impl Default for OnBeforeSendHeadersDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnBeforeSendHeadersDetails`.
+pub struct OnBeforeSendHeadersDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnBeforeSendHeadersDetails> for OnBeforeSendHeadersDetailsData {
+    fn from(val: &OnBeforeSendHeadersDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            initiator: val.get_initiator(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnSendHeadersDetails")]
@@ -1040,6 +1144,55 @@ impl OnSendHeadersDetails {
 impl Default for OnSendHeadersDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnSendHeadersDetails`.
+pub struct OnSendHeadersDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnSendHeadersDetails> for OnSendHeadersDetailsData {
+    fn from(val: &OnSendHeadersDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            initiator: val.get_initiator(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1261,6 +1414,65 @@ impl OnHeadersReceivedDetails {
 impl Default for OnHeadersReceivedDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnHeadersReceivedDetails`.
+pub struct OnHeadersReceivedDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///Information about the TLS/QUIC connection used for the underlying connection. Only provided if securityInfo is specified in the extraInfoSpec parameter.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub security_info: Option<SecurityInfoData>,
+    ///Standard HTTP status code returned by the server.
+    pub status_code: i32,
+    ///HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line).
+    pub status_line: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnHeadersReceivedDetails> for OnHeadersReceivedDetailsData {
+    fn from(val: &OnHeadersReceivedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            initiator: val.get_initiator(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            security_info: val.get_security_info().as_ref().map(|v| v.into()),
+            status_code: val.get_status_code(),
+            status_line: val.get_status_line(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1517,6 +1729,75 @@ impl Default for OnAuthRequiredDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnAuthRequiredDetails`.
+pub struct OnAuthRequiredDetailsData {
+    ///The server requesting authentication.
+    pub challenger: serde_json::Value,
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///True for Proxy-Authenticate, false for WWW-Authenticate.
+    pub is_proxy: bool,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The authentication realm provided by the server, if there is one.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub realm: Option<String>,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///The authentication scheme, e.g. Basic or Digest.
+    pub scheme: String,
+    ///Standard HTTP status code returned by the server.
+    pub status_code: i32,
+    ///HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
+    pub status_line: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnAuthRequiredDetails> for OnAuthRequiredDetailsData {
+    fn from(val: &OnAuthRequiredDetails) -> Self {
+        Self {
+            challenger: serde_wasm_bindgen::from_value(val.get_challenger().into())
+                .unwrap_or_default(),
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            initiator: val.get_initiator(),
+            is_proxy: val.get_is_proxy(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            realm: val.get_realm(),
+            request_id: val.get_request_id(),
+            scheme: val.get_scheme(),
+            status_code: val.get_status_code(),
+            status_line: val.get_status_line(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnResponseStartedDetails")]
@@ -1747,6 +2028,68 @@ impl OnResponseStartedDetails {
 impl Default for OnResponseStartedDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnResponseStartedDetails`.
+pub struct OnResponseStartedDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///Indicates if this response was fetched from disk cache.
+    pub from_cache: bool,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///Standard HTTP status code returned by the server.
+    pub status_code: i32,
+    ///HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
+    pub status_line: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnResponseStartedDetails> for OnResponseStartedDetailsData {
+    fn from(val: &OnResponseStartedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            from_cache: val.get_from_cache(),
+            initiator: val.get_initiator(),
+            ip: val.get_ip(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            status_code: val.get_status_code(),
+            status_line: val.get_status_line(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1992,6 +2335,71 @@ impl Default for OnBeforeRedirectDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnBeforeRedirectDetails`.
+pub struct OnBeforeRedirectDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///Indicates if this response was fetched from disk cache.
+    pub from_cache: bool,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The new URL.
+    pub redirect_url: String,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///Standard HTTP status code returned by the server.
+    pub status_code: i32,
+    ///HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
+    pub status_line: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnBeforeRedirectDetails> for OnBeforeRedirectDetailsData {
+    fn from(val: &OnBeforeRedirectDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            from_cache: val.get_from_cache(),
+            initiator: val.get_initiator(),
+            ip: val.get_ip(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            redirect_url: val.get_redirect_url(),
+            request_id: val.get_request_id(),
+            status_code: val.get_status_code(),
+            status_line: val.get_status_line(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnCompletedDetails")]
@@ -2224,6 +2632,68 @@ impl Default for OnCompletedDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnCompletedDetails`.
+pub struct OnCompletedDetailsData {
+    ///The UUID of the document making the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///Indicates if this response was fetched from disk cache.
+    pub from_cache: bool,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///Standard HTTP status code returned by the server.
+    pub status_code: i32,
+    ///HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.
+    pub status_line: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnCompletedDetails> for OnCompletedDetailsData {
+    fn from(val: &OnCompletedDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            frame_id: val.get_frame_id(),
+            from_cache: val.get_from_cache(),
+            initiator: val.get_initiator(),
+            ip: val.get_ip(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            status_code: val.get_status_code(),
+            status_line: val.get_status_line(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnErrorOccurredDetails")]
@@ -2434,6 +2904,65 @@ impl Default for OnErrorOccurredDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnErrorOccurredDetails`.
+pub struct OnErrorOccurredDetailsData {
+    ///The UUID of the document making the request. This value is not present if the request is a navigation of a frame.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The error description. This string is not guaranteed to remain backwards compatible between releases. You must not parse and act based upon its content.
+    pub error: String,
+    ///The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab.
+    pub frame_id: i32,
+    ///Indicates if this response was fetched from disk cache.
+    pub from_cache: bool,
+    ///The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub initiator: Option<String>,
+    ///The server IP address that the request was actually sent to. Note that it may be a literal IPv6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<String>,
+    ///Standard HTTP method.
+    pub method: String,
+    ///The UUID of the parent document owning this frame. This is not set if there is no parent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_document_id: Option<String>,
+    ///ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
+    pub parent_frame_id: i32,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+    ///The ID of the tab in which the request takes place. Set to -1 if the request isn't related to a tab.
+    pub tab_id: i32,
+    ///The time when this signal is triggered, in milliseconds since the epoch.
+    pub time_stamp: f64,
+    ///How the requested resource will be used.
+    pub r#type: ResourceType,
+    ///
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnErrorOccurredDetails> for OnErrorOccurredDetailsData {
+    fn from(val: &OnErrorOccurredDetails) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            error: val.get_error(),
+            frame_id: val.get_frame_id(),
+            from_cache: val.get_from_cache(),
+            initiator: val.get_initiator(),
+            ip: val.get_ip(),
+            method: val.get_method(),
+            parent_document_id: val.get_parent_document_id(),
+            parent_frame_id: val.get_parent_frame_id(),
+            request_id: val.get_request_id(),
+            tab_id: val.get_tab_id(),
+            time_stamp: val.get_time_stamp(),
+            r#type: val.get_type(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnActionIgnoredDetails")]
@@ -2474,6 +3003,25 @@ impl OnActionIgnoredDetails {
 impl Default for OnActionIgnoredDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnActionIgnoredDetails`.
+pub struct OnActionIgnoredDetailsData {
+    ///The proposed action which was ignored.
+    pub action: IgnoredActionType,
+    ///The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+    pub request_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnActionIgnoredDetails> for OnActionIgnoredDetailsData {
+    fn from(val: &OnActionIgnoredDetails) -> Self {
+        Self {
+            action: val.get_action(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]

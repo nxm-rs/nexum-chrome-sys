@@ -357,6 +357,28 @@ impl Default for OnVisitRemovedRemoved {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnVisitRemovedRemoved`.
+pub struct OnVisitRemovedRemovedData {
+    ///True if all history was removed. If true, then urls will be empty.
+    pub all_history: bool,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub urls: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnVisitRemovedRemoved> for OnVisitRemovedRemovedData {
+    fn from(val: &OnVisitRemovedRemoved) -> Self {
+        Self {
+            all_history: val.get_all_history(),
+            urls: val
+                .get_urls()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SearchQuery")]
@@ -421,6 +443,34 @@ impl Default for SearchQuery {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SearchQuery`.
+pub struct SearchQueryData {
+    ///Limit results to those visited before this date, represented in milliseconds since the epoch.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end_time: Option<f64>,
+    ///The maximum number of results to retrieve. Defaults to 100.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_results: Option<i32>,
+    ///Limit results to those visited after this date, represented in milliseconds since the epoch. If property is not specified, it will default to 24 hours.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub start_time: Option<f64>,
+    ///A free-text query to the history service. Leave this empty to retrieve all pages.
+    pub text: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SearchQuery> for SearchQueryData {
+    fn from(val: &SearchQuery) -> Self {
+        Self {
+            end_time: val.get_end_time(),
+            max_results: val.get_max_results(),
+            start_time: val.get_start_time(),
+            text: val.get_text(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeleteRangeRange")]
@@ -461,6 +511,25 @@ impl DeleteRangeRange {
 impl Default for DeleteRangeRange {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeleteRangeRange`.
+pub struct DeleteRangeRangeData {
+    ///Items added to history before this date, represented in milliseconds since the epoch.
+    pub end_time: f64,
+    ///Items added to history after this date, represented in milliseconds since the epoch.
+    pub start_time: f64,
+}
+#[cfg(feature = "serde")]
+impl From<&DeleteRangeRange> for DeleteRangeRangeData {
+    fn from(val: &DeleteRangeRange) -> Self {
+        Self {
+            end_time: val.get_end_time(),
+            start_time: val.get_start_time(),
+        }
     }
 }
 #[wasm_bindgen]

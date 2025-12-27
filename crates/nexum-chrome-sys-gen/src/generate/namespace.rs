@@ -3,7 +3,7 @@
 //! Generates wasm-bindgen bindings following the web-sys pattern:
 //! - Enums use string discriminants with #[wasm_bindgen]
 //! - Dictionaries are opaque JS Object wrappers with getter/setter methods
-//! - No serde - data stays in JS
+//! - Optional serde companion types for serialization (feature-gated)
 
 use anyhow::Result;
 use heck::ToUpperCamelCase;
@@ -19,7 +19,7 @@ impl NamespaceSpec {
         // Extract inline types from events and functions first
         let inline_types = self.extract_inline_types();
 
-        let ctx = GenContext::new(&self.namespace, self);
+        let ctx = GenContext::new(&self.namespace, self, &inline_types);
         let mut tokens = TokenStream::new();
 
         // File header

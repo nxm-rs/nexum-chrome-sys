@@ -92,6 +92,26 @@ impl Default for SetTitleDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetTitleDetails`.
+pub struct SetTitleDetailsData {
+    ///Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///The string the browser action should display when moused over.
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SetTitleDetails> for SetTitleDetailsData {
+    fn from(val: &SetTitleDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            title: val.get_title(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetIconDetails")]
@@ -145,6 +165,35 @@ impl Default for SetIconDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetIconDetails`.
+pub struct SetIconDetailsData {
+    ///Either an ImageData object or a dictionary {size - ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then an image with size scale * n is selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}'
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub image_data: Option<serde_json::Value>,
+    ///Either a relative image path or a dictionary {size - relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals scale, then an image with size scale * n is selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}'
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<serde_json::Value>,
+    ///Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetIconDetails> for SetIconDetailsData {
+    fn from(val: &SetIconDetails) -> Self {
+        Self {
+            image_data: val
+                .get_image_data()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            path: val
+                .get_path()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetPopupDetails")]
@@ -187,6 +236,26 @@ impl Default for SetPopupDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetPopupDetails`.
+pub struct SetPopupDetailsData {
+    ///The relative path to the HTML file to show in a popup. If set to the empty string (''), no popup is shown.
+    pub popup: String,
+    ///Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetPopupDetails> for SetPopupDetailsData {
+    fn from(val: &SetPopupDetails) -> Self {
+        Self {
+            popup: val.get_popup(),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetBadgeTextDetails")]
@@ -227,6 +296,27 @@ impl SetBadgeTextDetails {
 impl Default for SetBadgeTextDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetBadgeTextDetails`.
+pub struct SetBadgeTextDetailsData {
+    ///Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///Any number of characters can be passed, but only about four can fit into the space. If an empty string ('') is passed, the badge text is cleared. If tabId is specified and text is null, the text for the specified tab is cleared and defaults to the global badge text.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetBadgeTextDetails> for SetBadgeTextDetailsData {
+    fn from(val: &SetBadgeTextDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            text: val.get_text(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -272,6 +362,26 @@ impl SetBadgeBackgroundColorDetails {
 impl Default for SetBadgeBackgroundColorDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetBadgeBackgroundColorDetails`.
+pub struct SetBadgeBackgroundColorDetailsData {
+    ///An array of four integers in the range 0-255 that make up the RGBA color of the badge. Can also be a string with a CSS hex color value; for example, #FF0000 or #F00 (red). Renders colors at full opacity.
+    pub color: serde_json::Value,
+    ///Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetBadgeBackgroundColorDetails> for SetBadgeBackgroundColorDetailsData {
+    fn from(val: &SetBadgeBackgroundColorDetails) -> Self {
+        Self {
+            color: serde_wasm_bindgen::from_value(val.get_color()).unwrap_or_default(),
+            tab_id: val.get_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -86,6 +86,33 @@ impl Default for SetWallpaperDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetWallpaperDetails`.
+pub struct SetWallpaperDetailsData {
+    ///The file name of the saved wallpaper.
+    pub filename: String,
+    ///The supported wallpaper layouts.
+    pub layout: WallpaperLayout,
+    ///True if a 128x60 thumbnail should be generated. Layout and ratio are not supported yet.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub thumbnail: Option<bool>,
+    ///The URL of the wallpaper to be set (can be relative).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&SetWallpaperDetails> for SetWallpaperDetailsData {
+    fn from(val: &SetWallpaperDetails) -> Self {
+        Self {
+            filename: val.get_filename(),
+            layout: val.get_layout(),
+            thumbnail: val.get_thumbnail(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Sets wallpaper to the image at url or wallpaperData with the specified layout

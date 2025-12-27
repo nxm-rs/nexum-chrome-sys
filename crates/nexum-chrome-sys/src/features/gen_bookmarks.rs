@@ -381,6 +381,28 @@ impl Default for OnRemovedRemoveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnRemovedRemoveInfo`.
+pub struct OnRemovedRemoveInfoData {
+    ///
+    pub index: i32,
+    ///
+    pub node: BookmarkTreeNodeData,
+    ///
+    pub parent_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnRemovedRemoveInfo> for OnRemovedRemoveInfoData {
+    fn from(val: &OnRemovedRemoveInfo) -> Self {
+        Self {
+            index: val.get_index(),
+            node: (&val.get_node()).into(),
+            parent_id: val.get_parent_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnChangedChangeInfo")]
@@ -421,6 +443,26 @@ impl OnChangedChangeInfo {
 impl Default for OnChangedChangeInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnChangedChangeInfo`.
+pub struct OnChangedChangeInfoData {
+    ///
+    pub title: String,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnChangedChangeInfo> for OnChangedChangeInfoData {
+    fn from(val: &OnChangedChangeInfo) -> Self {
+        Self {
+            title: val.get_title(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -487,6 +529,31 @@ impl Default for OnMovedMoveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnMovedMoveInfo`.
+pub struct OnMovedMoveInfoData {
+    ///
+    pub index: i32,
+    ///
+    pub old_index: i32,
+    ///
+    pub old_parent_id: String,
+    ///
+    pub parent_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnMovedMoveInfo> for OnMovedMoveInfoData {
+    fn from(val: &OnMovedMoveInfo) -> Self {
+        Self {
+            index: val.get_index(),
+            old_index: val.get_old_index(),
+            old_parent_id: val.get_old_parent_id(),
+            parent_id: val.get_parent_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -519,6 +586,23 @@ impl OnChildrenReorderedReorderInfo {
 impl Default for OnChildrenReorderedReorderInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnChildrenReorderedReorderInfo`.
+pub struct OnChildrenReorderedReorderInfoData {
+    ///
+    pub child_ids: Vec<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&OnChildrenReorderedReorderInfo> for OnChildrenReorderedReorderInfoData {
+    fn from(val: &OnChildrenReorderedReorderInfo) -> Self {
+        Self {
+            child_ids: serde_wasm_bindgen::from_value(val.get_child_ids().into())
+                .unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -563,6 +647,27 @@ impl Default for MoveDestination {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MoveDestination`.
+pub struct MoveDestinationData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub index: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&MoveDestination> for MoveDestinationData {
+    fn from(val: &MoveDestination) -> Self {
+        Self {
+            index: val.get_index(),
+            parent_id: val.get_parent_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UpdateChanges")]
@@ -603,6 +708,27 @@ impl UpdateChanges {
 impl Default for UpdateChanges {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UpdateChanges`.
+pub struct UpdateChangesData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UpdateChanges> for UpdateChangesData {
+    fn from(val: &UpdateChanges) -> Self {
+        Self {
+            title: val.get_title(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]

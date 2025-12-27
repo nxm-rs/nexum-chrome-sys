@@ -33,6 +33,22 @@ impl Default for SaveAsMhtmlDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SaveAsMhtmlDetails`.
+pub struct SaveAsMhtmlDetailsData {
+    ///The id of the tab to save as MHTML.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SaveAsMhtmlDetails> for SaveAsMhtmlDetailsData {
+    fn from(val: &SaveAsMhtmlDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Saves the content of the tab with given id as MHTML.

@@ -854,6 +854,30 @@ impl Default for OnInstalledDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnInstalledDetails`.
+pub struct OnInstalledDetailsData {
+    ///Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    ///Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous_version: Option<String>,
+    ///The reason that this event is being dispatched.
+    pub reason: OnInstalledReason,
+}
+#[cfg(feature = "serde")]
+impl From<&OnInstalledDetails> for OnInstalledDetailsData {
+    fn from(val: &OnInstalledDetails) -> Self {
+        Self {
+            id: val.get_id(),
+            previous_version: val.get_previous_version(),
+            reason: val.get_reason(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OnUpdateAvailableDetails")]
@@ -883,6 +907,22 @@ impl OnUpdateAvailableDetails {
 impl Default for OnUpdateAvailableDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnUpdateAvailableDetails`. The manifest details of the available update.
+pub struct OnUpdateAvailableDetailsData {
+    ///The version number of the available update.
+    pub version: String,
+}
+#[cfg(feature = "serde")]
+impl From<&OnUpdateAvailableDetails> for OnUpdateAvailableDetailsData {
+    fn from(val: &OnUpdateAvailableDetails) -> Self {
+        Self {
+            version: val.get_version(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -927,6 +967,27 @@ impl Default for ConnectConnectInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConnectConnectInfo`.
+pub struct ConnectConnectInfoData {
+    ///Whether the TLS channel ID will be passed into onConnectExternal for processes that are listening for the connection event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub include_tls_channel_id: Option<bool>,
+    ///Will be passed into onConnect for processes that are listening for the connection event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ConnectConnectInfo> for ConnectConnectInfoData {
+    fn from(val: &ConnectConnectInfo) -> Self {
+        Self {
+            include_tls_channel_id: val.get_include_tls_channel_id(),
+            name: val.get_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SendMessageOptions")]
@@ -956,6 +1017,23 @@ impl SendMessageOptions {
 impl Default for SendMessageOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendMessageOptions`.
+pub struct SendMessageOptionsData {
+    ///Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub include_tls_channel_id: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&SendMessageOptions> for SendMessageOptionsData {
+    fn from(val: &SendMessageOptions) -> Self {
+        Self {
+            include_tls_channel_id: val.get_include_tls_channel_id(),
+        }
     }
 }
 #[wasm_bindgen]

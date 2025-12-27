@@ -577,6 +577,63 @@ impl Default for UpdateUpdateProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UpdateUpdateProperties`. The properties to update. Accepts the same values as the $(ref:contextMenus.create) function.
+pub struct UpdateUpdatePropertiesData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checked: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub contexts: Option<Vec<ContextType>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_url_patterns: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    ///The ID of the item to be made this item's parent. Note: You cannot set an item to become a child of its own descendant.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<serde_json::Value>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_url_patterns: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<ItemType>,
+    ///Whether the item is visible in the menu.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visible: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&UpdateUpdateProperties> for UpdateUpdatePropertiesData {
+    fn from(val: &UpdateUpdateProperties) -> Self {
+        Self {
+            checked: val.get_checked(),
+            contexts: val
+                .get_contexts()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            document_url_patterns: val
+                .get_document_url_patterns()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            enabled: val.get_enabled(),
+            parent_id: val
+                .get_parent_id()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            target_url_patterns: val
+                .get_target_url_patterns()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            title: val.get_title(),
+            r#type: val.get_type(),
+            visible: val.get_visible(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in $(ref:runtime.lastError).

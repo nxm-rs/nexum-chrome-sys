@@ -33,6 +33,23 @@ impl Default for GetMessageOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetMessageOptions`.
+pub struct GetMessageOptionsData {
+    ///Escape &lt; in translation to &amp;lt;. This applies only to the message itself, not to the placeholders. Developers might want to use this if the translation is used in an HTML context. Closure Templates used with Closure Compiler generate this automatically.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub escape_lt: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetMessageOptions> for GetMessageOptionsData {
+    fn from(val: &GetMessageOptions) -> Self {
+        Self {
+            escape_lt: val.get_escape_lt(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use $(ref:i18n.getUILanguage).

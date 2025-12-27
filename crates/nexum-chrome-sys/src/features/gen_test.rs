@@ -44,6 +44,25 @@ impl Default for OnMessageInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OnMessageInfo`.
+pub struct OnMessageInfoData {
+    ///Additional information.
+    pub data: String,
+    ///True if this was the last message for this test
+    pub last_message: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&OnMessageInfo> for OnMessageInfoData {
+    fn from(val: &OnMessageInfo) -> Self {
+        Self {
+            data: val.get_data(),
+            last_message: val.get_last_message(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Gives configuration options set by the test.
