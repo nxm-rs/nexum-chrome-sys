@@ -1,0 +1,26 @@
+[package]
+name = "nexum-chrome-gloo"
+description = "Ergonomic wrappers for Chrome Extension APIs, similar to gloo for web-sys"
+readme = "../../README.md"
+keywords = ["wasm", "chrome", "extension", "webextension", "browser", "gloo"]
+categories = ["wasm", "web-programming"]
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+
+[dependencies]
+nexum-chrome-sys = { path = "../nexum-chrome-sys" }
+js-sys.workspace = true
+wasm-bindgen.workspace = true
+wasm-bindgen-futures.workspace = true
+
+[features]
+default = []
+alarms = ["nexum-chrome-sys/alarms"]
+runtime = ["nexum-chrome-sys/runtime"]
+tabs = ["nexum-chrome-sys/tabs", "nexum-chrome-sys/runtime"]
