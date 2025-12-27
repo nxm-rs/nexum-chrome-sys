@@ -1,25 +1,24 @@
-//! Function and event binding generation via extension traits.
+//! Function binding generation.
 
 use heck::ToSnakeCase;
 use proc_macro2::TokenStream;
-use quote::{format_ident, quote};
+use quote::quote;
 
-use super::types::{GenContext, map_type_to_js};
+use super::types::GenContext;
 use super::utils::{clean_html, make_ident};
-use crate::schema::{EventSpec, TypeSpec};
+use crate::schema::TypeSpec;
 
-/// Extension trait for generating function bindings from TypeSpec.
-pub trait GenerateFunction {
+impl TypeSpec {
     /// Generate a wasm_bindgen function binding.
-    fn generate(&self, ctx: &GenContext, js_namespace: &[&str]) -> Option<TokenStream>;
-}
-
-impl GenerateFunction for TypeSpec {
-    fn generate(&self, ctx: &GenContext, js_namespace: &[&str]) -> Option<TokenStream> {
+    pub fn generate_function(
+        &self,
+        ctx: &GenContext,
+        js_namespace: &[&str],
+    ) -> Option<TokenStream> {
         let name = self.name.as_ref()?;
 
         // Skip nodoc functions
-        if self.nodoc.as_ref().map(|n| n.is_true()).unwrap_or(false) {
+        if self.is_nodoc() {
             return None;
         }
 
@@ -45,7 +44,7 @@ impl GenerateFunction for TypeSpec {
                     .filter_map(|p| {
                         let param_name = p.name.as_ref()?;
                         let param_name = make_ident(&param_name.to_snake_case());
-                        let type_info = map_type_to_js(ctx, p);
+                        let type_info = p.to_type_info(ctx);
                         let is_optional = p.optional.unwrap_or(false);
 
                         // Collect feature requirement
@@ -73,7 +72,7 @@ impl GenerateFunction for TypeSpec {
         let return_type = if returns_promise {
             quote! { -> Promise }
         } else if let Some(ret) = &self.returns {
-            let type_info = map_type_to_js(ctx, ret);
+            let type_info = ret.to_type_info(ctx);
             // Collect feature requirement from return type
             if let Some(feature) = &type_info.feature
                 && !required_features.contains(feature)
@@ -106,44 +105,6 @@ impl GenerateFunction for TypeSpec {
             #[doc = #doc]
             #[wasm_bindgen(js_namespace = [#(#js_namespace),*], js_name = #js_name)]
             pub fn #rust_name(#(#params),*) #return_type;
-        })
-    }
-}
-
-/// Extension trait for generating event bindings from EventSpec.
-pub trait GenerateEvent {
-    /// Generate a wasm_bindgen event listener binding.
-    fn generate(&self, js_namespace: &[&str]) -> Option<TokenStream>;
-}
-
-impl GenerateEvent for EventSpec {
-    fn generate(&self, js_namespace: &[&str]) -> Option<TokenStream> {
-        let name = &self.name;
-
-        // Skip nodoc events
-        if self.nodoc.as_ref().map(|n| n.is_true()).unwrap_or(false) {
-            return None;
-        }
-
-        let doc = self
-            .description
-            .as_deref()
-            .map(clean_html)
-            .unwrap_or_default();
-
-        // Event namespace includes the event name
-        let event_ns: Vec<&str> = js_namespace
-            .iter()
-            .copied()
-            .chain(std::iter::once(name.as_str()))
-            .collect();
-
-        let add_listener_name = format_ident!("{}_add_listener", name.to_snake_case());
-
-        Some(quote! {
-            #[doc = #doc]
-            #[wasm_bindgen(js_namespace = [#(#event_ns),*], js_name = "addListener")]
-            pub fn #add_listener_name(callback: &Function);
         })
     }
 }

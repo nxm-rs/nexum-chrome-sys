@@ -435,6 +435,13 @@ pub struct TypeSpec {
     pub required: Option<Vec<String>>,
 }
 
+impl TypeSpec {
+    /// Check if this type/function is marked as not for documentation.
+    pub fn is_nodoc(&self) -> bool {
+        self.nodoc.as_ref().is_some_and(|n| n.is_true())
+    }
+}
+
 /// Some boolean fields can be "true" or "True" strings.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(untagged)]
@@ -508,6 +515,13 @@ pub struct EventSpec {
     pub nocompile: Option<bool>,
 }
 
+impl EventSpec {
+    /// Check if this event is marked as not for documentation.
+    pub fn is_nodoc(&self) -> bool {
+        self.nodoc.as_ref().is_some_and(|n| n.is_true())
+    }
+}
+
 /// Event options.
 #[derive(Debug, Clone, Deserialize, Default)]
 #[serde(default)]
@@ -554,6 +568,20 @@ pub struct NamespaceSpec {
     pub dependencies: Option<Vec<String>>,
     pub nocompile: Option<bool>,
     pub unprivileged: Option<bool>,
+}
+
+impl NamespaceSpec {
+    /// Check if this namespace has any exportable content (types, functions, or events).
+    pub fn has_exportable_content(&self) -> bool {
+        let has_types = self.types.as_ref().is_some_and(|t| {
+            t.iter()
+                .any(|ts| ts.id.as_ref().is_some_and(|id| !id.starts_with('_')))
+        });
+        let has_functions = self.functions.as_ref().is_some_and(|f| !f.is_empty());
+        let has_events = self.events.as_ref().is_some_and(|e| !e.is_empty());
+
+        has_types || has_functions || has_events
+    }
 }
 
 #[cfg(test)]

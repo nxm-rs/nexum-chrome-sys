@@ -33,9 +33,16 @@ impl GenContext {
         }
     }
 
-    /// Check if a type ID refers to an enum in this namespace
+    /// Check if a type ID refers to an enum in this namespace.
     pub fn is_enum(&self, type_id: &str) -> bool {
         self.enum_types.contains(type_id)
+    }
+
+    /// Build the js_namespace path for wasm_bindgen (e.g., ["chrome", "tabs"]).
+    pub fn js_namespace(&self) -> Vec<&str> {
+        std::iter::once("chrome")
+            .chain(self.ns_name.split('.'))
+            .collect()
     }
 }
 
@@ -50,7 +57,7 @@ pub struct TypeInfo {
 }
 
 impl TypeInfo {
-    pub fn simple(ty: TokenStream) -> Self {
+    fn simple(ty: TokenStream) -> Self {
         let is_ref = !is_pass_by_value(&ty);
         Self {
             ty,
@@ -59,7 +66,7 @@ impl TypeInfo {
         }
     }
 
-    pub fn with_feature(ty: TokenStream, feature: String, is_ref_type: bool) -> Self {
+    fn with_feature(ty: TokenStream, feature: String, is_ref_type: bool) -> Self {
         Self {
             ty,
             feature: Some(feature),
@@ -71,22 +78,37 @@ impl TypeInfo {
 /// Check if a type should be passed by value in setters.
 fn is_pass_by_value(ty: &TokenStream) -> bool {
     let s = ty.to_string();
-    // Primitives and String are passed by value
     matches!(s.as_str(), "bool" | "i32" | "f64" | "String")
 }
 
-/// Map a TypeSpec to a JS-compatible Rust type with feature info.
-pub fn map_type_to_js(ctx: &GenContext, type_spec: &TypeSpec) -> TypeInfo {
-    // Check for $ref first
-    if let Some(ref_name) = &type_spec.ref_ {
-        if let Some((namespace, type_name)) = ref_name.split_once('.') {
-            // Check if this is a self-reference (same namespace)
-            if namespace == ctx.ns_name {
-                // Self-reference: use the full ref name for the type ident
-                // Type IDs like "declarativeWebRequest.RequestCookie" become
-                // DeclarativeWebRequestRequestCookie when generated
+impl TypeSpec {
+    /// Map this type specification to a JS-compatible Rust type with feature info.
+    pub fn to_type_info(&self, ctx: &GenContext) -> TypeInfo {
+        // Check for $ref first
+        if let Some(ref_name) = &self.ref_ {
+            if let Some((namespace, type_name)) = ref_name.split_once('.') {
+                // Check if this is a self-reference (same namespace)
+                if namespace == ctx.ns_name {
+                    let type_ident = make_type_ident(&ref_name.to_upper_camel_case());
+                    let is_enum = ctx.is_enum(ref_name);
+                    return TypeInfo {
+                        ty: quote! { #type_ident },
+                        feature: None,
+                        is_ref_type: !is_enum,
+                    };
+                }
+                // Cross-namespace reference: runtime.Port -> super::runtime::Port
+                let feature = namespace.to_snake_case().replace('.', "_");
+                let ns_ident = format_ident!("{}", feature);
+                let type_ident = make_type_ident(&type_name.to_upper_camel_case());
+                return TypeInfo::with_feature(
+                    quote! { super::#ns_ident::#type_ident },
+                    feature,
+                    false,
+                );
+            } else {
+                // Local reference (no namespace prefix)
                 let type_ident = make_type_ident(&ref_name.to_upper_camel_case());
-                // Check if it's an enum (enums are pass-by-value)
                 let is_enum = ctx.is_enum(ref_name);
                 return TypeInfo {
                     ty: quote! { #type_ident },
@@ -94,303 +116,285 @@ pub fn map_type_to_js(ctx: &GenContext, type_spec: &TypeSpec) -> TypeInfo {
                     is_ref_type: !is_enum,
                 };
             }
-            // Cross-namespace reference: runtime.Port -> super::runtime::Port
-            let feature = namespace.to_snake_case().replace('.', "_");
-            let ns_ident = format_ident!("{}", feature);
-            let type_ident = make_type_ident(&type_name.to_upper_camel_case());
-            // Cross-namespace types are passed by value (enums are Copy, objects impl Clone)
-            return TypeInfo::with_feature(
-                quote! { super::#ns_ident::#type_ident },
-                feature,
-                false, // is_ref_type = false (pass by value)
-            );
-        } else {
-            // Local reference (no namespace prefix)
-            let type_ident = make_type_ident(&ref_name.to_upper_camel_case());
-            // Check if it's an enum (enums are pass-by-value)
-            let is_enum = ctx.is_enum(ref_name);
-            return TypeInfo {
-                ty: quote! { #type_ident },
-                feature: None,
-                is_ref_type: !is_enum,
-            };
         }
-    }
 
-    // Check for choices (union types)
-    if type_spec.choices.is_some() {
-        return TypeInfo::simple(quote! { JsValue });
-    }
-
-    // Map primitive types
-    let ty = match type_spec.type_.as_ref() {
-        Some(PrimitiveType::Boolean) => quote! { bool },
-        Some(PrimitiveType::Integer) => quote! { i32 },
-        Some(PrimitiveType::Number) | Some(PrimitiveType::Double) => quote! { f64 },
-        Some(PrimitiveType::String) => quote! { String },
-        Some(PrimitiveType::Array) => quote! { Array },
-        Some(PrimitiveType::Object) => quote! { Object },
-        Some(PrimitiveType::Function) => quote! { Function },
-        Some(PrimitiveType::Binary) => quote! { ::js_sys::ArrayBuffer },
-        Some(PrimitiveType::Any) => quote! { JsValue },
-        _ => quote! { JsValue },
-    };
-    TypeInfo::simple(ty)
-}
-
-/// Generate a type definition (enum or dictionary).
-pub fn generate_type(ctx: &GenContext, type_spec: &TypeSpec) -> Option<TokenStream> {
-    let id = type_spec.id.as_ref()?;
-
-    // Skip internal types
-    if id.starts_with('_') {
-        return None;
-    }
-
-    // Check if it's an enum
-    if let Some(enum_values) = &type_spec.enum_ {
-        return Some(generate_enum(id, enum_values, type_spec));
-    }
-
-    // Check if it's an object type (dictionary)
-    if type_spec.type_.as_ref() == Some(&PrimitiveType::Object) {
-        return Some(generate_dictionary(ctx, id, type_spec));
-    }
-
-    // Check if it's an array type (generate type alias)
-    if type_spec.type_.as_ref() == Some(&PrimitiveType::Array) {
-        return Some(generate_array_alias(id, type_spec));
-    }
-
-    None
-}
-
-/// Generate a type alias for an array type.
-fn generate_array_alias(id: &str, type_spec: &TypeSpec) -> TokenStream {
-    let type_name = make_type_ident(&id.to_upper_camel_case());
-    let doc = type_spec
-        .description
-        .as_deref()
-        .map(clean_html)
-        .unwrap_or_default();
-
-    quote! {
-        #[doc = #doc]
-        pub type #type_name = Array;
-    }
-}
-
-/// Generate an enum type (web-sys style with string discriminants).
-fn generate_enum(id: &str, values: &[EnumValue], type_spec: &TypeSpec) -> TokenStream {
-    let enum_name = make_type_ident(&id.to_upper_camel_case());
-
-    let doc = type_spec
-        .description
-        .as_deref()
-        .map(clean_html)
-        .unwrap_or_default();
-
-    let variants: Vec<TokenStream> = values
-        .iter()
-        .filter_map(|v| {
-            let (name, desc) = match v {
-                EnumValue::String(s) => (s.clone(), None),
-                EnumValue::Number(_) => return None, // Skip numeric enums
-                EnumValue::Named(n) => (n.name.clone(), n.description.clone()),
-            };
-
-            let variant_name = to_enum_variant(&name);
-            let variant_ident = format_ident!("{}", variant_name);
-            let js_name = &name;
-
-            let doc_attr = desc.map(|d| {
-                let d = clean_html(&d);
-                quote! { #[doc = #d] }
-            });
-
-            // web-sys style: VariantName = "js_value"
-            Some(quote! {
-                #doc_attr
-                #variant_ident = #js_name
-            })
-        })
-        .collect();
-
-    if variants.is_empty() {
-        return TokenStream::new();
-    }
-
-    quote! {
-        #[wasm_bindgen]
-        #[doc = #doc]
-        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-        pub enum #enum_name {
-            #(#variants),*
+        // Check for choices (union types)
+        if self.choices.is_some() {
+            return TypeInfo::simple(quote! { JsValue });
         }
+
+        // Map primitive types
+        let ty = match self.type_.as_ref() {
+            Some(PrimitiveType::Boolean) => quote! { bool },
+            Some(PrimitiveType::Integer) => quote! { i32 },
+            Some(PrimitiveType::Number) | Some(PrimitiveType::Double) => quote! { f64 },
+            Some(PrimitiveType::String) => quote! { String },
+            Some(PrimitiveType::Array) => quote! { Array },
+            Some(PrimitiveType::Object) => quote! { Object },
+            Some(PrimitiveType::Function) => quote! { Function },
+            Some(PrimitiveType::Binary) => quote! { ::js_sys::ArrayBuffer },
+            Some(PrimitiveType::Any) => quote! { JsValue },
+            _ => quote! { JsValue },
+        };
+        TypeInfo::simple(ty)
     }
-}
 
-/// Generate a dictionary type (web-sys style with opaque JS Object wrapper).
-fn generate_dictionary(ctx: &GenContext, id: &str, type_spec: &TypeSpec) -> TokenStream {
-    let type_name = make_type_ident(&id.to_upper_camel_case());
-    let type_name_str = id.to_upper_camel_case();
+    /// Generate a wasm_bindgen type definition (enum, dictionary, or alias).
+    pub fn generate_type(&self, ctx: &GenContext) -> Option<TokenStream> {
+        let id = self.id.as_ref()?;
 
-    let doc = type_spec
-        .description
-        .as_deref()
-        .map(clean_html)
-        .unwrap_or_default();
+        // Skip internal types
+        if id.starts_with('_') {
+            return None;
+        }
 
-    let properties = type_spec.properties.as_ref();
+        // Dispatch based on type kind
+        if self.enum_.is_some() {
+            return self.generate_enum_type();
+        }
 
-    // Collect all property names to detect collisions
-    // A collision occurs when property "setValue" (snake: set_value) collides with
-    // the setter for property "value" (set_value)
-    let prop_names: std::collections::HashSet<String> = properties
-        .map(|props| props.keys().map(|k| k.to_snake_case()).collect())
-        .unwrap_or_default();
+        if self.type_.as_ref() == Some(&PrimitiveType::Object) {
+            return Some(self.generate_dictionary_type(ctx));
+        }
 
-    // Generate getters and setters for each property (sorted for deterministic output)
-    let accessors: Vec<TokenStream> = properties
-        .map(|props| {
-            let mut sorted: Vec<_> = props.iter().collect();
-            sorted.sort_by_key(|(k, _)| *k);
-            sorted
-                .into_iter()
-                .flat_map(|(name, prop)| {
-                    let js_name = name;
-                    let rust_getter = format_ident!("get_{}", name.to_snake_case());
-                    let rust_setter = format_ident!("set_{}", name.to_snake_case());
-                    let type_info = map_type_to_js(ctx, prop);
-                    let is_optional = prop.optional.unwrap_or(false);
+        if self.type_.as_ref() == Some(&PrimitiveType::Array) {
+            return Some(self.generate_array_type());
+        }
 
-                    let getter_doc = format!("Get the `{}` field of this object.", name);
-                    let setter_doc = format!("Change the `{}` field of this object.", name);
+        None
+    }
 
-                    let field_type = &type_info.ty;
-                    let return_type = if is_optional {
-                        quote! { Option<#field_type> }
-                    } else {
-                        field_type.clone()
-                    };
+    /// Generate a type alias for array types.
+    fn generate_array_type(&self) -> TokenStream {
+        let id = self.id.as_ref().expect("array type must have id");
+        let type_name = make_type_ident(&id.to_upper_camel_case());
+        let doc = self
+            .description
+            .as_deref()
+            .map(clean_html)
+            .unwrap_or_default();
 
-                    // For setters, we take the value by reference for complex types
-                    let setter_param_type = if type_info.is_ref_type {
-                        quote! { &#field_type }
-                    } else {
-                        field_type.clone()
-                    };
-
-                    // Add feature gate if needed
-                    let feature_gate = type_info.feature.as_ref().map(|f| {
-                        quote! { #[cfg(feature = #f)] }
-                    });
-
-                    vec![
-                        // Getter
-                        quote! {
-                            #feature_gate
-                            #[doc = #getter_doc]
-                            #[wasm_bindgen(method, getter = #js_name)]
-                            pub fn #rust_getter(this: &#type_name) -> #return_type;
-                        },
-                        // Setter
-                        quote! {
-                            #feature_gate
-                            #[doc = #setter_doc]
-                            #[wasm_bindgen(method, setter = #js_name)]
-                            pub fn #rust_setter(this: &#type_name, val: #setter_param_type);
-                        },
-                    ]
-                })
-                .collect()
-        })
-        .unwrap_or_default();
-
-    // Generate builder methods for the impl block (sorted for deterministic output)
-    // Skip methods that would collide with getters/setters of other properties
-    let builder_methods: Vec<TokenStream> = properties
-        .map(|props| {
-            let mut sorted: Vec<_> = props.iter().collect();
-            sorted.sort_by_key(|(k, _)| *k);
-            sorted
-                .into_iter()
-                .filter_map(|(name, prop)| {
-                    let snake_name = name.to_snake_case();
-
-                    // Check for collision: if this property's builder method name
-                    // matches set_<other> or get_<other> for another property
-                    let would_collide = if let Some(suffix) = snake_name.strip_prefix("set_") {
-                        prop_names.contains(suffix)
-                    } else if let Some(suffix) = snake_name.strip_prefix("get_") {
-                        prop_names.contains(suffix)
-                    } else {
-                        false
-                    };
-
-                    if would_collide {
-                        return None; // Skip this builder method
-                    }
-
-                    let method_name = make_ident(&snake_name);
-                    let setter_name = format_ident!("set_{}", snake_name);
-                    let type_info = map_type_to_js(ctx, prop);
-
-                    let deprecated_msg = format!("Use `set_{}()` instead.", snake_name);
-
-                    let field_type = &type_info.ty;
-                    let param_type = if type_info.is_ref_type {
-                        quote! { &#field_type }
-                    } else {
-                        field_type.clone()
-                    };
-
-                    // Add feature gate if needed
-                    let feature_gate = type_info.feature.as_ref().map(|f| {
-                        quote! { #[cfg(feature = #f)] }
-                    });
-
-                    Some(quote! {
-                        #feature_gate
-                        #[deprecated = #deprecated_msg]
-                        pub fn #method_name(&mut self, val: #param_type) -> &mut Self {
-                            self.#setter_name(val);
-                            self
-                        }
-                    })
-                })
-                .collect()
-        })
-        .unwrap_or_default();
-
-    let new_doc = format!("Construct a new `{}`.", type_name_str);
-
-    quote! {
-        #[wasm_bindgen]
-        extern "C" {
-            #[wasm_bindgen(extends = ::js_sys::Object, js_name = #type_name_str)]
-            #[derive(Debug, Clone, PartialEq, Eq)]
+        quote! {
             #[doc = #doc]
-            pub type #type_name;
+            pub type #type_name = Array;
+        }
+    }
 
-            #(#accessors)*
+    /// Generate an enum type (web-sys style with string discriminants).
+    fn generate_enum_type(&self) -> Option<TokenStream> {
+        let id = self.id.as_ref()?;
+        let enum_values = self.enum_.as_ref()?;
+
+        let enum_name = make_type_ident(&id.to_upper_camel_case());
+        let doc = self
+            .description
+            .as_deref()
+            .map(clean_html)
+            .unwrap_or_default();
+
+        let variants: Vec<TokenStream> = enum_values
+            .iter()
+            .filter_map(|v| {
+                let (name, desc) = match v {
+                    EnumValue::String(s) => (s.clone(), None),
+                    EnumValue::Number(_) => return None,
+                    EnumValue::Named(n) => (n.name.clone(), n.description.clone()),
+                };
+
+                let variant_name = to_enum_variant(&name);
+                let variant_ident = format_ident!("{}", variant_name);
+                let js_name = &name;
+
+                let doc_attr = desc.map(|d| {
+                    let d = clean_html(&d);
+                    quote! { #[doc = #d] }
+                });
+
+                Some(quote! {
+                    #doc_attr
+                    #variant_ident = #js_name
+                })
+            })
+            .collect();
+
+        if variants.is_empty() {
+            return None;
         }
 
-        impl #type_name {
-            #[doc = #new_doc]
-            pub fn new() -> Self {
-                #[allow(unused_mut)]
-                let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
-                ret
+        Some(quote! {
+            #[wasm_bindgen]
+            #[doc = #doc]
+            #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+            pub enum #enum_name {
+                #(#variants),*
+            }
+        })
+    }
+
+    /// Generate a dictionary type (web-sys style with opaque JS Object wrapper).
+    fn generate_dictionary_type(&self, ctx: &GenContext) -> TokenStream {
+        let id = self.id.as_ref().expect("dictionary type must have id");
+        let type_name = make_type_ident(&id.to_upper_camel_case());
+        let type_name_str = id.to_upper_camel_case();
+
+        let doc = self
+            .description
+            .as_deref()
+            .map(clean_html)
+            .unwrap_or_default();
+
+        let properties = self.properties.as_ref();
+
+        // Collect property names to detect naming collisions
+        let prop_names: std::collections::HashSet<String> = properties
+            .map(|props| props.keys().map(|k| k.to_snake_case()).collect())
+            .unwrap_or_default();
+
+        // Helper to iterate properties in sorted order for deterministic output
+        let sorted_props = || {
+            properties.into_iter().flat_map(|props| {
+                let mut sorted: Vec<_> = props.iter().collect();
+                sorted.sort_by_key(|(k, _)| *k);
+                sorted
+            })
+        };
+
+        let accessors: Vec<TokenStream> = sorted_props()
+            .flat_map(|(name, prop)| self.generate_property_accessors(ctx, &type_name, name, prop))
+            .collect();
+
+        let builder_methods: Vec<TokenStream> = sorted_props()
+            .filter_map(|(name, prop)| self.generate_builder_method(ctx, &prop_names, name, prop))
+            .collect();
+
+        let new_doc = format!("Construct a new `{}`.", type_name_str);
+
+        quote! {
+            #[wasm_bindgen]
+            extern "C" {
+                #[wasm_bindgen(extends = ::js_sys::Object, js_name = #type_name_str)]
+                #[derive(Debug, Clone, PartialEq, Eq)]
+                #[doc = #doc]
+                pub type #type_name;
+
+                #(#accessors)*
             }
 
-            #(#builder_methods)*
-        }
+            impl #type_name {
+                #[doc = #new_doc]
+                pub fn new() -> Self {
+                    #[allow(unused_mut)]
+                    let mut ret: Self = ::wasm_bindgen::JsCast::unchecked_into(::js_sys::Object::new());
+                    ret
+                }
 
-        impl Default for #type_name {
-            fn default() -> Self {
-                Self::new()
+                #(#builder_methods)*
+            }
+
+            impl Default for #type_name {
+                fn default() -> Self {
+                    Self::new()
+                }
             }
         }
+    }
+
+    /// Generate getter and setter for a dictionary property.
+    fn generate_property_accessors(
+        &self,
+        ctx: &GenContext,
+        type_name: &syn::Ident,
+        name: &str,
+        prop: &TypeSpec,
+    ) -> Vec<TokenStream> {
+        let js_name = name;
+        let rust_getter = format_ident!("get_{}", name.to_snake_case());
+        let rust_setter = format_ident!("set_{}", name.to_snake_case());
+        let type_info = prop.to_type_info(ctx);
+        let is_optional = prop.optional.unwrap_or(false);
+
+        let getter_doc = format!("Get the `{}` field of this object.", name);
+        let setter_doc = format!("Change the `{}` field of this object.", name);
+
+        let field_type = &type_info.ty;
+        let return_type = if is_optional {
+            quote! { Option<#field_type> }
+        } else {
+            field_type.clone()
+        };
+
+        let setter_param_type = if type_info.is_ref_type {
+            quote! { &#field_type }
+        } else {
+            field_type.clone()
+        };
+
+        let feature_gate = type_info.feature.as_ref().map(|f| {
+            quote! { #[cfg(feature = #f)] }
+        });
+
+        vec![
+            quote! {
+                #feature_gate
+                #[doc = #getter_doc]
+                #[wasm_bindgen(method, getter = #js_name)]
+                pub fn #rust_getter(this: &#type_name) -> #return_type;
+            },
+            quote! {
+                #feature_gate
+                #[doc = #setter_doc]
+                #[wasm_bindgen(method, setter = #js_name)]
+                pub fn #rust_setter(this: &#type_name, val: #setter_param_type);
+            },
+        ]
+    }
+
+    /// Generate a builder method for a dictionary property.
+    fn generate_builder_method(
+        &self,
+        ctx: &GenContext,
+        prop_names: &std::collections::HashSet<String>,
+        name: &str,
+        prop: &TypeSpec,
+    ) -> Option<TokenStream> {
+        let snake_name = name.to_snake_case();
+
+        // Check for collision with getter/setter of another property
+        let would_collide = if let Some(suffix) = snake_name.strip_prefix("set_") {
+            prop_names.contains(suffix)
+        } else if let Some(suffix) = snake_name.strip_prefix("get_") {
+            prop_names.contains(suffix)
+        } else {
+            false
+        };
+
+        if would_collide {
+            return None;
+        }
+
+        let method_name = make_ident(&snake_name);
+        let setter_name = format_ident!("set_{}", snake_name);
+        let type_info = prop.to_type_info(ctx);
+
+        let deprecated_msg = format!("Use `set_{}()` instead.", snake_name);
+        let field_type = &type_info.ty;
+        let param_type = if type_info.is_ref_type {
+            quote! { &#field_type }
+        } else {
+            field_type.clone()
+        };
+
+        let feature_gate = type_info.feature.as_ref().map(|f| {
+            quote! { #[cfg(feature = #f)] }
+        });
+
+        Some(quote! {
+            #feature_gate
+            #[deprecated = #deprecated_msg]
+            pub fn #method_name(&mut self, val: #param_type) -> &mut Self {
+                self.#setter_name(val);
+                self
+            }
+        })
     }
 }

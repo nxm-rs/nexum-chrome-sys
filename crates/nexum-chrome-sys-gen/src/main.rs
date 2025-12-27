@@ -41,13 +41,12 @@ fn main() -> Result<()> {
     );
 
     // Generate the bindings
-    let config = generate::Config {
+    generate::Config {
         output_dir: args.output,
         only_namespaces: args.only,
         skip_namespaces: args.skip,
-    };
-
-    generate::run(&api_data, &config)?;
+    }
+    .run(&api_data)?;
 
     Ok(())
 }

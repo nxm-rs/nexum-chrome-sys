@@ -9,87 +9,110 @@ use anyhow::Result;
 use proc_macro2::TokenStream;
 use quote::quote;
 
-use super::functions::{GenerateEvent, GenerateFunction};
-use super::types::{GenContext, generate_type};
+use super::types::GenContext;
 use crate::schema::NamespaceSpec;
 
-/// Generate Rust code for a namespace.
-pub fn generate(ns_name: &str, ns_spec: &NamespaceSpec) -> Result<String> {
-    let ctx = GenContext::new(ns_name, ns_spec);
-    let mut tokens = TokenStream::new();
+impl NamespaceSpec {
+    /// Generate Rust code for this namespace.
+    pub fn generate_code(&self) -> Result<String> {
+        let ctx = GenContext::new(&self.namespace, self);
+        let mut tokens = TokenStream::new();
 
-    // File header
-    tokens.extend(generate_header());
+        // File header
+        tokens.extend(generate_header());
 
-    // Generate types (enums and dictionaries)
-    if let Some(types) = &ns_spec.types {
-        for type_spec in types {
-            if let Some(type_tokens) = generate_type(&ctx, type_spec) {
-                tokens.extend(type_tokens);
+        // Generate types (enums and dictionaries)
+        if let Some(types) = &self.types {
+            for type_spec in types {
+                if let Some(type_tokens) = type_spec.generate_type(&ctx) {
+                    tokens.extend(type_tokens);
+                }
             }
         }
+
+        // Generate extern "C" block for functions and events
+        tokens.extend(self.generate_extern_block(&ctx));
+
+        // Format the output with prettyplease, then rustfmt for final polish
+        let file = syn::parse2::<syn::File>(tokens.clone());
+        let formatted = match file {
+            Ok(file) => prettyplease::unparse(&file),
+            Err(e) => {
+                eprintln!("Warning: syn parse error for {}: {}", self.namespace, e);
+                tokens.to_string()
+            }
+        };
+
+        // Run rustfmt for final formatting
+        Ok(run_rustfmt(&formatted).unwrap_or(formatted))
     }
 
-    // Generate extern "C" block for functions and events
-    let extern_block = generate_extern_block(&ctx, ns_spec);
-    tokens.extend(extern_block);
+    /// Generate the extern "C" block with wasm_bindgen bindings.
+    fn generate_extern_block(&self, ctx: &GenContext) -> TokenStream {
+        let mut items = Vec::new();
+        let js_namespace = ctx.js_namespace();
 
-    // Format the output
-    let file = syn::parse2::<syn::File>(tokens.clone());
-    match file {
-        Ok(file) => Ok(prettyplease::unparse(&file)),
-        Err(e) => {
-            eprintln!("Warning: syn parse error for {}: {}", ns_name, e);
-            Ok(tokens.to_string())
+        // Generate function bindings
+        if let Some(functions) = &self.functions {
+            for func in functions {
+                if let Some(func_tokens) = func.generate_function(ctx, &js_namespace) {
+                    items.push(func_tokens);
+                }
+            }
+        }
+
+        // Generate event bindings
+        if let Some(events) = &self.events {
+            for event in events {
+                if let Some(event_tokens) = event.generate_event(&js_namespace) {
+                    items.push(event_tokens);
+                }
+            }
+        }
+
+        if items.is_empty() {
+            return TokenStream::new();
+        }
+
+        quote! {
+            #[wasm_bindgen]
+            extern "C" {
+                #(#items)*
+            }
         }
     }
 }
 
 /// Generate file header with imports.
 fn generate_header() -> TokenStream {
+    // Imports are alphabetically ordered to match rustfmt
     quote! {
         #![allow(unused_imports)]
         #![allow(clippy::all)]
-        use wasm_bindgen::prelude::*;
         use js_sys::{Array, Function, Object, Promise};
+        use wasm_bindgen::prelude::*;
     }
 }
 
-/// Generate the extern "C" block with wasm_bindgen bindings for functions and events.
-fn generate_extern_block(ctx: &GenContext, ns_spec: &NamespaceSpec) -> TokenStream {
-    let mut items = Vec::new();
+/// Run rustfmt on the given source code.
+fn run_rustfmt(source: &str) -> Option<String> {
+    use std::io::Write;
+    use std::process::{Command, Stdio};
 
-    // Build js_namespace path for functions
-    let js_namespace: Vec<&str> = std::iter::once("chrome")
-        .chain(ctx.ns_name.split('.'))
-        .collect();
+    let mut child = Command::new("rustfmt")
+        .args(["--edition", "2024", "--emit", "stdout"])
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::null())
+        .spawn()
+        .ok()?;
 
-    // Generate function bindings
-    if let Some(functions) = &ns_spec.functions {
-        for func in functions {
-            if let Some(func_tokens) = func.generate(ctx, &js_namespace) {
-                items.push(func_tokens);
-            }
-        }
-    }
+    child.stdin.take()?.write_all(source.as_bytes()).ok()?;
+    let output = child.wait_with_output().ok()?;
 
-    // Generate event bindings
-    if let Some(events) = &ns_spec.events {
-        for event in events {
-            if let Some(event_tokens) = event.generate(&js_namespace) {
-                items.push(event_tokens);
-            }
-        }
-    }
-
-    if items.is_empty() {
-        return TokenStream::new();
-    }
-
-    quote! {
-        #[wasm_bindgen]
-        extern "C" {
-            #(#items)*
-        }
+    if output.status.success() {
+        String::from_utf8(output.stdout).ok()
+    } else {
+        None
     }
 }
