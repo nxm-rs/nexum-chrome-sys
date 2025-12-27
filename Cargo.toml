@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "crates/nexum-chrome-gloo",
     "crates/nexum-chrome-sys",
     "crates/nexum-chrome-sys-gen",
 ]
@@ -27,6 +28,7 @@ syn = { version = "2.0", features = ["full"] }
 
 # wasm-bindgen
 wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
 js-sys = "0.3"
 
 # Utilities
