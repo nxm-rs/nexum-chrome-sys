@@ -1,6 +1,8 @@
 //! Code generation for Chrome Extension API bindings.
 
+mod functions;
 mod namespace;
+mod types;
 mod utils;
 
 use anyhow::{Context, Result};
