@@ -40,9 +40,32 @@ jobs:
       - name: Check for changes
         id: check
         run: |
-          if git diff --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
+          # Compare chrome-api.json ignoring metadata fields (headRevision, definitionsRevision, when, version)
+          # These change on every run even when the actual API definitions are unchanged
+          strip_metadata() {
+            jq 'del(.headRevision, .definitionsRevision, .when, .version)' "$1"
+          }
+
+          if git diff --quiet -- ':!chrome-api.json'; then
+            # No changes outside chrome-api.json, check if chrome-api.json has meaningful changes
+            if git diff --quiet -- chrome-api.json; then
+              echo "changed=false" >> $GITHUB_OUTPUT
+            else
+              # chrome-api.json changed - check if it's just metadata
+              OLD_CONTENT=$(git show HEAD:chrome-api.json | jq 'del(.headRevision, .definitionsRevision, .when, .version)')
+              NEW_CONTENT=$(jq 'del(.headRevision, .definitionsRevision, .when, .version)' chrome-api.json)
+
+              if [ "$OLD_CONTENT" = "$NEW_CONTENT" ]; then
+                echo "Only metadata changed in chrome-api.json, skipping PR"
+                git checkout chrome-api.json  # Restore original to avoid unnecessary commit
+                echo "changed=false" >> $GITHUB_OUTPUT
+              else
+                echo "API definitions changed in chrome-api.json"
+                echo "changed=true" >> $GITHUB_OUTPUT
+              fi
+            fi
           else
+            # Changes in other files (Rust bindings, etc.)
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
