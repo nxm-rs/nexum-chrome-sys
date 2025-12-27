@@ -77,3 +77,36 @@ impl Default for UrlOverrideInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UrlOverrideInfo`.
+pub struct UrlOverrideInfoData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub activationmessage: Option<String>,
+    ///Override for the chrome://bookmarks page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bookmarks: Option<String>,
+    ///Override for the chrome://history page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub history: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub keyboard: Option<String>,
+    ///Override for the chrome://newtab page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub newtab: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UrlOverrideInfo> for UrlOverrideInfoData {
+    fn from(val: &UrlOverrideInfo) -> Self {
+        Self {
+            activationmessage: val.get_activationmessage(),
+            bookmarks: val.get_bookmarks(),
+            history: val.get_history(),
+            keyboard: val.get_keyboard(),
+            newtab: val.get_newtab(),
+        }
+    }
+}

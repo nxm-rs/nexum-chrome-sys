@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Allocation authorities for Vendor IDs.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum VendorIdSource {
     Bluetooth = "bluetooth",
     Usb = "usb",
@@ -12,6 +13,7 @@ pub enum VendorIdSource {
 #[wasm_bindgen]
 ///Common device types recognized by Chrome.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DeviceType {
     Computer = "computer",
     Phone = "phone",
@@ -30,6 +32,7 @@ pub enum DeviceType {
 #[wasm_bindgen]
 ///Types for filtering bluetooth devices.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FilterType {
     All = "all",
     Known = "known",
@@ -37,6 +40,7 @@ pub enum FilterType {
 #[wasm_bindgen]
 ///Transport type of the bluetooth device.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Transport {
     Invalid = "invalid",
     Classic = "classic",
@@ -116,6 +120,34 @@ impl AdapterState {
 impl Default for AdapterState {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AdapterState`.
+pub struct AdapterStateData {
+    ///The address of the adapter, in the format 'XX:XX:XX:XX:XX:XX'.
+    pub address: String,
+    ///Indicates whether or not the adapter is available (i.e. enabled).
+    pub available: bool,
+    ///Indicates whether or not the adapter is currently discovering.
+    pub discovering: bool,
+    ///The human-readable name of the adapter.
+    pub name: String,
+    ///Indicates whether or not the adapter has power.
+    pub powered: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&AdapterState> for AdapterStateData {
+    fn from(val: &AdapterState) -> Self {
+        Self {
+            address: val.get_address(),
+            available: val.get_available(),
+            discovering: val.get_discovering(),
+            name: val.get_name(),
+            powered: val.get_powered(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -325,6 +357,88 @@ impl Default for Device {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Device`.
+pub struct DeviceData {
+    ///The address of the device, in the format 'XX:XX:XX:XX:XX:XX'.
+    pub address: String,
+    ///The remaining battery of the device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub battery_percentage: Option<i32>,
+    ///Indicates whether the device is connectable.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connectable: Option<bool>,
+    ///Indicates whether the device is currently connected to the system.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connected: Option<bool>,
+    ///Indicates whether the device is currently connecting to the system.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connecting: Option<bool>,
+    ///The class of the device, a bit-field defined by http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_class: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_id: Option<i32>,
+    ///The received signal strength, in dBm. This field is avaliable and valid only during discovery. Outside of discovery it's value is not specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inquiry_rssi: Option<i32>,
+    ///The transmitted power level. This field is avaliable only for LE devices that include this field in AD. It is avaliable and valid only during discovery.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inquiry_tx_power: Option<i32>,
+    ///The human-readable name of the device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Indicates whether or not the device is paired with the system.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paired: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product_id: Option<i32>,
+    ///The transport type of the bluetooth device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub transport: Option<Transport>,
+    ///The type of the device, if recognized by Chrome. This is obtained from the |deviceClass| field and only represents a small fraction of the possible device types. When in doubt you should use the |deviceClass| field directly.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<DeviceType>,
+    ///UUIDs of protocols, profiles and services advertised by the device. For classic Bluetooth devices, this list is obtained from EIR data and SDP tables. For Low Energy devices, this list is obtained from AD and GATT primary services. For dual mode devices this may be obtained from both.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub uuids: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<i32>,
+    ///The Device ID record of the device, where available.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id_source: Option<VendorIdSource>,
+}
+#[cfg(feature = "serde")]
+impl From<&Device> for DeviceData {
+    fn from(val: &Device) -> Self {
+        Self {
+            address: val.get_address(),
+            battery_percentage: val.get_battery_percentage(),
+            connectable: val.get_connectable(),
+            connected: val.get_connected(),
+            connecting: val.get_connecting(),
+            device_class: val.get_device_class(),
+            device_id: val.get_device_id(),
+            inquiry_rssi: val.get_inquiry_rssi(),
+            inquiry_tx_power: val.get_inquiry_tx_power(),
+            name: val.get_name(),
+            paired: val.get_paired(),
+            product_id: val.get_product_id(),
+            transport: val.get_transport(),
+            r#type: val.get_type(),
+            uuids: val
+                .get_uuids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            vendor_id: val.get_vendor_id(),
+            vendor_id_source: val.get_vendor_id_source(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "BluetoothFilter")]
@@ -365,6 +479,27 @@ impl BluetoothFilter {
 impl Default for BluetoothFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `BluetoothFilter`.
+pub struct BluetoothFilterData {
+    ///Type of filter to apply to the device list. Default is all.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filter_type: Option<FilterType>,
+    ///Maximum number of bluetooth devices to return. Default is 0 (no limit) if unspecified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&BluetoothFilter> for BluetoothFilterData {
+    fn from(val: &BluetoothFilter) -> Self {
+        Self {
+            filter_type: val.get_filter_type(),
+            limit: val.get_limit(),
+        }
     }
 }
 #[wasm_bindgen]

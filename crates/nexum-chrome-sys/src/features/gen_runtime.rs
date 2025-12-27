@@ -216,9 +216,63 @@ impl Default for MessageSender {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MessageSender`. An object containing information about the script context that sent a message or request.
+pub struct MessageSenderData {
+    ///A UUID of the document that opened the connection.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The lifecycle the document that opened the connection is in at the time the port was created. Note that the lifecycle state of the document may have changed since port creation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_lifecycle: Option<String>,
+    ///The frame that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when tab is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///The guest process id of the requesting webview, if available. Only available for component extensions.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub guest_process_id: Option<i32>,
+    ///The guest render frame routing id of the requesting webview, if available. Only available for component extensions.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub guest_render_frame_routing_id: Option<i32>,
+    ///The ID of the extension that opened the connection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    ///The name of the native application that opened the connection, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub native_application: Option<String>,
+    ///The origin of the page or frame that opened the connection. It can vary from the url property (e.g., about:blank) or can be opaque (e.g., sandboxed iframes). This is useful for identifying if the origin can be trusted if we can't immediately tell from the URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub origin: Option<String>,
+    ///The TLS channel ID of the page or frame that opened the connection, if requested by the extension, and if available.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tls_channel_id: Option<String>,
+    ///The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&MessageSender> for MessageSenderData {
+    fn from(val: &MessageSender) -> Self {
+        Self {
+            document_id: val.get_document_id(),
+            document_lifecycle: val.get_document_lifecycle(),
+            frame_id: val.get_frame_id(),
+            guest_process_id: val.get_guest_process_id(),
+            guest_render_frame_routing_id: val.get_guest_render_frame_routing_id(),
+            id: val.get_id(),
+            native_application: val.get_native_application(),
+            origin: val.get_origin(),
+            tls_channel_id: val.get_tls_channel_id(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The operating system Chrome is running on.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PlatformOs {
     ///Specifies the MacOS operating system.
     Mac = "mac",
@@ -236,6 +290,7 @@ pub enum PlatformOs {
 #[wasm_bindgen]
 ///The machine's processor architecture.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PlatformArch {
     ///Specifies the processer architecture as arm.
     Arm = "arm",
@@ -255,6 +310,7 @@ pub enum PlatformArch {
 #[wasm_bindgen]
 ///The native client architecture. This may be different from arch on some platforms.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PlatformNaclArch {
     ///Specifies the native client architecture as arm.
     Arm = "arm",
@@ -320,9 +376,33 @@ impl Default for PlatformInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PlatformInfo`. An object containing information about the current platform.
+pub struct PlatformInfoData {
+    ///The machine's processor architecture.
+    pub arch: PlatformArch,
+    ///The native client architecture. This may be different from arch on some platforms.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub nacl_arch: Option<PlatformNaclArch>,
+    ///The operating system Chrome is running on.
+    pub os: PlatformOs,
+}
+#[cfg(feature = "serde")]
+impl From<&PlatformInfo> for PlatformInfoData {
+    fn from(val: &PlatformInfo) -> Self {
+        Self {
+            arch: val.get_arch(),
+            nacl_arch: val.get_nacl_arch(),
+            os: val.get_os(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Result of the update check.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RequestUpdateCheckStatus {
     ///Specifies that the status check has been throttled. This can occur after repeated checks within a short amount of time.
     Throttled = "throttled",
@@ -334,6 +414,7 @@ pub enum RequestUpdateCheckStatus {
 #[wasm_bindgen]
 ///The reason that this event is being dispatched.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnInstalledReason {
     ///Specifies the event reason as an installation.
     Install = "install",
@@ -347,6 +428,7 @@ pub enum OnInstalledReason {
 #[wasm_bindgen]
 ///The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnRestartRequiredReason {
     ///Specifies the event reason as an update to the app.
     AppUpdate = "app_update",
@@ -358,6 +440,7 @@ pub enum OnRestartRequiredReason {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ContextType {
     ///Specifies the context type as a tab
     Tab = "TAB",
@@ -491,6 +574,49 @@ impl Default for ExtensionContext {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ExtensionContext`. A context hosting extension content.
+pub struct ExtensionContextData {
+    ///A unique identifier for this context
+    pub context_id: String,
+    ///The type of context this corresponds to.
+    pub context_type: ContextType,
+    ///A UUID for the document associated with this context, or undefined if this context is hosted not in a document.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_id: Option<String>,
+    ///The origin of the document associated with this context, or undefined if the context is not hosted in a document.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_origin: Option<String>,
+    ///The URL of the document associated with this context, or undefined if the context is not hosted in a document.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_url: Option<String>,
+    ///The ID of the frame for this context, or -1 if this context is not hosted in a frame.
+    pub frame_id: i32,
+    ///Whether the context is associated with an incognito profile.
+    pub incognito: bool,
+    ///The ID of the tab for this context, or -1 if this context is not hosted in a tab.
+    pub tab_id: i32,
+    ///The ID of the window for this context, or -1 if this context is not hosted in a window.
+    pub window_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ExtensionContext> for ExtensionContextData {
+    fn from(val: &ExtensionContext) -> Self {
+        Self {
+            context_id: val.get_context_id(),
+            context_type: val.get_context_type(),
+            document_id: val.get_document_id(),
+            document_origin: val.get_document_origin(),
+            document_url: val.get_document_url(),
+            frame_id: val.get_frame_id(),
+            incognito: val.get_incognito(),
+            tab_id: val.get_tab_id(),
+            window_id: val.get_window_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ContextFilter")]
@@ -608,6 +734,71 @@ impl ContextFilter {
 impl Default for ContextFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ContextFilter`. A filter to match against certain extension contexts. Matching contexts must match all specified filters; any filter that is not specified matches all available contexts. Thus, a filter of `{}` will match all available contexts.
+pub struct ContextFilterData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub context_ids: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub context_types: Option<Vec<ContextType>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_ids: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_origins: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_urls: Option<Vec<String>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_ids: Option<Vec<i32>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub incognito: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_ids: Option<Vec<i32>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_ids: Option<Vec<i32>>,
+}
+#[cfg(feature = "serde")]
+impl From<&ContextFilter> for ContextFilterData {
+    fn from(val: &ContextFilter) -> Self {
+        Self {
+            context_ids: val
+                .get_context_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            context_types: val
+                .get_context_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            document_ids: val
+                .get_document_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            document_origins: val
+                .get_document_origins()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            document_urls: val
+                .get_document_urls()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            frame_ids: val
+                .get_frame_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            incognito: val.get_incognito(),
+            tab_ids: val
+                .get_tab_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            window_ids: val
+                .get_window_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]

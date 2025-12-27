@@ -44,9 +44,30 @@ impl Default for LaunchItem {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `LaunchItem`.
+pub struct LaunchItemData {
+    ///Entry for the item.
+    pub entry: serde_json::Value,
+    ///The MIME type of the file.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&LaunchItem> for LaunchItemData {
+    fn from(val: &LaunchItem) -> Self {
+        Self {
+            entry: serde_wasm_bindgen::from_value(val.get_entry().into()).unwrap_or_default(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Enumeration of app launch sources. This should be kept in sync with AppLaunchSource in components/services/app_service/public/mojom/types.mojom, and GetLaunchSourceEnum() in extensions/browser/api/app_runtime/app_runtime_api.cc. Note the enumeration is used in UMA histogram so entries should not be re-ordered or removed.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum LaunchSource {
     Untracked = "untracked",
     AppLauncher = "app_launcher",
@@ -183,6 +204,53 @@ impl Default for LaunchData {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `LaunchData`.
+pub struct LaunchDataData {
+    ///The ID of the file or URL handler that the app is being invoked with. Handler IDs are the top-level keys in the file_handlers and/or url_handlers dictionaries in the manifest.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    ///Whether the app is launched in a Chrome OS Demo Mode session. Used for default-installed Demo Mode Chrome apps.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_demo_session: Option<bool>,
+    ///Whether the app is being launched in a Chrome OS kiosk session.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_kiosk_session: Option<bool>,
+    ///Whether the app is being launched in a Chrome OS public session.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_public_session: Option<bool>,
+    ///The file entries for the onLaunched event triggered by a matching file handler in the file_handlers manifest key.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub items: Option<Vec<LaunchItemData>>,
+    ///The referrer URL for the onLaunched event triggered by a matching URL handler in the url_handlers manifest key.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub referrer_url: Option<String>,
+    ///Where the app is launched from.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source: Option<LaunchSource>,
+    ///The URL for the onLaunched event triggered by a matching URL handler in the url_handlers manifest key.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&LaunchData> for LaunchDataData {
+    fn from(val: &LaunchData) -> Self {
+        Self {
+            id: val.get_id(),
+            is_demo_session: val.get_is_demo_session(),
+            is_kiosk_session: val.get_is_kiosk_session(),
+            is_public_session: val.get_is_public_session(),
+            items: val
+                .get_items()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            referrer_url: val.get_referrer_url(),
+            source: val.get_source(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "EmbedRequest")]
@@ -245,6 +313,28 @@ impl EmbedRequest {
 impl Default for EmbedRequest {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EmbedRequest`.
+pub struct EmbedRequestData {
+    ///Optional developer specified data that the app to be embedded can use when making an embedding decision.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data: Option<serde_json::Value>,
+    ///
+    pub embedder_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&EmbedRequest> for EmbedRequestData {
+    fn from(val: &EmbedRequest) -> Self {
+        Self {
+            data: val
+                .get_data()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            embedder_id: val.get_embedder_id(),
+        }
     }
 }
 #[wasm_bindgen]

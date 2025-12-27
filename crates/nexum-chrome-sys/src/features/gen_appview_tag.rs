@@ -66,6 +66,25 @@ impl Default for EmbedRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `EmbedRequest`.
+pub struct EmbedRequestData {
+    ///Optional developer specified data that the app to be embedded can use when making an embedding decision.
+    pub data: serde_json::Value,
+    ///The ID of the app that sent the embedding request.
+    pub embedder_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&EmbedRequest> for EmbedRequestData {
+    fn from(val: &EmbedRequest) -> Self {
+        Self {
+            data: serde_wasm_bindgen::from_value(val.get_data().into()).unwrap_or_default(),
+            embedder_id: val.get_embedder_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Requests another app to be embedded.

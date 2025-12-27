@@ -44,6 +44,26 @@ impl Default for ResolveCallbackResolveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ResolveCallbackResolveInfo`.
+pub struct ResolveCallbackResolveInfoData {
+    ///A string representing the IP address literal. Supplied only if resultCode indicates success.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub address: Option<String>,
+    ///The result code. Zero indicates success.
+    pub result_code: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ResolveCallbackResolveInfo> for ResolveCallbackResolveInfoData {
+    fn from(val: &ResolveCallbackResolveInfo) -> Self {
+        Self {
+            address: val.get_address(),
+            result_code: val.get_result_code(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Resolves the given hostname or IP address literal.

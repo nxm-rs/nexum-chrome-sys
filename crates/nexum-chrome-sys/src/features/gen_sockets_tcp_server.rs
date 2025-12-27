@@ -44,6 +44,27 @@ impl Default for SocketProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SocketProperties`.
+pub struct SocketPropertiesData {
+    ///An application-defined string associated with the socket.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Flag indicating if the socket remains open when the event page of the application is unloaded (see Manage App Lifecycle). The default value is "false." When the application is loaded, any sockets previously opened with persistent=true can be fetched with getSockets.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persistent: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&SocketProperties> for SocketPropertiesData {
+    fn from(val: &SocketProperties) -> Self {
+        Self {
+            name: val.get_name(),
+            persistent: val.get_persistent(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateInfo")]
@@ -73,6 +94,22 @@ impl CreateInfo {
 impl Default for CreateInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateInfo`.
+pub struct CreateInfoData {
+    ///The ID of the newly created server socket. Note that socket IDs created from this API are not compatible with socket IDs created from other APIs, such as the deprecated $(ref:socket) API.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateInfo> for CreateInfoData {
+    fn from(val: &CreateInfo) -> Self {
+        Self {
+            socket_id: val.get_socket_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -161,6 +198,40 @@ impl Default for SocketInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SocketInfo`.
+pub struct SocketInfoData {
+    ///If the socket is listening, contains its local IPv4/6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local_address: Option<String>,
+    ///If the socket is listening, contains its local port.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local_port: Option<i32>,
+    ///Application-defined string associated with the socket.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Flag indicating whether connection requests on a listening socket are dispatched through the onAccept event or queued up in the listen queue backlog. See setPaused. The default value is "false".
+    pub paused: bool,
+    ///Flag indicating if the socket remains open when the event page of the application is unloaded (see SocketProperties.persistent). The default value is "false".
+    pub persistent: bool,
+    ///The socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SocketInfo> for SocketInfoData {
+    fn from(val: &SocketInfo) -> Self {
+        Self {
+            local_address: val.get_local_address(),
+            local_port: val.get_local_port(),
+            name: val.get_name(),
+            paused: val.get_paused(),
+            persistent: val.get_persistent(),
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AcceptInfo")]
@@ -203,6 +274,25 @@ impl Default for AcceptInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AcceptInfo`.
+pub struct AcceptInfoData {
+    ///The client socket identifier, i.e. the socket identifier of the newly established connection. This socket identifier should be used only with functions from the chrome.sockets.tcp namespace. Note the client socket is initially paused and must be explictly un-paused by the application to start receiving data.
+    pub client_socket_id: i32,
+    ///The server socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AcceptInfo> for AcceptInfoData {
+    fn from(val: &AcceptInfo) -> Self {
+        Self {
+            client_socket_id: val.get_client_socket_id(),
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AcceptErrorInfo")]
@@ -243,6 +333,25 @@ impl AcceptErrorInfo {
 impl Default for AcceptErrorInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AcceptErrorInfo`.
+pub struct AcceptErrorInfoData {
+    ///The result code returned from the underlying network call.
+    pub result_code: i32,
+    ///The server socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&AcceptErrorInfo> for AcceptErrorInfoData {
+    fn from(val: &AcceptErrorInfo) -> Self {
+        Self {
+            result_code: val.get_result_code(),
+            socket_id: val.get_socket_id(),
+        }
     }
 }
 #[wasm_bindgen]

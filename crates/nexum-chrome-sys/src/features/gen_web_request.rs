@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ResourceType {
     ///Specifies the resource as the main frame.
     MainFrame = "main_frame",
@@ -38,6 +39,7 @@ pub enum ResourceType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnBeforeRequestOptions {
     ///Specifies the request is blocked until the callback function returns.
     Blocking = "blocking",
@@ -49,6 +51,7 @@ pub enum OnBeforeRequestOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnBeforeSendHeadersOptions {
     ///Specifies that the request header should be included in the event.
     RequestHeaders = "requestHeaders",
@@ -60,6 +63,7 @@ pub enum OnBeforeSendHeadersOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnSendHeadersOptions {
     ///Specifies that the request header should be included in the event.
     RequestHeaders = "requestHeaders",
@@ -69,6 +73,7 @@ pub enum OnSendHeadersOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnHeadersReceivedOptions {
     ///Specifies the request is blocked until the callback function returns.
     Blocking = "blocking",
@@ -84,6 +89,7 @@ pub enum OnHeadersReceivedOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnAuthRequiredOptions {
     ///Specifies that the response headers should be included in the event.
     ResponseHeaders = "responseHeaders",
@@ -97,6 +103,7 @@ pub enum OnAuthRequiredOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnResponseStartedOptions {
     ///Specifies that the response headers should be included in the event.
     ResponseHeaders = "responseHeaders",
@@ -106,6 +113,7 @@ pub enum OnResponseStartedOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnBeforeRedirectOptions {
     ///Specifies that the response headers should be included in the event.
     ResponseHeaders = "responseHeaders",
@@ -115,6 +123,7 @@ pub enum OnBeforeRedirectOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnCompletedOptions {
     ///Specifies that the response headers should be included in the event.
     ResponseHeaders = "responseHeaders",
@@ -124,6 +133,7 @@ pub enum OnCompletedOptions {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum OnErrorOccurredOptions {
     ///Specifies that headers can violate Cross-Origin Resource Sharing (CORS).
     ExtraHeaders = "extraHeaders",
@@ -190,6 +200,36 @@ impl RequestFilter {
 impl Default for RequestFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RequestFilter`. An object describing filters to apply to webRequest events.
+pub struct RequestFilterData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+    ///A list of request types. Requests that cannot match any of the types will be filtered out.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub types: Option<Vec<ResourceType>>,
+    ///A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out.
+    pub urls: Vec<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&RequestFilter> for RequestFilterData {
+    fn from(val: &RequestFilter) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+            types: val
+                .get_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            urls: serde_wasm_bindgen::from_value(val.get_urls().into()).unwrap_or_default(),
+            window_id: val.get_window_id(),
+        }
     }
 }
 ///An array of HTTP headers. Each header is represented as a dictionary containing the keys name and either value or binaryValue.
@@ -269,6 +309,33 @@ impl Default for BlockingResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `BlockingResponse`. Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests.
+pub struct BlockingResponseData {
+    ///Only used as a response to the onAuthRequired event. If set, the request is made using the supplied credentials.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auth_credentials: Option<serde_json::Value>,
+    ///If true, the request is cancelled. This prevents the request from being sent. This can be used as a response to the onBeforeRequest, onBeforeSendHeaders, onHeadersReceived and onAuthRequired events.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cancel: Option<bool>,
+    ///Only used as a response to the onBeforeRequest and onHeadersReceived events. If set, the original request is prevented from being sent/completed and is instead redirected to the given URL. Redirections to non-HTTP schemes such as data: are allowed. Redirects initiated by a redirect action use the original request method for the redirect, with one exception: If the redirect is initiated at the onHeadersReceived stage, then the redirect will be issued using the GET method. Redirects from URLs with ws:// and wss:// schemes are ignored.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub redirect_url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&BlockingResponse> for BlockingResponseData {
+    fn from(val: &BlockingResponse) -> Self {
+        Self {
+            auth_credentials: val
+                .get_auth_credentials()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            cancel: val.get_cancel(),
+            redirect_url: val.get_redirect_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UploadData")]
@@ -309,6 +376,29 @@ impl UploadData {
 impl Default for UploadData {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UploadData`. Contains data uploaded in a URL request.
+pub struct UploadDataData {
+    ///An ArrayBuffer with a copy of the data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bytes: Option<serde_json::Value>,
+    ///A string with the file's path and name.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&UploadData> for UploadDataData {
+    fn from(val: &UploadData) -> Self {
+        Self {
+            bytes: val
+                .get_bytes()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            file: val.get_file(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -353,9 +443,30 @@ impl Default for SecurityInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SecurityInfo`.
+pub struct SecurityInfoData {
+    ///A list of certificates
+    pub certificates: Vec<serde_json::Value>,
+    ///State of the connection. One of secure, insecure, broken.
+    pub state: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SecurityInfo> for SecurityInfoData {
+    fn from(val: &SecurityInfo) -> Self {
+        Self {
+            certificates: serde_wasm_bindgen::from_value(val.get_certificates().into())
+                .unwrap_or_default(),
+            state: val.get_state(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IgnoredActionType {
     Redirect = "redirect",
     RequestHeaders = "request_headers",

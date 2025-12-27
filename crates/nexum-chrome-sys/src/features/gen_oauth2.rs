@@ -55,3 +55,27 @@ impl Default for OAuth2Info {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OAuth2Info`.
+pub struct OAuth2InfoData {
+    ///Whether the approval UI should be skipped. Only available to allowlisted extensions/apps.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub auto_approve: Option<bool>,
+    ///Client ID of the corresponding extension/app.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    ///Scopes the extension/app needs access to.
+    pub scopes: Vec<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&OAuth2Info> for OAuth2InfoData {
+    fn from(val: &OAuth2Info) -> Self {
+        Self {
+            auto_approve: val.get_auto_approve(),
+            client_id: val.get_client_id(),
+            scopes: serde_wasm_bindgen::from_value(val.get_scopes().into()).unwrap_or_default(),
+        }
+    }
+}

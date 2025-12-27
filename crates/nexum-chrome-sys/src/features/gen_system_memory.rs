@@ -44,6 +44,25 @@ impl Default for MemoryInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MemoryInfo`.
+pub struct MemoryInfoData {
+    ///The amount of available capacity, in bytes.
+    pub available_capacity: f64,
+    ///The total amount of physical memory capacity, in bytes.
+    pub capacity: f64,
+}
+#[cfg(feature = "serde")]
+impl From<&MemoryInfo> for MemoryInfoData {
+    fn from(val: &MemoryInfo) -> Self {
+        Self {
+            available_capacity: val.get_available_capacity(),
+            capacity: val.get_capacity(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Get physical memory information.

@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Error codes returned in response to $(ref:onPrintRequested) event.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PrintError {
     ///Specifies that the operation was completed successfully.
     Ok = "OK",
@@ -66,6 +67,29 @@ impl PrinterInfo {
 impl Default for PrinterInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PrinterInfo`.
+pub struct PrinterInfoData {
+    ///Printer's human readable description.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///Unique printer ID.
+    pub id: String,
+    ///Printer's human readable name.
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&PrinterInfo> for PrinterInfoData {
+    fn from(val: &PrinterInfo) -> Self {
+        Self {
+            description: val.get_description(),
+            id: val.get_id(),
+            name: val.get_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -141,6 +165,34 @@ impl PrintJob {
 impl Default for PrintJob {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PrintJob`.
+pub struct PrintJobData {
+    ///The document content type. Supported formats are "application/pdf" and "image/pwg-raster".
+    pub content_type: String,
+    ///Blob containing the document data to print. Format must match |contentType|.
+    pub document: serde_json::Value,
+    ///ID of the printer which should handle the job.
+    pub printer_id: String,
+    ///Print ticket in CJT format. The CJT reference is marked as deprecated. It is deprecated for Google Cloud Print only. is not deprecated for ChromeOS printing.
+    pub ticket: serde_json::Value,
+    ///The print job title.
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&PrintJob> for PrintJobData {
+    fn from(val: &PrintJob) -> Self {
+        Self {
+            content_type: val.get_content_type(),
+            document: serde_wasm_bindgen::from_value(val.get_document().into()).unwrap_or_default(),
+            printer_id: val.get_printer_id(),
+            ticket: serde_wasm_bindgen::from_value(val.get_ticket().into()).unwrap_or_default(),
+            title: val.get_title(),
+        }
     }
 }
 #[wasm_bindgen]

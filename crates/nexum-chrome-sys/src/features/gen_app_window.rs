@@ -66,6 +66,35 @@ impl Default for ContentBounds {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ContentBounds`.
+pub struct ContentBoundsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub left: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&ContentBounds> for ContentBoundsData {
+    fn from(val: &ContentBounds) -> Self {
+        Self {
+            height: val.get_height(),
+            left: val.get_left(),
+            top: val.get_top(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "BoundsSpecification")]
@@ -172,6 +201,51 @@ impl BoundsSpecification {
 impl Default for BoundsSpecification {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `BoundsSpecification`.
+pub struct BoundsSpecificationData {
+    ///The height of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///The X coordinate of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub left: Option<i32>,
+    ///The maximum height of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_height: Option<i32>,
+    ///The maximum width of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_width: Option<i32>,
+    ///The minimum height of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_height: Option<i32>,
+    ///The minimum width of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_width: Option<i32>,
+    ///The Y coordinate of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    ///The width of the content or window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&BoundsSpecification> for BoundsSpecificationData {
+    fn from(val: &BoundsSpecification) -> Self {
+        Self {
+            height: val.get_height(),
+            left: val.get_left(),
+            max_height: val.get_max_height(),
+            max_width: val.get_max_width(),
+            min_height: val.get_min_height(),
+            min_width: val.get_min_width(),
+            top: val.get_top(),
+            width: val.get_width(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -326,6 +400,47 @@ impl Default for Bounds {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Bounds`.
+pub struct BoundsData {
+    ///This property can be used to read or write the current height of the content or window.
+    pub height: i32,
+    ///This property can be used to read or write the current X coordinate of the content or window.
+    pub left: i32,
+    ///This property can be used to read or write the current maximum height of the content or window. A value of null indicates 'unspecified'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_height: Option<i32>,
+    ///This property can be used to read or write the current maximum width of the content or window. A value of null indicates 'unspecified'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_width: Option<i32>,
+    ///This property can be used to read or write the current minimum height of the content or window. A value of null indicates 'unspecified'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_height: Option<i32>,
+    ///This property can be used to read or write the current minimum width of the content or window. A value of null indicates 'unspecified'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_width: Option<i32>,
+    ///This property can be used to read or write the current Y coordinate of the content or window.
+    pub top: i32,
+    ///This property can be used to read or write the current width of the content or window.
+    pub width: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Bounds> for BoundsData {
+    fn from(val: &Bounds) -> Self {
+        Self {
+            height: val.get_height(),
+            left: val.get_left(),
+            max_height: val.get_max_height(),
+            max_width: val.get_max_width(),
+            min_height: val.get_min_height(),
+            min_width: val.get_min_width(),
+            top: val.get_top(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "FrameOptions")]
@@ -390,9 +505,39 @@ impl Default for FrameOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FrameOptions`.
+pub struct FrameOptionsData {
+    ///Allows the frame color of the window when active to be set. Frame coloring is only available if the frame type is chrome.Frame coloring is only available if the frame type is chrome.Frame coloring is new in Chrome 36.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub active_color: Option<String>,
+    ///Allows the frame color to be set. Frame coloring is only available if the frame type is chrome.Frame coloring is new in Chrome 36.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub color: Option<String>,
+    ///Allows the frame color of the window when inactive to be set differently to the active color. Frame coloring is only available if the frame type is chrome.inactiveColor must be used in conjunction with color.Frame coloring is new in Chrome 36.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inactive_color: Option<String>,
+    ///Frame type: none or chrome (defaults to chrome).For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window.-webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&FrameOptions> for FrameOptionsData {
+    fn from(val: &FrameOptions) -> Self {
+        Self {
+            active_color: val.get_active_color(),
+            color: val.get_color(),
+            inactive_color: val.get_inactive_color(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///State of a window: normal, fullscreen, maximized, minimized.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum State {
     Normal = "normal",
     Fullscreen = "fullscreen",
@@ -402,6 +547,7 @@ pub enum State {
 #[wasm_bindgen]
 ///Specifies the type of window to create.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum WindowType {
     ///Default window type.
     Shell = "shell",
@@ -747,6 +893,137 @@ impl Default for CreateWindowOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateWindowOptions`.
+pub struct CreateWindowOptionsData {
+    ///Enable window background transparency. Only supported in ash. Requires the app.window.alpha API permission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alpha_enabled: Option<bool>,
+    ///If true, the window will stay above most other windows. If there are multiple windows of this kind, the currently focused window will be in the foreground. Requires the alwaysOnTopWindows permission. Defaults to false.Call setAlwaysOnTop() on the window to change this property after creation.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub always_on_top: Option<bool>,
+    ///Size and position of the content in the window (excluding the titlebar). If an id is also specified and a window with a matching id has been shown before, the remembered bounds of the window will be used instead.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bounds: Option<ContentBoundsData>,
+    ///Default height of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_height: Option<i32>,
+    ///Default X coordinate of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_left: Option<i32>,
+    ///Default Y coordinate of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_top: Option<i32>,
+    ///Default width of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub default_width: Option<i32>,
+    ///If true, the window will be focused when created. Defaults to true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub focused: Option<bool>,
+    ///Frame type: none or chrome (defaults to chrome). For none, the -webkit-app-region CSS property can be used to apply draggability to the app's window. -webkit-app-region: drag can be used to mark regions draggable. no-drag can be used to disable this style on nested elements.Use of FrameOptions is new in M36.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame: Option<serde_json::Value>,
+    ///Height of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///If true, the window will be created in a hidden state. Call show() on the window to show it once it has been created. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub hidden: Option<bool>,
+    ///URL of the window icon. A window can have its own icon when showInShelf is set to true. The URL should be a global or an extension local URL.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon: Option<String>,
+    ///Id to identify the window. This will be used to remember the size and position of the window and restore that geometry when a window with the same id is later opened. If a window with a given id is created while another window with the same id already exists, the currently opened window will be focused instead of creating a new window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<String>,
+    ///Creates a special ime window. This window is not focusable and can be stacked above virtual keyboard window. This is restriced to component ime extensions. Requires the app.window.ime API permission.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ime: Option<bool>,
+    ///Used to specify the initial position, initial size and constraints of the window's content (excluding window decorations). If an id is also specified and a window with a matching id has been shown before, the remembered bounds will be used instead.Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same bounds property for both the innerBounds and outerBounds will result in an error.This property is new in Chrome 36.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub inner_bounds: Option<BoundsSpecificationData>,
+    ///X coordinate of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub left: Option<i32>,
+    ///Maximum height of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_height: Option<i32>,
+    ///Maximum width of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_width: Option<i32>,
+    ///Minimum height of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_height: Option<i32>,
+    ///Minimum width of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min_width: Option<i32>,
+    ///Used to specify the initial position, initial size and constraints of the window (including window decorations such as the title bar and frame). If an id is also specified and a window with a matching id has been shown before, the remembered bounds will be used instead.Note that the padding between the inner and outer bounds is determined by the OS. Therefore setting the same bounds property for both the innerBounds and outerBounds will result in an error.This property is new in Chrome 36.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub outer_bounds: Option<BoundsSpecificationData>,
+    ///If true, the window will be resizable by the user. Defaults to true.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resizable: Option<bool>,
+    ///If true, the window will have its own shelf icon. Otherwise the window will be grouped in the shelf with other windows that are associated with the app. Defaults to false. If showInShelf is set to true you need to specify an id for the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub show_in_shelf: Option<bool>,
+    ///By default if you specify an id for the window, the window will only be created if another window with the same id doesn't already exist. If a window with the same id already exists that window is activated instead. If you do want to create multiple windows with the same id, you can set this property to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub singleton: Option<bool>,
+    ///The initial state of the window, allowing it to be created already fullscreen, maximized, or minimized. Defaults to 'normal'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<State>,
+    ///Y coordinate of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top: Option<i32>,
+    ///Type of window to create.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<WindowType>,
+    ///If true, and supported by the platform, the window will be visible on all workspaces.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visible_on_all_workspaces: Option<bool>,
+    ///Width of the window.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateWindowOptions> for CreateWindowOptionsData {
+    fn from(val: &CreateWindowOptions) -> Self {
+        Self {
+            alpha_enabled: val.get_alpha_enabled(),
+            always_on_top: val.get_always_on_top(),
+            bounds: val.get_bounds().as_ref().map(|v| v.into()),
+            default_height: val.get_default_height(),
+            default_left: val.get_default_left(),
+            default_top: val.get_default_top(),
+            default_width: val.get_default_width(),
+            focused: val.get_focused(),
+            frame: val
+                .get_frame()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            height: val.get_height(),
+            hidden: val.get_hidden(),
+            icon: val.get_icon(),
+            id: val.get_id(),
+            ime: val.get_ime(),
+            inner_bounds: val.get_inner_bounds().as_ref().map(|v| v.into()),
+            left: val.get_left(),
+            max_height: val.get_max_height(),
+            max_width: val.get_max_width(),
+            min_height: val.get_min_height(),
+            min_width: val.get_min_width(),
+            outer_bounds: val.get_outer_bounds().as_ref().map(|v| v.into()),
+            resizable: val.get_resizable(),
+            show_in_shelf: val.get_show_in_shelf(),
+            singleton: val.get_singleton(),
+            state: val.get_state(),
+            top: val.get_top(),
+            r#type: val.get_type(),
+            visible_on_all_workspaces: val.get_visible_on_all_workspaces(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AppWindow")]
@@ -1084,6 +1361,41 @@ impl AppWindow {
 impl Default for AppWindow {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AppWindow`.
+pub struct AppWindowData {
+    ///
+    pub active_frame_color: i32,
+    ///The JavaScript 'window' object for the created child.
+    pub content_window: serde_json::Value,
+    ///Accessors for testing.
+    pub has_frame_color: bool,
+    ///The id the window was created with.
+    pub id: String,
+    ///
+    pub inactive_frame_color: i32,
+    ///The position, size and constraints of the window's content, which does not include window decorations. This property is new in Chrome 36.
+    pub inner_bounds: BoundsData,
+    ///The position, size and constraints of the window, which includes window decorations, such as the title bar and frame. This property is new in Chrome 36.
+    pub outer_bounds: BoundsData,
+}
+#[cfg(feature = "serde")]
+impl From<&AppWindow> for AppWindowData {
+    fn from(val: &AppWindow) -> Self {
+        Self {
+            active_frame_color: val.get_active_frame_color(),
+            content_window: serde_wasm_bindgen::from_value(val.get_content_window().into())
+                .unwrap_or_default(),
+            has_frame_color: val.get_has_frame_color(),
+            id: val.get_id(),
+            inactive_frame_color: val.get_inactive_frame_color(),
+            inner_bounds: (&val.get_inner_bounds()).into(),
+            outer_bounds: (&val.get_outer_bounds()).into(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -33,6 +33,23 @@ impl Default for Filter {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Filter`.
+pub struct FilterData {
+    ///The maximum number of entries to be fetched in the requested list. Omit this parameter to fetch the maximum number of entries ($(ref:sessions.MAX_SESSION_RESULTS)).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_results: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&Filter> for FilterData {
+    fn from(val: &Filter) -> Self {
+        Self {
+            max_results: val.get_max_results(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Session")]
@@ -92,6 +109,22 @@ impl Default for Session {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Session`.
+pub struct SessionData {
+    ///The time when the window or tab was closed or modified, represented in seconds since the epoch.
+    pub last_modified: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Session> for SessionData {
+    fn from(val: &Session) -> Self {
+        Self {
+            last_modified: val.get_last_modified(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Device")]
@@ -143,6 +176,28 @@ impl Device {
 impl Default for Device {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Device`.
+pub struct DeviceData {
+    ///The name of the foreign device.
+    pub device_name: String,
+    ///
+    pub info: String,
+    ///A list of open window sessions for the foreign device, sorted from most recently to least recently modified session.
+    pub sessions: Vec<SessionData>,
+}
+#[cfg(feature = "serde")]
+impl From<&Device> for DeviceData {
+    fn from(val: &Device) -> Self {
+        Self {
+            device_name: val.get_device_name(),
+            info: val.get_info(),
+            sessions: serde_wasm_bindgen::from_value(val.get_sessions().into()).unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]

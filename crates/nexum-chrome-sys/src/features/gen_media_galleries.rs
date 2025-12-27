@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum GalleryChangeType {
     ///The contents of the gallery have changed.
     ContentsChanged = "contents_changed",
@@ -14,6 +15,7 @@ pub enum GalleryChangeType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum GetMediaFileSystemsInteractivity {
     ///Do not act interactively.
     No = "no",
@@ -25,6 +27,7 @@ pub enum GetMediaFileSystemsInteractivity {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum GetMetadataType {
     ///Retrieve the mime type, metadata tags, and attached images.
     All = "all",
@@ -75,6 +78,25 @@ impl Default for GalleryChangeDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GalleryChangeDetails`.
+pub struct GalleryChangeDetailsData {
+    ///Identifies the modified gallery.
+    pub gallery_id: String,
+    ///Type of change event.
+    pub r#type: GalleryChangeType,
+}
+#[cfg(feature = "serde")]
+impl From<&GalleryChangeDetails> for GalleryChangeDetailsData {
+    fn from(val: &GalleryChangeDetails) -> Self {
+        Self {
+            gallery_id: val.get_gallery_id(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MediaFileSystemsDetails")]
@@ -108,6 +130,23 @@ impl Default for MediaFileSystemsDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MediaFileSystemsDetails`.
+pub struct MediaFileSystemsDetailsData {
+    ///Whether to prompt the user for permission to additional media galleries before returning the permitted set. Default is silent. If the value 'yes' is passed, or if the application has not been granted access to any media galleries and the value 'if_needed' is passed, then the media gallery configuration dialog will be displayed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interactive: Option<GetMediaFileSystemsInteractivity>,
+}
+#[cfg(feature = "serde")]
+impl From<&MediaFileSystemsDetails> for MediaFileSystemsDetailsData {
+    fn from(val: &MediaFileSystemsDetails) -> Self {
+        Self {
+            interactive: val.get_interactive(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MediaMetadataOptions")]
@@ -137,6 +176,23 @@ impl MediaMetadataOptions {
 impl Default for MediaMetadataOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MediaMetadataOptions`.
+pub struct MediaMetadataOptionsData {
+    ///Specifies which subset of the metadata to retrieve. Defaults to 'all' if the option is omitted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub metadata_type: Option<GetMetadataType>,
+}
+#[cfg(feature = "serde")]
+impl From<&MediaMetadataOptions> for MediaMetadataOptionsData {
+    fn from(val: &MediaMetadataOptions) -> Self {
+        Self {
+            metadata_type: val.get_metadata_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -225,6 +281,38 @@ impl Default for MediaFileSystemMetadata {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MediaFileSystemMetadata`.
+pub struct MediaFileSystemMetadataData {
+    ///If the media gallery is on a removable device, a unique id for the device while the device is online.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_id: Option<String>,
+    ///A unique and persistent id for the media gallery.
+    pub gallery_id: String,
+    ///True if the device is currently available.
+    pub is_available: bool,
+    ///True if the device the media gallery is on was detected as a media device. i.e. a PTP or MTP device, or a DCIM directory is present.
+    pub is_media_device: bool,
+    ///True if the media gallery is on a removable device.
+    pub is_removable: bool,
+    ///The name of the file system.
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&MediaFileSystemMetadata> for MediaFileSystemMetadataData {
+    fn from(val: &MediaFileSystemMetadata) -> Self {
+        Self {
+            device_id: val.get_device_id(),
+            gallery_id: val.get_gallery_id(),
+            is_available: val.get_is_available(),
+            is_media_device: val.get_is_media_device(),
+            is_removable: val.get_is_removable(),
+            name: val.get_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "StreamInfo")]
@@ -265,6 +353,25 @@ impl StreamInfo {
 impl Default for StreamInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StreamInfo`.
+pub struct StreamInfoData {
+    ///An unfiltered string-string dictionary of tags for the stream.
+    pub tags: serde_json::Value,
+    ///Describes format of container or codec of stream, i.e. "mp3", "h264".
+    pub r#type: String,
+}
+#[cfg(feature = "serde")]
+impl From<&StreamInfo> for StreamInfoData {
+    fn from(val: &StreamInfo) -> Self {
+        Self {
+            tags: serde_wasm_bindgen::from_value(val.get_tags().into()).unwrap_or_default(),
+            r#type: val.get_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -463,6 +570,81 @@ impl Default for MediaMetadata {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MediaMetadata`.
+pub struct MediaMetadataData {
+    ///Defined for audio and video.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub album: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub artist: Option<String>,
+    ///The images embedded in the media file's metadata. This is most often used for album art or video thumbnails.
+    pub attached_images: Vec<serde_json::Value>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub copyright: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub disc: Option<i32>,
+    ///Defined for audio and video. In seconds.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub duration: Option<f64>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub genre: Option<String>,
+    ///Defined for video. In pixels.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub height: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub language: Option<String>,
+    ///The browser sniffed mime type.
+    pub mime_type: String,
+    ///All the metadata in the media file. For formats with multiple streams, stream order will be preserved. Container metadata is the first element.
+    pub raw_tags: Vec<StreamInfoData>,
+    ///Defined for video. In degrees.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rotation: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub track: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub width: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&MediaMetadata> for MediaMetadataData {
+    fn from(val: &MediaMetadata) -> Self {
+        Self {
+            album: val.get_album(),
+            artist: val.get_artist(),
+            attached_images: serde_wasm_bindgen::from_value(val.get_attached_images().into())
+                .unwrap_or_default(),
+            comment: val.get_comment(),
+            copyright: val.get_copyright(),
+            disc: val.get_disc(),
+            duration: val.get_duration(),
+            genre: val.get_genre(),
+            height: val.get_height(),
+            language: val.get_language(),
+            mime_type: val.get_mime_type(),
+            raw_tags: serde_wasm_bindgen::from_value(val.get_raw_tags().into()).unwrap_or_default(),
+            rotation: val.get_rotation(),
+            title: val.get_title(),
+            track: val.get_track(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AddGalleryWatchResult")]
@@ -503,6 +685,25 @@ impl AddGalleryWatchResult {
 impl Default for AddGalleryWatchResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AddGalleryWatchResult`.
+pub struct AddGalleryWatchResultData {
+    ///
+    pub gallery_id: String,
+    ///
+    pub success: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&AddGalleryWatchResult> for AddGalleryWatchResultData {
+    fn from(val: &AddGalleryWatchResult) -> Self {
+        Self {
+            gallery_id: val.get_gallery_id(),
+            success: val.get_success(),
+        }
     }
 }
 #[wasm_bindgen]

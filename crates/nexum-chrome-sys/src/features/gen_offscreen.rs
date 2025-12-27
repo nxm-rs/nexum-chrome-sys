@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Reason {
     ///A reason used for testing purposes only.
     Testing = "TESTING",
@@ -88,6 +89,28 @@ impl CreateParameters {
 impl Default for CreateParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateParameters`.
+pub struct CreateParametersData {
+    ///A developer-provided string that explains, in more detail, the need for the background context. The user agent _may_ use this in display to the user.
+    pub justification: String,
+    ///The reason(s) the extension is creating the offscreen document.
+    pub reasons: Vec<Reason>,
+    ///The (relative) URL to load in the document.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateParameters> for CreateParametersData {
+    fn from(val: &CreateParameters) -> Self {
+        Self {
+            justification: val.get_justification(),
+            reasons: serde_wasm_bindgen::from_value(val.get_reasons().into()).unwrap_or_default(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -66,6 +66,41 @@ impl Default for RemovalOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RemovalOptions`. Options that determine exactly what data will be removed.
+pub struct RemovalOptionsData {
+    ///When present, data for origins in this list is excluded from deletion. Can't be used together with origins. Only supported for cookies, storage and cache. Cookies are excluded for the whole registrable domain.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_origins: Option<Vec<String>>,
+    ///An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only "unprotected" origins. Please ensure that you really want to remove application data before adding 'protectedWeb' or 'extensions'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub origin_types: Option<serde_json::Value>,
+    ///When present, only data for origins in this list is deleted. Only supported for cookies, storage and cache. Cookies are cleared for the whole registrable domain.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub origins: Option<Vec<String>>,
+    ///Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the getTime method of the JavaScript Date object). If absent, defaults to 0 (which would remove all browsing data).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub since: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&RemovalOptions> for RemovalOptionsData {
+    fn from(val: &RemovalOptions) -> Self {
+        Self {
+            exclude_origins: val
+                .get_exclude_origins()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            origin_types: val
+                .get_origin_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            origins: val
+                .get_origins()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            since: val.get_since(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DataTypeSet")]
@@ -249,6 +284,79 @@ impl DataTypeSet {
 impl Default for DataTypeSet {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DataTypeSet`. A set of data types. Missing data types are interpreted as false.
+pub struct DataTypeSetData {
+    ///Websites' appcaches.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub appcache: Option<bool>,
+    ///The browser's cache.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cache: Option<bool>,
+    ///Cache storage
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cache_storage: Option<bool>,
+    ///The browser's cookies.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cookies: Option<bool>,
+    ///The browser's download list.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub downloads: Option<bool>,
+    ///Websites' file systems.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file_systems: Option<bool>,
+    ///The browser's stored form data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub form_data: Option<bool>,
+    ///The browser's history.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub history: Option<bool>,
+    ///Websites' IndexedDB data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub indexed_db: Option<bool>,
+    ///Websites' local storage data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local_storage: Option<bool>,
+    ///Stored passwords.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub passwords: Option<bool>,
+    ///Plugins' data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub plugin_data: Option<bool>,
+    ///Server-bound certificates.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub server_bound_certificates: Option<bool>,
+    ///Service Workers.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub service_workers: Option<bool>,
+    ///Websites' WebSQL data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub web_sql: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&DataTypeSet> for DataTypeSetData {
+    fn from(val: &DataTypeSet) -> Self {
+        Self {
+            appcache: val.get_appcache(),
+            cache: val.get_cache(),
+            cache_storage: val.get_cache_storage(),
+            cookies: val.get_cookies(),
+            downloads: val.get_downloads(),
+            file_systems: val.get_file_systems(),
+            form_data: val.get_form_data(),
+            history: val.get_history(),
+            indexed_db: val.get_indexed_db(),
+            local_storage: val.get_local_storage(),
+            passwords: val.get_passwords(),
+            plugin_data: val.get_plugin_data(),
+            server_bound_certificates: val.get_server_bound_certificates(),
+            service_workers: val.get_service_workers(),
+            web_sql: val.get_web_sql(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -5,24 +5,28 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RequestMatcherInstanceType {
     DeclarativeWebRequestRequestMatcher = "declarativeWebRequest.RequestMatcher",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CancelRequestInstanceType {
     DeclarativeWebRequestCancelRequest = "declarativeWebRequest.CancelRequest",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RedirectRequestInstanceType {
     DeclarativeWebRequestRedirectRequest = "declarativeWebRequest.RedirectRequest",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RedirectToTransparentImageInstanceType {
     DeclarativeWebRequestRedirectToTransparentImage =
         "declarativeWebRequest.RedirectToTransparentImage",
@@ -30,90 +34,105 @@ pub enum RedirectToTransparentImageInstanceType {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RedirectToEmptyDocumentInstanceType {
     DeclarativeWebRequestRedirectToEmptyDocument = "declarativeWebRequest.RedirectToEmptyDocument",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RedirectByRegExInstanceType {
     DeclarativeWebRequestRedirectByRegEx = "declarativeWebRequest.RedirectByRegEx",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SetRequestHeaderInstanceType {
     DeclarativeWebRequestSetRequestHeader = "declarativeWebRequest.SetRequestHeader",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RemoveRequestHeaderInstanceType {
     DeclarativeWebRequestRemoveRequestHeader = "declarativeWebRequest.RemoveRequestHeader",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AddResponseHeaderInstanceType {
     DeclarativeWebRequestAddResponseHeader = "declarativeWebRequest.AddResponseHeader",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RemoveResponseHeaderInstanceType {
     DeclarativeWebRequestRemoveResponseHeader = "declarativeWebRequest.RemoveResponseHeader",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum IgnoreRulesInstanceType {
     DeclarativeWebRequestIgnoreRules = "declarativeWebRequest.IgnoreRules",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SendMessageToExtensionInstanceType {
     DeclarativeWebRequestSendMessageToExtension = "declarativeWebRequest.SendMessageToExtension",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AddRequestCookieInstanceType {
     DeclarativeWebRequestAddRequestCookie = "declarativeWebRequest.AddRequestCookie",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AddResponseCookieInstanceType {
     DeclarativeWebRequestAddResponseCookie = "declarativeWebRequest.AddResponseCookie",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum EditRequestCookieInstanceType {
     DeclarativeWebRequestEditRequestCookie = "declarativeWebRequest.EditRequestCookie",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum EditResponseCookieInstanceType {
     DeclarativeWebRequestEditResponseCookie = "declarativeWebRequest.EditResponseCookie",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RemoveRequestCookieInstanceType {
     DeclarativeWebRequestRemoveRequestCookie = "declarativeWebRequest.RemoveRequestCookie",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RemoveResponseCookieInstanceType {
     DeclarativeWebRequestRemoveResponseCookie = "declarativeWebRequest.RemoveResponseCookie",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Stage {
     OnBeforeRequest = "onBeforeRequest",
     OnBeforeSendHeaders = "onBeforeSendHeaders",
@@ -226,6 +245,55 @@ impl HeaderFilter {
 impl Default for HeaderFilter {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HeaderFilter`. Filters request headers for various criteria. Multiple criteria are evaluated as a conjunction.
+pub struct HeaderFilterData {
+    ///Matches if the header name contains all of the specified strings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_contains: Option<serde_json::Value>,
+    ///Matches if the header name is equal to the specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_equals: Option<String>,
+    ///Matches if the header name starts with the specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_prefix: Option<String>,
+    ///Matches if the header name ends with the specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name_suffix: Option<String>,
+    ///Matches if the header value contains all of the specified strings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value_contains: Option<serde_json::Value>,
+    ///Matches if the header value is equal to the specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value_equals: Option<String>,
+    ///Matches if the header value starts with the specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value_prefix: Option<String>,
+    ///Matches if the header value ends with the specified string.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value_suffix: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&HeaderFilter> for HeaderFilterData {
+    fn from(val: &HeaderFilter) -> Self {
+        Self {
+            name_contains: val
+                .get_name_contains()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            name_equals: val.get_name_equals(),
+            name_prefix: val.get_name_prefix(),
+            name_suffix: val.get_name_suffix(),
+            value_contains: val
+                .get_value_contains()
+                .and_then(|v| serde_wasm_bindgen::from_value(v).ok()),
+            value_equals: val.get_value_equals(),
+            value_prefix: val.get_value_prefix(),
+            value_suffix: val.get_value_suffix(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -388,6 +456,74 @@ impl Default for RequestMatcher {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RequestMatcher`. Matches network events by various criteria.
+pub struct RequestMatcherData {
+    ///Matches if the MIME media type of a response (from the HTTP Content-Type header) is contained in the list.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub content_type: Option<Vec<String>>,
+    ///Matches if the MIME media type of a response (from the HTTP Content-Type header) is not contained in the list.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_content_type: Option<Vec<String>>,
+    ///Matches if none of the request headers is matched by any of the HeaderFilters.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_request_headers: Option<Vec<HeaderFilterData>>,
+    ///Matches if none of the response headers is matched by any of the HeaderFilters.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_response_headers: Option<Vec<HeaderFilterData>>,
+    ///
+    pub instance_type: RequestMatcherInstanceType,
+    ///Matches if some of the request headers is matched by one of the HeaderFilters.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_headers: Option<Vec<HeaderFilterData>>,
+    ///Matches if the request type of a request is contained in the list. Requests that cannot match any of the types will be filtered out.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resource_type: Option<Vec<serde_json::Value>>,
+    ///Matches if some of the response headers is matched by one of the HeaderFilters.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_headers: Option<Vec<HeaderFilterData>>,
+    ///Contains a list of strings describing stages. Allowed values are 'onBeforeRequest', 'onBeforeSendHeaders', 'onHeadersReceived', 'onAuthRequired'. If this attribute is present, then it limits the applicable stages to those listed. Note that the whole condition is only applicable in stages compatible with all attributes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stages: Option<Vec<Stage>>,
+    ///If set to true, matches requests that are subject to third-party cookie policies. If set to false, matches all other requests.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub third_party_for_cookies: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&RequestMatcher> for RequestMatcherData {
+    fn from(val: &RequestMatcher) -> Self {
+        Self {
+            content_type: val
+                .get_content_type()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_content_type: val
+                .get_exclude_content_type()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_request_headers: val
+                .get_exclude_request_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_response_headers: val
+                .get_exclude_response_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            instance_type: val.get_instance_type(),
+            request_headers: val
+                .get_request_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            resource_type: val
+                .get_resource_type()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            response_headers: val
+                .get_response_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            stages: val
+                .get_stages()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            third_party_for_cookies: val.get_third_party_for_cookies(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CancelRequest")]
@@ -417,6 +553,22 @@ impl CancelRequest {
 impl Default for CancelRequest {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CancelRequest`. Declarative event action that cancels a network request.
+pub struct CancelRequestData {
+    ///
+    pub instance_type: CancelRequestInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&CancelRequest> for CancelRequestData {
+    fn from(val: &CancelRequest) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -461,6 +613,25 @@ impl Default for RedirectRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RedirectRequest`. Declarative event action that redirects a network request.
+pub struct RedirectRequestData {
+    ///
+    pub instance_type: RedirectRequestInstanceType,
+    ///Destination to where the request is redirected.
+    pub redirect_url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&RedirectRequest> for RedirectRequestData {
+    fn from(val: &RedirectRequest) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+            redirect_url: val.get_redirect_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -500,6 +671,24 @@ impl Default for DeclarativeWebRequestRedirectToTransparentImage {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRedirectToTransparentImage`. Declarative event action that redirects a network request to a transparent image.
+pub struct DeclarativeWebRequestRedirectToTransparentImageData {
+    ///
+    pub instance_type: RedirectToTransparentImageInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRedirectToTransparentImage>
+    for DeclarativeWebRequestRedirectToTransparentImageData
+{
+    fn from(val: &DeclarativeWebRequestRedirectToTransparentImage) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -537,6 +726,24 @@ impl DeclarativeWebRequestRedirectToEmptyDocument {
 impl Default for DeclarativeWebRequestRedirectToEmptyDocument {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRedirectToEmptyDocument`. Declarative event action that redirects a network request to an empty document.
+pub struct DeclarativeWebRequestRedirectToEmptyDocumentData {
+    ///
+    pub instance_type: RedirectToEmptyDocumentInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRedirectToEmptyDocument>
+    for DeclarativeWebRequestRedirectToEmptyDocumentData
+{
+    fn from(val: &DeclarativeWebRequestRedirectToEmptyDocument) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -600,6 +807,28 @@ impl Default for DeclarativeWebRequestRedirectByRegEx {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRedirectByRegEx`. Redirects a request by applying a regular expression on the URL. The regular expressions use the RE2 syntax.
+pub struct DeclarativeWebRequestRedirectByRegExData {
+    ///A match pattern that may contain capture groups. Capture groups are referenced in the Perl syntax ($1, $2, ...) instead of the RE2 syntax (\1, \2, ...) in order to be closer to JavaScript Regular Expressions.
+    pub from: String,
+    ///
+    pub instance_type: RedirectByRegExInstanceType,
+    ///Destination pattern.
+    pub to: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRedirectByRegEx> for DeclarativeWebRequestRedirectByRegExData {
+    fn from(val: &DeclarativeWebRequestRedirectByRegEx) -> Self {
+        Self {
+            from: val.get_from(),
+            instance_type: val.get_instance_type(),
+            to: val.get_to(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -661,6 +890,28 @@ impl Default for DeclarativeWebRequestSetRequestHeader {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestSetRequestHeader`. Sets the request header of the specified name to the specified value. If a header with the specified name did not exist before, a new one is created. Header name comparison is always case-insensitive. Each request header name occurs only once in each request.
+pub struct DeclarativeWebRequestSetRequestHeaderData {
+    ///
+    pub instance_type: SetRequestHeaderInstanceType,
+    ///HTTP request header name.
+    pub name: String,
+    ///HTTP request header value.
+    pub value: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestSetRequestHeader> for DeclarativeWebRequestSetRequestHeaderData {
+    fn from(val: &DeclarativeWebRequestSetRequestHeader) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+            name: val.get_name(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -709,6 +960,27 @@ impl DeclarativeWebRequestRemoveRequestHeader {
 impl Default for DeclarativeWebRequestRemoveRequestHeader {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRemoveRequestHeader`. Removes the request header of the specified name. Do not use SetRequestHeader and RemoveRequestHeader with the same header name on the same request. Each request header name occurs only once in each request.
+pub struct DeclarativeWebRequestRemoveRequestHeaderData {
+    ///
+    pub instance_type: RemoveRequestHeaderInstanceType,
+    ///HTTP request header name (case-insensitive).
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRemoveRequestHeader>
+    for DeclarativeWebRequestRemoveRequestHeaderData
+{
+    fn from(val: &DeclarativeWebRequestRemoveRequestHeader) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+            name: val.get_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -772,6 +1044,28 @@ impl Default for DeclarativeWebRequestAddResponseHeader {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestAddResponseHeader`. Adds the response header to the response of this web request. As multiple response headers may share the same name, you need to first remove and then add a new response header in order to replace one.
+pub struct DeclarativeWebRequestAddResponseHeaderData {
+    ///
+    pub instance_type: AddResponseHeaderInstanceType,
+    ///HTTP response header name.
+    pub name: String,
+    ///HTTP response header value.
+    pub value: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestAddResponseHeader> for DeclarativeWebRequestAddResponseHeaderData {
+    fn from(val: &DeclarativeWebRequestAddResponseHeader) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+            name: val.get_name(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -833,6 +1127,31 @@ impl Default for DeclarativeWebRequestRemoveResponseHeader {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRemoveResponseHeader`. Removes all response headers of the specified names and values.
+pub struct DeclarativeWebRequestRemoveResponseHeaderData {
+    ///
+    pub instance_type: RemoveResponseHeaderInstanceType,
+    ///HTTP request header name (case-insensitive).
+    pub name: String,
+    ///HTTP request header value (case-insensitive).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRemoveResponseHeader>
+    for DeclarativeWebRequestRemoveResponseHeaderData
+{
+    fn from(val: &DeclarativeWebRequestRemoveResponseHeader) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+            name: val.get_name(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -889,6 +1208,30 @@ impl Default for DeclarativeWebRequestIgnoreRules {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestIgnoreRules`. Masks all rules that match the specified criteria.
+pub struct DeclarativeWebRequestIgnoreRulesData {
+    ///If set, rules with the specified tag are ignored. This ignoring is not persisted, it affects only rules and their actions of the same network request stage. Note that rules are executed in descending order of their priorities. This action affects rules of lower priority than the current rule. Rules with the same priority may or may not be ignored.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_tag: Option<String>,
+    ///
+    pub instance_type: IgnoreRulesInstanceType,
+    ///If set, rules with a lower priority than the specified value are ignored. This boundary is not persisted, it affects only rules and their actions of the same network request stage.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lower_priority_than: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestIgnoreRules> for DeclarativeWebRequestIgnoreRulesData {
+    fn from(val: &DeclarativeWebRequestIgnoreRules) -> Self {
+        Self {
+            has_tag: val.get_has_tag(),
+            instance_type: val.get_instance_type(),
+            lower_priority_than: val.get_lower_priority_than(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -939,6 +1282,27 @@ impl Default for DeclarativeWebRequestSendMessageToExtension {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestSendMessageToExtension`. Triggers the $(ref:declarativeWebRequest.onMessage) event.
+pub struct DeclarativeWebRequestSendMessageToExtensionData {
+    ///
+    pub instance_type: SendMessageToExtensionInstanceType,
+    ///The value that will be passed in the message attribute of the dictionary that is passed to the event handler.
+    pub message: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestSendMessageToExtension>
+    for DeclarativeWebRequestSendMessageToExtensionData
+{
+    fn from(val: &DeclarativeWebRequestSendMessageToExtension) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+            message: val.get_message(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -982,6 +1346,27 @@ impl DeclarativeWebRequestRequestCookie {
 impl Default for DeclarativeWebRequestRequestCookie {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRequestCookie`. A filter or specification of a cookie in HTTP Requests.
+pub struct DeclarativeWebRequestRequestCookieData {
+    ///Name of a cookie.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Value of a cookie, may be padded in double-quotes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRequestCookie> for DeclarativeWebRequestRequestCookieData {
+    fn from(val: &DeclarativeWebRequestRequestCookie) -> Self {
+        Self {
+            name: val.get_name(),
+            value: val.get_value(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1093,6 +1478,51 @@ impl DeclarativeWebRequestResponseCookie {
 impl Default for DeclarativeWebRequestResponseCookie {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestResponseCookie`. A specification of a cookie in HTTP Responses.
+pub struct DeclarativeWebRequestResponseCookieData {
+    ///Value of the Domain cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domain: Option<String>,
+    ///Value of the Expires cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expires: Option<String>,
+    ///Existence of the HttpOnly cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub http_only: Option<String>,
+    ///Value of the Max-Age cookie attribute
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_age: Option<f64>,
+    ///Name of a cookie.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Value of the Path cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    ///Existence of the Secure cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure: Option<String>,
+    ///Value of a cookie, may be padded in double-quotes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestResponseCookie> for DeclarativeWebRequestResponseCookieData {
+    fn from(val: &DeclarativeWebRequestResponseCookie) -> Self {
+        Self {
+            domain: val.get_domain(),
+            expires: val.get_expires(),
+            http_only: val.get_http_only(),
+            max_age: val.get_max_age(),
+            name: val.get_name(),
+            path: val.get_path(),
+            secure: val.get_secure(),
+            value: val.get_value(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1239,6 +1669,65 @@ impl Default for DeclarativeWebRequestFilterResponseCookie {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestFilterResponseCookie`. A filter of a cookie in HTTP Responses.
+pub struct DeclarativeWebRequestFilterResponseCookieData {
+    ///Inclusive lower bound on the cookie lifetime (specified in seconds after current time). Only cookies whose expiration date-time is set to 'now + ageLowerBound' or later fulfill this criterion. Session cookies do not meet the criterion of this filter. The cookie lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age' is used to calculate the cookie lifetime.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub age_lower_bound: Option<i32>,
+    ///Inclusive upper bound on the cookie lifetime (specified in seconds after current time). Only cookies whose expiration date-time is in the interval [now, now + ageUpperBound] fulfill this criterion. Session cookies and cookies whose expiration date-time is in the past do not meet the criterion of this filter. The cookie lifetime is calculated from either 'max-age' or 'expires' cookie attributes. If both are specified, 'max-age' is used to calculate the cookie lifetime.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub age_upper_bound: Option<i32>,
+    ///Value of the Domain cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domain: Option<String>,
+    ///Value of the Expires cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub expires: Option<String>,
+    ///Existence of the HttpOnly cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub http_only: Option<String>,
+    ///Value of the Max-Age cookie attribute
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_age: Option<f64>,
+    ///Name of a cookie.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Value of the Path cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    ///Existence of the Secure cookie attribute.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub secure: Option<String>,
+    ///Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub session_cookie: Option<bool>,
+    ///Value of a cookie, may be padded in double-quotes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub value: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestFilterResponseCookie>
+    for DeclarativeWebRequestFilterResponseCookieData
+{
+    fn from(val: &DeclarativeWebRequestFilterResponseCookie) -> Self {
+        Self {
+            age_lower_bound: val.get_age_lower_bound(),
+            age_upper_bound: val.get_age_upper_bound(),
+            domain: val.get_domain(),
+            expires: val.get_expires(),
+            http_only: val.get_http_only(),
+            max_age: val.get_max_age(),
+            name: val.get_name(),
+            path: val.get_path(),
+            secure: val.get_secure(),
+            session_cookie: val.get_session_cookie(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1294,6 +1783,22 @@ impl Default for DeclarativeWebRequestAddRequestCookie {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestAddRequestCookie`. Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+pub struct DeclarativeWebRequestAddRequestCookieData {
+    ///
+    pub instance_type: AddRequestCookieInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestAddRequestCookie> for DeclarativeWebRequestAddRequestCookieData {
+    fn from(val: &DeclarativeWebRequestAddRequestCookie) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1347,6 +1852,22 @@ impl DeclarativeWebRequestAddResponseCookie {
 impl Default for DeclarativeWebRequestAddResponseCookie {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestAddResponseCookie`. Adds a cookie to the response or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+pub struct DeclarativeWebRequestAddResponseCookieData {
+    ///
+    pub instance_type: AddResponseCookieInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestAddResponseCookie> for DeclarativeWebRequestAddResponseCookieData {
+    fn from(val: &DeclarativeWebRequestAddResponseCookie) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1420,6 +1941,22 @@ impl Default for DeclarativeWebRequestEditRequestCookie {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestEditRequestCookie`. Edits one or more cookies of request. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+pub struct DeclarativeWebRequestEditRequestCookieData {
+    ///
+    pub instance_type: EditRequestCookieInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestEditRequestCookie> for DeclarativeWebRequestEditRequestCookieData {
+    fn from(val: &DeclarativeWebRequestEditRequestCookie) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1491,6 +2028,24 @@ impl Default for DeclarativeWebRequestEditResponseCookie {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestEditResponseCookie`. Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+pub struct DeclarativeWebRequestEditResponseCookieData {
+    ///
+    pub instance_type: EditResponseCookieInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestEditResponseCookie>
+    for DeclarativeWebRequestEditResponseCookieData
+{
+    fn from(val: &DeclarativeWebRequestEditResponseCookie) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1546,6 +2101,24 @@ impl Default for DeclarativeWebRequestRemoveRequestCookie {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRemoveRequestCookie`. Removes one or more cookies of request. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+pub struct DeclarativeWebRequestRemoveRequestCookieData {
+    ///
+    pub instance_type: RemoveRequestCookieInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRemoveRequestCookie>
+    for DeclarativeWebRequestRemoveRequestCookieData
+{
+    fn from(val: &DeclarativeWebRequestRemoveRequestCookie) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(
@@ -1599,6 +2172,24 @@ impl DeclarativeWebRequestRemoveResponseCookie {
 impl Default for DeclarativeWebRequestRemoveResponseCookie {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeclarativeWebRequestRemoveResponseCookie`. Removes one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive.
+pub struct DeclarativeWebRequestRemoveResponseCookieData {
+    ///
+    pub instance_type: RemoveResponseCookieInstanceType,
+}
+#[cfg(feature = "serde")]
+impl From<&DeclarativeWebRequestRemoveResponseCookie>
+    for DeclarativeWebRequestRemoveResponseCookieData
+{
+    fn from(val: &DeclarativeWebRequestRemoveResponseCookie) -> Self {
+        Self {
+            instance_type: val.get_instance_type(),
+        }
     }
 }
 #[wasm_bindgen]

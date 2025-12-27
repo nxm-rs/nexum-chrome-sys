@@ -55,6 +55,29 @@ impl Default for Alarm {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Alarm`.
+pub struct AlarmData {
+    ///Name of this alarm.
+    pub name: String,
+    ///If not null, the alarm is a repeating alarm and will fire again in periodInMinutes minutes.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub period_in_minutes: Option<f64>,
+    ///Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. Date.now() + n). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this.
+    pub scheduled_time: f64,
+}
+#[cfg(feature = "serde")]
+impl From<&Alarm> for AlarmData {
+    fn from(val: &Alarm) -> Self {
+        Self {
+            name: val.get_name(),
+            period_in_minutes: val.get_period_in_minutes(),
+            scheduled_time: val.get_scheduled_time(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AlarmCreateInfo")]
@@ -106,6 +129,31 @@ impl AlarmCreateInfo {
 impl Default for AlarmCreateInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AlarmCreateInfo`.
+pub struct AlarmCreateInfoData {
+    ///Length of time in minutes after which the onAlarm event should fire.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub delay_in_minutes: Option<f64>,
+    ///If set, the onAlarm event should fire every periodInMinutes minutes after the initial event specified by when or delayInMinutes. If not set, the alarm will only fire once.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub period_in_minutes: Option<f64>,
+    ///Time at which the alarm should fire, in milliseconds past the epoch (e.g. Date.now() + n).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub when: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&AlarmCreateInfo> for AlarmCreateInfoData {
+    fn from(val: &AlarmCreateInfo) -> Self {
+        Self {
+            delay_in_minutes: val.get_delay_in_minutes(),
+            period_in_minutes: val.get_period_in_minutes(),
+            when: val.get_when(),
+        }
     }
 }
 #[wasm_bindgen]

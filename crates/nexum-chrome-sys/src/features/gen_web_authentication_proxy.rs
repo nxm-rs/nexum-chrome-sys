@@ -33,6 +33,22 @@ impl Default for IsUvpaaRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IsUvpaaRequest`.
+pub struct IsUvpaaRequestData {
+    ///An opaque identifier for the request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&IsUvpaaRequest> for IsUvpaaRequestData {
+    fn from(val: &IsUvpaaRequest) -> Self {
+        Self {
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateRequest")]
@@ -73,6 +89,25 @@ impl CreateRequest {
 impl Default for CreateRequest {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateRequest`.
+pub struct CreateRequestData {
+    ///The PublicKeyCredentialCreationOptions passed to navigator.credentials.create(), serialized as a JSON string. The serialization format is compatible with PublicKeyCredential.parseCreationOptionsFromJSON().
+    pub request_details_json: String,
+    ///An opaque identifier for the request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateRequest> for CreateRequestData {
+    fn from(val: &CreateRequest) -> Self {
+        Self {
+            request_details_json: val.get_request_details_json(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -117,6 +152,25 @@ impl Default for GetRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetRequest`.
+pub struct GetRequestData {
+    ///The PublicKeyCredentialRequestOptions passed to navigator.credentials.get(), serialized as a JSON string. The serialization format is compatible with PublicKeyCredential.parseRequestOptionsFromJSON().
+    pub request_details_json: String,
+    ///An opaque identifier for the request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&GetRequest> for GetRequestData {
+    fn from(val: &GetRequest) -> Self {
+        Self {
+            request_details_json: val.get_request_details_json(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DomExceptionDetails")]
@@ -157,6 +211,25 @@ impl DomExceptionDetails {
 impl Default for DomExceptionDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DomExceptionDetails`.
+pub struct DomExceptionDetailsData {
+    ///
+    pub message: String,
+    ///
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DomExceptionDetails> for DomExceptionDetailsData {
+    fn from(val: &DomExceptionDetails) -> Self {
+        Self {
+            message: val.get_message(),
+            name: val.get_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -212,6 +285,30 @@ impl Default for CreateResponseDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateResponseDetails`.
+pub struct CreateResponseDetailsData {
+    ///The DOMException yielded by the remote request, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<DomExceptionDetailsData>,
+    ///The requestId of the CreateRequest.
+    pub request_id: i32,
+    ///The PublicKeyCredential, yielded by the remote request, if any, serialized as a JSON string by calling href="https://w3c.github.io/webauthn/#dom-publickeycredential-tojson" PublicKeyCredential.toJSON().
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_json: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateResponseDetails> for CreateResponseDetailsData {
+    fn from(val: &CreateResponseDetails) -> Self {
+        Self {
+            error: val.get_error().as_ref().map(|v| v.into()),
+            request_id: val.get_request_id(),
+            response_json: val.get_response_json(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetResponseDetails")]
@@ -265,6 +362,30 @@ impl Default for GetResponseDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetResponseDetails`.
+pub struct GetResponseDetailsData {
+    ///The DOMException yielded by the remote request, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<DomExceptionDetailsData>,
+    ///The requestId of the CreateRequest.
+    pub request_id: i32,
+    ///The PublicKeyCredential, yielded by the remote request, if any, serialized as a JSON string by calling href="https://w3c.github.io/webauthn/#dom-publickeycredential-tojson" PublicKeyCredential.toJSON().
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub response_json: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetResponseDetails> for GetResponseDetailsData {
+    fn from(val: &GetResponseDetails) -> Self {
+        Self {
+            error: val.get_error().as_ref().map(|v| v.into()),
+            request_id: val.get_request_id(),
+            response_json: val.get_response_json(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "IsUvpaaResponseDetails")]
@@ -305,6 +426,25 @@ impl IsUvpaaResponseDetails {
 impl Default for IsUvpaaResponseDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `IsUvpaaResponseDetails`.
+pub struct IsUvpaaResponseDetailsData {
+    ///
+    pub is_uvpaa: bool,
+    ///
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&IsUvpaaResponseDetails> for IsUvpaaResponseDetailsData {
+    fn from(val: &IsUvpaaResponseDetails) -> Self {
+        Self {
+            is_uvpaa: val.get_is_uvpaa(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]

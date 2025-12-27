@@ -55,9 +55,36 @@ impl Default for Token {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Token`.
+pub struct TokenData {
+    ///Uniquely identifies this Token. Static IDs are "user" and "system", referring to the platform's user-specific and the system-wide hardware token, respectively. Any other tokens (with other identifiers) might be returned by $(ref:enterprise.platformKeys.getTokens).
+    pub id: String,
+    ///Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed. Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys. Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 135+) with modulusLength up to 2048. Each RSASSA-PKCS1-V1_5 key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 135 and can be used by extensions allowlisted through that same policy to unwrap other keys. Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+    pub software_backed_subtle_crypto: serde_json::Value,
+    ///Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed. Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 135+) with modulusLength up to 2048 and ECDSA with namedCurve P-256. Each RSASSA-PKCS1-V1_5 and ECDSA key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 135 and can be used by extensions allowlisted through that same policy to unwrap other keys. Keys generated on a specific Token cannot be used with any other Tokens, nor can they be used with window.crypto.subtle. Equally, Key objects created with window.crypto.subtle cannot be used with this interface.
+    pub subtle_crypto: serde_json::Value,
+}
+#[cfg(feature = "serde")]
+impl From<&Token> for TokenData {
+    fn from(val: &Token) -> Self {
+        Self {
+            id: val.get_id(),
+            software_backed_subtle_crypto: serde_wasm_bindgen::from_value(
+                val.get_software_backed_subtle_crypto().into(),
+            )
+            .unwrap_or_default(),
+            subtle_crypto: serde_wasm_bindgen::from_value(val.get_subtle_crypto().into())
+                .unwrap_or_default(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Whether to use the Enterprise User Key or the Enterprise Machine Key.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Scope {
     User = "USER",
     Machine = "MACHINE",
@@ -65,6 +92,7 @@ pub enum Scope {
 #[wasm_bindgen]
 ///Type of key to generate.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Algorithm {
     Rsa = "RSA",
     Ecdsa = "ECDSA",
@@ -98,6 +126,22 @@ impl RegisterKeyOptions {
 impl Default for RegisterKeyOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RegisterKeyOptions`.
+pub struct RegisterKeyOptionsData {
+    ///Which algorithm the registered key should use.
+    pub algorithm: Algorithm,
+}
+#[cfg(feature = "serde")]
+impl From<&RegisterKeyOptions> for RegisterKeyOptionsData {
+    fn from(val: &RegisterKeyOptions) -> Self {
+        Self {
+            algorithm: val.get_algorithm(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -151,6 +195,26 @@ impl ChallengeKeyOptions {
 impl Default for ChallengeKeyOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ChallengeKeyOptions`.
+pub struct ChallengeKeyOptionsData {
+    ///If present, registers the challenged key with the specified scope's token. The key can then be associated with a certificate and used like any other signing key. Subsequent calls to this function will then generate a new Enterprise Key in the specified scope.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub register_key: Option<RegisterKeyOptionsData>,
+    ///Which Enterprise Key to challenge.
+    pub scope: Scope,
+}
+#[cfg(feature = "serde")]
+impl From<&ChallengeKeyOptions> for ChallengeKeyOptionsData {
+    fn from(val: &ChallengeKeyOptions) -> Self {
+        Self {
+            register_key: val.get_register_key().as_ref().map(|v| v.into()),
+            scope: val.get_scope(),
+        }
     }
 }
 #[wasm_bindgen]

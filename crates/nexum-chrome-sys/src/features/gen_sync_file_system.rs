@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SyncAction {
     Added = "added",
     Updated = "updated",
@@ -13,6 +14,7 @@ pub enum SyncAction {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ServiceStatus {
     ///The sync service is being initialized (e.g. restoring data from the database, checking connectivity and authenticating to the service etc).
     Initializing = "initializing",
@@ -28,6 +30,7 @@ pub enum ServiceStatus {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FileStatus {
     ///Not conflicting and has no pending local changes.
     Synced = "synced",
@@ -39,6 +42,7 @@ pub enum FileStatus {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SyncDirection {
     LocalToRemote = "local_to_remote",
     RemoteToLocal = "remote_to_local",
@@ -46,6 +50,7 @@ pub enum SyncDirection {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ConflictResolutionPolicy {
     LastWriteWin = "last_write_win",
     Manual = "manual",
@@ -114,6 +119,34 @@ impl Default for FileInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FileInfo`.
+pub struct FileInfoData {
+    ///Sync action taken to fire $(ref:onFileStatusChanged) event. The action value can be 'added', 'updated' or 'deleted'. Only applies if status is 'synced'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub action: Option<SyncAction>,
+    ///Sync direction for the $(ref:onFileStatusChanged) event. Sync direction value can be 'local_to_remote' or 'remote_to_local'. Only applies if status is 'synced'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub direction: Option<SyncDirection>,
+    ///fileEntry for the target file whose status has changed. Contains name and path information of synchronized file. On file deletion, fileEntry information will still be available but file will no longer exist.
+    pub file_entry: serde_json::Value,
+    ///Resulting file status after $(ref:onFileStatusChanged) event. The status value can be 'synced', 'pending' or 'conflicting'.
+    pub status: FileStatus,
+}
+#[cfg(feature = "serde")]
+impl From<&FileInfo> for FileInfoData {
+    fn from(val: &FileInfo) -> Self {
+        Self {
+            action: val.get_action(),
+            direction: val.get_direction(),
+            file_entry: serde_wasm_bindgen::from_value(val.get_file_entry().into())
+                .unwrap_or_default(),
+            status: val.get_status(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "FileStatusInfo")]
@@ -167,6 +200,30 @@ impl Default for FileStatusInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FileStatusInfo`.
+pub struct FileStatusInfoData {
+    ///Optional error that is only returned if there was a problem retrieving the FileStatus for the given file.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    ///One of the Entry's originally given to getFileStatuses.
+    pub file_entry: serde_json::Value,
+    ///The status value can be 'synced', 'pending' or 'conflicting'.
+    pub status: FileStatus,
+}
+#[cfg(feature = "serde")]
+impl From<&FileStatusInfo> for FileStatusInfoData {
+    fn from(val: &FileStatusInfo) -> Self {
+        Self {
+            error: val.get_error(),
+            file_entry: serde_wasm_bindgen::from_value(val.get_file_entry().into())
+                .unwrap_or_default(),
+            status: val.get_status(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "StorageInfo")]
@@ -209,6 +266,25 @@ impl Default for StorageInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StorageInfo`.
+pub struct StorageInfoData {
+    ///
+    pub quota_bytes: i32,
+    ///
+    pub usage_bytes: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&StorageInfo> for StorageInfoData {
+    fn from(val: &StorageInfo) -> Self {
+        Self {
+            quota_bytes: val.get_quota_bytes(),
+            usage_bytes: val.get_usage_bytes(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ServiceInfo")]
@@ -249,6 +325,25 @@ impl ServiceInfo {
 impl Default for ServiceInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ServiceInfo`.
+pub struct ServiceInfoData {
+    ///
+    pub description: String,
+    ///
+    pub state: ServiceStatus,
+}
+#[cfg(feature = "serde")]
+impl From<&ServiceInfo> for ServiceInfoData {
+    fn from(val: &ServiceInfo) -> Self {
+        Self {
+            description: val.get_description(),
+            state: val.get_state(),
+        }
     }
 }
 #[wasm_bindgen]

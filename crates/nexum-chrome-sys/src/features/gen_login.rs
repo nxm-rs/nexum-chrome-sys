@@ -66,6 +66,31 @@ impl Default for SamlUserSessionProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SamlUserSessionProperties`.
+pub struct SamlUserSessionPropertiesData {
+    ///User's email address.
+    pub email: String,
+    ///User's Gaia ID.
+    pub gaia_id: String,
+    ///Oauth_code cookie set in the SAML handshake.
+    pub oauth_code: String,
+    ///User's password.
+    pub password: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SamlUserSessionProperties> for SamlUserSessionPropertiesData {
+    fn from(val: &SamlUserSessionProperties) -> Self {
+        Self {
+            email: val.get_email(),
+            gaia_id: val.get_gaia_id(),
+            oauth_code: val.get_oauth_code(),
+            password: val.get_password(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Launches a managed guest session if one is set up via the admin console. If there are several managed guest sessions set up, it will launch the first available one.

@@ -55,6 +55,29 @@ impl Default for HidCollectionInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HidCollectionInfo`.
+pub struct HidCollectionInfoData {
+    ///Report IDs which belong to the collection and to its children.
+    pub report_ids: Vec<i32>,
+    ///Page-defined usage identifier.
+    pub usage: i32,
+    ///HID usage page identifier.
+    pub usage_page: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&HidCollectionInfo> for HidCollectionInfoData {
+    fn from(val: &HidCollectionInfo) -> Self {
+        Self {
+            report_ids: serde_wasm_bindgen::from_value(val.get_report_ids().into())
+                .unwrap_or_default(),
+            usage: val.get_usage(),
+            usage_page: val.get_usage_page(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HidDeviceInfo")]
@@ -185,6 +208,47 @@ impl Default for HidDeviceInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HidDeviceInfo`.
+pub struct HidDeviceInfoData {
+    ///Top-level collections from this device's report descriptors.
+    pub collections: Vec<HidCollectionInfoData>,
+    ///Opaque device ID.
+    pub device_id: i32,
+    ///Top-level collection's maximum feature report size.
+    pub max_feature_report_size: i32,
+    ///Top-level collection's maximum input report size.
+    pub max_input_report_size: i32,
+    ///Top-level collection's maximum output report size.
+    pub max_output_report_size: i32,
+    ///Product ID.
+    pub product_id: i32,
+    ///The product name read from the device, if available.
+    pub product_name: String,
+    ///The serial number read from the device, if available.
+    pub serial_number: String,
+    ///Vendor ID.
+    pub vendor_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&HidDeviceInfo> for HidDeviceInfoData {
+    fn from(val: &HidDeviceInfo) -> Self {
+        Self {
+            collections: serde_wasm_bindgen::from_value(val.get_collections().into())
+                .unwrap_or_default(),
+            device_id: val.get_device_id(),
+            max_feature_report_size: val.get_max_feature_report_size(),
+            max_input_report_size: val.get_max_input_report_size(),
+            max_output_report_size: val.get_max_output_report_size(),
+            product_id: val.get_product_id(),
+            product_name: val.get_product_name(),
+            serial_number: val.get_serial_number(),
+            vendor_id: val.get_vendor_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HidConnectInfo")]
@@ -214,6 +278,22 @@ impl HidConnectInfo {
 impl Default for HidConnectInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HidConnectInfo`.
+pub struct HidConnectInfoData {
+    ///The opaque ID used to identify this connection in all other functions.
+    pub connection_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&HidConnectInfo> for HidConnectInfoData {
+    fn from(val: &HidConnectInfo) -> Self {
+        Self {
+            connection_id: val.get_connection_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -280,6 +360,35 @@ impl Default for DeviceFilter {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceFilter`.
+pub struct DeviceFilterData {
+    ///Device product ID, only checked only if the vendor ID matches.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product_id: Option<i32>,
+    ///HID usage identifier, checked only if the HID usage page matches.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub usage: Option<i32>,
+    ///HID usage page identifier.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub usage_page: Option<i32>,
+    ///Device vendor ID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceFilter> for DeviceFilterData {
+    fn from(val: &DeviceFilter) -> Self {
+        Self {
+            product_id: val.get_product_id(),
+            usage: val.get_usage(),
+            usage_page: val.get_usage_page(),
+            vendor_id: val.get_vendor_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetDevicesOptions")]
@@ -331,6 +440,33 @@ impl GetDevicesOptions {
 impl Default for GetDevicesOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetDevicesOptions`.
+pub struct GetDevicesOptionsData {
+    ///A device matching any given filter will be returned. An empty filter list will return all devices the app has permission for.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filters: Option<Vec<DeviceFilterData>>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product_id: Option<i32>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetDevicesOptions> for GetDevicesOptionsData {
+    fn from(val: &GetDevicesOptions) -> Self {
+        Self {
+            filters: val
+                .get_filters()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            product_id: val.get_product_id(),
+            vendor_id: val.get_vendor_id(),
+        }
     }
 }
 #[wasm_bindgen]

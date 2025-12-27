@@ -44,9 +44,29 @@ impl Default for HeaderNameValuePair {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HeaderNameValuePair`.
+pub struct HeaderNameValuePairData {
+    ///Name of the HTTP header.
+    pub name: String,
+    ///Value of the HTTP header.
+    pub value: String,
+}
+#[cfg(feature = "serde")]
+impl From<&HeaderNameValuePair> for HeaderNameValuePairData {
+    fn from(val: &HeaderNameValuePair) -> Self {
+        Self {
+            name: val.get_name(),
+            value: val.get_value(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///uniquify To avoid duplication, the filename is changed to include a counter before the filename extension. overwrite The existing file will be overwritten with the new file. prompt The user will be prompted with a file chooser dialog.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FilenameConflictAction {
     Uniquify = "uniquify",
     Overwrite = "overwrite",
@@ -94,9 +114,30 @@ impl Default for FilenameSuggestion {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FilenameSuggestion`.
+pub struct FilenameSuggestionData {
+    ///The action to take if filename already exists.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conflict_action: Option<FilenameConflictAction>,
+    ///The $(ref:DownloadItem)'s new target $(ref:DownloadItem.filename), as a path relative to the user's default Downloads directory, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will be ignored. filename is ignored if there are any $(ref:onDeterminingFilename) listeners registered by any extensions.
+    pub filename: String,
+}
+#[cfg(feature = "serde")]
+impl From<&FilenameSuggestion> for FilenameSuggestionData {
+    fn from(val: &FilenameSuggestion) -> Self {
+        Self {
+            conflict_action: val.get_conflict_action(),
+            filename: val.get_filename(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum HttpMethod {
     Get = "GET",
     Post = "POST",
@@ -104,6 +145,7 @@ pub enum HttpMethod {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum InterruptReason {
     FileFailed = "FILE_FAILED",
     FileAccessDenied = "FILE_ACCESS_DENIED",
@@ -232,9 +274,52 @@ impl Default for DownloadOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DownloadOptions`.
+pub struct DownloadOptionsData {
+    ///Post body.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub body: Option<String>,
+    ///The action to take if filename already exists.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub conflict_action: Option<FilenameConflictAction>,
+    ///A file path relative to the Downloads directory to contain the downloaded file, possibly containing subdirectories. Absolute paths, empty paths, and paths containing back-references ".." will cause an error. $(ref:onDeterminingFilename) allows suggesting a filename after the file's MIME type and a tentative filename have been determined.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filename: Option<String>,
+    ///Extra HTTP headers to send with the request if the URL uses the HTTP[s] protocol. Each header is represented as a dictionary containing the keys name and either value or binaryValue, restricted to those allowed by XMLHttpRequest.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub headers: Option<Vec<HeaderNameValuePairData>>,
+    ///The HTTP method to use if the URL uses the HTTP[S] protocol.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub method: Option<HttpMethod>,
+    ///Use a file-chooser to allow the user to select a filename regardless of whether filename is set or already exists.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub save_as: Option<bool>,
+    ///The URL to download.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DownloadOptions> for DownloadOptionsData {
+    fn from(val: &DownloadOptions) -> Self {
+        Self {
+            body: val.get_body(),
+            conflict_action: val.get_conflict_action(),
+            filename: val.get_filename(),
+            headers: val
+                .get_headers()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            method: val.get_method(),
+            save_as: val.get_save_as(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DangerType {
     ///The download's filename is suspicious.
     File = "file",
@@ -273,6 +358,7 @@ pub enum DangerType {
 #[wasm_bindgen]
 ///in_progress The download is currently receiving data from the server. interrupted An error broke the connection with the file host. complete The download completed successfully.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum State {
     InProgress = "in_progress",
     Interrupted = "interrupted",
@@ -527,6 +613,87 @@ impl DownloadItem {
 impl Default for DownloadItem {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DownloadItem`.
+pub struct DownloadItemData {
+    ///The identifier for the extension that initiated this download if this download was initiated by an extension. Does not change once it is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub by_extension_id: Option<String>,
+    ///The localized name of the extension that initiated this download if this download was initiated by an extension. May change if the extension changes its name or if the user changes their locale.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub by_extension_name: Option<String>,
+    ///Number of bytes received so far from the host, without considering file compression.
+    pub bytes_received: f64,
+    ///True if the download is in progress and paused, or else if it is interrupted and can be resumed starting from where it was interrupted.
+    pub can_resume: bool,
+    ///Indication of whether this download is thought to be safe or known to be suspicious.
+    pub danger: DangerType,
+    ///The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end_time: Option<String>,
+    ///Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with SERVER_. Errors relating to the network begin with NETWORK_, errors relating to the process of writing the file to the file system begin with FILE_, and interruptions initiated by the user begin with USER_.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<InterruptReason>,
+    ///Estimated time when the download will complete in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.estimatedEndTime) console.log(new Date(item.estimatedEndTime))})})
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub estimated_end_time: Option<String>,
+    ///Whether the downloaded file still exists. This information may be out of date because Chrome does not automatically watch for file removal. Call $(ref:search)() in order to trigger the check for file existence. When the existence check completes, if the file has been deleted, then an $(ref:onChanged) event will fire. Note that $(ref:search)() does not wait for the existence check to finish before returning, so results from $(ref:search)() may not accurately reflect the file system. Also, $(ref:search)() may be called as often as necessary, but will not check for file existence any more frequently than once every 10 seconds.
+    pub exists: bool,
+    ///Number of bytes in the whole file post-decompression, or -1 if unknown.
+    pub file_size: f64,
+    ///Absolute local path.
+    pub filename: String,
+    ///The absolute URL that this download is being made from, after all redirects.
+    pub final_url: String,
+    ///An identifier that is persistent across browser sessions.
+    pub id: i32,
+    ///False if this download is recorded in the history, true if it is not recorded.
+    pub incognito: bool,
+    ///The file's MIME type.
+    pub mime: String,
+    ///True if the download has stopped reading data from the host, but kept the connection open.
+    pub paused: bool,
+    ///Absolute URL.
+    pub referrer: String,
+    ///The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})})
+    pub start_time: String,
+    ///Indicates whether the download is progressing, interrupted, or complete.
+    pub state: State,
+    ///Number of bytes in the whole file, without considering file compression, or -1 if unknown.
+    pub total_bytes: f64,
+    ///The absolute URL that this download initiated from, before any redirects.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&DownloadItem> for DownloadItemData {
+    fn from(val: &DownloadItem) -> Self {
+        Self {
+            by_extension_id: val.get_by_extension_id(),
+            by_extension_name: val.get_by_extension_name(),
+            bytes_received: val.get_bytes_received(),
+            can_resume: val.get_can_resume(),
+            danger: val.get_danger(),
+            end_time: val.get_end_time(),
+            error: val.get_error(),
+            estimated_end_time: val.get_estimated_end_time(),
+            exists: val.get_exists(),
+            file_size: val.get_file_size(),
+            filename: val.get_filename(),
+            final_url: val.get_final_url(),
+            id: val.get_id(),
+            incognito: val.get_incognito(),
+            mime: val.get_mime(),
+            paused: val.get_paused(),
+            referrer: val.get_referrer(),
+            start_time: val.get_start_time(),
+            state: val.get_state(),
+            total_bytes: val.get_total_bytes(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -846,6 +1013,131 @@ impl Default for DownloadQuery {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DownloadQuery`.
+pub struct DownloadQueryData {
+    ///Number of bytes received so far from the host, without considering file compression.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bytes_received: Option<f64>,
+    ///Indication of whether this download is thought to be safe or known to be suspicious.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub danger: Option<DangerType>,
+    ///The time when the download ended in ISO 8601 format.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end_time: Option<String>,
+    ///Limits results to $(ref:DownloadItem) that ended after the given ms in ISO 8601 format
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ended_after: Option<String>,
+    ///Limits results to $(ref:DownloadItem) that ended before the given ms in ISO 8601 format.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ended_before: Option<String>,
+    ///Why a download was interrupted.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<InterruptReason>,
+    ///Whether the downloaded file exists;
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exists: Option<bool>,
+    ///Number of bytes in the whole file post-decompression, or -1 if unknown.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file_size: Option<f64>,
+    ///Absolute local path.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filename: Option<String>,
+    ///Limits results to $(ref:DownloadItem) whose filename matches the given regular expression.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filename_regex: Option<String>,
+    ///The absolute URL that this download is being made from, after all redirects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub final_url: Option<String>,
+    ///Limits results to $(ref:DownloadItem) whose finalUrl matches the given regular expression.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub final_url_regex: Option<String>,
+    ///The id of the $(ref:DownloadItem) to query.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    ///The maximum number of matching $(ref:DownloadItem) returned. Defaults to 1000. Set to 0 in order to return all matching $(ref:DownloadItem). See $(ref:search) for how to page through results.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub limit: Option<i32>,
+    ///The file's MIME type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mime: Option<String>,
+    ///Set elements of this array to $(ref:DownloadItem) properties in order to sort search results. For example, setting orderBy=['startTime'] sorts the $(ref:DownloadItem) by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub order_by: Option<Vec<String>>,
+    ///True if the download has stopped reading data from the host, but kept the connection open.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paused: Option<bool>,
+    ///This array of search terms limits results to $(ref:DownloadItem) whose filename or url or finalUrl contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub query: Option<Vec<String>>,
+    ///The time when the download began in ISO 8601 format.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub start_time: Option<String>,
+    ///Limits results to $(ref:DownloadItem) that started after the given ms in ISO 8601 format.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub started_after: Option<String>,
+    ///Limits results to $(ref:DownloadItem) that started before the given ms in ISO 8601 format.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub started_before: Option<String>,
+    ///Indicates whether the download is progressing, interrupted, or complete.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<State>,
+    ///Number of bytes in the whole file, without considering file compression, or -1 if unknown.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub total_bytes: Option<f64>,
+    ///Limits results to $(ref:DownloadItem) whose totalBytes is greater than the given integer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub total_bytes_greater: Option<f64>,
+    ///Limits results to $(ref:DownloadItem) whose totalBytes is less than the given integer.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub total_bytes_less: Option<f64>,
+    ///The absolute URL that this download initiated from, before any redirects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    ///Limits results to $(ref:DownloadItem) whose url matches the given regular expression.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url_regex: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&DownloadQuery> for DownloadQueryData {
+    fn from(val: &DownloadQuery) -> Self {
+        Self {
+            bytes_received: val.get_bytes_received(),
+            danger: val.get_danger(),
+            end_time: val.get_end_time(),
+            ended_after: val.get_ended_after(),
+            ended_before: val.get_ended_before(),
+            error: val.get_error(),
+            exists: val.get_exists(),
+            file_size: val.get_file_size(),
+            filename: val.get_filename(),
+            filename_regex: val.get_filename_regex(),
+            final_url: val.get_final_url(),
+            final_url_regex: val.get_final_url_regex(),
+            id: val.get_id(),
+            limit: val.get_limit(),
+            mime: val.get_mime(),
+            order_by: val
+                .get_order_by()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            paused: val.get_paused(),
+            query: val
+                .get_query()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            start_time: val.get_start_time(),
+            started_after: val.get_started_after(),
+            started_before: val.get_started_before(),
+            state: val.get_state(),
+            total_bytes: val.get_total_bytes(),
+            total_bytes_greater: val.get_total_bytes_greater(),
+            total_bytes_less: val.get_total_bytes_less(),
+            url: val.get_url(),
+            url_regex: val.get_url_regex(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "StringDelta")]
@@ -886,6 +1178,27 @@ impl StringDelta {
 impl Default for StringDelta {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `StringDelta`.
+pub struct StringDeltaData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub current: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&StringDelta> for StringDeltaData {
+    fn from(val: &StringDelta) -> Self {
+        Self {
+            current: val.get_current(),
+            previous: val.get_previous(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -930,6 +1243,27 @@ impl Default for DoubleDelta {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DoubleDelta`.
+pub struct DoubleDeltaData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub current: Option<f64>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&DoubleDelta> for DoubleDeltaData {
+    fn from(val: &DoubleDelta) -> Self {
+        Self {
+            current: val.get_current(),
+            previous: val.get_previous(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "BooleanDelta")]
@@ -970,6 +1304,27 @@ impl BooleanDelta {
 impl Default for BooleanDelta {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `BooleanDelta`.
+pub struct BooleanDeltaData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub current: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub previous: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&BooleanDelta> for BooleanDeltaData {
+    fn from(val: &BooleanDelta) -> Self {
+        Self {
+            current: val.get_current(),
+            previous: val.get_previous(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -1157,6 +1512,78 @@ impl Default for DownloadDelta {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DownloadDelta`.
+pub struct DownloadDeltaData {
+    ///The change in canResume, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub can_resume: Option<BooleanDeltaData>,
+    ///The change in danger, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub danger: Option<StringDeltaData>,
+    ///The change in endTime, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end_time: Option<StringDeltaData>,
+    ///The change in error, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<StringDeltaData>,
+    ///The change in exists, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exists: Option<BooleanDeltaData>,
+    ///The change in fileSize, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file_size: Option<DoubleDeltaData>,
+    ///The change in filename, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub filename: Option<StringDeltaData>,
+    ///The change in finalUrl, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub final_url: Option<StringDeltaData>,
+    ///The id of the $(ref:DownloadItem) that changed.
+    pub id: i32,
+    ///The change in mime, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mime: Option<StringDeltaData>,
+    ///The change in paused, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub paused: Option<BooleanDeltaData>,
+    ///The change in startTime, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub start_time: Option<StringDeltaData>,
+    ///The change in state, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub state: Option<StringDeltaData>,
+    ///The change in totalBytes, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub total_bytes: Option<DoubleDeltaData>,
+    ///The change in url, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<StringDeltaData>,
+}
+#[cfg(feature = "serde")]
+impl From<&DownloadDelta> for DownloadDeltaData {
+    fn from(val: &DownloadDelta) -> Self {
+        Self {
+            can_resume: val.get_can_resume().as_ref().map(|v| v.into()),
+            danger: val.get_danger().as_ref().map(|v| v.into()),
+            end_time: val.get_end_time().as_ref().map(|v| v.into()),
+            error: val.get_error().as_ref().map(|v| v.into()),
+            exists: val.get_exists().as_ref().map(|v| v.into()),
+            file_size: val.get_file_size().as_ref().map(|v| v.into()),
+            filename: val.get_filename().as_ref().map(|v| v.into()),
+            final_url: val.get_final_url().as_ref().map(|v| v.into()),
+            id: val.get_id(),
+            mime: val.get_mime().as_ref().map(|v| v.into()),
+            paused: val.get_paused().as_ref().map(|v| v.into()),
+            start_time: val.get_start_time().as_ref().map(|v| v.into()),
+            state: val.get_state().as_ref().map(|v| v.into()),
+            total_bytes: val.get_total_bytes().as_ref().map(|v| v.into()),
+            url: val.get_url().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetFileIconOptions")]
@@ -1188,6 +1615,23 @@ impl Default for GetFileIconOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetFileIconOptions`.
+pub struct GetFileIconOptionsData {
+    ///The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub size: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetFileIconOptions> for GetFileIconOptionsData {
+    fn from(val: &GetFileIconOptions) -> Self {
+        Self {
+            size: val.get_size(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UiOptions")]
@@ -1217,6 +1661,22 @@ impl UiOptions {
 impl Default for UiOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UiOptions`.
+pub struct UiOptionsData {
+    ///Enable or disable the download UI.
+    pub enabled: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&UiOptions> for UiOptionsData {
+    fn from(val: &UiOptions) -> Self {
+        Self {
+            enabled: val.get_enabled(),
+        }
     }
 }
 #[wasm_bindgen]

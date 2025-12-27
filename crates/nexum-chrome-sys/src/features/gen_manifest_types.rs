@@ -55,9 +55,39 @@ impl Default for ChromeSettingsOverrides {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ChromeSettingsOverrides`. Chrome settings which can be overriden by an extension.
+pub struct ChromeSettingsOverridesData {
+    ///New value for the homepage.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub homepage: Option<String>,
+    ///A search engine
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub search_provider: Option<serde_json::Value>,
+    ///An array of length one containing a URL to be used as the startup page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub startup_pages: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&ChromeSettingsOverrides> for ChromeSettingsOverridesData {
+    fn from(val: &ChromeSettingsOverrides) -> Self {
+        Self {
+            homepage: val.get_homepage(),
+            search_provider: val
+                .get_search_provider()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            startup_pages: val
+                .get_startup_pages()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 ///For "file" the source is a file passed via onLaunched event. For "device" contents are fetched from an external device (eg. plugged via USB), without using file_handlers. Finally, for "network" source, contents should be fetched via network.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FileSystemProviderSource {
     File = "file",
     Device = "device",
@@ -128,5 +158,33 @@ impl FileSystemProviderCapabilities {
 impl Default for FileSystemProviderCapabilities {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `FileSystemProviderCapabilities`. Represents capabilities of a providing extension.
+pub struct FileSystemProviderCapabilitiesData {
+    ///Whether configuring via onConfigureRequested is supported. By default: false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub configurable: Option<bool>,
+    ///Whether multiple (more than one) mounted file systems are supported. By default: false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub multiple_mounts: Option<bool>,
+    ///Source of data for mounted file systems.
+    pub source: FileSystemProviderSource,
+    ///Whether setting watchers and notifying about changes is supported. By default: false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub watchable: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&FileSystemProviderCapabilities> for FileSystemProviderCapabilitiesData {
+    fn from(val: &FileSystemProviderCapabilities) -> Self {
+        Self {
+            configurable: val.get_configurable(),
+            multiple_mounts: val.get_multiple_mounts(),
+            source: val.get_source(),
+            watchable: val.get_watchable(),
+        }
     }
 }

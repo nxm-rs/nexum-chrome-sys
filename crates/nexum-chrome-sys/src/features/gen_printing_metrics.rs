@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///The source of the print job.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PrintJobSource {
     ///Specifies that the job was created from the Print Preview page initiated by the user.
     PrintPreview = "PRINT_PREVIEW",
@@ -18,6 +19,7 @@ pub enum PrintJobSource {
 #[wasm_bindgen]
 ///Specifies the final status of the print job.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PrintJobStatus {
     ///Specifies that the print job was interrupted due to some error.
     Failed = "FAILED",
@@ -29,6 +31,7 @@ pub enum PrintJobStatus {
 #[wasm_bindgen]
 ///The source of the printer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PrinterSource {
     ///Specifies that the printer was added by user.
     User = "USER",
@@ -38,6 +41,7 @@ pub enum PrinterSource {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ColorMode {
     ///Specifies that black and white mode was used.
     BlackAndWhite = "BLACK_AND_WHITE",
@@ -47,6 +51,7 @@ pub enum ColorMode {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DuplexMode {
     ///Specifies that one-sided printing was used.
     OneSided = "ONE_SIDED",
@@ -106,6 +111,28 @@ impl MediaSize {
 impl Default for MediaSize {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MediaSize`.
+pub struct MediaSizeData {
+    ///Height (in micrometers) of the media used for printing.
+    pub height: i32,
+    ///Vendor-provided ID, e.g. "iso_a3_297x420mm" or "na_index-3x5_3x5in". Possible values are values of "media" IPP attribute and can be found on IANA page .
+    pub vendor_id: String,
+    ///Width (in micrometers) of the media used for printing.
+    pub width: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&MediaSize> for MediaSizeData {
+    fn from(val: &MediaSize) -> Self {
+        Self {
+            height: val.get_height(),
+            vendor_id: val.get_vendor_id(),
+            width: val.get_width(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -172,6 +199,31 @@ impl Default for PrintSettings {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PrintSettings`.
+pub struct PrintSettingsData {
+    ///The requested color mode.
+    pub color: ColorMode,
+    ///The requested number of copies.
+    pub copies: i32,
+    ///The requested duplex mode.
+    pub duplex: DuplexMode,
+    ///The requested media size.
+    pub media_size: MediaSizeData,
+}
+#[cfg(feature = "serde")]
+impl From<&PrintSettings> for PrintSettingsData {
+    fn from(val: &PrintSettings) -> Self {
+        Self {
+            color: val.get_color(),
+            copies: val.get_copies(),
+            duplex: val.get_duplex(),
+            media_size: (&val.get_media_size()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Printer")]
@@ -223,6 +275,28 @@ impl Printer {
 impl Default for Printer {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Printer`.
+pub struct PrinterData {
+    ///Displayed name of the printer.
+    pub name: String,
+    ///The source of the printer.
+    pub source: PrinterSource,
+    ///The full path for the printer. Contains protocol, hostname, port, and queue.
+    pub uri: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Printer> for PrinterData {
+    fn from(val: &Printer) -> Self {
+        Self {
+            name: val.get_name(),
+            source: val.get_source(),
+            uri: val.get_uri(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -367,6 +441,50 @@ impl PrintJobInfo {
 impl Default for PrintJobInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `PrintJobInfo`.
+pub struct PrintJobInfoData {
+    ///The job completion time (in milliseconds past the Unix epoch).
+    pub completion_time: f64,
+    ///The job creation time (in milliseconds past the Unix epoch).
+    pub creation_time: f64,
+    ///The ID of the job.
+    pub id: String,
+    ///The number of pages in the document.
+    pub number_of_pages: i32,
+    ///The info about the printer which printed the document.
+    pub printer: PrinterData,
+    ///The settings of the print job.
+    pub settings: PrintSettingsData,
+    ///Source showing who initiated the print job.
+    pub source: PrintJobSource,
+    ///ID of source. Null if source is PRINT_PREVIEW or ANDROID_APP.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub source_id: Option<String>,
+    ///The final status of the job.
+    pub status: PrintJobStatus,
+    ///The title of the document which was printed.
+    pub title: String,
+}
+#[cfg(feature = "serde")]
+impl From<&PrintJobInfo> for PrintJobInfoData {
+    fn from(val: &PrintJobInfo) -> Self {
+        Self {
+            completion_time: val.get_completion_time(),
+            creation_time: val.get_creation_time(),
+            id: val.get_id(),
+            number_of_pages: val.get_number_of_pages(),
+            printer: (&val.get_printer()).into(),
+            settings: (&val.get_settings()).into(),
+            source: val.get_source(),
+            source_id: val.get_source_id(),
+            status: val.get_status(),
+            title: val.get_title(),
+        }
     }
 }
 #[wasm_bindgen]

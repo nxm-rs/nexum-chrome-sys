@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Type of stream an audio device provides.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum StreamType {
     Input = "INPUT",
     Output = "OUTPUT",
@@ -12,6 +13,7 @@ pub enum StreamType {
 #[wasm_bindgen]
 ///Available audio device types.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DeviceType {
     Headphone = "HEADPHONE",
     Mic = "MIC",
@@ -138,6 +140,44 @@ impl Default for AudioDeviceInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AudioDeviceInfo`.
+pub struct AudioDeviceInfoData {
+    ///Device name.
+    pub device_name: String,
+    ///Type of the device.
+    pub device_type: DeviceType,
+    ///The user-friendly name (e.g. "USB Microphone").
+    pub display_name: String,
+    ///The unique identifier of the audio device.
+    pub id: String,
+    ///True if this is the current active device.
+    pub is_active: bool,
+    ///The sound level of the device, volume for output, gain for input.
+    pub level: i32,
+    ///The stable/persisted device id string when available.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stable_device_id: Option<String>,
+    ///Stream type associated with this device.
+    pub stream_type: StreamType,
+}
+#[cfg(feature = "serde")]
+impl From<&AudioDeviceInfo> for AudioDeviceInfoData {
+    fn from(val: &AudioDeviceInfo) -> Self {
+        Self {
+            device_name: val.get_device_name(),
+            device_type: val.get_device_type(),
+            display_name: val.get_display_name(),
+            id: val.get_id(),
+            is_active: val.get_is_active(),
+            level: val.get_level(),
+            stable_device_id: val.get_stable_device_id(),
+            stream_type: val.get_stream_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeviceFilter")]
@@ -180,6 +220,29 @@ impl Default for DeviceFilter {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceFilter`.
+pub struct DeviceFilterData {
+    ///If set, only audio devices whose active state matches this value will satisfy the filter.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_active: Option<bool>,
+    ///If set, only audio devices whose stream type is included in this list will satisfy the filter.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stream_types: Option<Vec<StreamType>>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceFilter> for DeviceFilterData {
+    fn from(val: &DeviceFilter) -> Self {
+        Self {
+            is_active: val.get_is_active(),
+            stream_types: val
+                .get_stream_types()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeviceProperties")]
@@ -209,6 +272,23 @@ impl DeviceProperties {
 impl Default for DeviceProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceProperties`.
+pub struct DevicePropertiesData {
+    ///The audio device's desired sound level. Defaults to the device's current sound level. If used with audio input device, represents audio device gain. If used with audio output device, represents audio device volume.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub level: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceProperties> for DevicePropertiesData {
+    fn from(val: &DeviceProperties) -> Self {
+        Self {
+            level: val.get_level(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -253,6 +333,31 @@ impl Default for DeviceIdLists {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceIdLists`.
+pub struct DeviceIdListsData {
+    ///List of input devices specified by their ID. To indicate input devices should be unaffected, leave this property unset.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub input: Option<Vec<String>>,
+    ///List of output devices specified by their ID. To indicate output devices should be unaffected, leave this property unset.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub output: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceIdLists> for DeviceIdListsData {
+    fn from(val: &DeviceIdLists) -> Self {
+        Self {
+            input: val
+                .get_input()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            output: val
+                .get_output()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MuteChangedEvent")]
@@ -295,6 +400,25 @@ impl Default for MuteChangedEvent {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MuteChangedEvent`.
+pub struct MuteChangedEventData {
+    ///Whether or not the stream is now muted.
+    pub is_muted: bool,
+    ///The type of the stream for which the mute value changed. The updated mute value applies to all devices with this stream type.
+    pub stream_type: StreamType,
+}
+#[cfg(feature = "serde")]
+impl From<&MuteChangedEvent> for MuteChangedEventData {
+    fn from(val: &MuteChangedEvent) -> Self {
+        Self {
+            is_muted: val.get_is_muted(),
+            stream_type: val.get_stream_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "LevelChangedEvent")]
@@ -335,6 +459,25 @@ impl LevelChangedEvent {
 impl Default for LevelChangedEvent {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `LevelChangedEvent`.
+pub struct LevelChangedEventData {
+    ///ID of device whose sound level has changed.
+    pub device_id: String,
+    ///The device's new sound level.
+    pub level: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&LevelChangedEvent> for LevelChangedEventData {
+    fn from(val: &LevelChangedEvent) -> Self {
+        Self {
+            device_id: val.get_device_id(),
+            level: val.get_level(),
+        }
     }
 }
 #[wasm_bindgen]

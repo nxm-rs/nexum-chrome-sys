@@ -44,9 +44,30 @@ impl Default for ResourceIdentifier {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ResourceIdentifier`. The only content type using resource identifiers is $(ref:contentSettings.plugins). For more information, see Resource Identifiers.
+pub struct ResourceIdentifierData {
+    ///A human readable description of the resource.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    ///The resource identifier for the given content type.
+    pub id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ResourceIdentifier> for ResourceIdentifierData {
+    fn from(val: &ResourceIdentifier) -> Self {
+        Self {
+            description: val.get_description(),
+            id: val.get_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The scope of the ContentSetting. One ofregular: setting for regular profile (which is inherited by the incognito profile if not overridden elsewhere),incognito_session_only: setting for incognito profile that can only be set during an incognito session and is deleted when the incognito session ends (overrides regular settings).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Scope {
     Regular = "regular",
     IncognitoSessionOnly = "incognito_session_only",
@@ -74,6 +95,7 @@ impl Default for ContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AutoVerifyContentSetting {
     Allow = "allow",
     Block = "block",
@@ -81,6 +103,7 @@ pub enum AutoVerifyContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ClipboardContentSetting {
     Allow = "allow",
     Block = "block",
@@ -89,6 +112,7 @@ pub enum ClipboardContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CookiesContentSetting {
     Allow = "allow",
     Block = "block",
@@ -97,6 +121,7 @@ pub enum CookiesContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ImagesContentSetting {
     Allow = "allow",
     Block = "block",
@@ -104,6 +129,7 @@ pub enum ImagesContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum JavascriptContentSetting {
     Allow = "allow",
     Block = "block",
@@ -111,6 +137,7 @@ pub enum JavascriptContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum LocationContentSetting {
     Allow = "allow",
     Block = "block",
@@ -119,12 +146,14 @@ pub enum LocationContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PluginsContentSetting {
     Block = "block",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PopupsContentSetting {
     Allow = "allow",
     Block = "block",
@@ -132,6 +161,7 @@ pub enum PopupsContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum NotificationsContentSetting {
     Allow = "allow",
     Block = "block",
@@ -140,18 +170,21 @@ pub enum NotificationsContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FullscreenContentSetting {
     Allow = "allow",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MouselockContentSetting {
     Allow = "allow",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MicrophoneContentSetting {
     Allow = "allow",
     Block = "block",
@@ -160,6 +193,7 @@ pub enum MicrophoneContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CameraContentSetting {
     Allow = "allow",
     Block = "block",
@@ -168,12 +202,14 @@ pub enum CameraContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PpapiBrokerContentSetting {
     Block = "block",
 }
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MultipleAutomaticDownloadsContentSetting {
     Allow = "allow",
     Block = "block",
@@ -182,6 +218,7 @@ pub enum MultipleAutomaticDownloadsContentSetting {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SoundContentSetting {
     Allow = "allow",
     Block = "block",

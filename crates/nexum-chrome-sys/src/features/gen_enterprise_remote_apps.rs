@@ -44,6 +44,26 @@ impl Default for AddFolderOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AddFolderOptions`.
+pub struct AddFolderOptionsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub add_to_front: Option<bool>,
+    ///
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&AddFolderOptions> for AddFolderOptionsData {
+    fn from(val: &AddFolderOptions) -> Self {
+        Self {
+            add_to_front: val.get_add_to_front(),
+            name: val.get_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AddAppOptions")]
@@ -108,9 +128,38 @@ impl Default for AddAppOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AddAppOptions`.
+pub struct AddAppOptionsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub add_to_front: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub folder_id: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub icon_url: Option<String>,
+    ///
+    pub name: String,
+}
+#[cfg(feature = "serde")]
+impl From<&AddAppOptions> for AddAppOptionsData {
+    fn from(val: &AddAppOptions) -> Self {
+        Self {
+            add_to_front: val.get_add_to_front(),
+            folder_id: val.get_folder_id(),
+            icon_url: val.get_icon_url(),
+            name: val.get_name(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Possible sort order positions for $(ref:sortLauncher).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RemoteAppsPosition {
     ///Before native apps, in alphabetical, case insensitive, order.
     RemoteAppsFirst = "REMOTE_APPS_FIRST",
@@ -144,6 +193,22 @@ impl SortLauncherOptions {
 impl Default for SortLauncherOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SortLauncherOptions`.
+pub struct SortLauncherOptionsData {
+    ///
+    pub position: RemoteAppsPosition,
+}
+#[cfg(feature = "serde")]
+impl From<&SortLauncherOptions> for SortLauncherOptionsData {
+    fn from(val: &SortLauncherOptions) -> Self {
+        Self {
+            position: val.get_position(),
+        }
     }
 }
 #[wasm_bindgen]

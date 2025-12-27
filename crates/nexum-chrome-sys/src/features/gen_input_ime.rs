@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum KeyboardEventType {
     Keyup = "keyup",
     Keydown = "keydown",
@@ -150,9 +151,64 @@ impl Default for KeyboardEvent {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `KeyboardEvent`. See http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent
+pub struct KeyboardEventData {
+    ///Whether or not the ALT key is pressed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub alt_key: Option<bool>,
+    ///Whether or not the ALTGR key is pressed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub altgr_key: Option<bool>,
+    ///Whether or not the CAPS_LOCK is enabled.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub caps_lock: Option<bool>,
+    ///Value of the physical key being pressed. The value is not affected by current keyboard layout or modifier state.
+    pub code: String,
+    ///Whether or not the CTRL key is pressed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ctrl_key: Option<bool>,
+    ///The extension ID of the sender of this keyevent.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub extension_id: Option<String>,
+    ///Value of the key being pressed
+    pub key: String,
+    ///The deprecated HTML keyCode, which is system- and implementation-dependent numerical code signifying the unmodified identifier associated with the key pressed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub key_code: Option<i32>,
+    ///(Deprecated) The ID of the request. Use the requestId param from the onKeyEvent event instead.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_id: Option<String>,
+    ///Whether or not the SHIFT key is pressed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub shift_key: Option<bool>,
+    ///One of keyup or keydown.
+    pub r#type: KeyboardEventType,
+}
+#[cfg(feature = "serde")]
+impl From<&KeyboardEvent> for KeyboardEventData {
+    fn from(val: &KeyboardEvent) -> Self {
+        Self {
+            alt_key: val.get_alt_key(),
+            altgr_key: val.get_altgr_key(),
+            caps_lock: val.get_caps_lock(),
+            code: val.get_code(),
+            ctrl_key: val.get_ctrl_key(),
+            extension_id: val.get_extension_id(),
+            key: val.get_key(),
+            key_code: val.get_key_code(),
+            request_id: val.get_request_id(),
+            shift_key: val.get_shift_key(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Type of value this text field edits, (Text, Number, URL, etc)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum InputContextType {
     Text = "text",
     Search = "search",
@@ -166,6 +222,7 @@ pub enum InputContextType {
 #[wasm_bindgen]
 ///The auto-capitalize type of the text field.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AutoCapitalizeType {
     Characters = "characters",
     Words = "words",
@@ -268,9 +325,44 @@ impl Default for InputContext {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InputContext`. Describes an input Context
+pub struct InputContextData {
+    ///The auto-capitalize type of the text field.
+    pub auto_capitalize: AutoCapitalizeType,
+    ///Whether the text field wants auto-complete.
+    pub auto_complete: bool,
+    ///Whether the text field wants auto-correct.
+    pub auto_correct: bool,
+    ///This is used to specify targets of text field operations. This ID becomes invalid as soon as onBlur is called.
+    pub context_id: i32,
+    ///Whether text entered into the text field should be used to improve typing suggestions for the user.
+    pub should_do_learning: bool,
+    ///Whether the text field wants spell-check.
+    pub spell_check: bool,
+    ///Type of value this text field edits, (Text, Number, URL, etc)
+    pub r#type: InputContextType,
+}
+#[cfg(feature = "serde")]
+impl From<&InputContext> for InputContextData {
+    fn from(val: &InputContext) -> Self {
+        Self {
+            auto_capitalize: val.get_auto_capitalize(),
+            auto_complete: val.get_auto_complete(),
+            auto_correct: val.get_auto_correct(),
+            context_id: val.get_context_id(),
+            should_do_learning: val.get_should_do_learning(),
+            spell_check: val.get_spell_check(),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The type of menu item. Radio buttons between separators are considered grouped.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MenuItemStyle {
     Check = "check",
     Radio = "radio",
@@ -362,9 +454,46 @@ impl Default for MenuItem {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MenuItem`. A menu item used by an input method to interact with the user from the language menu.
+pub struct MenuItemData {
+    ///Indicates this item should be drawn with a check.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub checked: Option<bool>,
+    ///Indicates this item is enabled.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
+    ///String that will be passed to callbacks referencing this MenuItem.
+    pub id: String,
+    ///Text displayed in the menu for this item.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label: Option<String>,
+    ///The type of menu item.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub style: Option<MenuItemStyle>,
+    ///Indicates this item is visible.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub visible: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&MenuItem> for MenuItemData {
+    fn from(val: &MenuItem) -> Self {
+        Self {
+            checked: val.get_checked(),
+            enabled: val.get_enabled(),
+            id: val.get_id(),
+            label: val.get_label(),
+            style: val.get_style(),
+            visible: val.get_visible(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The type of the underline to modify this segment.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum UnderlineStyle {
     Underline = "underline",
     DoubleUnderline = "doubleUnderline",
@@ -373,6 +502,7 @@ pub enum UnderlineStyle {
 #[wasm_bindgen]
 ///Where to display the candidate window. If set to 'cursor', the window follows the cursor. If set to 'composition', the window is locked to the beginning of the composition.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum WindowPosition {
     Cursor = "cursor",
     Composition = "composition",
@@ -380,6 +510,7 @@ pub enum WindowPosition {
 #[wasm_bindgen]
 ///The screen type under which the IME is activated.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ScreenType {
     Normal = "normal",
     Login = "login",
@@ -389,6 +520,7 @@ pub enum ScreenType {
 #[wasm_bindgen]
 ///Which mouse buttons was clicked.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MouseButton {
     Left = "left",
     Middle = "middle",
@@ -397,6 +529,7 @@ pub enum MouseButton {
 #[wasm_bindgen]
 ///Type of assistive window.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AssistiveWindowType {
     Undo = "undo",
 }
@@ -453,9 +586,33 @@ impl Default for AssistiveWindowProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AssistiveWindowProperties`. Properties of the assistive window.
+pub struct AssistiveWindowPropertiesData {
+    ///Strings for ChromeVox to announce.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub announce_string: Option<String>,
+    ///
+    pub r#type: AssistiveWindowType,
+    ///Sets true to show AssistiveWindow, sets false to hide.
+    pub visible: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&AssistiveWindowProperties> for AssistiveWindowPropertiesData {
+    fn from(val: &AssistiveWindowProperties) -> Self {
+        Self {
+            announce_string: val.get_announce_string(),
+            r#type: val.get_type(),
+            visible: val.get_visible(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///ID of buttons in assistive window.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AssistiveWindowButton {
     Undo = "undo",
     AddToDictionary = "addToDictionary",
@@ -500,6 +657,25 @@ impl MenuParameters {
 impl Default for MenuParameters {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MenuParameters`.
+pub struct MenuParametersData {
+    ///ID of the engine to use.
+    pub engine_id: String,
+    ///MenuItems to add or update. They will be added in the order they exist in the array.
+    pub items: Vec<MenuItemData>,
+}
+#[cfg(feature = "serde")]
+impl From<&MenuParameters> for MenuParametersData {
+    fn from(val: &MenuParameters) -> Self {
+        Self {
+            engine_id: val.get_engine_id(),
+            items: serde_wasm_bindgen::from_value(val.get_items().into()).unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]

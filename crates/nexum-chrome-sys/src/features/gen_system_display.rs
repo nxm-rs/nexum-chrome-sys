@@ -66,6 +66,31 @@ impl Default for Bounds {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Bounds`.
+pub struct BoundsData {
+    ///The height of the display in pixels.
+    pub height: i32,
+    ///The x-coordinate of the upper-left corner.
+    pub left: i32,
+    ///The y-coordinate of the upper-left corner.
+    pub top: i32,
+    ///The width of the display in pixels.
+    pub width: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Bounds> for BoundsData {
+    fn from(val: &Bounds) -> Self {
+        Self {
+            height: val.get_height(),
+            left: val.get_left(),
+            top: val.get_top(),
+            width: val.get_width(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Insets")]
@@ -130,6 +155,31 @@ impl Default for Insets {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Insets`.
+pub struct InsetsData {
+    ///The y-axis distance from the bottom bound.
+    pub bottom: i32,
+    ///The x-axis distance from the left bound.
+    pub left: i32,
+    ///The x-axis distance from the right bound.
+    pub right: i32,
+    ///The y-axis distance from the top bound.
+    pub top: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Insets> for InsetsData {
+    fn from(val: &Insets) -> Self {
+        Self {
+            bottom: val.get_bottom(),
+            left: val.get_left(),
+            right: val.get_right(),
+            top: val.get_top(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Point")]
@@ -172,6 +222,25 @@ impl Default for Point {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Point`.
+pub struct PointData {
+    ///The x-coordinate of the point.
+    pub x: i32,
+    ///The y-coordinate of the point.
+    pub y: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Point> for PointData {
+    fn from(val: &Point) -> Self {
+        Self {
+            x: val.get_x(),
+            y: val.get_y(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "TouchCalibrationPair")]
@@ -212,6 +281,25 @@ impl TouchCalibrationPair {
 impl Default for TouchCalibrationPair {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TouchCalibrationPair`.
+pub struct TouchCalibrationPairData {
+    ///The coordinates of the display point.
+    pub display_point: PointData,
+    ///The coordinates of the touch point corresponding to the display point.
+    pub touch_point: PointData,
+}
+#[cfg(feature = "serde")]
+impl From<&TouchCalibrationPair> for TouchCalibrationPairData {
+    fn from(val: &TouchCalibrationPair) -> Self {
+        Self {
+            display_point: (&val.get_display_point()).into(),
+            touch_point: (&val.get_touch_point()).into(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -276,6 +364,31 @@ impl TouchCalibrationPairQuad {
 impl Default for TouchCalibrationPairQuad {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TouchCalibrationPairQuad`.
+pub struct TouchCalibrationPairQuadData {
+    ///First pair of touch and display point required for touch calibration.
+    pub pair1: TouchCalibrationPairData,
+    ///Second pair of touch and display point required for touch calibration.
+    pub pair2: TouchCalibrationPairData,
+    ///Third pair of touch and display point required for touch calibration.
+    pub pair3: TouchCalibrationPairData,
+    ///Fourth pair of touch and display point required for touch calibration.
+    pub pair4: TouchCalibrationPairData,
+}
+#[cfg(feature = "serde")]
+impl From<&TouchCalibrationPairQuad> for TouchCalibrationPairQuadData {
+    fn from(val: &TouchCalibrationPairQuad) -> Self {
+        Self {
+            pair1: (&val.get_pair1()).into(),
+            pair2: (&val.get_pair2()).into(),
+            pair3: (&val.get_pair3()).into(),
+            pair4: (&val.get_pair4()).into(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -408,9 +521,55 @@ impl Default for DisplayMode {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DisplayMode`.
+pub struct DisplayModeData {
+    ///The display mode device scale factor.
+    pub device_scale_factor: f64,
+    ///The display mode height in device independent (user visible) pixels.
+    pub height: i32,
+    ///The display mode height in native pixels.
+    pub height_in_native_pixels: i32,
+    ///True if this mode is interlaced, false if not provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_interlaced: Option<bool>,
+    ///True if the mode is the display's native mode.
+    pub is_native: bool,
+    ///True if the display mode is currently selected.
+    pub is_selected: bool,
+    ///The display mode refresh rate in hertz.
+    pub refresh_rate: f64,
+    ///The display mode UI scale factor.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ui_scale: Option<f64>,
+    ///The display mode width in device independent (user visible) pixels.
+    pub width: i32,
+    ///The display mode width in native pixels.
+    pub width_in_native_pixels: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&DisplayMode> for DisplayModeData {
+    fn from(val: &DisplayMode) -> Self {
+        Self {
+            device_scale_factor: val.get_device_scale_factor(),
+            height: val.get_height(),
+            height_in_native_pixels: val.get_height_in_native_pixels(),
+            is_interlaced: val.get_is_interlaced(),
+            is_native: val.get_is_native(),
+            is_selected: val.get_is_selected(),
+            refresh_rate: val.get_refresh_rate(),
+            ui_scale: val.get_ui_scale(),
+            width: val.get_width(),
+            width_in_native_pixels: val.get_width_in_native_pixels(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Layout position, i.e. edge of parent that the display is attached to.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum LayoutPosition {
     Top = "top",
     Right = "right",
@@ -481,6 +640,31 @@ impl Default for DisplayLayout {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DisplayLayout`.
+pub struct DisplayLayoutData {
+    ///The unique identifier of the display.
+    pub id: String,
+    ///The offset of the display along the connected edge. 0 indicates that the topmost or leftmost corners are aligned.
+    pub offset: i32,
+    ///The unique identifier of the parent display. Empty if this is the root.
+    pub parent_id: String,
+    ///The layout position of this display relative to the parent. This will be ignored for the root.
+    pub position: LayoutPosition,
+}
+#[cfg(feature = "serde")]
+impl From<&DisplayLayout> for DisplayLayoutData {
+    fn from(val: &DisplayLayout) -> Self {
+        Self {
+            id: val.get_id(),
+            offset: val.get_offset(),
+            parent_id: val.get_parent_id(),
+            position: val.get_position(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Edid")]
@@ -534,9 +718,32 @@ impl Default for Edid {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Edid`.
+pub struct EdidData {
+    ///3 character manufacturer code. See Sec. 3.4.1 page 21. Required in v1.4.
+    pub manufacturer_id: String,
+    ///2 byte manufacturer-assigned code, Sec. 3.4.2 page 21. Required in v1.4.
+    pub product_id: String,
+    ///Year of manufacturer, Sec. 3.4.4 page 22. Required in v1.4.
+    pub year_of_manufacture: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Edid> for EdidData {
+    fn from(val: &Edid) -> Self {
+        Self {
+            manufacturer_id: val.get_manufacturer_id(),
+            product_id: val.get_product_id(),
+            year_of_manufacture: val.get_year_of_manufacture(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///An enum to tell if the display is detected and used by the system. The display is considered 'inactive', if it is not detected by the system (maybe disconnected, or considered disconnected due to sleep mode, etc). This state is used to keep existing display when the all displays are disconnected, for example.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ActiveState {
     Active = "active",
     Inactive = "inactive",
@@ -803,6 +1010,93 @@ impl Default for DisplayUnitInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DisplayUnitInfo`.
+pub struct DisplayUnitInfoData {
+    ///Active if the display is detected and used by the system.
+    pub active_state: ActiveState,
+    ///A list of zoom factor values that can be set for the display.
+    pub available_display_zoom_factors: Vec<f64>,
+    ///The display's logical bounds.
+    pub bounds: BoundsData,
+    ///The ratio between the display's current and default zoom. For example, value 1 is equivalent to 100% zoom, and value 1.5 is equivalent to 150% zoom.
+    pub display_zoom_factor: f64,
+    ///The number of pixels per inch along the x-axis.
+    pub dpi_x: f64,
+    ///The number of pixels per inch along the y-axis.
+    pub dpi_y: f64,
+    ///NOTE: This is only available to ChromeOS Kiosk apps and Web UI.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub edid: Option<EdidData>,
+    ///True if this display has an accelerometer associated with it. Provided for ChromeOS Settings UI only. TODO(stevenjb): Remove when Settings switches to a mojo API. NOTE: The name of this may change.
+    pub has_accelerometer_support: bool,
+    ///True if this display has a touch input device associated with it.
+    pub has_touch_support: bool,
+    ///The unique identifier of the display.
+    pub id: String,
+    ///True when the auto-rotation is allowed. It happens when the device is in a tablet physical state or kSupportsClamshellAutoRotation is set. Provided for ChromeOS Settings UI only. TODO(stevenjb): Remove when Settings switches to a mojo API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_auto_rotation_allowed: Option<bool>,
+    ///True if this display is enabled.
+    pub is_enabled: bool,
+    ///True if this is an internal display.
+    pub is_internal: bool,
+    ///True if this is the primary display.
+    pub is_primary: bool,
+    ///True for all displays when in unified desktop mode. See documentation for $(ref:enableUnifiedDesktop).
+    pub is_unified: bool,
+    ///ChromeOS only. Identifiers of the displays to which the source display is being mirrored. Empty if no displays are being mirrored. This will be set to the same value for all displays. This must not include |mirroringSourceId|.
+    pub mirroring_destination_ids: Vec<String>,
+    ///ChromeOS only. Identifier of the display that is being mirrored if mirroring is enabled, otherwise empty. This will be set for all displays (including the display being mirrored).
+    pub mirroring_source_id: String,
+    ///The list of available display modes. The current mode will have isSelected=true. Only available on ChromeOS. Will be set to an empty array on other platforms.
+    pub modes: Vec<DisplayModeData>,
+    ///The user-friendly name (e.g. "HP LCD monitor").
+    pub name: String,
+    ///The display's insets within its screen's bounds. Currently exposed only on ChromeOS. Will be set to empty insets on other platforms.
+    pub overscan: InsetsData,
+    ///The display's clockwise rotation in degrees relative to the vertical position. Currently exposed only on ChromeOS. Will be set to 0 on other platforms. A value of -1 will be interpreted as auto-rotate when the device is in a physical tablet state.
+    pub rotation: i32,
+    ///The usable work area of the display within the display bounds. The work area excludes areas of the display reserved for OS, for example taskbar and launcher.
+    pub work_area: BoundsData,
+}
+#[cfg(feature = "serde")]
+impl From<&DisplayUnitInfo> for DisplayUnitInfoData {
+    fn from(val: &DisplayUnitInfo) -> Self {
+        Self {
+            active_state: val.get_active_state(),
+            available_display_zoom_factors: serde_wasm_bindgen::from_value(
+                val.get_available_display_zoom_factors().into(),
+            )
+            .unwrap_or_default(),
+            bounds: (&val.get_bounds()).into(),
+            display_zoom_factor: val.get_display_zoom_factor(),
+            dpi_x: val.get_dpi_x(),
+            dpi_y: val.get_dpi_y(),
+            edid: val.get_edid().as_ref().map(|v| v.into()),
+            has_accelerometer_support: val.get_has_accelerometer_support(),
+            has_touch_support: val.get_has_touch_support(),
+            id: val.get_id(),
+            is_auto_rotation_allowed: val.get_is_auto_rotation_allowed(),
+            is_enabled: val.get_is_enabled(),
+            is_internal: val.get_is_internal(),
+            is_primary: val.get_is_primary(),
+            is_unified: val.get_is_unified(),
+            mirroring_destination_ids: serde_wasm_bindgen::from_value(
+                val.get_mirroring_destination_ids().into(),
+            )
+            .unwrap_or_default(),
+            mirroring_source_id: val.get_mirroring_source_id(),
+            modes: serde_wasm_bindgen::from_value(val.get_modes().into()).unwrap_or_default(),
+            name: val.get_name(),
+            overscan: (&val.get_overscan()).into(),
+            rotation: val.get_rotation(),
+            work_area: (&val.get_work_area()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DisplayProperties")]
@@ -922,6 +1216,55 @@ impl Default for DisplayProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DisplayProperties`.
+pub struct DisplayPropertiesData {
+    ///If set, updates the display's logical bounds origin along the x-axis. Applied together with $(ref:boundsOriginY). Defaults to the current value if not set and $(ref:boundsOriginY) is set. Note that when updating the display origin, some constraints will be applied, so the final bounds origin may be different than the one set. The final bounds can be retrieved using $(ref:getInfo). The bounds origin cannot be changed on the primary display.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bounds_origin_x: Option<i32>,
+    ///If set, updates the display's logical bounds origin along the y-axis. See documentation for $(ref:boundsOriginX) parameter.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bounds_origin_y: Option<i32>,
+    ///If set, updates the display mode to the mode matching this value. If other parameters are invalid, this will not be applied. If the display mode is invalid, it will not be applied and an error will be set, but other properties will still be applied.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_mode: Option<DisplayModeData>,
+    ///If set, updates the zoom associated with the display. This zoom performs re-layout and repaint thus resulting in a better quality zoom than just performing a pixel by pixel stretch enlargement.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_zoom_factor: Option<f64>,
+    ///If set to true, makes the display primary. No-op if set to false. Note: If set, the display is considered primary for all other properties (i.e. $(ref:isUnified) may be set and bounds origin may not).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_primary: Option<bool>,
+    ///ChromeOS only. If set to true, changes the display mode to unified desktop (see $(ref:enableUnifiedDesktop) for details). If set to false, unified desktop mode will be disabled. This is only valid for the primary display. If provided, mirroringSourceId must not be provided and other properties will be ignored. This is has no effect if not provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_unified: Option<bool>,
+    ///ChromeOS only. If set and not empty, enables mirroring for this display only. Otherwise disables mirroring for all displays. This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties. If set, no other property may be set.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mirroring_source_id: Option<String>,
+    ///If set, sets the display's overscan insets to the provided values. Note that overscan values may not be negative or larger than a half of the screen's size. Overscan cannot be changed on the internal monitor.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub overscan: Option<InsetsData>,
+    ///If set, updates the display's rotation. Legal values are [0, 90, 180, 270]. The rotation is set clockwise, relative to the display's vertical position.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rotation: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&DisplayProperties> for DisplayPropertiesData {
+    fn from(val: &DisplayProperties) -> Self {
+        Self {
+            bounds_origin_x: val.get_bounds_origin_x(),
+            bounds_origin_y: val.get_bounds_origin_y(),
+            display_mode: val.get_display_mode().as_ref().map(|v| v.into()),
+            display_zoom_factor: val.get_display_zoom_factor(),
+            is_primary: val.get_is_primary(),
+            is_unified: val.get_is_unified(),
+            mirroring_source_id: val.get_mirroring_source_id(),
+            overscan: val.get_overscan().as_ref().map(|v| v.into()),
+            rotation: val.get_rotation(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetInfoFlags")]
@@ -953,9 +1296,27 @@ impl Default for GetInfoFlags {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetInfoFlags`.
+pub struct GetInfoFlagsData {
+    ///If set to true, only a single $(ref:DisplayUnitInfo) will be returned by $(ref:getInfo) when in unified desktop mode (see $(ref:enableUnifiedDesktop)). Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub single_unified: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetInfoFlags> for GetInfoFlagsData {
+    fn from(val: &GetInfoFlags) -> Self {
+        Self {
+            single_unified: val.get_single_unified(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Mirror mode, i.e. different ways of how a display is mirrored to other displays.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum MirrorMode {
     ///Specifies the default mode (extended or unified desktop).
     Off = "off",
@@ -1015,6 +1376,32 @@ impl MirrorModeInfo {
 impl Default for MirrorModeInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MirrorModeInfo`.
+pub struct MirrorModeInfoData {
+    ///The ids of the mirroring destination displays. This is only valid for 'mixed'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mirroring_destination_ids: Option<Vec<String>>,
+    ///The id of the mirroring source display. This is only valid for 'mixed'.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mirroring_source_id: Option<String>,
+    ///The mirror mode that should be set.
+    pub mode: MirrorMode,
+}
+#[cfg(feature = "serde")]
+impl From<&MirrorModeInfo> for MirrorModeInfoData {
+    fn from(val: &MirrorModeInfo) -> Self {
+        Self {
+            mirroring_destination_ids: val
+                .get_mirroring_destination_ids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            mirroring_source_id: val.get_mirroring_source_id(),
+            mode: val.get_mode(),
+        }
     }
 }
 #[wasm_bindgen]

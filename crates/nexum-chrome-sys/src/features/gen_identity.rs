@@ -33,9 +33,24 @@ impl Default for AccountInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AccountInfo`.
+pub struct AccountInfoData {
+    ///A unique identifier for the account. This ID will not change for the lifetime of the account.
+    pub id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&AccountInfo> for AccountInfoData {
+    fn from(val: &AccountInfo) -> Self {
+        Self { id: val.get_id() }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AccountStatus {
     ///Specifies that Sync is enabled for the primary account.
     Sync = "SYNC",
@@ -71,6 +86,23 @@ impl ProfileDetails {
 impl Default for ProfileDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProfileDetails`.
+pub struct ProfileDetailsData {
+    ///A status of the primary account signed into a profile whose ProfileUserInfo should be returned. Defaults to SYNC account status.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account_status: Option<AccountStatus>,
+}
+#[cfg(feature = "serde")]
+impl From<&ProfileDetails> for ProfileDetailsData {
+    fn from(val: &ProfileDetails) -> Self {
+        Self {
+            account_status: val.get_account_status(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -113,6 +145,25 @@ impl ProfileUserInfo {
 impl Default for ProfileUserInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProfileUserInfo`.
+pub struct ProfileUserInfoData {
+    ///An email address for the user account signed into the current profile. Empty if the user is not signed in or the identity.email manifest permission is not specified.
+    pub email: String,
+    ///A unique identifier for the account. This ID will not change for the lifetime of the account. Empty if the user is not signed in or (in M41+) the identity.email manifest permission is not specified.
+    pub id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ProfileUserInfo> for ProfileUserInfoData {
+    fn from(val: &ProfileUserInfo) -> Self {
+        Self {
+            email: val.get_email(),
+            id: val.get_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -179,6 +230,37 @@ impl Default for TokenDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TokenDetails`.
+pub struct TokenDetailsData {
+    ///The account ID whose token should be returned. If not specified, the function will use an account from the Chrome profile: the Sync account if there is one, or otherwise the first Google web account.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub account: Option<AccountInfoData>,
+    ///The enableGranularPermissions flag allows extensions to opt-in early to the granular permissions consent screen, in which requested permissions are granted or denied individually.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub enable_granular_permissions: Option<bool>,
+    ///Fetching a token may require the user to sign-in to Chrome, or approve the application's requested scopes. If the interactive flag is true, getAuthToken will prompt the user as necessary. When the flag is false or omitted, getAuthToken will return failure any time a prompt would be required.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interactive: Option<bool>,
+    ///A list of OAuth2 scopes to request.When the scopes field is present, it overrides the list of scopes specified in manifest.json.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scopes: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&TokenDetails> for TokenDetailsData {
+    fn from(val: &TokenDetails) -> Self {
+        Self {
+            account: val.get_account().as_ref().map(|v| v.into()),
+            enable_granular_permissions: val.get_enable_granular_permissions(),
+            interactive: val.get_interactive(),
+            scopes: val
+                .get_scopes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "InvalidTokenDetails")]
@@ -208,6 +290,22 @@ impl InvalidTokenDetails {
 impl Default for InvalidTokenDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InvalidTokenDetails`.
+pub struct InvalidTokenDetailsData {
+    ///The specific token that should be removed from the cache.
+    pub token: String,
+}
+#[cfg(feature = "serde")]
+impl From<&InvalidTokenDetails> for InvalidTokenDetailsData {
+    fn from(val: &InvalidTokenDetails) -> Self {
+        Self {
+            token: val.get_token(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -274,6 +372,34 @@ impl Default for WebAuthFlowDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `WebAuthFlowDetails`.
+pub struct WebAuthFlowDetailsData {
+    ///Whether to terminate launchWebAuthFlow for non-interactive requests after the page loads. This parameter does not affect interactive flows.When set to true (default) the flow will terminate immediately after the page loads. When set to false, the flow will only terminate after the timeoutMsForNonInteractive passes. This is useful for identity providers that use JavaScript to perform redirections after the page loads.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub abort_on_load_for_non_interactive: Option<bool>,
+    ///Whether to launch auth flow in interactive mode.Since some auth flows may immediately redirect to a result URL, launchWebAuthFlow hides its web view until the first navigation either redirects to the final URL, or finishes loading a page meant to be displayed.If the interactive flag is true, the window will be displayed when a page load completes. If the flag is false or omitted, launchWebAuthFlow will return with an error if the initial navigation does not complete the flow.For flows that use JavaScript for redirection, abortOnLoadForNonInteractive can be set to false in combination with setting timeoutMsForNonInteractive to give the page a chance to perform any redirects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub interactive: Option<bool>,
+    ///The maximum amount of time, in miliseconds, launchWebAuthFlow is allowed to run in non-interactive mode in total. Only has an effect if interactive is false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub timeout_ms_for_non_interactive: Option<i32>,
+    ///The URL that initiates the auth flow.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&WebAuthFlowDetails> for WebAuthFlowDetailsData {
+    fn from(val: &WebAuthFlowDetails) -> Self {
+        Self {
+            abort_on_load_for_non_interactive: val.get_abort_on_load_for_non_interactive(),
+            interactive: val.get_interactive(),
+            timeout_ms_for_non_interactive: val.get_timeout_ms_for_non_interactive(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetAuthTokenResult")]
@@ -314,6 +440,29 @@ impl GetAuthTokenResult {
 impl Default for GetAuthTokenResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetAuthTokenResult`.
+pub struct GetAuthTokenResultData {
+    ///A list of OAuth2 scopes granted to the extension.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub granted_scopes: Option<Vec<String>>,
+    ///The specific token associated with the request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub token: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetAuthTokenResult> for GetAuthTokenResultData {
+    fn from(val: &GetAuthTokenResult) -> Self {
+        Self {
+            granted_scopes: val
+                .get_granted_scopes()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            token: val.get_token(),
+        }
     }
 }
 #[wasm_bindgen]

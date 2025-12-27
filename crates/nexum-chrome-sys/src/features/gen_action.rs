@@ -33,6 +33,23 @@ impl Default for TabDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TabDetails`.
+pub struct TabDetailsData {
+    ///The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&TabDetails> for TabDetailsData {
+    fn from(val: &TabDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "UserSettings")]
@@ -62,6 +79,22 @@ impl UserSettings {
 impl Default for UserSettings {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UserSettings`. The collection of user-specified settings relating to an extension's action.
+pub struct UserSettingsData {
+    ///Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user).
+    pub is_on_toolbar: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&UserSettings> for UserSettingsData {
+    fn from(val: &UserSettings) -> Self {
+        Self {
+            is_on_toolbar: val.get_is_on_toolbar(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -95,6 +128,23 @@ impl Default for UserSettingsChange {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UserSettingsChange`.
+pub struct UserSettingsChangeData {
+    ///Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub is_on_toolbar: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&UserSettingsChange> for UserSettingsChangeData {
+    fn from(val: &UserSettingsChange) -> Self {
+        Self {
+            is_on_toolbar: val.get_is_on_toolbar(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "OpenPopupOptions")]
@@ -124,6 +174,23 @@ impl OpenPopupOptions {
 impl Default for OpenPopupOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `OpenPopupOptions`.
+pub struct OpenPopupOptionsData {
+    ///The ID of the window to open the action popup in. Defaults to the currently-active window if unspecified.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub window_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&OpenPopupOptions> for OpenPopupOptionsData {
+    fn from(val: &OpenPopupOptions) -> Self {
+        Self {
+            window_id: val.get_window_id(),
+        }
     }
 }
 #[wasm_bindgen]

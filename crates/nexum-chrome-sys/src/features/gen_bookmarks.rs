@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Indicates the type of folder.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FolderType {
     ///The folder whose contents is displayed at the top of the browser window.
     BookmarksBar = "bookmarks-bar",
@@ -18,6 +19,7 @@ pub enum FolderType {
 #[wasm_bindgen]
 ///Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator. Omitted if the node can be modified by the user and the extension (default).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum BookmarkTreeNodeUnmodifiable {
     Managed = "managed",
 }
@@ -173,6 +175,66 @@ impl Default for BookmarkTreeNode {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `BookmarkTreeNode`. A node (either a bookmark or a folder) in the bookmark tree. Child nodes are ordered within their parent folder.
+pub struct BookmarkTreeNodeData {
+    ///An ordered list of children of this node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub children: Option<Vec<BookmarkTreeNodeData>>,
+    ///When this node was created, in milliseconds since the epoch (new Date(dateAdded)).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub date_added: Option<f64>,
+    ///When the contents of this folder last changed, in milliseconds since the epoch.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub date_group_modified: Option<f64>,
+    ///When this node was last opened, in milliseconds since the epoch. Not set for folders.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub date_last_used: Option<f64>,
+    ///If present, this is a folder that is added by the browser and that cannot be modified by the user or the extension. Child nodes may be modified, if this node does not have the unmodifiable property set. Omitted if the node can be modified by the user and the extension (default).There may be zero, one or multiple nodes of each folder type. A folder may be added or removed by the browser, but not via the extensions API.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub folder_type: Option<FolderType>,
+    ///The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the browser is restarted.
+    pub id: String,
+    ///The 0-based position of this node within its parent folder.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub index: Option<i32>,
+    ///The id of the parent folder. Omitted for the root node.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    ///Whether this node is synced with the user's remote account storage by the browser. This can be used to distinguish between account and local-only versions of the same $(ref:FolderType). The value of this property may change for an existing node, for example as a result of user action.Note: this reflects whether the node is saved to the browser's built-in account provider. It is possible that a node could be synced via a third-party, even if this value is false.For managed nodes (nodes where unmodifiable is set to true), this property will always be false.
+    pub syncing: bool,
+    ///The text displayed for the node.
+    pub title: String,
+    ///Indicates the reason why this node is unmodifiable. The managed value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub unmodifiable: Option<BookmarkTreeNodeUnmodifiable>,
+    ///The URL navigated to when a user clicks the bookmark. Omitted for folders.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&BookmarkTreeNode> for BookmarkTreeNodeData {
+    fn from(val: &BookmarkTreeNode) -> Self {
+        Self {
+            children: val
+                .get_children()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            date_added: val.get_date_added(),
+            date_group_modified: val.get_date_group_modified(),
+            date_last_used: val.get_date_last_used(),
+            folder_type: val.get_folder_type(),
+            id: val.get_id(),
+            index: val.get_index(),
+            parent_id: val.get_parent_id(),
+            syncing: val.get_syncing(),
+            title: val.get_title(),
+            unmodifiable: val.get_unmodifiable(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateDetails")]
@@ -235,6 +297,35 @@ impl CreateDetails {
 impl Default for CreateDetails {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateDetails`. Object passed to the create() function.
+pub struct CreateDetailsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub index: Option<i32>,
+    ///Defaults to the Other Bookmarks folder.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parent_id: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateDetails> for CreateDetailsData {
+    fn from(val: &CreateDetails) -> Self {
+        Self {
+            index: val.get_index(),
+            parent_id: val.get_parent_id(),
+            title: val.get_title(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]

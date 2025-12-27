@@ -33,6 +33,22 @@ impl Default for SetCurrentInputMethodOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SetCurrentInputMethodOptions`.
+pub struct SetCurrentInputMethodOptionsData {
+    ///The input method ID to set as current input method. This input method has to be enabled by enterprise policies. Supported IDs are located in https://crsrc.org/c/chrome/browser/resources/chromeos/input_method.
+    pub input_method_id: String,
+}
+#[cfg(feature = "serde")]
+impl From<&SetCurrentInputMethodOptions> for SetCurrentInputMethodOptionsData {
+    fn from(val: &SetCurrentInputMethodOptions) -> Self {
+        Self {
+            input_method_id: val.get_input_method_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Sets the current input method. This function only changes the current input method to an enabled input method. Input methods can be enabled by enterprise polices. If the input method ID is invalid, or not enabled, $(ref:runtime.lastError) will be set with a failure reason.

@@ -44,9 +44,27 @@ impl Default for Match {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Match`.
+pub struct MatchData {
+    ///The KeyAlgorithm of the certified key. This contains algorithm parameters that are inherent to the key of the certificate (e.g. the key length). Other parameters like the hash function used by the sign function are not included.
+    pub key_algorithm: serde_json::Value,
+}
+#[cfg(feature = "serde")]
+impl From<&Match> for MatchData {
+    fn from(val: &Match) -> Self {
+        Self {
+            key_algorithm: serde_wasm_bindgen::from_value(val.get_key_algorithm().into())
+                .unwrap_or_default(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ClientCertificateType {
     RsaSign = "rsaSign",
     EcdsaSign = "ecdsaSign",
@@ -91,6 +109,29 @@ impl ClientCertificateRequest {
 impl Default for ClientCertificateRequest {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ClientCertificateRequest`.
+pub struct ClientCertificateRequestData {
+    ///List of distinguished names of certificate authorities allowed by the server. Each entry must be a DER-encoded X.509 DistinguishedName.
+    pub certificate_authorities: Vec<serde_json::Value>,
+    ///This field is a list of the types of certificates requested, sorted in order of the server's preference. Only certificates of a type contained in this list will be retrieved. If certificateTypes is the empty list, however, certificates of any type will be returned.
+    pub certificate_types: Vec<ClientCertificateType>,
+}
+#[cfg(feature = "serde")]
+impl From<&ClientCertificateRequest> for ClientCertificateRequestData {
+    fn from(val: &ClientCertificateRequest) -> Self {
+        Self {
+            certificate_authorities: serde_wasm_bindgen::from_value(
+                val.get_certificate_authorities().into(),
+            )
+            .unwrap_or_default(),
+            certificate_types: serde_wasm_bindgen::from_value(val.get_certificate_types().into())
+                .unwrap_or_default(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -146,6 +187,31 @@ impl Default for SelectDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SelectDetails`.
+pub struct SelectDetailsData {
+    ///If given, the selectClientCertificates operates on this list. Otherwise, obtains the list of all certificates from the platform's certificate stores that are available to this extensions. Entries that the extension doesn't have permission for or which doesn't match the request, are removed.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_certs: Option<Vec<serde_json::Value>>,
+    ///If true, the filtered list is presented to the user to manually select a certificate and thereby granting the extension access to the certificate(s) and key(s). Only the selected certificate(s) will be returned. If is false, the list is reduced to all certificates that the extension has been granted access to (automatically or manually).
+    pub interactive: bool,
+    ///Only certificates that match this request will be returned.
+    pub request: ClientCertificateRequestData,
+}
+#[cfg(feature = "serde")]
+impl From<&SelectDetails> for SelectDetailsData {
+    fn from(val: &SelectDetails) -> Self {
+        Self {
+            client_certs: val
+                .get_client_certs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            interactive: val.get_interactive(),
+            request: (&val.get_request()).into(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "VerificationDetails")]
@@ -188,6 +254,28 @@ impl Default for VerificationDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `VerificationDetails`.
+pub struct VerificationDetailsData {
+    ///The hostname of the server to verify the certificate for, e.g. the server that presented the serverCertificateChain.
+    pub hostname: String,
+    ///Each chain entry must be the DER encoding of a X.509 certificate, the first entry must be the server certificate and each entry must certify the entry preceding it.
+    pub server_certificate_chain: Vec<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&VerificationDetails> for VerificationDetailsData {
+    fn from(val: &VerificationDetails) -> Self {
+        Self {
+            hostname: val.get_hostname(),
+            server_certificate_chain: serde_wasm_bindgen::from_value(
+                val.get_server_certificate_chain().into(),
+            )
+            .unwrap_or_default(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "VerificationResult")]
@@ -228,6 +316,26 @@ impl VerificationResult {
 impl Default for VerificationResult {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `VerificationResult`.
+pub struct VerificationResultData {
+    ///If the trust verification failed, this array contains the errors reported by the underlying network layer. Otherwise, this array is empty.Note: This list is meant for debugging only and may not contain all relevant errors. The errors returned may change in future revisions of this API, and are not guaranteed to be forwards or backwards compatible.
+    pub debug_errors: Vec<String>,
+    ///The result of the trust verification: true if trust for the given verification details could be established and false if trust is rejected for any reason.
+    pub trusted: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&VerificationResult> for VerificationResultData {
+    fn from(val: &VerificationResult) -> Self {
+        Self {
+            debug_errors: serde_wasm_bindgen::from_value(val.get_debug_errors().into())
+                .unwrap_or_default(),
+            trusted: val.get_trusted(),
+        }
     }
 }
 #[wasm_bindgen]

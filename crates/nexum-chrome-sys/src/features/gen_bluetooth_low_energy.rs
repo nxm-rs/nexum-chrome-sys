@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///Values representing the possible properties of a characteristic. Characteristic permissions are inferred from these properties. Please see the Bluetooth 4.x spec to see the meaning of each individual property.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CharacteristicProperty {
     Broadcast = "broadcast",
     Read = "read",
@@ -24,6 +25,7 @@ pub enum CharacteristicProperty {
 #[wasm_bindgen]
 ///Values representing possible permissions for a descriptor. Please see the Bluetooth 4.x spec to see the meaning of each individual permission.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DescriptorPermission {
     Read = "read",
     Write = "write",
@@ -35,6 +37,7 @@ pub enum DescriptorPermission {
 #[wasm_bindgen]
 ///Type of advertisement. If 'broadcast' is chosen, the sent advertisement type will be ADV_NONCONN_IND and the device will broadcast with a random MAC Address. If set to 'peripheral', the advertisement type will be ADV_IND or ADV_SCAN_IND and the device will broadcast with real Bluetooth Adapter's MAC Address.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum AdvertisementType {
     Broadcast = "broadcast",
     Peripheral = "peripheral",
@@ -90,6 +93,30 @@ impl Device {
 impl Default for Device {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Device`.
+pub struct DeviceData {
+    ///The address of the device, in the format 'XX:XX:XX:XX:XX:XX'.
+    pub address: String,
+    ///The class of the device, a bit-field defined by http://www.bluetooth.org/en-us/specification/assigned-numbers/baseband.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub device_class: Option<i32>,
+    ///The human-readable name of the device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Device> for DeviceData {
+    fn from(val: &Device) -> Self {
+        Self {
+            address: val.get_address(),
+            device_class: val.get_device_class(),
+            name: val.get_name(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -231,6 +258,30 @@ impl Default for Characteristic {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Characteristic`.
+pub struct CharacteristicData {
+    ///Returns the identifier assigned to this characteristic. Use the instance ID to distinguish between characteristics from a peripheral with the same UUID and to make function calls that take in a characteristic identifier. Present, if this instance represents a remote characteristic.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub instance_id: Option<String>,
+    ///The properties of this characteristic.
+    pub properties: Vec<CharacteristicProperty>,
+    ///The UUID of the characteristic, e.g. 00002a37-0000-1000-8000-00805f9b34fb.
+    pub uuid: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Characteristic> for CharacteristicData {
+    fn from(val: &Characteristic) -> Self {
+        Self {
+            instance_id: val.get_instance_id(),
+            properties: serde_wasm_bindgen::from_value(val.get_properties().into())
+                .unwrap_or_default(),
+            uuid: val.get_uuid(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Descriptor")]
@@ -306,6 +357,34 @@ impl Default for Descriptor {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Descriptor`.
+pub struct DescriptorData {
+    ///The GATT characteristic this descriptor belongs to.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub characteristic: Option<CharacteristicData>,
+    ///Returns the identifier assigned to this descriptor. Use the instance ID to distinguish between descriptors from a peripheral with the same UUID and to make function calls that take in a descriptor identifier. Present, if this instance represents a remote characteristic.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub instance_id: Option<String>,
+    ///The permissions of this descriptor.
+    pub permissions: Vec<DescriptorPermission>,
+    ///The UUID of the characteristic descriptor, e.g. 00002902-0000-1000-8000-00805f9b34fb.
+    pub uuid: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Descriptor> for DescriptorData {
+    fn from(val: &Descriptor) -> Self {
+        Self {
+            characteristic: val.get_characteristic().as_ref().map(|v| v.into()),
+            instance_id: val.get_instance_id(),
+            permissions: serde_wasm_bindgen::from_value(val.get_permissions().into())
+                .unwrap_or_default(),
+            uuid: val.get_uuid(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ConnectProperties")]
@@ -337,6 +416,22 @@ impl Default for ConnectProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConnectProperties`.
+pub struct ConnectPropertiesData {
+    ///Flag indicating whether a connection to the device is left open when the event page of the application is unloaded (see Manage App Lifecycle). The default value is false.
+    pub persistent: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&ConnectProperties> for ConnectPropertiesData {
+    fn from(val: &ConnectProperties) -> Self {
+        Self {
+            persistent: val.get_persistent(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "NotificationProperties")]
@@ -366,6 +461,22 @@ impl NotificationProperties {
 impl Default for NotificationProperties {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `NotificationProperties`.
+pub struct NotificationPropertiesData {
+    ///Flag indicating whether the app should receive notifications when the event page of the application is unloaded (see Manage App Lifecycle). The default value is false.
+    pub persistent: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&NotificationProperties> for NotificationPropertiesData {
+    fn from(val: &NotificationProperties) -> Self {
+        Self {
+            persistent: val.get_persistent(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -410,6 +521,25 @@ impl Default for ManufacturerData {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ManufacturerData`.
+pub struct ManufacturerDataData {
+    ///
+    pub data: Vec<i32>,
+    ///
+    pub id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ManufacturerData> for ManufacturerDataData {
+    fn from(val: &ManufacturerData) -> Self {
+        Self {
+            data: serde_wasm_bindgen::from_value(val.get_data().into()).unwrap_or_default(),
+            id: val.get_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ServiceData")]
@@ -450,6 +580,25 @@ impl ServiceData {
 impl Default for ServiceData {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ServiceData`.
+pub struct ServiceDataData {
+    ///
+    pub data: Vec<i32>,
+    ///
+    pub uuid: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ServiceData> for ServiceDataData {
+    fn from(val: &ServiceData) -> Self {
+        Self {
+            data: serde_wasm_bindgen::from_value(val.get_data().into()).unwrap_or_default(),
+            uuid: val.get_uuid(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -527,6 +676,46 @@ impl Default for Advertisement {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Advertisement`.
+pub struct AdvertisementData {
+    ///List of manufacturer specific data to be included in "Manufacturer Specific Data" fields of the advertising data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub manufacturer_data: Option<Vec<ManufacturerDataData>>,
+    ///List of service data to be included in "Service Data" fields of the advertising data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub service_data: Option<Vec<ServiceDataData>>,
+    ///List of UUIDs to include in the "Service UUIDs" field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub service_uuids: Option<Vec<String>>,
+    ///List of UUIDs to include in the "Solicit UUIDs" field of the Advertising Data. These UUIDs can be of the 16bit, 32bit or 128 formats.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub solicit_uuids: Option<Vec<String>>,
+    ///Type of advertisement.
+    pub r#type: AdvertisementType,
+}
+#[cfg(feature = "serde")]
+impl From<&Advertisement> for AdvertisementData {
+    fn from(val: &Advertisement) -> Self {
+        Self {
+            manufacturer_data: val
+                .get_manufacturer_data()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            service_data: val
+                .get_service_data()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            service_uuids: val
+                .get_service_uuids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            solicit_uuids: val
+                .get_solicit_uuids()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            r#type: val.get_type(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Request")]
@@ -578,6 +767,25 @@ impl Request {
 impl Default for Request {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Request`.
+pub struct RequestData {
+    ///Device that send this request.
+    pub device: DeviceData,
+    ///Unique ID for this request. Use this ID when responding to this request.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Request> for RequestData {
+    fn from(val: &Request) -> Self {
+        Self {
+            device: (&val.get_device()).into(),
+            request_id: val.get_request_id(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -633,6 +841,25 @@ impl Default for Response {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Response`.
+pub struct ResponseData {
+    ///If this is an error response, this should be true.
+    pub is_error: bool,
+    ///Id of the request this is a response to.
+    pub request_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Response> for ResponseData {
+    fn from(val: &Response) -> Self {
+        Self {
+            is_error: val.get_is_error(),
+            request_id: val.get_request_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "Notification")]
@@ -673,6 +900,23 @@ impl Notification {
 impl Default for Notification {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Notification`.
+pub struct NotificationData {
+    ///Optional flag for sending an indication instead of a notification.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub should_indicate: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&Notification> for NotificationData {
+    fn from(val: &Notification) -> Self {
+        Self {
+            should_indicate: val.get_should_indicate(),
+        }
     }
 }
 #[wasm_bindgen]

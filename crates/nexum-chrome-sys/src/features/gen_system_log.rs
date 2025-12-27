@@ -33,6 +33,22 @@ impl Default for MessageOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MessageOptions`.
+pub struct MessageOptionsData {
+    ///
+    pub message: String,
+}
+#[cfg(feature = "serde")]
+impl From<&MessageOptions> for MessageOptionsData {
+    fn from(val: &MessageOptions) -> Self {
+        Self {
+            message: val.get_message(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     ///Adds a new log record.

@@ -77,6 +77,34 @@ impl Default for ReadingListEntry {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReadingListEntry`.
+pub struct ReadingListEntryData {
+    ///The time the entry was created. Recorded in milliseconds since Jan 1, 1970.
+    pub creation_time: f64,
+    ///Will be true if the entry has been read.
+    pub has_been_read: bool,
+    ///The last time the entry was updated. This value is in milliseconds since Jan 1, 1970.
+    pub last_update_time: f64,
+    ///The title of the entry.
+    pub title: String,
+    ///The url of the entry.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ReadingListEntry> for ReadingListEntryData {
+    fn from(val: &ReadingListEntry) -> Self {
+        Self {
+            creation_time: val.get_creation_time(),
+            has_been_read: val.get_has_been_read(),
+            last_update_time: val.get_last_update_time(),
+            title: val.get_title(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AddEntryOptions")]
@@ -130,6 +158,28 @@ impl Default for AddEntryOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `AddEntryOptions`.
+pub struct AddEntryOptionsData {
+    ///Will be true if the entry has been read.
+    pub has_been_read: bool,
+    ///The title of the entry.
+    pub title: String,
+    ///The url of the entry.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&AddEntryOptions> for AddEntryOptionsData {
+    fn from(val: &AddEntryOptions) -> Self {
+        Self {
+            has_been_read: val.get_has_been_read(),
+            title: val.get_title(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "RemoveOptions")]
@@ -159,6 +209,20 @@ impl RemoveOptions {
 impl Default for RemoveOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `RemoveOptions`.
+pub struct RemoveOptionsData {
+    ///The url to remove.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&RemoveOptions> for RemoveOptionsData {
+    fn from(val: &RemoveOptions) -> Self {
+        Self { url: val.get_url() }
     }
 }
 #[wasm_bindgen]
@@ -214,6 +278,30 @@ impl Default for UpdateEntryOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `UpdateEntryOptions`.
+pub struct UpdateEntryOptionsData {
+    ///The updated read status. The existing status remains if a value isn't provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_been_read: Option<bool>,
+    ///The new title. The existing tile remains if a value isn't provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///The url that will be updated.
+    pub url: String,
+}
+#[cfg(feature = "serde")]
+impl From<&UpdateEntryOptions> for UpdateEntryOptionsData {
+    fn from(val: &UpdateEntryOptions) -> Self {
+        Self {
+            has_been_read: val.get_has_been_read(),
+            title: val.get_title(),
+            url: val.get_url(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "QueryInfo")]
@@ -265,6 +353,31 @@ impl QueryInfo {
 impl Default for QueryInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `QueryInfo`.
+pub struct QueryInfoData {
+    ///Indicates whether to search for read (true) or unread (false) items.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub has_been_read: Option<bool>,
+    ///A title to search for.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub title: Option<String>,
+    ///A url to search for.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&QueryInfo> for QueryInfoData {
+    fn from(val: &QueryInfo) -> Self {
+        Self {
+            has_been_read: val.get_has_been_read(),
+            title: val.get_title(),
+            url: val.get_url(),
+        }
     }
 }
 #[wasm_bindgen]

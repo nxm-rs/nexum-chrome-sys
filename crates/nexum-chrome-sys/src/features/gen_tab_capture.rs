@@ -5,6 +5,7 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TabCaptureState {
     Pending = "pending",
     Active = "active",
@@ -64,6 +65,28 @@ impl Default for CaptureInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CaptureInfo`.
+pub struct CaptureInfoData {
+    ///Whether an element in the tab being captured is in fullscreen mode.
+    pub fullscreen: bool,
+    ///The new capture status of the tab.
+    pub status: TabCaptureState,
+    ///The id of the tab whose status changed.
+    pub tab_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CaptureInfo> for CaptureInfoData {
+    fn from(val: &CaptureInfo) -> Self {
+        Self {
+            fullscreen: val.get_fullscreen(),
+            status: val.get_status(),
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "MediaStreamConstraint")]
@@ -104,6 +127,29 @@ impl MediaStreamConstraint {
 impl Default for MediaStreamConstraint {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `MediaStreamConstraint`.
+pub struct MediaStreamConstraintData {
+    ///
+    pub mandatory: serde_json::Value,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub optional: Option<serde_json::Value>,
+}
+#[cfg(feature = "serde")]
+impl From<&MediaStreamConstraint> for MediaStreamConstraintData {
+    fn from(val: &MediaStreamConstraint) -> Self {
+        Self {
+            mandatory: serde_wasm_bindgen::from_value(val.get_mandatory().into())
+                .unwrap_or_default(),
+            optional: val
+                .get_optional()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -181,6 +227,39 @@ impl Default for CaptureOptions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CaptureOptions`.
+pub struct CaptureOptionsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audio: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audio_constraints: Option<MediaStreamConstraintData>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub presentation_id: Option<String>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub video: Option<bool>,
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub video_constraints: Option<MediaStreamConstraintData>,
+}
+#[cfg(feature = "serde")]
+impl From<&CaptureOptions> for CaptureOptionsData {
+    fn from(val: &CaptureOptions) -> Self {
+        Self {
+            audio: val.get_audio(),
+            audio_constraints: val.get_audio_constraints().as_ref().map(|v| v.into()),
+            presentation_id: val.get_presentation_id(),
+            video: val.get_video(),
+            video_constraints: val.get_video_constraints().as_ref().map(|v| v.into()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "GetMediaStreamOptions")]
@@ -221,6 +300,27 @@ impl GetMediaStreamOptions {
 impl Default for GetMediaStreamOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetMediaStreamOptions`.
+pub struct GetMediaStreamOptionsData {
+    ///Optional tab id of the tab which will later invoke getUserMedia() to consume the stream. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches the consumber tab's origin. The tab's origin must be a secure origin, e.g. HTTPS.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub consumer_tab_id: Option<i32>,
+    ///Optional tab id of the tab which will be captured. If not specified then the current active tab will be selected. Only tabs for which the extension has been granted the activeTab permission can be used as the target tab.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&GetMediaStreamOptions> for GetMediaStreamOptionsData {
+    fn from(val: &GetMediaStreamOptions) -> Self {
+        Self {
+            consumer_tab_id: val.get_consumer_tab_id(),
+            target_tab_id: val.get_target_tab_id(),
+        }
     }
 }
 #[wasm_bindgen]

@@ -110,9 +110,56 @@ impl Default for Parameters {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Parameters`.
+pub struct ParametersData {
+    ///IP address for the VPN interface in CIDR notation. IPv4 is currently the only supported mode.
+    pub address: String,
+    ///Broadcast address for the VPN interface. (default: deduced from IP address and mask)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub broadcast_address: Option<String>,
+    ///A list of IPs for the DNS servers.
+    pub dns_servers: Vec<String>,
+    ///A list of search domains. (default: no search domain)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub domain_search: Option<Vec<String>>,
+    ///Exclude network traffic to the list of IP blocks in CIDR notation from the tunnel. This can be used to bypass traffic to and from the VPN server. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+    pub exclusion_list: Vec<String>,
+    ///Include network traffic to the list of IP blocks in CIDR notation to the tunnel. This parameter can be used to set up a split tunnel. By default no traffic is directed to the tunnel. Adding the entry "0.0.0.0/0" to this list gets all the user traffic redirected to the tunnel. When many rules match a destination, the rule with the longest matching prefix wins. Entries that correspond to the same CIDR block are treated as duplicates. Such duplicates in the collated (exclusionList + inclusionList) list are eliminated and the exact duplicate entry that will be eliminated is undefined.
+    pub inclusion_list: Vec<String>,
+    ///MTU setting for the VPN interface. (default: 1500 bytes)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mtu: Option<String>,
+    ///Whether or not the VPN extension implements auto-reconnection.If true, the linkDown, linkUp, linkChanged, suspend, and resume platform messages will be used to signal the respective events. If false, the system will forcibly disconnect the VPN if the network topology changes, and the user will need to reconnect manually. (default: false)This property is new in Chrome 51; it will generate an exception in earlier versions. try/catch can be used to conditionally enable the feature based on browser support.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reconnect: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&Parameters> for ParametersData {
+    fn from(val: &Parameters) -> Self {
+        Self {
+            address: val.get_address(),
+            broadcast_address: val.get_broadcast_address(),
+            dns_servers: serde_wasm_bindgen::from_value(val.get_dns_servers().into())
+                .unwrap_or_default(),
+            domain_search: val
+                .get_domain_search()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclusion_list: serde_wasm_bindgen::from_value(val.get_exclusion_list().into())
+                .unwrap_or_default(),
+            inclusion_list: serde_wasm_bindgen::from_value(val.get_inclusion_list().into())
+                .unwrap_or_default(),
+            mtu: val.get_mtu(),
+            reconnect: val.get_reconnect(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The enum is used by the platform to notify the client of the VPN session status.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PlatformMessage {
     ///Indicates that the VPN configuration connected.
     Connected = "connected",
@@ -134,6 +181,7 @@ pub enum PlatformMessage {
 #[wasm_bindgen]
 ///The enum is used by the VPN client to inform the platform of its current state. This helps provide meaningful messages to the user.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum VpnConnectionState {
     ///Specifies that VPN connection was successful.
     Connected = "connected",
@@ -143,6 +191,7 @@ pub enum VpnConnectionState {
 #[wasm_bindgen]
 ///The enum is used by the platform to indicate the event that triggered onUIEvent.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum UiEvent {
     ///Requests that the VPN client show the add configuration dialog box to the user.
     ShowAddDialog = "showAddDialog",

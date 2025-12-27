@@ -27,6 +27,7 @@ impl Default for ImageDataType {
 #[wasm_bindgen]
 ///The format of an image.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ImageFormat {
     Jpeg = "jpeg",
     Png = "png",
@@ -95,6 +96,31 @@ impl Default for Rect {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Rect`. An object specifying the area of the document to capture, in CSS pixels, relative to the page. All properties default to 0.
+pub struct RectData {
+    ///The height of the rectangle.
+    pub height: i32,
+    ///The width of the rectangle.
+    pub width: i32,
+    ///The x coordinate of the rectangle.
+    pub x: i32,
+    ///The y coordinate of the rectangle.
+    pub y: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&Rect> for RectData {
+    fn from(val: &Rect) -> Self {
+        Self {
+            height: val.get_height(),
+            width: val.get_width(),
+            x: val.get_x(),
+            y: val.get_y(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ImageDetails")]
@@ -159,9 +185,39 @@ impl Default for ImageDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ImageDetails`. Details about the format, quality, and area of an image.
+pub struct ImageDetailsData {
+    ///The format of the resulting image. Default is "jpeg".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub format: Option<ImageFormat>,
+    ///When format is "jpeg", controls the quality of the resulting image. This value is ignored for PNG images. As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub quality: Option<i32>,
+    ///An object specifying the area of the document to capture, in CSS pixels, relative to the page. If omitted, the currently visible viewport is captured.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rect: Option<RectData>,
+    ///The scale factor to apply to the image. Defaults to devicePixelRatio.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scale: Option<f64>,
+}
+#[cfg(feature = "serde")]
+impl From<&ImageDetails> for ImageDetailsData {
+    fn from(val: &ImageDetails) -> Self {
+        Self {
+            format: val.get_format(),
+            quality: val.get_quality(),
+            rect: val.get_rect().as_ref().map(|v| v.into()),
+            scale: val.get_scale(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The soonest that the JavaScript or CSS will be injected into the tab.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RunAt {
     ///Script is injected after any files from css, but before any other DOM is constructed or any other script is run.
     DocumentStart = "document_start",
@@ -173,6 +229,7 @@ pub enum RunAt {
 #[wasm_bindgen]
 ///The origin of injected CSS.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum CssOrigin {
     Author = "author",
     User = "user",
@@ -274,6 +331,47 @@ impl Default for InjectDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `InjectDetails`. Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
+pub struct InjectDetailsData {
+    ///If allFrames is true, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's false and is only injected into the top frame. If true and frameId is set, then the code is inserted in the selected frame and all of its child frames.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///JavaScript or CSS code to inject. Warning: Be careful using the code parameter. Incorrect use of it may open your extension to cross site scripting attacks
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
+    ///The origin of the CSS to inject. This may only be specified for CSS, not JavaScript. Defaults to "author".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css_origin: Option<CssOrigin>,
+    ///JavaScript or CSS file to inject.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file: Option<String>,
+    ///The frame where the script or CSS should be injected. Defaults to 0 (the top-level frame).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_about_blank: Option<bool>,
+    ///The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub run_at: Option<RunAt>,
+}
+#[cfg(feature = "serde")]
+impl From<&InjectDetails> for InjectDetailsData {
+    fn from(val: &InjectDetails) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            code: val.get_code(),
+            css_origin: val.get_css_origin(),
+            file: val.get_file(),
+            frame_id: val.get_frame_id(),
+            match_about_blank: val.get_match_about_blank(),
+            run_at: val.get_run_at(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "DeleteInjectionDetails")]
@@ -360,9 +458,47 @@ impl Default for DeleteInjectionDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeleteInjectionDetails`. Details of the CSS to remove. Either the code or the file property must be set, but both may not be set at the same time.
+pub struct DeleteInjectionDetailsData {
+    ///If allFrames is true, implies that the CSS should be removed from all frames of current page. By default, it's false and is only removed from the top frame. If true and frameId is set, then the code is removed from the selected frame and all of its child frames.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///CSS code to remove.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
+    ///The origin of the CSS to remove. Defaults to "author".
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css_origin: Option<CssOrigin>,
+    ///CSS file to remove.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub file: Option<String>,
+    ///The frame from where the CSS should be removed. Defaults to 0 (the top-level frame).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub frame_id: Option<i32>,
+    ///If matchAboutBlank is true, then the code is also removed from about:blank and about:srcdoc frames if your extension has access to its parent document. By default it is false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_about_blank: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeleteInjectionDetails> for DeleteInjectionDetailsData {
+    fn from(val: &DeleteInjectionDetails) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            code: val.get_code(),
+            css_origin: val.get_css_origin(),
+            file: val.get_file(),
+            frame_id: val.get_frame_id(),
+            match_about_blank: val.get_match_about_blank(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The type of frame.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum FrameType {
     OutermostFrame = "outermost_frame",
     FencedFrame = "fenced_frame",
@@ -371,6 +507,7 @@ pub enum FrameType {
 #[wasm_bindgen]
 ///The document lifecycle of the frame.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DocumentLifecycle {
     Prerender = "prerender",
     Active = "active",
@@ -380,6 +517,7 @@ pub enum DocumentLifecycle {
 #[wasm_bindgen]
 ///The JavaScript world for a script to execute within. Can either be an isolated world unique to this extension, the main world of the DOM which is shared with the page's JavaScript, or a user scripts world that is only available for scripts registered with the User Scripts API.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExecutionWorld {
     Isolated = "ISOLATED",
     Main = "MAIN",

@@ -55,6 +55,31 @@ impl Default for SocketProperties {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SocketProperties`.
+pub struct SocketPropertiesData {
+    ///The size of the buffer used to receive data. The default value is 4096.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub buffer_size: Option<i32>,
+    ///An application-defined string associated with the socket.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Flag indicating if the socket is left open when the event page of the application is unloaded (see Manage App Lifecycle). The default value is "false." When the application is loaded, any sockets previously opened with persistent=true can be fetched with getSockets.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persistent: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&SocketProperties> for SocketPropertiesData {
+    fn from(val: &SocketProperties) -> Self {
+        Self {
+            buffer_size: val.get_buffer_size(),
+            name: val.get_name(),
+            persistent: val.get_persistent(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "CreateInfo")]
@@ -86,9 +111,26 @@ impl Default for CreateInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `CreateInfo`.
+pub struct CreateInfoData {
+    ///The ID of the newly created socket. Note that socket IDs created from this API are not compatible with socket IDs created from other APIs, such as the deprecated $(ref:socket) API.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&CreateInfo> for CreateInfoData {
+    fn from(val: &CreateInfo) -> Self {
+        Self {
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///DNS resolution preferences. The default is any and uses the current OS config which may return IPv4 or IPv6. ipv4 forces IPv4, and ipv6 forces IPv6.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DnsQueryType {
     Any = "any",
     Ipv4 = "ipv4",
@@ -136,6 +178,26 @@ impl Default for SendInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendInfo`.
+pub struct SendInfoData {
+    ///The number of bytes sent (if result == 0)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bytes_sent: Option<i32>,
+    ///The result code returned from the underlying network call. A negative value indicates an error.
+    pub result_code: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SendInfo> for SendInfoData {
+    fn from(val: &SendInfo) -> Self {
+        Self {
+            bytes_sent: val.get_bytes_sent(),
+            result_code: val.get_result_code(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "TlsVersionConstraints")]
@@ -178,6 +240,27 @@ impl Default for TlsVersionConstraints {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TlsVersionConstraints`.
+pub struct TlsVersionConstraintsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max: Option<String>,
+    ///The minimum and maximum acceptable versions of TLS. Supported values are tls1.2 or tls1.3.The values tls1 and tls1.1 are no longer supported. If |min| is set to one of these values, it will be silently clamped to tls1.2. If |max| is set to one of those values, or any other unrecognized value, it will be silently ignored.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub min: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&TlsVersionConstraints> for TlsVersionConstraintsData {
+    fn from(val: &TlsVersionConstraints) -> Self {
+        Self {
+            max: val.get_max(),
+            min: val.get_min(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SecureOptions")]
@@ -207,6 +290,23 @@ impl SecureOptions {
 impl Default for SecureOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SecureOptions`.
+pub struct SecureOptionsData {
+    ///
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tls_version: Option<TlsVersionConstraintsData>,
+}
+#[cfg(feature = "serde")]
+impl From<&SecureOptions> for SecureOptionsData {
+    fn from(val: &SecureOptions) -> Self {
+        Self {
+            tls_version: val.get_tls_version().as_ref().map(|v| v.into()),
+        }
     }
 }
 #[wasm_bindgen]
@@ -339,6 +439,55 @@ impl Default for SocketInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SocketInfo`.
+pub struct SocketInfoData {
+    ///The size of the buffer used to receive data. If no buffer size has been specified explictly, the value is not provided.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub buffer_size: Option<i32>,
+    ///Flag indicating whether the socket is connected to a remote peer.
+    pub connected: bool,
+    ///If the underlying socket is connected, contains its local IPv4/6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local_address: Option<String>,
+    ///If the underlying socket is connected, contains its local port.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local_port: Option<i32>,
+    ///Application-defined string associated with the socket.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///Flag indicating whether a connected socket blocks its peer from sending more data (see setPaused).
+    pub paused: bool,
+    ///If the underlying socket is connected, contains the peer/ IPv4/6 address.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub peer_address: Option<String>,
+    ///If the underlying socket is connected, contains the peer port.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub peer_port: Option<i32>,
+    ///Flag indicating whether the socket is left open when the application is suspended (see SocketProperties.persistent).
+    pub persistent: bool,
+    ///The socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&SocketInfo> for SocketInfoData {
+    fn from(val: &SocketInfo) -> Self {
+        Self {
+            buffer_size: val.get_buffer_size(),
+            connected: val.get_connected(),
+            local_address: val.get_local_address(),
+            local_port: val.get_local_port(),
+            name: val.get_name(),
+            paused: val.get_paused(),
+            peer_address: val.get_peer_address(),
+            peer_port: val.get_peer_port(),
+            persistent: val.get_persistent(),
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReceiveInfo")]
@@ -381,6 +530,22 @@ impl Default for ReceiveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReceiveInfo`.
+pub struct ReceiveInfoData {
+    ///The socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReceiveInfo> for ReceiveInfoData {
+    fn from(val: &ReceiveInfo) -> Self {
+        Self {
+            socket_id: val.get_socket_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReceiveErrorInfo")]
@@ -421,6 +586,25 @@ impl ReceiveErrorInfo {
 impl Default for ReceiveErrorInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReceiveErrorInfo`.
+pub struct ReceiveErrorInfoData {
+    ///The result code returned from the underlying network call.
+    pub result_code: i32,
+    ///The socket identifier.
+    pub socket_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReceiveErrorInfo> for ReceiveErrorInfoData {
+    fn from(val: &ReceiveErrorInfo) -> Self {
+        Self {
+            result_code: val.get_result_code(),
+            socket_id: val.get_socket_id(),
+        }
     }
 }
 #[wasm_bindgen]

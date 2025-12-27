@@ -47,9 +47,27 @@ impl Default for SubmitJobRequest {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SubmitJobRequest`.
+pub struct SubmitJobRequestData {
+    ///Used internally to store the blob uuid after parameter customization and shouldn't be populated by the extension.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub document_blob_uuid: Option<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&SubmitJobRequest> for SubmitJobRequestData {
+    fn from(val: &SubmitJobRequest) -> Self {
+        Self {
+            document_blob_uuid: val.get_document_blob_uuid(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The status of $(ref:submitJob) request.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SubmitJobStatus {
     ///Sent print job request is accepted.
     Ok = "OK",
@@ -98,9 +116,30 @@ impl Default for SubmitJobResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SubmitJobResponse`.
+pub struct SubmitJobResponseData {
+    ///The id of created print job. This is a unique identifier among all print jobs on the device. If status is not OK, jobId will be null.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub job_id: Option<String>,
+    ///The status of the request.
+    pub status: SubmitJobStatus,
+}
+#[cfg(feature = "serde")]
+impl From<&SubmitJobResponse> for SubmitJobResponseData {
+    fn from(val: &SubmitJobResponse) -> Self {
+        Self {
+            job_id: val.get_job_id(),
+            status: val.get_status(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The source of the printer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PrinterSource {
     ///Printer was added by user.
     User = "USER",
@@ -204,9 +243,45 @@ impl Default for Printer {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Printer`.
+pub struct PrinterData {
+    ///The human-readable description of the printer.
+    pub description: String,
+    ///The printer's identifier; guaranteed to be unique among printers on the device.
+    pub id: String,
+    ///The flag which shows whether the printer fits DefaultPrinterSelection rules. Note that several printers could be flagged.
+    pub is_default: bool,
+    ///The name of the printer.
+    pub name: String,
+    ///The value showing how recent the printer was used for printing from Chrome. The lower the value is the more recent the printer was used. The minimum value is 0. Missing value indicates that the printer wasn't used recently. This value is guaranteed to be unique amongst printers.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub recently_used_rank: Option<i32>,
+    ///The source of the printer (user or policy configured).
+    pub source: PrinterSource,
+    ///The printer URI. This can be used by extensions to choose the printer for the user.
+    pub uri: String,
+}
+#[cfg(feature = "serde")]
+impl From<&Printer> for PrinterData {
+    fn from(val: &Printer) -> Self {
+        Self {
+            description: val.get_description(),
+            id: val.get_id(),
+            is_default: val.get_is_default(),
+            name: val.get_name(),
+            recently_used_rank: val.get_recently_used_rank(),
+            source: val.get_source(),
+            uri: val.get_uri(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///The status of the printer.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PrinterStatus {
     ///The door of the printer is open. Printer still accepts print jobs.
     DoorOpen = "DOOR_OPEN",
@@ -273,9 +348,32 @@ impl Default for GetPrinterInfoResponse {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `GetPrinterInfoResponse`.
+pub struct GetPrinterInfoResponseData {
+    ///Printer capabilities in CDD format. The property may be missing.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub capabilities: Option<serde_json::Value>,
+    ///The status of the printer.
+    pub status: PrinterStatus,
+}
+#[cfg(feature = "serde")]
+impl From<&GetPrinterInfoResponse> for GetPrinterInfoResponseData {
+    fn from(val: &GetPrinterInfoResponse) -> Self {
+        Self {
+            capabilities: val
+                .get_capabilities()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            status: val.get_status(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///Status of the print job.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum JobStatus {
     ///Print job is received on Chrome side but was not processed yet.
     Pending = "PENDING",

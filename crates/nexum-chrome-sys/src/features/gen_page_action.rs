@@ -53,6 +53,23 @@ impl Default for TabDetails {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `TabDetails`.
+pub struct TabDetailsData {
+    ///The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tab_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&TabDetails> for TabDetailsData {
+    fn from(val: &TabDetails) -> Self {
+        Self {
+            tab_id: val.get_tab_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "SetTitleDetails")]

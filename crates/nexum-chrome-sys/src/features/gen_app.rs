@@ -45,6 +45,7 @@ impl Default for DomWindow {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum InstallState {
     NotInstalled = "not_installed",
     Installed = "installed",
@@ -53,6 +54,7 @@ pub enum InstallState {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum RunningState {
     Running = "running",
     CannotRun = "cannot_run",

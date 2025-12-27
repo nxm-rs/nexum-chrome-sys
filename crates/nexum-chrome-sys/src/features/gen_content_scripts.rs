@@ -149,3 +149,61 @@ impl Default for ContentScript {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ContentScript`.
+pub struct ContentScriptData {
+    ///If specified true, it will inject into all frames, even if the frame is not the top-most frame in the tab. Each frame is checked independently for URL requirements; it will not inject into child frames if the URL requirements are not met. Defaults to false, meaning that only the top frame is matched.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub all_frames: Option<bool>,
+    ///The list of CSS files to be injected into matching pages. These are injected in the order they appear in this array, before any DOM is constructed or displayed for the page.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub css: Option<Vec<String>>,
+    ///Applied after matches to exclude URLs that match this glob. Intended to emulate the @exclude Greasemonkey keyword.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_globs: Option<Vec<String>>,
+    ///Excludes pages that this content script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub exclude_matches: Option<Vec<String>>,
+    ///Applied after matches to include only those URLs that also match this glob. Intended to emulate the @include Greasemonkey keyword.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub include_globs: Option<Vec<String>>,
+    ///The list of JavaScript files to be injected into matching pages. These are injected in the order they appear in this array.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub js: Option<Vec<String>>,
+    ///Whether the script should inject into an about:blank frame where the parent or opener frame matches one of the patterns declared in matches. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_about_blank: Option<bool>,
+    ///Whether the script should inject into any frames where the URL belongs to a scheme that would never match a specified Match Pattern, including about:, data:, blob:, and filesystem: schemes. In these cases, in order to determine if the script should inject, the origin of the URL is checked. If the origin is `null` (as is the case for data: URLs), then the "initiator" or "creator" origin is used (i.e., the origin of the frame that created or navigated this frame). Note that this may not be the parent frame, if the frame was navigated by another frame in the document hierarchy.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub match_origin_as_fallback: Option<bool>,
+    ///Specifies which pages this content script will be injected into. See Match Patterns for more details on the syntax of these strings.
+    pub matches: Vec<String>,
+}
+#[cfg(feature = "serde")]
+impl From<&ContentScript> for ContentScriptData {
+    fn from(val: &ContentScript) -> Self {
+        Self {
+            all_frames: val.get_all_frames(),
+            css: val
+                .get_css()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_globs: val
+                .get_exclude_globs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            exclude_matches: val
+                .get_exclude_matches()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            include_globs: val
+                .get_include_globs()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            js: val
+                .get_js()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            match_about_blank: val.get_match_about_blank(),
+            match_origin_as_fallback: val.get_match_origin_as_fallback(),
+            matches: serde_wasm_bindgen::from_value(val.get_matches().into()).unwrap_or_default(),
+        }
+    }
+}

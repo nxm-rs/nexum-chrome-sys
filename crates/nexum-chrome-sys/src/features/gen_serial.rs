@@ -66,9 +66,38 @@ impl Default for DeviceInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceInfo`.
+pub struct DeviceInfoData {
+    ///A human-readable display name for the underlying device if one can be queried from the host driver.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub display_name: Option<String>,
+    ///The device's system path. This should be passed as the path argument to chrome.serial.connect in order to connect to this device.
+    pub path: String,
+    ///A USB product ID if one can be determined for the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub product_id: Option<i32>,
+    ///A PCI or USB vendor ID if one can be determined for the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vendor_id: Option<i32>,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceInfo> for DeviceInfoData {
+    fn from(val: &DeviceInfo) -> Self {
+        Self {
+            display_name: val.get_display_name(),
+            path: val.get_path(),
+            product_id: val.get_product_id(),
+            vendor_id: val.get_vendor_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum DataBits {
     Seven = "seven",
     Eight = "eight",
@@ -76,6 +105,7 @@ pub enum DataBits {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ParityBit {
     No = "no",
     Odd = "odd",
@@ -84,6 +114,7 @@ pub enum ParityBit {
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum StopBits {
     One = "one",
     Two = "two",
@@ -216,6 +247,59 @@ impl ConnectionOptions {
 impl Default for ConnectionOptions {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConnectionOptions`.
+pub struct ConnectionOptionsData {
+    ///The requested bitrate of the connection to be opened. For compatibility with the widest range of hardware, this number should match one of commonly-available bitrates, such as 110, 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200. There is no guarantee, of course, that the device connected to the serial port will support the requested bitrate, even if the port itself supports that bitrate. 9600 will be passed by default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bitrate: Option<i32>,
+    ///The size of the buffer used to receive data. The default value is 4096.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub buffer_size: Option<i32>,
+    ///Flag indicating whether or not to enable RTS/CTS hardware flow control. Defaults to false.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cts_flow_control: Option<bool>,
+    ///"eight" will be passed by default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data_bits: Option<DataBits>,
+    ///An application-defined string to associate with the connection.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    ///"no" will be passed by default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parity_bit: Option<ParityBit>,
+    ///Flag indicating whether or not the connection should be left open when the application is suspended (see Manage App Lifecycle). The default value is "false." When the application is loaded, any serial connections previously opened with persistent=true can be fetched with getConnections.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub persistent: Option<bool>,
+    ///The maximum amount of time (in milliseconds) to wait for new data before raising an onReceiveError event with a "timeout" error. If zero, receive timeout errors will not be raised for the connection. Defaults to 0.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub receive_timeout: Option<i32>,
+    ///The maximum amount of time (in milliseconds) to wait for a send operation to complete before calling the callback with a "timeout" error. If zero, send timeout errors will not be triggered. Defaults to 0.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub send_timeout: Option<i32>,
+    ///"one" will be passed by default.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stop_bits: Option<StopBits>,
+}
+#[cfg(feature = "serde")]
+impl From<&ConnectionOptions> for ConnectionOptionsData {
+    fn from(val: &ConnectionOptions) -> Self {
+        Self {
+            bitrate: val.get_bitrate(),
+            buffer_size: val.get_buffer_size(),
+            cts_flow_control: val.get_cts_flow_control(),
+            data_bits: val.get_data_bits(),
+            name: val.get_name(),
+            parity_bit: val.get_parity_bit(),
+            persistent: val.get_persistent(),
+            receive_timeout: val.get_receive_timeout(),
+            send_timeout: val.get_send_timeout(),
+            stop_bits: val.get_stop_bits(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -370,9 +454,64 @@ impl Default for ConnectionInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ConnectionInfo`.
+pub struct ConnectionInfoData {
+    ///See ConnectionOptions.bitrate. This field may be omitted or inaccurate if a non-standard bitrate is in use, or if an error occurred while querying the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub bitrate: Option<i32>,
+    ///See ConnectionOptions.bufferSize
+    pub buffer_size: i32,
+    ///The id of the serial port connection.
+    pub connection_id: i32,
+    ///See ConnectionOptions.ctsFlowControl. This field may be omitted if an error occurred while querying the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub cts_flow_control: Option<bool>,
+    ///See ConnectionOptions.dataBits. This field may be omitted if an error occurred while querying the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data_bits: Option<DataBits>,
+    ///See ConnectionOptions.name
+    pub name: String,
+    ///See ConnectionOptions.parityBit. This field may be omitted if an error occurred while querying the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub parity_bit: Option<ParityBit>,
+    ///Flag indicating whether the connection is blocked from firing onReceive events.
+    pub paused: bool,
+    ///See ConnectionOptions.persistent
+    pub persistent: bool,
+    ///See ConnectionOptions.receiveTimeout
+    pub receive_timeout: i32,
+    ///See ConnectionOptions.sendTimeout
+    pub send_timeout: i32,
+    ///See ConnectionOptions.stopBits. This field may be omitted if an error occurred while querying the underlying device.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub stop_bits: Option<StopBits>,
+}
+#[cfg(feature = "serde")]
+impl From<&ConnectionInfo> for ConnectionInfoData {
+    fn from(val: &ConnectionInfo) -> Self {
+        Self {
+            bitrate: val.get_bitrate(),
+            buffer_size: val.get_buffer_size(),
+            connection_id: val.get_connection_id(),
+            cts_flow_control: val.get_cts_flow_control(),
+            data_bits: val.get_data_bits(),
+            name: val.get_name(),
+            parity_bit: val.get_parity_bit(),
+            paused: val.get_paused(),
+            persistent: val.get_persistent(),
+            receive_timeout: val.get_receive_timeout(),
+            send_timeout: val.get_send_timeout(),
+            stop_bits: val.get_stop_bits(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SendError {
     ///The connection was disconnected.
     Disconnected = "disconnected",
@@ -425,6 +564,26 @@ impl Default for SendInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `SendInfo`.
+pub struct SendInfoData {
+    ///The number of bytes sent.
+    pub bytes_sent: i32,
+    ///An error code if an error occurred.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<SendError>,
+}
+#[cfg(feature = "serde")]
+impl From<&SendInfo> for SendInfoData {
+    fn from(val: &SendInfo) -> Self {
+        Self {
+            bytes_sent: val.get_bytes_sent(),
+            error: val.get_error(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "HostControlSignals")]
@@ -465,6 +624,27 @@ impl HostControlSignals {
 impl Default for HostControlSignals {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `HostControlSignals`.
+pub struct HostControlSignalsData {
+    ///DTR (Data Terminal Ready).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub dtr: Option<bool>,
+    ///RTS (Request To Send).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub rts: Option<bool>,
+}
+#[cfg(feature = "serde")]
+impl From<&HostControlSignals> for HostControlSignalsData {
+    fn from(val: &HostControlSignals) -> Self {
+        Self {
+            dtr: val.get_dtr(),
+            rts: val.get_rts(),
+        }
     }
 }
 #[wasm_bindgen]
@@ -531,6 +711,31 @@ impl Default for DeviceControlSignals {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `DeviceControlSignals`.
+pub struct DeviceControlSignalsData {
+    ///CTS (Clear To Send).
+    pub cts: bool,
+    ///DCD (Data Carrier Detect) or RLSD (Receive Line Signal/ Detect).
+    pub dcd: bool,
+    ///DSR (Data Set Ready).
+    pub dsr: bool,
+    ///RI (Ring Indicator).
+    pub ri: bool,
+}
+#[cfg(feature = "serde")]
+impl From<&DeviceControlSignals> for DeviceControlSignalsData {
+    fn from(val: &DeviceControlSignals) -> Self {
+        Self {
+            cts: val.get_cts(),
+            dcd: val.get_dcd(),
+            dsr: val.get_dsr(),
+            ri: val.get_ri(),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "ReceiveInfo")]
@@ -573,9 +778,26 @@ impl Default for ReceiveInfo {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReceiveInfo`.
+pub struct ReceiveInfoData {
+    ///The connection identifier.
+    pub connection_id: i32,
+}
+#[cfg(feature = "serde")]
+impl From<&ReceiveInfo> for ReceiveInfoData {
+    fn from(val: &ReceiveInfo) -> Self {
+        Self {
+            connection_id: val.get_connection_id(),
+        }
+    }
+}
 #[wasm_bindgen]
 ///
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum ReceiveError {
     ///The connection was disconnected.
     Disconnected = "disconnected",
@@ -636,6 +858,25 @@ impl ReceiveErrorInfo {
 impl Default for ReceiveErrorInfo {
     fn default() -> Self {
         Self::new()
+    }
+}
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ReceiveErrorInfo`.
+pub struct ReceiveErrorInfoData {
+    ///The connection identifier.
+    pub connection_id: i32,
+    ///An error code indicating what went wrong.
+    pub error: ReceiveError,
+}
+#[cfg(feature = "serde")]
+impl From<&ReceiveErrorInfo> for ReceiveErrorInfoData {
+    fn from(val: &ReceiveErrorInfo) -> Self {
+        Self {
+            connection_id: val.get_connection_id(),
+            error: val.get_error(),
+        }
     }
 }
 #[wasm_bindgen]

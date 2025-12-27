@@ -44,6 +44,31 @@ impl Default for Permissions {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `Permissions`.
+pub struct PermissionsData {
+    ///The list of host permissions, including those specified in the optional_permissions or permissions keys in the manifest, and those associated with Content Scripts.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub origins: Option<Vec<String>>,
+    ///List of named permissions (does not include hosts or origins).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub permissions: Option<Vec<String>>,
+}
+#[cfg(feature = "serde")]
+impl From<&Permissions> for PermissionsData {
+    fn from(val: &Permissions) -> Self {
+        Self {
+            origins: val
+                .get_origins()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+            permissions: val
+                .get_permissions()
+                .map(|v| serde_wasm_bindgen::from_value(v.into()).unwrap_or_default()),
+        }
+    }
+}
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(extends = ::js_sys::Object, js_name = "AddHostAccessRequestRequest")]

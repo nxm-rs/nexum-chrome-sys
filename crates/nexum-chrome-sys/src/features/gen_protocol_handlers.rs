@@ -55,3 +55,25 @@ impl Default for ProtocolHandler {
         Self::new()
     }
 }
+#[cfg(feature = "serde")]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
+///Serializable data for `ProtocolHandler`.
+pub struct ProtocolHandlerData {
+    ///A string representation of the protocol handlers, displayed to the user when prompting for permissions.
+    pub name: String,
+    ///A string definition of the protocol to handle.
+    pub protocol: String,
+    ///A string representing the URL of the protocol handler (must be a localizable property).
+    pub uri_template: String,
+}
+#[cfg(feature = "serde")]
+impl From<&ProtocolHandler> for ProtocolHandlerData {
+    fn from(val: &ProtocolHandler) -> Self {
+        Self {
+            name: val.get_name(),
+            protocol: val.get_protocol(),
+            uri_template: val.get_uri_template(),
+        }
+    }
+}
