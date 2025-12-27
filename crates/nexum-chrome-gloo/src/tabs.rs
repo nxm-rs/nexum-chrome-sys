@@ -20,9 +20,7 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::JsFuture;
 
 // Re-export types from sys crate
-pub use nexum_chrome_sys::tabs::{
-    OnActivatedActiveInfo, OnUpdatedChangeInfo, QueryQueryInfo, Tab,
-};
+pub use nexum_chrome_sys::tabs::{OnActivatedActiveInfo, OnUpdatedChangeInfo, QueryQueryInfo, Tab};
 
 /// Query tabs matching the given criteria.
 ///
