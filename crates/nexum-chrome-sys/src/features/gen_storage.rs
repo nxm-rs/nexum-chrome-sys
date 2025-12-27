@@ -59,6 +59,9 @@ extern "C" {
     #[derive(Debug, Clone, PartialEq, Eq)]
     ///
     pub type StorageArea;
+    ///Fired when one or more items change.
+    #[wasm_bindgen(method, getter = "onChanged")]
+    pub fn get_on_changed(this: &StorageArea) -> Object;
 }
 impl StorageArea {
     ///Construct a new `StorageArea`.
