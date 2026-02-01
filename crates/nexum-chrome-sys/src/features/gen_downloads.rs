@@ -354,6 +354,8 @@ pub enum DangerType {
     BlockedScanFailed = "blockedScanFailed",
     ///For use by the Secure Enterprise Browser extension. When required, Chrome will block the download to disc and download the file directly to Google Drive.
     ForceSaveToGdrive = "forceSaveToGdrive",
+    ///For use by the Secure Enterprise Browser extension. When required, Chrome will block the download to disc and download the file directly to OneDrive.
+    ForceSaveToOnedrive = "forceSaveToOnedrive",
 }
 #[wasm_bindgen]
 ///in_progress The download is currently receiving data from the server. interrupted An error broke the connection with the file host. complete The download completed successfully.

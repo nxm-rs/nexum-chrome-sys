@@ -388,7 +388,7 @@ impl Default for CloseOptions {
 #[serde(rename_all = "camelCase")]
 ///Serializable data for `CloseOptions`.
 pub struct CloseOptionsData {
-    ///The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or windowId must be provided.
+    ///The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. If only the global side panel is open, the promise returned by the call to close() will reject with an error. This behavior was changed in Chrome 145, with prior versions falling back to closing the global panel. At least one of this or windowId must be provided.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tab_id: Option<i32>,
     ///The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or tabId must be provided.
@@ -576,6 +576,9 @@ extern "C" {
     ///Returns the side panel's current layout.
     #[wasm_bindgen(js_namespace = ["chrome", "sidePanel"], js_name = "getLayout")]
     pub fn get_layout() -> Promise;
+    ///Closes the extension's side panel. This is a no-op if the panel is already closed.
+    #[wasm_bindgen(js_namespace = ["chrome", "sidePanel"], js_name = "close")]
+    pub fn close(options: CloseOptions) -> Promise;
     ///Fired when the extension's side panel is opened.
     #[wasm_bindgen(
         js_namespace = ["chrome",
