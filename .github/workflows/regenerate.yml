@@ -26,7 +26,25 @@ jobs:
         run: nix develop --command sh -c "cd chrome-types && pnpm install"
 
       - name: Generate chrome-api.json
-        run: nix develop --command sh -c "cd chrome-types && node tools/prepare.js > ../chrome-api.json"
+        run: |
+          # Retry logic for transient upstream failures from chromium.googlesource.com
+          # The server occasionally returns non-gzip responses causing Z_DATA_ERROR
+          max_attempts=3
+          attempt=1
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt of $max_attempts"
+            if nix develop --command sh -c "cd chrome-types && node tools/prepare.js > ../chrome-api.json"; then
+              echo "Successfully generated chrome-api.json"
+              exit 0
+            fi
+            attempt=$((attempt + 1))
+            if [ $attempt -le $max_attempts ]; then
+              echo "Attempt failed, retrying in 30 seconds..."
+              sleep 30
+            fi
+          done
+          echo "All $max_attempts attempts failed"
+          exit 1
 
       - name: Generate Rust bindings
         run: nix develop --command cargo run -p nexum-chrome-sys-gen -- -i chrome-api.json -o crates/nexum-chrome-sys
