@@ -20,6 +20,7 @@ pub enum ContextType {
     BrowserAction = "browser_action",
     PageAction = "page_action",
     Action = "action",
+    Tab = "tab",
 }
 #[wasm_bindgen]
 ///The type of menu item.

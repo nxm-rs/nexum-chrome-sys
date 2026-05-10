@@ -537,6 +537,20 @@ pub mod media_galleries {
     pub use super::gen_media_galleries::*;
 }
 
+#[cfg(feature = "mime_handler")]
+mod gen_mime_handler;
+#[cfg(feature = "mime_handler")]
+pub mod mime_handler {
+    pub use super::gen_mime_handler::*;
+}
+
+#[cfg(feature = "mime_handlers")]
+mod gen_mime_handlers;
+#[cfg(feature = "mime_handlers")]
+pub mod mime_handlers {
+    pub use super::gen_mime_handlers::*;
+}
+
 #[cfg(feature = "networking_onc")]
 mod gen_networking_onc;
 #[cfg(feature = "networking_onc")]

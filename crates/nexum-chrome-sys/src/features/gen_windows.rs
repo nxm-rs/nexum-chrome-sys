@@ -17,6 +17,8 @@ pub enum WindowType {
     App = "app",
     ///A Developer Tools window.
     Devtools = "devtools",
+    ///An Android custom tab browser window.
+    CustomTab = "custom-tab",
 }
 #[wasm_bindgen]
 ///The state of this browser window. In some circumstances a window may not be assigned a state property; for example, when querying closed windows from the $(ref:sessions) API.

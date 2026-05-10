@@ -606,6 +606,7 @@ pub enum WindowType {
     Panel = "panel",
     App = "app",
     Devtools = "devtools",
+    CustomTab = "custom-tab",
 }
 #[wasm_bindgen]
 extern "C" {
@@ -2447,7 +2448,7 @@ extern "C" {
     ///Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The $(ref:extension.onRequest) event is fired in each content script running in the specified tab for the current extension.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "sendRequest")]
     pub fn send_request(tab_id: i32, request: JsValue) -> Promise;
-    ///Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The $(ref:runtime.onMessage) event is fired in each content script running in the specified tab for the current extension.
+    ///Sends a single message to the content script(s) in the specified tab. The $(ref:runtime.onMessage) event is fired in each content script running in the specified tab for the current extension.
     #[wasm_bindgen(js_namespace = ["chrome", "tabs"], js_name = "sendMessage")]
     pub fn send_message(tab_id: i32, message: JsValue, options: Option<Object>) -> Promise;
     ///Gets the tab that is selected in the specified window.
