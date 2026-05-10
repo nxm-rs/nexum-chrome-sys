@@ -44,11 +44,13 @@ pub enum EventType {
     Focus = "focus",
     FocusAfterMenuClose = "focusAfterMenuClose",
     FocusChanged = "focusChanged",
-    FocusContext = "focusContext",
+    FocusContextDeprecated = "focusContextDeprecated",
     GrabbedChanged = "grabbedChanged",
+    GrammarMarkerChanged = "grammarMarkerChanged",
     HaspopupChanged = "haspopupChanged",
     Hide = "hide",
     HierarchicalLevelChanged = "hierarchicalLevelChanged",
+    HighlightMarkerChanged = "highlightMarkerChanged",
     HitTestResult = "hitTestResult",
     Hover = "hover",
     IgnoredChanged = "ignoredChanged",
@@ -59,12 +61,12 @@ pub enum EventType {
     LabeledByChanged = "labeledByChanged",
     LanguageChanged = "languageChanged",
     LayoutComplete = "layoutComplete",
-    LayoutInvalidated = "layoutInvalidated",
     ///fired when aria-busy goes false
+    LayoutInvalidated = "layoutInvalidated",
     LiveRegionChanged = "liveRegionChanged",
     LiveRegionCreated = "liveRegionCreated",
-    LiveRegionNodeChanged = "liveRegionNodeChanged",
     ///fired on a node within a live region.
+    LiveRegionNodeChanged = "liveRegionNodeChanged",
     LiveRelevantChanged = "liveRelevantChanged",
     LiveStatusChanged = "liveStatusChanged",
     LoadComplete = "loadComplete",
@@ -115,6 +117,7 @@ pub enum EventType {
     SetSizeChanged = "setSizeChanged",
     Show = "show",
     SortChanged = "sortChanged",
+    SpellingMarkerChanged = "spellingMarkerChanged",
     StateChanged = "stateChanged",
     SubtreeCreated = "subtreeCreated",
     TextAttributeChanged = "textAttributeChanged",
@@ -123,9 +126,11 @@ pub enum EventType {
     TooltipClosed = "tooltipClosed",
     TooltipOpened = "tooltipOpened",
     TreeChanged = "treeChanged",
+    ValueInSpinButtonDecremented = "valueInSpinButtonDecremented",
+    ValueInSpinButtonIncremented = "valueInSpinButtonIncremented",
     ValueInTextFieldChanged = "valueInTextFieldChanged",
-    ValueChanged = "valueChanged",
     ///Deprecated.
+    ValueChanged = "valueChanged",
     WindowActivated = "windowActivated",
     WindowDeactivated = "windowDeactivated",
     WindowVisibilityChanged = "windowVisibilityChanged",
@@ -253,8 +258,8 @@ pub enum RoleType {
     List = "list",
     ListBox = "listBox",
     ListBoxOption = "listBoxOption",
-    ListGrid = "listGrid",
     ///Native
+    ListGrid = "listGrid",
     ListItem = "listItem",
     ListMarker = "listMarker",
     Log = "log",
@@ -404,6 +409,7 @@ pub enum ActionType {
     InternalInvalidateTree = "internalInvalidateTree",
     LoadInlineTextBoxes = "loadInlineTextBoxes",
     LongClick = "longClick",
+    ReplaceRanges = "replaceRanges",
     ReplaceSelectedText = "replaceSelectedText",
     RequestLayoutBasedAction = "requestLayoutBasedAction",
     ResumeMedia = "resumeMedia",
@@ -434,17 +440,17 @@ pub enum ActionType {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum TreeChangeType {
-    ///* This node was added to the tree and its parent is new as well, so it's just one node in a new subtree that was added.
+    ///This node was added to the tree and its parent is new as well, so it's just one node in a new subtree that was added.
     NodeCreated = "nodeCreated",
-    ///* This node was added to the tree but its parent was already in the tree, so it's possibly the root of a new subtree - it does not mean that it necessarily has children.
+    ///This node was added to the tree but its parent was already in the tree, so it's possibly the root of a new subtree - it does not mean that it necessarily has children.
     SubtreeCreated = "subtreeCreated",
-    ///* This node changed.
+    ///This node changed.
     NodeChanged = "nodeChanged",
-    ///* This node's text (name) changed.
+    ///This node's text (name) changed.
     TextChanged = "textChanged",
-    ///* This node was removed.
+    ///This node was removed.
     NodeRemoved = "nodeRemoved",
-    ///* This subtree has finished an update.
+    ///This subtree has finished an update.
     SubtreeUpdateEnd = "subtreeUpdateEnd",
 }
 #[wasm_bindgen]
@@ -570,6 +576,8 @@ pub enum IntentCommandType {
     Marker = "marker",
     MoveSelection = "moveSelection",
     SetSelection = "setSelection",
+    SpinButtonIncrement = "spinButtonIncrement",
+    SpinButtonDecrement = "spinButtonDecrement",
 }
 #[wasm_bindgen]
 ///The type of an input event associated with an $(ref:automation.AutomationIntent). It describes an edit command, e.g. IntentCommandType.insert, in more detail.
@@ -4253,7 +4261,7 @@ pub struct AutomationNodeData {
     ///Description of the state of the checkbox. Used only when the node is checkable.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub checked_state_description: Option<String>,
-    ///Walking the tree.
+    ///
     pub children: Vec<AutomationNodeData>,
     ///The name of the programmatic backing object.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -4507,7 +4515,7 @@ pub struct AutomationNodeData {
     ///The root node of the tree containing this AutomationNode.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub root: Option<Box<AutomationNodeData>>,
-    ///Scrollable container attributes.
+    ///
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scroll_x: Option<i32>,
     ///

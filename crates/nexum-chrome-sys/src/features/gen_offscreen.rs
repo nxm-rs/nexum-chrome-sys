@@ -121,4 +121,7 @@ extern "C" {
     ///Closes the currently-open offscreen document for the extension.
     #[wasm_bindgen(js_namespace = ["chrome", "offscreen"], js_name = "closeDocument")]
     pub fn close_document() -> Promise;
+    ///Determines whether the extension has an active document.
+    #[wasm_bindgen(js_namespace = ["chrome", "offscreen"], js_name = "hasDocument")]
+    pub fn has_document() -> Promise;
 }

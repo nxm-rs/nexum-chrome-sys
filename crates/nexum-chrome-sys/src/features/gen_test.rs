@@ -100,19 +100,19 @@ extern "C" {
     pub fn get_module_system(context: JsValue) -> JsValue;
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertTrue")]
-    pub fn assert_true(test: JsValue, message: Option<String>);
+    pub fn assert_true(test: bool, message: Option<String>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertFalse")]
-    pub fn assert_false(test: JsValue, message: Option<String>);
+    pub fn assert_false(test: bool, message: Option<String>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "checkDeepEq")]
-    pub fn check_deep_eq(expected: Option<JsValue>, actual: Option<JsValue>);
+    pub fn check_deep_eq(value: Option<JsValue>, other_value: Option<JsValue>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertEq")]
-    pub fn assert_eq(expected: Option<JsValue>, actual: Option<JsValue>, message: Option<String>);
+    pub fn assert_eq(value: Option<JsValue>, other_value: Option<JsValue>, message: Option<String>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertNe")]
-    pub fn assert_ne(expected: Option<JsValue>, actual: Option<JsValue>, message: Option<String>);
+    pub fn assert_ne(value: Option<JsValue>, other_value: Option<JsValue>, message: Option<String>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "assertNoLastError")]
     pub fn assert_no_last_error();
@@ -133,9 +133,9 @@ extern "C" {
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "callback")]
     pub fn callback(func: Option<Function>, expected_error: Option<String>);
-    ///
+    ///Listens to the given event exactly once. This will add a new event listener and remove it after its first invocation. If supplied a function argument, this will add a pending callback to the test so that it won't automatically complete until invoked (see also callbackPass()). If no function is supplied, this returns a promise and does not artifically prolong the lifetime of the test.
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "listenOnce")]
-    pub fn listen_once(event: JsValue, func: Function);
+    pub fn listen_once(event: JsValue, func: Option<Function>) -> Object;
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "listenForever")]
     pub fn listen_forever(event: JsValue, func: Function);
@@ -147,7 +147,14 @@ extern "C" {
     pub fn callback_fail(expected_error: String, func: Option<Function>);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "runTests")]
-    pub fn run_tests(tests: Array);
+    pub fn run_tests(tests: Array) -> Object;
+    ///Sets whether to diverge behavior to support the browser.test proposal (true) from (https://github.com/w3c/webextensions/blob/main/proposals/browser_test_api.md) or maintain existing behavior (false). For testing purposes only.
+    #[wasm_bindgen(
+        js_namespace = ["chrome",
+        "test"],
+        js_name = "setUseStandardizedApiBehaviorForTesting"
+    )]
+    pub fn set_use_standardized_api_behavior_for_testing(enabled: bool);
     ///
     #[wasm_bindgen(js_namespace = ["chrome", "test"], js_name = "getApiFeatures")]
     pub fn get_api_features();

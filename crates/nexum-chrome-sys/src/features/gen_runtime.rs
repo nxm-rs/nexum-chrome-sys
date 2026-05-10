@@ -1177,7 +1177,7 @@ extern "C" {
         js_name = "addListener"
     )]
     pub fn on_connect_native_add_listener(callback: &Function);
-    ///Fired when a message is sent from either an extension process (by $(ref:runtime.sendMessage)) or a content script (by $(ref:tabs.sendMessage)).
+    ///Fired when a message is sent from either $(ref:runtime.sendMessage) or $(ref:tabs.sendMessage).
     #[wasm_bindgen(
         js_namespace = ["chrome",
         "runtime",
